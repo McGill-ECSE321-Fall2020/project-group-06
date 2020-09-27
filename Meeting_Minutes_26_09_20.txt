@@ -1,0 +1,19 @@
+-Created GitHub repository
+-Created Google Drive file in order to help work on common tasks
+-Updated Readme with project description
+-Created Project for deliverable 1
+-Created Milestones for specific deliverables
+-Creates Issues for tasks related to all parts of deliverable 1
+-Decided to all complete at least 12 requirements individually by September 30th
+-Decided to combine said requirements on September 30th, and start thereafter the
+domain model
+-Decided to commit individual requirements, and close the issues with the specific pull requests and commits.
+-Thought that the next tutorial would help with excuting some tasks such as persistance
+layer
+-Talked about branch management: new features would be worked on specific branches,
+and when succesful, would be merged onto dev branch, where tests will be run to make certain
+that the feature integrates well with the rest of the other features.
+This can be done by connecting the dev branch to Travis CI
+-When the dev branch is all good, we can merge that into master, which can also be connected to Travis CI
+-Talked about importance of good project management, and created issue to update readme according to 
+project guidelines
