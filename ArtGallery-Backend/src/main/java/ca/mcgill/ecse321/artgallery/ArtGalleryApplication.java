@@ -17,20 +17,20 @@ public class ArtGalleryApplication {
 		SpringApplication.run(ArtGalleryApplication.class, args);
 	}
 	
-	@Autowired
-	UserRepository userRepository;
-
-	@RequestMapping("/")
-	public String greeting(){
-		return "Hello world!";
-	}
-	
-	@RequestMapping("test")
-	public User test() {
-		User user = new User();
-		user.setUsername("chaggy");
-		userRepository.save(user);
-		return userRepository.findUserByUsername("chaggy");
-	}
+//	@Autowired
+//	UserRepository userRepository;
+//
+//	@RequestMapping("/")
+//	public String greeting(){
+//		return "Hello world!";
+//	}
+//	
+//	@RequestMapping("test")
+//	public User test() {
+//		User user = new User();
+//		user.setUsername("chaggy");
+//		userRepository.save(user);
+//		return userRepository.findUserByUsername("chaggy");
+//	}
 
 }
