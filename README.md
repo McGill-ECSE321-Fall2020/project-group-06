@@ -1,3 +1,12 @@
+Art Gallery System - Group 06 project
+
+Team members
+ - Noah Chamberland
+ - Justin Legrand
+ - Olivier Normandin
+ - André-Walter Panzini
+ - Sen Wang
+ 
 Project overview
 
 The art gallery in your neighbourhood has always done business the old-fashioned way: connecting local artists
