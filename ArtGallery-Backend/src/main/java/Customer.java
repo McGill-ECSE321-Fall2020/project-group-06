@@ -15,4 +15,25 @@ public class Customer extends Role{
       this.transaction = transactions;
    }
    
+   private long creditCardNumber;
+   
+   public void setCreditCardNumber(long value) {
+      this.creditCardNumber = value;
+   }
+   
+   public long getCreditCardNumber() {
+      return this.creditCardNumber;
+   }
+   
+   private Set<Artwork> artwork;
+   
+   @OneToMany
+   public Set<Artwork> getArtwork() {
+      return this.artwork;
+   }
+   
+   public void setArtwork(Set<Artwork> artworks) {
+      this.artwork = artworks;
+   }
+   
    }

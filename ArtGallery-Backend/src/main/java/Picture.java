@@ -1,6 +1,7 @@
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import java.util.Set;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -14,15 +15,15 @@ public void setId(int value) {
 public int getId() {
     return this.id;
 }
-   private Artwork artwork;
+   private Set<Artwork> favorites;
    
-   @ManyToOne(optional=false)
-   public Artwork getArtwork() {
-      return this.artwork;
+   @ManyToMany(mappedBy="picture" )
+   public Set<Artwork> getFavorites() {
+      return this.favorites;
    }
    
-   public void setArtwork(Artwork artwork) {
-      this.artwork = artwork;
+   public void setFavorites(Set<Artwork> favoritess) {
+      this.favorites = favoritess;
    }
    
    private User user;

@@ -26,4 +26,14 @@ public class Artist extends Role{
       this.transaction = transactions;
    }
    
+   private String bankAccountNumber;
+   
+   public void setBankAccountNumber(String value) {
+      this.bankAccountNumber = value;
+   }
+   
+   public String getBankAccountNumber() {
+      return this.bankAccountNumber;
+   }
+   
    }
