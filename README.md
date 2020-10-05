@@ -6,7 +6,16 @@ Team members
  - Olivier Normandin
  - André-Walter Panzini
  - Sen Wang
- 
+
+We're just a bunch of U2 software engineering students at McGill University!
+
+ In addition, the README.md file should contain
+an overview table with names, team roles, and individual efforts (in hours) with separated entries for each
+deliverable. Project Deliverable 1 shall be accompanied with a succinct project report as part of the project wiki
+which records the meeting minutes and the key design decisions taken by the team. This project report should be
+navigable from the README.md file. Altogether, the team should comply with all the Technological Constraints.
+
+
 Project overview
 
 The art gallery in your neighbourhood has always done business the old-fashioned way: connecting local artists
