@@ -55,26 +55,34 @@ public void setDescription(String value) {
 public String getDescription() {
     return this.description;
 }
-   private Set<Role> role;
-   
-   @OneToMany(mappedBy="user" )
-   public Set<Role> getRole() {
-      return this.role;
-   }
-   
-   public void setRole(Set<Role> roles) {
-      this.role = roles;
-   }
-   
-   private Picture picture;
-   
-   @OneToOne
-   public Picture getPicture() {
-      return this.picture;
-   }
-   
-   public void setPicture(Picture picture) {
-      this.picture = picture;
-   }
-   
-   }
+private Set<Role> role;
+
+@OneToMany(mappedBy="user" )
+public Set<Role> getRole() {
+   return this.role;
+}
+
+public void setRole(Set<Role> roles) {
+   this.role = roles;
+}
+
+private Picture picture;
+
+@OneToOne
+public Picture getPicture() {
+   return this.picture;
+}
+
+public void setPicture(Picture picture) {
+   this.picture = picture;
+}
+
+private String phoneNumber;
+
+public void setPhoneNumber(String value) {
+    this.phoneNumber = value;
+}
+public String getPhoneNumber() {
+    return this.phoneNumber;
+}
+}

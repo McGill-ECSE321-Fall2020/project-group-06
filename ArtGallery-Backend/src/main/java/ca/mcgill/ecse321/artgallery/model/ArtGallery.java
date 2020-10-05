@@ -30,23 +30,26 @@ public void setId(int value) {
 public int getId() {
     return this.id;
 }
-private Set<Transaction> transaction;
-
-@OneToMany(mappedBy="artGallery" )
-public Set<Transaction> getTransaction() {
-   return this.transaction;
-}
-
-public void setTransaction(Set<Transaction> transactions) {
-   this.transaction = transactions;
-}
-
-private double commisionCut;
-
-public void setCommisionCut(double value) {
-    this.commisionCut = value;
-}
-public double getCommisionCut() {
-    return this.commisionCut;
-}
-}
+   private Set<Transaction> transaction;
+   
+   @OneToMany(mappedBy="artGallery" )
+   public Set<Transaction> getTransaction() {
+      return this.transaction;
+   }
+   
+   public void setTransaction(Set<Transaction> transactions) {
+      this.transaction = transactions;
+   }
+   
+   private Set<Artwork> artwork;
+   
+   @OneToMany(mappedBy="artGallery" )
+   public Set<Artwork> getArtwork() {
+      return this.artwork;
+   }
+   
+   public void setArtwork(Set<Artwork> artworks) {
+      this.artwork = artworks;
+   }
+   
+   }
