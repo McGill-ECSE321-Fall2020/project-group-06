@@ -35,20 +35,20 @@ submitted at checkpoints throughout the term as described below.
  - Sen Wang
  
 ## Menu
-### [Heroku Application](https://github.com/McGill-ECSE321-Fall2020/project-group-06#HerokuApplication)
-### [Deliverable 1](https://github.com/McGill-ECSE321-Fall2020/project-group-06#Deliverable1)
-### [Deliverable 2](https://github.com/McGill-ECSE321-Fall2020/project-group-06#Deliverable2)
-### [Deliverable 3](https://github.com/McGill-ECSE321-Fall2020/project-group-06#Deliverable3)
-### [Deliverable 4](https://github.com/McGill-ECSE321-Fall2020/project-group-06#Deliverable4)
+- [Heroku Application](https://github.com/McGill-ECSE321-Fall2020/project-group-06#HerokuApplication)
+- [Deliverable 1](https://github.com/McGill-ECSE321-Fall2020/project-group-06#Deliverable1)
+- [Deliverable 2](https://github.com/McGill-ECSE321-Fall2020/project-group-06#Deliverable2)
+- [Deliverable 3](https://github.com/McGill-ECSE321-Fall2020/project-group-06#Deliverable3)
+- [Deliverable 4](https://github.com/McGill-ECSE321-Fall2020/project-group-06#Deliverable4)
 
 ## Heroku Application
 
 Heroku is a cloud service platform that is easy to use for many development projects. It enables application development and deployment. Heroku platform manages hardware and servers, so developer using Heroku are able to focus on perfecting their applications. With the benefit of offloading many of the concerns around application deployment and operation, our project is deloyed on Heroku.
 
-##### Backend
+#### Backend
 - https://art-gallery-backend.herokuapp.com
 
-##### Web Frontend
+#### Web Frontend
 - (To be added in later deliverables...)
 
 ## Deliverable 1
