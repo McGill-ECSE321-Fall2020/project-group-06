@@ -2,4 +2,5 @@ Meeting Minutes:05/10/20
 Went over requirements, combining our lists into one master list.
 Reviewed and improved domain model
 Create issues for use cases.
-Described plan to make sure we can submit the sprint in time
+Described plan to make sure we can submit the sprint in time.
+Added issues for each specific requirement
