@@ -1,4 +1,5 @@
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -8,6 +9,7 @@ public class Picture{
 public void setId(int value) {
     this.id = value;
 }
+@Id
 public int getId() {
     return this.id;
 }

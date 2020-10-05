@@ -1,6 +1,7 @@
 import javax.persistence.Entity;
 import java.util.Set;
 import javax.persistence.OneToMany;
+import javax.persistence.Id;
 
 @Entity
 public class Store{
@@ -28,6 +29,7 @@ private int id;
 public void setId(int value) {
     this.id = value;
 }
+@Id
 public int getId() {
     return this.id;
 }
