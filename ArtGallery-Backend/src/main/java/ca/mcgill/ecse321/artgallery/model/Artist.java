@@ -1,11 +1,14 @@
 package ca.mcgill.ecse321.artgallery.model;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+
 import java.util.Set;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Artist extends Role{
-   private Set<Artwork> artwork;
+public class Artist extends User{
+
+private Set<Artwork> artwork;
    
    @OneToMany(mappedBy="artist" )
    public Set<Artwork> getArtwork() {

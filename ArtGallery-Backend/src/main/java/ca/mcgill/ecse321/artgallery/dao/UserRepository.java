@@ -6,6 +6,6 @@ import ca.mcgill.ecse321.artgallery.model.User;
 
 public interface UserRepository extends CrudRepository <User, String>{
 	
-//	User findUserByUsername(String username);
+	User findUserByUsername(String username);
 
 }

@@ -1,11 +1,14 @@
 package ca.mcgill.ecse321.artgallery.model;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+
 import java.util.Set;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Customer extends Role{
-   private Set<Transaction> transaction;
+public class Customer extends User{
+
+private Set<Transaction> transaction;
    
    @OneToMany(mappedBy="customer" )
    public Set<Transaction> getTransaction() {

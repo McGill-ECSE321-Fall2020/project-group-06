@@ -1,11 +1,17 @@
 package ca.mcgill.ecse321.artgallery.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+
 import java.util.Set;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+//@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@Table(name="users")
 public class User{
    private String firstName;
    
@@ -47,14 +53,14 @@ public class User{
       return this.email;
    }
    
-   private int id;
+   private int userId;
 
 public void setId(int value) {
-    this.id = value;
+    this.userId = value;
 }
 @Id
 public int getId() {
-    return this.id;
+    return this.userId;
 }
    private String description;
    
@@ -66,16 +72,6 @@ public int getId() {
       return this.description;
    }
    
-   private Set<Role> role;
-   
-   @OneToMany(mappedBy="user" )
-   public Set<Role> getRole() {
-      return this.role;
-   }
-   
-   public void setRole(Set<Role> roles) {
-      this.role = roles;
-   }
    
    private Picture picture;
    

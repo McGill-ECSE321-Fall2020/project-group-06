@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.artgallery.dao.UserRepository;
+import ca.mcgill.ecse321.artgallery.model.Picture;
 import ca.mcgill.ecse321.artgallery.model.User;
 
 @RestController
@@ -17,20 +18,21 @@ public class ArtGalleryApplication {
 		SpringApplication.run(ArtGalleryApplication.class, args);
 	}
 	
-//	@Autowired
-//	UserRepository userRepository;
-//
-//	@RequestMapping("/")
-//	public String greeting(){
-//		return "Hello world!";
-//	}
-//	
-//	@RequestMapping("test")
-//	public User test() {
-//		User user = new User();
-//		user.setUsername("chaggy");
-//		userRepository.save(user);
-//		return userRepository.findUserByUsername("chaggy");
-//	}
+	@Autowired
+	UserRepository userRepository;
+
+	@RequestMapping("/")
+	public String greeting(){
+		return "Hello world!";
+	}
+	
+	@RequestMapping("/test")
+	public User test() {
+		User user = new User();
+		user.setUsername("chaggy");
+		user.setId(1);
+		userRepository.save(user);
+		return userRepository.findUserByUsername("chaggy");
+	}
 
 }
