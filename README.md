@@ -1,4 +1,4 @@
-# Art Gallery System
+# Art Gallery System [![Build Status](https://travis-ci.com/McGill-ECSE321-Fall2020/project-group-06.svg?token=g4pq4Csck3WcLdnC6sWk&branch=master)](https://travis-ci.com/McGill-ECSE321-Fall2020/project-group-06)
 ECSE321 (Fall 2020) - Group 06 project
 
 ## General
@@ -60,24 +60,24 @@ Heroku is a cloud service platform that is easy to use for many development proj
 
 ### Documents
 - Requirement model
-  - [System Requirements](link to be added)
-  - [Use Cases](link to be added)
-  - [Use Case Diagram](link to be added)
+  - [System Requirements](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/System-Requirements)
+  - [Use Cases](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/5-Use-Case-Specifications)
+  - [Use Case Diagram](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Use-Case-Diagram)
   
 - Domain model
-  - [Class Diagram](link to be added)
+  - [Class Diagram](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Domain-Model)
 
 - Reports
-  - [Testing Report](link to be added)
-  - [Deliverable 1 Project Report](link to be added)
+  - [Testing Report](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Deliverable-1-Testing-Report)
+  - [Deliverable 1 Project Report](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Deliverable-1-Report)
 
 - Minutes
-  - [Meeting Minutes 1.1](link to be added)
-  - [Meeting Minutes 1.2](link to be added)
-  - [Meeting Minutes 1.3](link to be added)
+  - [Meeting Minutes 1.1](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Meeting-Minutes-1.1)
+  - [Meeting Minutes 1.2](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Meeting-Minutes-1.2)
+  - [Meeting Minutes 1.3](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Meeting-Minutes-1.3)
   
 - Effort Table
-  - [Effort Table](https://github.com/McGill-ECSE321-Fall2020/project-group-06#Table)
+  - [Effort Table](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Deliverable-1-Effort-Table)
 
 ### Table
 Insert table
