@@ -74,7 +74,7 @@ public class TestArtGalleryPersistence {
 	// made by Justin
 
 	@Test
-	public void testArtist() {
+	public void testPersistenceAndLoadArtist() {
 		Artist artist = new Artist();
 		artist.setFirstName("John");
 		artist.setLastName("Smith");
@@ -86,7 +86,7 @@ public class TestArtGalleryPersistence {
 	}
 
 	@Test
-	public void testCustomer() {
+	public void testPersistenceAndLoadCustomer() {
 		Customer customer = new Customer();
 		customer.setFirstName("Sidney");
 		customer.setLastName("Crosby");
@@ -98,7 +98,7 @@ public class TestArtGalleryPersistence {
 	}
 
 	@Test
-	public void testArtGallery() {
+	public void testPersistenceAndLoadArtGallery() {
 		ArtGallery artGallery = new ArtGallery();
 		artGallery.setName("VanGoghEstNous");
 		artGallery.setId(2);
@@ -109,7 +109,7 @@ public class TestArtGalleryPersistence {
 	}
 
 	@Test
-	public void testArtwork() {
+	public void testPersistenceAndLoadArtwork() {
 		Artwork artwork = new Artwork();
 		artwork.setName("Starry Nights");
 		artwork.setId(3);
@@ -120,7 +120,7 @@ public class TestArtGalleryPersistence {
 	}
 
 	@Test
-	public void testPicture() {
+	public void testPersistenceAndLoadPicture() {
 		Picture picture = new Picture();
 		picture.setId(4);
 		pictureRepository.save(picture);
@@ -130,7 +130,7 @@ public class TestArtGalleryPersistence {
 	}
 
 	@Test
-	public void testTransaction() {
+	public void testPersistenceAndLoadSaveTransaction() {
 		Transaction transaction = new Transaction();
 		transaction.setCommisionCut(0.15);
 		transaction.setId(5);
