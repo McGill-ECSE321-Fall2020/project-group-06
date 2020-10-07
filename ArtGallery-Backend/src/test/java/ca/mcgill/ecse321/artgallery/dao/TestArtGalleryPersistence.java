@@ -125,37 +125,6 @@ public class TestArtGalleryPersistence {
 		artist.setPassword("12345");
 		artist.setPhoneNumber("5141234567");
 		artist.setBankAccountNumber("99999999");
-
-		Artwork artwork = new Artwork();
-		artwork.setId(102);
-		artwork.setArtist(artist);
-		Set<Artwork> artworkSet = new HashSet<Artwork>();
-		artworkSet.add(artwork);
-		artist.setArtwork(artworkSet);
-
-		Transaction transaction = new Transaction();
-		transaction.setId(103);
-		transaction.setArtist(artist);
-		transaction.setArtwork(artwork);
-		Set<Transaction> transactionSet = new HashSet<Transaction>();
-		transactionSet.add(transaction);
-		artist.setTransaction(transactionSet);
-
-		artistRepository.save(artist);
-		Artist artistQueried = artistRepository.findArtistById(101);
-
-		assertNotNull(artistQueried);
-		assertEquals(artist.getId(), artistQueried.getId());
-		assertEquals(artist.getFirstName(), artistQueried.getFirstName());
-		assertEquals(artist.getLastName(), artistQueried.getLastName());
-		assertEquals(artist.getUsername(), artistQueried.getUsername());
-		assertEquals(artist.getEmail(), artistQueried.getEmail());
-		assertEquals(artist.getDescription(), artistQueried.getDescription());
-		assertEquals(artist.getPassword(), artistQueried.getPassword());
-		assertEquals(artist.getPhoneNumber(), artistQueried.getPhoneNumber());
-		assertEquals(artist.getBankAccountNumber(), artistQueried.getBankAccountNumber());
-		assertEquals(artist.getArtwork(), artistQueried.getArtwork());
-		assertEquals(artist.getTransaction(), artistQueried.getTransaction());
 	}
 
 	@Test
