@@ -3,21 +3,20 @@ package ca.mcgill.ecse321.artgallery.dao;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import ca.mcgill.ecse321.artgallery.model.User;
-import ca.mcgill.ecse321.artgallery.model.Artist;
-import ca.mcgill.ecse321.artgallery.model.Customer;
 import ca.mcgill.ecse321.artgallery.model.ArtGallery;
+import ca.mcgill.ecse321.artgallery.model.Artist;
 import ca.mcgill.ecse321.artgallery.model.Artwork;
+import ca.mcgill.ecse321.artgallery.model.Customer;
 import ca.mcgill.ecse321.artgallery.model.Picture;
 import ca.mcgill.ecse321.artgallery.model.Transaction;
+import ca.mcgill.ecse321.artgallery.model.User;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -83,7 +82,7 @@ public class TestArtGalleryPersistence {
 		artistRepository.save(artist);
 		Artist oldArtist = artistRepository.findArtistById(101);
 		assertNotNull(oldArtist);
-		assertEquals(artist, oldArtist);
+		assertEquals(artist.getId(), oldArtist.getId());
 	}
 
 	@Test
@@ -95,7 +94,7 @@ public class TestArtGalleryPersistence {
 		customerRepository.save(customer);
 		Customer oldCustomer = customerRepository.findCustomerById(87);
 		assertNotNull(oldCustomer);
-		assertEquals(customer, oldCustomer);
+		assertEquals(customer.getId(), oldCustomer.getId());
 	}
 
 	@Test
@@ -106,7 +105,7 @@ public class TestArtGalleryPersistence {
 		artGalleryRepository.save(artGallery);
 		ArtGallery oldGallery = artGalleryRepository.findArtGalleryById(2);
 		assertNotNull(oldGallery);
-		assertEquals(artGallery, oldGallery);
+		assertEquals(artGallery.getId(), oldGallery.getId());
 	}
 
 	@Test
@@ -117,7 +116,7 @@ public class TestArtGalleryPersistence {
 		artworkRepository.save(artwork);
 		Artwork oldArtwork = artworkRepository.findArtworkById(3);
 		assertNotNull(oldArtwork);
-		assertEquals(artwork, oldArtwork);
+		assertEquals(artwork.getId(), oldArtwork.getId());
 	}
 
 	@Test
@@ -127,7 +126,7 @@ public class TestArtGalleryPersistence {
 		pictureRepository.save(picture);
 		Picture oldPicture = pictureRepository.findPictureById(4);
 		assertNotNull(oldPicture);
-		assertEquals(picture, oldPicture);
+		assertEquals(picture.getId(), oldPicture.getId());
 	}
 
 	@Test
@@ -138,7 +137,7 @@ public class TestArtGalleryPersistence {
 		transactionRepository.save(transaction);
 		Transaction oldTransaction = transactionRepository.findTransactionById(5);
 		assertNotNull(oldTransaction);
-		assertEquals(transaction, oldTransaction);
+		assertEquals(transaction.getId(), oldTransaction.getId());
 	}
 
 }
