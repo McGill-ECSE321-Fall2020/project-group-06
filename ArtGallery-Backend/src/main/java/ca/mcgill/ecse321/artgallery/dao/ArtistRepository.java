@@ -8,6 +8,6 @@ import ca.mcgill.ecse321.artgallery.model.Artist;
 @Repository
 public interface ArtistRepository extends CrudRepository<Artist, Integer> {
 
-    Artist findArtistById(Integer artistId);
+	Artist findArtistById(Integer artistId);
 
 }
