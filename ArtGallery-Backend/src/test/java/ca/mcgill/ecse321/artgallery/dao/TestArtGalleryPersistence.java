@@ -1,8 +1,8 @@
 package ca.mcgill.ecse321.artgallery.dao;
 
-import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.sql.Date;
 import java.util.HashSet;
@@ -73,31 +73,60 @@ public class TestArtGalleryPersistence {
 		artGalleryRepository.deleteAll();
 	}
 
+	/**
+	 * @author Sen Wang
+	 */
 	@Test
 	public void testPersistenceAndLoadUser() {
 		User user = new User();
-		user.setUsername("chaggy");
-		user.setId(1);
+		user.setUsername("John");
+		user.setPassword("password");
+		user.setFirstName("John");
+		user.setLastName("Doe");
+		user.setDescription("Hi, my name is John Doe and I'm under the water");
+		user.setEmail("John@email.com");
+		user.setPhoneNumber("1111111");
+		user.setId(102);
 		userRepository.save(user);
 		user = null;
-		user = userRepository.findUserByUsername("chaggy");
+		user = userRepository.findUserByUsername("John");
 		assertNotNull(user);
-		assertEquals("chaggy", user.getUsername());
+		assertEquals("John", user.getUsername());
+		assertEquals("password", user.getPassword());
+		assertEquals("John", user.getFirstName());
+		assertEquals("Doe", user.getLastName());
+		assertEquals("John@email.com", user.getEmail());
+		assertEquals("1111111", user.getPhoneNumber());
+		userRepository.deleteAll();
 	}
 
-	// Other tests
-	// made by Justin
+	/**
+	 * @author Sen Wang
+	 */
+	@Test
+	public void testPersistenceAndDeleteUser() {
+		User user = new User();
+		user.setId(102);
+		user.setUsername("John");
+		userRepository.save(user);
+		user = null;
+		userRepository.deleteById(102);
+		user = userRepository.findUserByUsername("John");
+		assertNull(user);
+	}
 
 	@Test
 	public void testPersistenceAndLoadArtist() {
 		Artist artist = new Artist();
+		artist.setId(101);
 		artist.setFirstName("John");
 		artist.setLastName("Smith");
-		artist.setId(101);
-		artistRepository.save(artist);
-		Artist oldArtist = artistRepository.findArtistById(101);
-		assertNotNull(oldArtist);
-		assertEquals(artist.getId(), oldArtist.getId());
+		artist.setUsername("jsmith");
+		artist.setEmail("john.smith@mcgill.ca");
+		artist.setDescription("Hi I am a fancy artist");
+		artist.setPassword("12345");
+		artist.setPhoneNumber("5141234567");
+		artist.setBankAccountNumber("99999999");
 	}
 
 	@Test
@@ -117,10 +146,28 @@ public class TestArtGalleryPersistence {
 		ArtGallery artGallery = new ArtGallery();
 		artGallery.setName("VanGoghEstNous");
 		artGallery.setId(2);
+		artGallery.setAdress("1000 Rue des Arts");
+
+		Artwork artwork = new Artwork();
+		artwork.setId(11);
+		Set<Artwork> artworkSet = new HashSet<Artwork>();
+		artworkSet.add(artwork);
+		artGallery.setArtwork(artworkSet);
+
+		Transaction transaction = new Transaction();
+		transaction.setId(12);
+		Set<Transaction> transactionSet = new HashSet<Transaction>();
+		transactionSet.add(transaction);
+		artGallery.setTransaction(transactionSet);
+
 		artGalleryRepository.save(artGallery);
 		ArtGallery oldGallery = artGalleryRepository.findArtGalleryById(2);
 		assertNotNull(oldGallery);
 		assertEquals(artGallery.getId(), oldGallery.getId());
+		assertEquals(artGallery.getAdress(), oldGallery.getAdress());
+		assertEquals(artGallery.getArtwork(), oldGallery.getArtwork());
+		assertEquals(artGallery.getName(), oldGallery.getName());
+		assertEquals(artGallery.getTransaction(), oldGallery.getTransaction());
 	}
 
 	@Test
@@ -184,10 +231,24 @@ public class TestArtGalleryPersistence {
 	public void testPersistenceAndLoadPicture() {
 		Picture picture = new Picture();
 		picture.setId(4);
+
+		Artwork artwork = new Artwork();
+		artwork.setId(15);
+		Set<Artwork> artworkSet = new HashSet<Artwork>();
+		artworkSet.add(artwork);
+		picture.setFavorites(artworkSet);
+
+		User user = new User();
+		user.setId(16);
+		picture.setUser(user);
+
 		pictureRepository.save(picture);
 		Picture oldPicture = pictureRepository.findPictureById(4);
 		assertNotNull(oldPicture);
 		assertEquals(picture.getId(), oldPicture.getId());
+		assertEquals(picture.getFavorites(), picture.getFavorites());
+		assertEquals(picture.getId(), picture.getId());
+		assertEquals(picture.getUser().getId(), picture.getUser().getId());
 	}
 
 	@Test
