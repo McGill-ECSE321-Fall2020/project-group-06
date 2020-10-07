@@ -74,19 +74,19 @@ public class TestArtGalleryPersistence {
 	@Test
 	public void testPersistenceAndLoadUser() {
 		User user = new User();
-		user.setUsername("chaggy");
+		user.setUsername("John");
 		user.setPassword("password");
 		user.setFirstName("John");
 		user.setLastName("Doe");
 		user.setDescription("Hi, my name is John Doe and I'm under the water");
 		user.setEmail("John@email.com");
 		user.setPhoneNumber("1111111");
-		user.setId(2);
+		user.setId(102);
 		userRepository.save(user);
 		user = null;
-		user = userRepository.findUserByUsername("chaggy");
+		user = userRepository.findUserByUsername("John");
 		assertNotNull(user);
-		assertEquals("chaggy", user.getUsername());
+		assertEquals("John", user.getUsername());
 		assertEquals("password", user.getPassword());
 		assertEquals("John", user.getFirstName());
 		assertEquals("Doe", user.getLastName());
