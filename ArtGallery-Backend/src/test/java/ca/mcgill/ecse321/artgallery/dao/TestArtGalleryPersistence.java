@@ -117,6 +117,7 @@ public class TestArtGalleryPersistence {
 		Artwork artwork = new Artwork();
 		artwork.setId(11);
 		Set<Artwork> artworkSet = new HashSet<Artwork>();
+		artworkSet.add(artwork);
 		artGallery.setArtwork(artworkSet);
 
 		Transaction transaction = new Transaction();
@@ -200,6 +201,7 @@ public class TestArtGalleryPersistence {
 		Artwork artwork = new Artwork();
 		artwork.setId(15);
 		Set<Artwork> artworkSet = new HashSet<Artwork>();
+		artworkSet.add(artwork);
 		picture.setFavorites(artworkSet);
 
 		User user = new User();
