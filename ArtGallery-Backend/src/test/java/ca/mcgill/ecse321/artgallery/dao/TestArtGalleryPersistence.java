@@ -83,9 +83,6 @@ public class TestArtGalleryPersistence {
 		assertEquals("chaggy", user.getUsername());
 	}
 
-	// Other tests
-	// made by Justin
-
 	@Test
 	public void testPersistenceAndLoadArtist() {
 		Artist artist = new Artist();
@@ -115,10 +112,27 @@ public class TestArtGalleryPersistence {
 		ArtGallery artGallery = new ArtGallery();
 		artGallery.setName("VanGoghEstNous");
 		artGallery.setId(2);
+		artGallery.setAdress("1000 Rue des Arts");
+
+		Artwork artwork = new Artwork();
+		artwork.setId(11);
+		Set<Artwork> artworkSet = new HashSet<Artwork>();
+		artGallery.setArtwork(artworkSet);
+
+		Transaction transaction = new Transaction();
+		transaction.setId(12);
+		Set<Transaction> transactionSet = new HashSet<Transaction>();
+		transactionSet.add(transaction);
+		artGallery.setTransaction(transactionSet);
+
 		artGalleryRepository.save(artGallery);
 		ArtGallery oldGallery = artGalleryRepository.findArtGalleryById(2);
 		assertNotNull(oldGallery);
 		assertEquals(artGallery.getId(), oldGallery.getId());
+		assertEquals(artGallery.getAdress(), oldGallery.getAdress());
+		assertEquals(artGallery.getArtwork(), oldGallery.getArtwork());
+		assertEquals(artGallery.getName(), oldGallery.getName());
+		assertEquals(artGallery.getTransaction(), oldGallery.getTransaction());
 	}
 
 	@Test
