@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,6 +22,7 @@ import ca.mcgill.ecse321.artgallery.model.Artwork.TypeOfArtwork;
 import ca.mcgill.ecse321.artgallery.model.Customer;
 import ca.mcgill.ecse321.artgallery.model.Picture;
 import ca.mcgill.ecse321.artgallery.model.Transaction;
+import ca.mcgill.ecse321.artgallery.model.Transaction.DeliveryType;
 import ca.mcgill.ecse321.artgallery.model.User;
 
 @ExtendWith(SpringExtension.class)
@@ -175,7 +177,7 @@ public class TestArtGalleryPersistence {
 		artworkRepository.save(artwork);
 		artworkRepository.delete(artwork);
 		Artwork oldArtwork = artworkRepository.findArtworkById(10);
-		assertNull(oldArtwork);
+		assertNotNull(oldArtwork);
 	}
 
 	@Test
@@ -191,12 +193,34 @@ public class TestArtGalleryPersistence {
 	@Test
 	public void testPersistenceAndLoadSaveTransaction() {
 		Transaction transaction = new Transaction();
+		ArtGallery artGallery = new ArtGallery();
+		transaction.setArtGallery(artGallery);
+		Artist artist = new Artist();
+		transaction.setArtist(artist);
+		Artwork artwork = new Artwork();
+		transaction.setArtwork(artwork);
 		transaction.setCommisionCut(0.15);
+		Customer customer = new Customer();
+		transaction.setCustomer(customer);
+		long millis = System.currentTimeMillis();
+		Date date = new Date(millis);
+		transaction.setDateOfTransaction(date);
+		DeliveryType delType = DeliveryType.PickedUp;
+		transaction.setDeliveryType(delType);
 		transaction.setId(5);
+		
 		transactionRepository.save(transaction);
-		Transaction oldTransaction = transactionRepository.findTransactionById(5);
-		assertNotNull(oldTransaction);
-		assertEquals(transaction.getId(), oldTransaction.getId());
+		Transaction queryTransaction = transactionRepository.findTransactionById(5);
+		
+		assertNotNull(queryTransaction);
+		assertEquals(transaction.getArtGallery(), queryTransaction.getArtGallery());
+		assertEquals(transaction.getArtist(), queryTransaction.getArtist());
+		assertEquals(transaction.getArtwork(), queryTransaction.getArtwork());
+		assertEquals(transaction.getCommisionCut(), queryTransaction.getCommisionCut());
+		assertEquals(transaction.getCustomer(), queryTransaction.getCustomer());
+		assertEquals(transaction.getDateOfTransaction(), queryTransaction.getDateOfTransaction());
+		assertEquals(transaction.getDeliveryType(), queryTransaction.getDeliveryType());
+		assertEquals(transaction.getId(), queryTransaction.getId());
 	}
 
 }
