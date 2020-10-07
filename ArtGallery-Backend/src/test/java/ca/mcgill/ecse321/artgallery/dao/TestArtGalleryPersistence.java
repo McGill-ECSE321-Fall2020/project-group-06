@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -25,36 +26,36 @@ public class TestArtGalleryPersistence {
 
 	// TESTS TODO
 	// Here is a test example
-	@Autowired
-	private ArtistRepository artistRepository;
+//	@Autowired
+//	private ArtistRepository artistRepository;
 
 	@Autowired
 	private UserRepository userRepository;
 
-	@Autowired
-	CustomerRepository customerRepository;
-
-	@Autowired
-	ArtworkRepository artworkRepository;
-
-	@Autowired
-	PictureRepository pictureRepository;
-
-	@Autowired
-	TransactionRepository transactionRepository;
-
-	@Autowired
-	ArtGalleryRepository artGalleryRepository;
+//	@Autowired
+//	CustomerRepository customerRepository;
+//
+//	@Autowired
+//	ArtworkRepository artworkRepository;
+//
+//	@Autowired
+//	PictureRepository pictureRepository;
+//
+//	@Autowired
+//	TransactionRepository transactionRepository;
+//
+//	@Autowired
+//	ArtGalleryRepository artGalleryRepository;
 
 	@AfterEach
 	public void clearDatabase() {
-		artistRepository.deleteAll();
+//		artistRepository.deleteAll();
 		userRepository.deleteAll();
-		customerRepository.deleteAll();
-		artworkRepository.deleteAll();
-		pictureRepository.deleteAll();
-		transactionRepository.deleteAll();
-		artGalleryRepository.deleteAll();
+//		customerRepository.deleteAll();
+//		artworkRepository.deleteAll();
+//		pictureRepository.deleteAll();
+//		transactionRepository.deleteAll();
+//		artGalleryRepository.deleteAll();
 	}
 
 	@Test
