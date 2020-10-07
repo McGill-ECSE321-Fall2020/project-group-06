@@ -1,16 +1,14 @@
 package ca.mcgill.ecse321.artgallery.dao;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import ca.mcgill.ecse321.artgallery.model.User;
 import ca.mcgill.ecse321.artgallery.model.Artist;
@@ -20,7 +18,7 @@ import ca.mcgill.ecse321.artgallery.model.Artwork;
 import ca.mcgill.ecse321.artgallery.model.Picture;
 import ca.mcgill.ecse321.artgallery.model.Transaction;
 
-@RunWith(SpringRunner.class)
+
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class TestArtGalleryPersistence {
