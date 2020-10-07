@@ -71,6 +71,9 @@ public class TestArtGalleryPersistence {
 		artGalleryRepository.deleteAll();
 	}
 
+	/**
+	 * @author Sen Wang
+	 */
 	@Test
 	public void testPersistenceAndLoadUser() {
 		User user = new User();
@@ -93,6 +96,21 @@ public class TestArtGalleryPersistence {
 		assertEquals("John@email.com", user.getEmail());
 		assertEquals("1111111", user.getPhoneNumber());
 		userRepository.deleteAll();
+	}
+
+	/**
+	 * @author Sen Wang
+	 */
+	@Test
+	public void testPersistenceAndDeleteUser() {
+		User user = new User();
+		user.setId(102);
+		user.setUsername("John");
+		userRepository.save(user);
+		user = null;
+		userRepository.deleteById(102);
+		user = userRepository.findUserByUsername("John");
+		assertNull(user);
 	}
 
 	@Test
