@@ -1,7 +1,11 @@
 package ca.mcgill.ecse321.artgallery.dao;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -13,6 +17,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import ca.mcgill.ecse321.artgallery.model.ArtGallery;
 import ca.mcgill.ecse321.artgallery.model.Artist;
 import ca.mcgill.ecse321.artgallery.model.Artwork;
+import ca.mcgill.ecse321.artgallery.model.Artwork.TypeOfArtwork;
 import ca.mcgill.ecse321.artgallery.model.Customer;
 import ca.mcgill.ecse321.artgallery.model.Picture;
 import ca.mcgill.ecse321.artgallery.model.Transaction;
@@ -113,10 +118,56 @@ public class TestArtGalleryPersistence {
 		Artwork artwork = new Artwork();
 		artwork.setName("Starry Nights");
 		artwork.setId(3);
+
+		ArtGallery artGallery = new ArtGallery();
+		artGallery.setId(6);
+		artwork.setArtGallery(artGallery);
+
+		Artist artist = new Artist();
+		artist.setId(7);
+		artwork.setArtist(artist);
+
+		artwork.setDescription("An absolute masterpiece");
+		artwork.setForSale(true);
+
+		Picture picture = new Picture();
+		picture.setId(8);
+		Set<Picture> pictureSet = new HashSet<Picture>();
+		pictureSet.add(picture);
+		artwork.setPicture(pictureSet);
+
+		artwork.setPrice(40);
+
+		Transaction transaction = new Transaction();
+		transaction.setId(9);
+		Set<Transaction> transactionSet = new HashSet<Transaction>();
+		transactionSet.add(transaction);
+		artwork.setTransaction(transactionSet);
+
+		artwork.setTypeOfArtwork(TypeOfArtwork.Painting);
+
 		artworkRepository.save(artwork);
 		Artwork oldArtwork = artworkRepository.findArtworkById(3);
 		assertNotNull(oldArtwork);
 		assertEquals(artwork.getId(), oldArtwork.getId());
+		assertEquals(artwork.getArtGallery().getId(), oldArtwork.getArtGallery().getId());
+		assertEquals(artwork.getName(), oldArtwork.getName());
+		assertEquals(artwork.getArtist().getId(), oldArtwork.getArtist().getId());
+		assertEquals(artwork.getDescription(), oldArtwork.getDescription());
+		assertEquals(artwork.getPicture(), oldArtwork.getPicture());
+		assertEquals(artwork.getPrice(), oldArtwork.getPrice());
+		assertEquals(artwork.getTransaction(), oldArtwork.getTransaction());
+		assertEquals(artwork.getTypeOfArtwork().name(), oldArtwork.getTypeOfArtwork().name());
+	}
+
+	public void testPersistenceAndDeleteArtwork() {
+		Artwork artwork = new Artwork();
+		artwork.setName("David and Goliath");
+		artwork.setId(10);
+		artworkRepository.save(artwork);
+		artworkRepository.delete(artwork);
+		Artwork oldArtwork = artworkRepository.findArtworkById(10);
+		assertNull(oldArtwork);
 	}
 
 	@Test
