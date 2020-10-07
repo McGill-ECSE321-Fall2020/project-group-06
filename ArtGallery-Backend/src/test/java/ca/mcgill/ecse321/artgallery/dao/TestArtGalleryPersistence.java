@@ -38,9 +38,6 @@ public class TestArtGalleryPersistence {
 		User user = new User();
 		user.setUsername("chaggy");
 		user.setId(1);
-		if (userRepository == null) {
-			System.out.println("UserRepo is null");
-		}
 		userRepository.save(user);
 		user = null;
 		user = userRepository.findUserByUsername("chaggy");
