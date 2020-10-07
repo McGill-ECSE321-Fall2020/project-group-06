@@ -25,37 +25,39 @@ import ca.mcgill.ecse321.artgallery.model.Transaction;
 public class TestArtGalleryPersistence {
 
 	// TESTS TODO
+	// Tests must check for all attributes.
+	// One test for save and one for delete for each entity
 	// Here is a test example
-//	@Autowired
-//	private ArtistRepository artistRepository;
+	@Autowired
+	private ArtistRepository artistRepository;
 
 	@Autowired
 	private UserRepository userRepository;
 
-//	@Autowired
-//	CustomerRepository customerRepository;
-//
-//	@Autowired
-//	ArtworkRepository artworkRepository;
-//
-//	@Autowired
-//	PictureRepository pictureRepository;
-//
-//	@Autowired
-//	TransactionRepository transactionRepository;
-//
-//	@Autowired
-//	ArtGalleryRepository artGalleryRepository;
+	@Autowired
+	CustomerRepository customerRepository;
+
+	@Autowired
+	ArtworkRepository artworkRepository;
+
+	@Autowired
+	PictureRepository pictureRepository;
+
+	@Autowired
+	TransactionRepository transactionRepository;
+
+	@Autowired
+	ArtGalleryRepository artGalleryRepository;
 
 	@AfterEach
 	public void clearDatabase() {
-//		artistRepository.deleteAll();
+		artistRepository.deleteAll();
 		userRepository.deleteAll();
-//		customerRepository.deleteAll();
-//		artworkRepository.deleteAll();
-//		pictureRepository.deleteAll();
-//		transactionRepository.deleteAll();
-//		artGalleryRepository.deleteAll();
+		customerRepository.deleteAll();
+		artworkRepository.deleteAll();
+		pictureRepository.deleteAll();
+		transactionRepository.deleteAll();
+		artGalleryRepository.deleteAll();
 	}
 
 	@Test
