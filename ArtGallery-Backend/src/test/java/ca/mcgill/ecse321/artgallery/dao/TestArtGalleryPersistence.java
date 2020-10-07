@@ -196,10 +196,23 @@ public class TestArtGalleryPersistence {
 	public void testPersistenceAndLoadPicture() {
 		Picture picture = new Picture();
 		picture.setId(4);
+
+		Artwork artwork = new Artwork();
+		artwork.setId(15);
+		Set<Artwork> artworkSet = new HashSet<Artwork>();
+		picture.setFavorites(artworkSet);
+
+		User user = new User();
+		user.setId(16);
+		picture.setUser(user);
+
 		pictureRepository.save(picture);
 		Picture oldPicture = pictureRepository.findPictureById(4);
 		assertNotNull(oldPicture);
 		assertEquals(picture.getId(), oldPicture.getId());
+		assertEquals(picture.getFavorites(), picture.getFavorites());
+		assertEquals(picture.getId(), picture.getId());
+		assertEquals(picture.getUser().getId(), picture.getUser().getId());
 	}
 
 	@Test
