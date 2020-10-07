@@ -31,24 +31,32 @@ public class TestArtGalleryPersistence {
 	// Tests must check for all attributes.
 	// One test for save and one for delete for each entity
 	// Here is a test example
+
+	// Andre
 	@Autowired
 	private ArtistRepository artistRepository;
 
+	// Sen
 	@Autowired
 	private UserRepository userRepository;
 
+	// Noah
 	@Autowired
 	CustomerRepository customerRepository;
 
+	// Justin
 	@Autowired
 	ArtworkRepository artworkRepository;
 
+	// Justin
 	@Autowired
 	PictureRepository pictureRepository;
 
+	// Oliver
 	@Autowired
 	TransactionRepository transactionRepository;
 
+	// Justin
 	@Autowired
 	ArtGalleryRepository artGalleryRepository;
 
