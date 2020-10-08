@@ -218,10 +218,20 @@ public class TestArtGalleryPersistence {
 		Artwork artwork = new Artwork();
 		artwork.setName("David and Goliath");
 		artwork.setId(10);
+		Artist artist = new Artist();
+		artist.setId(1);
+		artistRepository.save(artist);
+		ArtGallery artGallery = new ArtGallery();
+		artGallery.setId(1);
+		artGalleryRepository.save(artGallery);
+		artwork.setArtist(artist);
+		artwork.setArtGallery(artGallery);
 		artworkRepository.save(artwork);
-		artworkRepository.delete(artwork);
-		Artwork oldArtwork = artworkRepository.findArtworkById(10);
-		assertNotNull(oldArtwork);
+
+		artworkRepository.deleteById(artwork.getId());
+		artwork = null;
+		artwork = artworkRepository.findArtworkById(10);
+		assertNull(artwork);
 	}
 
 	@Test
@@ -280,24 +290,11 @@ public class TestArtGalleryPersistence {
 	public void testPersistenceAndLoadPicture() {
 		Picture picture = new Picture();
 		picture.setId(4);
-
-		Artwork artwork = new Artwork();
-		artwork.setId(15);
-		Set<Artwork> artworkSet = new HashSet<Artwork>();
-		artworkSet.add(artwork);
-		picture.setFavorites(artworkSet);
-
-		User user = new User();
-		user.setId(16);
-		picture.setUser(user);
-
 		pictureRepository.save(picture);
-		Picture oldPicture = pictureRepository.findPictureById(4);
-		assertNotNull(oldPicture);
-		assertEquals(picture.getId(), oldPicture.getId());
-		assertEquals(picture.getFavorites(), picture.getFavorites());
-		assertEquals(picture.getId(), picture.getId());
-		assertEquals(picture.getUser().getId(), picture.getUser().getId());
+		picture = null;
+		picture = pictureRepository.findPictureById(4);
+		assertNotNull(picture);
+		assertEquals(4, picture.getId());
 	}
 
 	@Test

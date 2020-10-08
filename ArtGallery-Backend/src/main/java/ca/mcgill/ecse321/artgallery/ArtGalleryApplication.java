@@ -16,12 +16,14 @@ import ca.mcgill.ecse321.artgallery.dao.ArtGalleryRepository;
 import ca.mcgill.ecse321.artgallery.dao.ArtistRepository;
 import ca.mcgill.ecse321.artgallery.dao.ArtworkRepository;
 import ca.mcgill.ecse321.artgallery.dao.CustomerRepository;
+import ca.mcgill.ecse321.artgallery.dao.PictureRepository;
 import ca.mcgill.ecse321.artgallery.dao.TransactionRepository;
 import ca.mcgill.ecse321.artgallery.dao.UserRepository;
 import ca.mcgill.ecse321.artgallery.model.ArtGallery;
 import ca.mcgill.ecse321.artgallery.model.Artist;
 import ca.mcgill.ecse321.artgallery.model.Artwork;
 import ca.mcgill.ecse321.artgallery.model.Customer;
+import ca.mcgill.ecse321.artgallery.model.Picture;
 import ca.mcgill.ecse321.artgallery.model.Transaction;
 import ca.mcgill.ecse321.artgallery.model.User;
 
@@ -50,6 +52,9 @@ public class ArtGalleryApplication {
 
 	@Autowired
 	ArtworkRepository ArtworkRepository;
+
+	@Autowired
+	PictureRepository pictureRepository;
 
 	@RequestMapping("/")
 	public String greeting() {
