@@ -269,10 +269,10 @@ public class TestArtGalleryPersistence {
 		DeliveryType delType = DeliveryType.PickedUp;
 		transaction.setDeliveryType(delType);
 		transaction.setId(5);
-		
+
 		transactionRepository.save(transaction);
 		Transaction queryTransaction = transactionRepository.findTransactionById(5);
-		
+
 		assertNotNull(queryTransaction);
 		assertEquals(transaction.getArtGallery(), queryTransaction.getArtGallery());
 		assertEquals(transaction.getArtist(), queryTransaction.getArtist());
