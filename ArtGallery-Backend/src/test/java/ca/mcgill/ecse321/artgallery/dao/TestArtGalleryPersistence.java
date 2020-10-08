@@ -2,6 +2,12 @@ package ca.mcgill.ecse321.artgallery.dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+import java.time.Month;
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
@@ -72,6 +78,79 @@ public class TestArtGalleryPersistence {
 		assertEquals("chaggy", user.getUsername());
 	}
 
+	@Test
+	public void testPersistenceAndLoadCustomer(){
+		Customer customer = new Customer();
+		HashSet<Artwork> artworks = new HashSet<Artwork>();
+		Artwork artwork = new Artwork();
+		artworks.add(artwork);
+		artworkRepository.save(artwork);
+		long creditCardNumber = 1111222233334444L;
+		String description = "My Description";
+		String email = "my.email@gmail.com";
+		String firstName = "John";
+		int id = 12345;
+		String lastName = "Doe";
+		String phoneNumber = "5147777777";
+		Picture picture = new Picture();
+		pictureRepository.save(picture);
+		HashSet<Transaction> transactions = new HashSet<Transaction>();
+		Transaction transaction = new Transaction();
+		transactions.add(transaction);
+		transactionRepository.save(transaction);
+		String username = "myUsername";
+		customer.setArtwork(artworks);
+		customer.setCreditCardNumber(creditCardNumber);
+		customer.setDescription(description);
+		customer.setEmail(email);
+		customer.setFirstName(firstName);
+		customer.setId(id);
+		customer.setLastName(lastName);
+		customer.setPhoneNumber(phoneNumber);
+		customer.setPicture(picture);
+		customer.setTransaction(transactions);
+		customer.setUsername(username);
+		customerRepository.save(customer);
+		customer = null;
+		customer = customerRepository.findCustomerById(1);
+		assertNotNull(customer);
+		assertEquals(artwork, customer.getArtwork());
+		assertEquals(creditCardNumber, customer.getCreditCardNumber());
+		assertEquals(description, customer.getDescription());
+		assertEquals(email, customer.getEmail());
+		assertEquals(firstName, customer.getFirstName());
+		assertEquals(id, customer.getId());
+		assertEquals(lastName, customer.getLastName());
+		assertEquals(phoneNumber, customer.getPhoneNumber());
+		assertEquals(picture, customer.getPicture());
+		assertEquals(transactions, customer.getTransaction());
+		assertEquals(username, customer.getUsername());
+	}
+
+	@Test
+	public void testPersistenceAndDeleteCustomer(){
+		Customer customer = new Customer();
+		HashSet<Artwork> artworks = new HashSet<Artwork>();
+		Artwork artwork = new Artwork();
+		artworks.add(artwork);
+		long creditCardNumber = 1111222233334444L;
+		int id = 12345;
+		customer.setArtwork(artworks);
+		customer.setCreditCardNumber(creditCardNumber);
+		customer.setId(id);
+		customerRepository.save(customer);
+		customer = null;
+		customer = customerRepository.findCustomerById(12345);
+		assertNotNull(customer);
+		assertEquals(artwork, customer.getArtwork());
+		assertEquals(creditCardNumber, customer.getCreditCardNumber());
+		assertEquals(id, customer.getId());
+		customerRepository.delete(customer);
+		customer = null;
+		customer = customerRepository.findCustomerById(12345);
+		assertNull(customer);
+	}
+
 	// Other tests made by Justin
 
 	// @Test
@@ -140,5 +219,4 @@ public class TestArtGalleryPersistence {
 	// assertNotNull(oldTransaction);
 	// assertEquals(transaction, oldTransaction);
 	// }
-
 }
