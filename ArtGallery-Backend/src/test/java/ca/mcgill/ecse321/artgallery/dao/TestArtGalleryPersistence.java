@@ -27,43 +27,45 @@ import ca.mcgill.ecse321.artgallery.model.Transaction;
 import ca.mcgill.ecse321.artgallery.model.Transaction.DeliveryType;
 import ca.mcgill.ecse321.artgallery.model.User;
 
+/**
+ * @author Sen Wang
+ * @author Noah Chamberland
+ * @author Justin Legrand
+ * @author Olivier Normandin
+ * @author André-Walter Panzini
+ *         <p>
+ *         Persistence Layer Unit Tests. Each method tests the save or delete
+ *         functionality of a single entity.
+ *         </p>
+ */
+
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class TestArtGalleryPersistence {
 
-	// TESTS TODO
-	// Tests must check for all attributes.
-	// One test for save and one for delete for each entity
-	// Here is a test example
-
-	// Andre
+	// Dependency Injections
 	@Autowired
 	private ArtistRepository artistRepository;
 
-	// Sen
 	@Autowired
 	private UserRepository userRepository;
 
-	// Noah
 	@Autowired
-	CustomerRepository customerRepository;
+	private CustomerRepository customerRepository;
 
-	// Justin
 	@Autowired
-	ArtworkRepository artworkRepository;
+	private ArtworkRepository artworkRepository;
 
-	// Justin
 	@Autowired
-	PictureRepository pictureRepository;
+	private PictureRepository pictureRepository;
 
-	// Oliver
 	@Autowired
-	TransactionRepository transactionRepository;
+	private TransactionRepository transactionRepository;
 
-	// Justin
 	@Autowired
-	ArtGalleryRepository artGalleryRepository;
+	private ArtGalleryRepository artGalleryRepository;
 
+	// Clear Database
 	@AfterEach
 	public void clearDatabase() {
 		transactionRepository.deleteAll();
@@ -75,9 +77,7 @@ public class TestArtGalleryPersistence {
 		userRepository.deleteAll();
 	}
 
-	/**
-	 * @author Sen Wang
-	 */
+	// Save User Test
 	@Test
 	public void testPersistenceAndLoadUser() {
 		User user = new User();
@@ -102,9 +102,7 @@ public class TestArtGalleryPersistence {
 		userRepository.deleteAll();
 	}
 
-	/**
-	 * @author Sen Wang
-	 */
+	// Delete User Test
 	@Test
 	public void testPersistenceAndDeleteUser() {
 		User user = new User();
@@ -117,6 +115,7 @@ public class TestArtGalleryPersistence {
 		assertNull(user);
 	}
 
+	// Save Artist Test
 	@Test
 	public void testPersistenceAndLoadArtist() {
 		Artist artist = new Artist();
@@ -156,6 +155,7 @@ public class TestArtGalleryPersistence {
 		assertEquals(bankAccountNumber, artist.getBankAccountNumber());
 	}
 
+	// Delete Artist Test
 	@Test
 	public void testPersistenceAndDeleteArtist() {
 		Artist artist = new Artist();
@@ -187,6 +187,7 @@ public class TestArtGalleryPersistence {
 		assertNull(artist);
 	}
 
+	// Save artgallery test
 	@Test
 	public void testPersistenceAndLoadArtGallery() {
 		ArtGallery artGallery = new ArtGallery();
@@ -194,29 +195,15 @@ public class TestArtGalleryPersistence {
 		artGallery.setId(2);
 		artGallery.setAdress("1000 Rue des Arts");
 
-		// Note: (Sen) We don't need to include associations
-		// Artwork artwork = new Artwork();
-		// artwork.setId(11);
-		// Set<Artwork> artworkSet = new HashSet<Artwork>();
-		// artworkSet.add(artwork);
-		// artGallery.setArtwork(artworkSet);
-
-		// Transaction transaction = new Transaction();
-		// transaction.setId(12);
-		// Set<Transaction> transactionSet = new HashSet<Transaction>();
-		// transactionSet.add(transaction);
-		// artGallery.setTransaction(transactionSet);
-
 		artGalleryRepository.save(artGallery);
 		ArtGallery oldGallery = artGalleryRepository.findArtGalleryById(2);
 		assertNotNull(oldGallery);
 		assertEquals(artGallery.getId(), oldGallery.getId());
 		assertEquals(artGallery.getAdress(), oldGallery.getAdress());
-		// assertEquals(artGallery.getArtwork(), oldGallery.getArtwork());
 		assertEquals(artGallery.getName(), oldGallery.getName());
-		// assertEquals(artGallery.getTransaction(), oldGallery.getTransaction());
 	}
 
+	// delete artgallery test
 	@Test
 	public void testPersistenceAndDeleteArtGallery() {
 		ArtGallery artGallery = new ArtGallery();
@@ -236,6 +223,7 @@ public class TestArtGalleryPersistence {
 		assertNull(artGallery);
 	}
 
+	// save artwork test
 	@Test
 	public void testPersistenceAndLoadArtwork() {
 		Artwork artwork = new Artwork();
@@ -255,22 +243,7 @@ public class TestArtGalleryPersistence {
 
 		artwork.setDescription("An absolute masterpiece");
 		artwork.setForSale(true);
-
-		// NOTE (Sen): picture is an association, not an attribute so we do not need to
-		// include it in the test. Same for Picture
-		// Picture picture = new Picture();
-		// picture.setId(8);
-		// Set<Picture> pictureSet = new HashSet<Picture>();
-		// pictureSet.add(picture);
-		// artwork.setPicture(pictureSet);
-
 		artwork.setPrice(40);
-
-		// Transaction transaction = new Transaction();
-		// transaction.setId(9);
-		// Set<Transaction> transactionSet = new HashSet<Transaction>();
-		// transactionSet.add(transaction);
-		// artwork.setTransaction(transactionSet);
 
 		artwork.setTypeOfArtwork(TypeOfArtwork.Painting);
 
@@ -282,12 +255,11 @@ public class TestArtGalleryPersistence {
 		assertEquals(artwork.getName(), oldArtwork.getName());
 		assertEquals(artwork.getArtist().getId(), oldArtwork.getArtist().getId());
 		assertEquals(artwork.getDescription(), oldArtwork.getDescription());
-		// assertEquals(artwork.getPicture(), oldArtwork.getPicture());
 		assertEquals(artwork.getPrice(), oldArtwork.getPrice());
-		// assertEquals(artwork.getTransaction(), oldArtwork.getTransaction());
 		assertEquals(artwork.getTypeOfArtwork().name(), oldArtwork.getTypeOfArtwork().name());
 	}
 
+	// delete artwork test
 	@Test
 	public void testPersistenceAndDeleteArtwork() {
 		Artwork artwork = new Artwork();
@@ -309,6 +281,7 @@ public class TestArtGalleryPersistence {
 		assertNull(artwork);
 	}
 
+	// save customer test
 	@Test
 	public void testPersistenceAndLoadCustomer() {
 		Customer customer = new Customer();
@@ -342,6 +315,7 @@ public class TestArtGalleryPersistence {
 		assertEquals(username, customer.getUsername());
 	}
 
+	// delete customer test
 	@Test
 	public void testPersistenceAndDeleteCustomer() {
 		Customer customer = new Customer();
@@ -361,6 +335,7 @@ public class TestArtGalleryPersistence {
 		assertNull(customer);
 	}
 
+	// save picture test
 	@Test
 	public void testPersistenceAndLoadPicture() {
 		Picture picture = new Picture();
@@ -372,6 +347,7 @@ public class TestArtGalleryPersistence {
 		assertEquals(4, picture.getId());
 	}
 
+	// delete picture test
 	@Test
 	public void testPersistenceAndDeletePicture() {
 		Picture picture = new Picture();
@@ -387,6 +363,7 @@ public class TestArtGalleryPersistence {
 		assertNull(picture);
 	}
 
+	// save transaction test
 	@Test
 	public void testPersistenceAndLoadSaveTransaction() {
 		Transaction transaction = new Transaction();
@@ -426,6 +403,7 @@ public class TestArtGalleryPersistence {
 		assertEquals(customer.getId(), transaction.getCustomer().getId());
 	}
 
+	// delete transaction test
 	@Test
 	public void testPersistenceAndDeleteTransaction() {
 		Transaction transaction = new Transaction();

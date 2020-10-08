@@ -5,6 +5,9 @@ import org.springframework.stereotype.Repository;
 
 import ca.mcgill.ecse321.artgallery.model.User;
 
+/**
+ * @author Sen Wang
+ */
 @Repository
 public interface UserRepository extends CrudRepository<User, Integer> {
 

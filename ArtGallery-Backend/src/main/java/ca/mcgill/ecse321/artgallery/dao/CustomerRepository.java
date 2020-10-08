@@ -5,6 +5,9 @@ import org.springframework.stereotype.Repository;
 
 import ca.mcgill.ecse321.artgallery.model.Customer;
 
+/**
+ * @author Sen Wang
+ */
 @Repository
 public interface CustomerRepository extends CrudRepository<Customer, Integer> {
 
