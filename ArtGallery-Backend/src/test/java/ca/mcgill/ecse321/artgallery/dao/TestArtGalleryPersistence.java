@@ -213,6 +213,7 @@ public class TestArtGalleryPersistence {
 		assertEquals(artwork.getTypeOfArtwork().name(), oldArtwork.getTypeOfArtwork().name());
 	}
 
+	@Test
 	public void testPersistenceAndDeleteArtwork() {
 		Artwork artwork = new Artwork();
 		artwork.setName("David and Goliath");
@@ -275,6 +276,7 @@ public class TestArtGalleryPersistence {
 		assertNull(customer);
 	}
 
+	@Test
 	public void testPersistenceAndLoadPicture() {
 		Picture picture = new Picture();
 		picture.setId(4);
