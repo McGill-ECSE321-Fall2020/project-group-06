@@ -32,6 +32,7 @@ public class Picture {
 
    private User user;
 
+   // Reverted optional to true due to data integrity error
    @OneToOne(mappedBy = "picture", optional = true)
    public User getUser() {
       return this.user;

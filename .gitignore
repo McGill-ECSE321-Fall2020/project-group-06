@@ -7,4 +7,5 @@ build/
 .classpath
 .project
 .core.prefs
-.settings/org.eclipse.buildship.core.prefs
+.settings
+.vscode
