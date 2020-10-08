@@ -220,10 +220,6 @@ public class TestArtGalleryPersistence {
 	@Test
 	public void testPersistenceAndLoadCustomer() {
 		Customer customer = new Customer();
-		// HashSet<Artwork> artworks = new HashSet<Artwork>();
-		// Artwork artwork = new Artwork();
-		// artworks.add(artwork);
-		// artworkRepository.save(artwork);
 		long creditCardNumber = 1111222233334444L;
 		String description = "My Description";
 		String email = "my.email@gmail.com";
@@ -231,14 +227,7 @@ public class TestArtGalleryPersistence {
 		int id = 12345;
 		String lastName = "Doe";
 		String phoneNumber = "5147777777";
-		// Picture picture = new Picture();
-		// pictureRepository.save(picture);
-		// HashSet<Transaction> transactions = new HashSet<Transaction>();
-		// Transaction transaction = new Transaction();
-		// transactions.add(transaction);
-		// transactionRepository.save(transaction);
 		String username = "myUsername";
-		// customer.setArtwork(artworks);
 		customer.setCreditCardNumber(creditCardNumber);
 		customer.setDescription(description);
 		customer.setEmail(email);
@@ -246,14 +235,11 @@ public class TestArtGalleryPersistence {
 		customer.setId(id);
 		customer.setLastName(lastName);
 		customer.setPhoneNumber(phoneNumber);
-		// customer.setPicture(picture);
-		// customer.setTransaction(transactions);
 		customer.setUsername(username);
 		customerRepository.save(customer);
 		customer = null;
 		customer = customerRepository.findCustomerById(12345);
 		assertNotNull(customer);
-		// assertEquals(artwork, customer.getArtwork());
 		assertEquals(creditCardNumber, customer.getCreditCardNumber());
 		assertEquals(description, customer.getDescription());
 		assertEquals(email, customer.getEmail());
@@ -261,27 +247,20 @@ public class TestArtGalleryPersistence {
 		assertEquals(id, customer.getId());
 		assertEquals(lastName, customer.getLastName());
 		assertEquals(phoneNumber, customer.getPhoneNumber());
-		// assertEquals(picture, customer.getPicture());
-		// assertEquals(transactions, customer.getTransaction());
 		assertEquals(username, customer.getUsername());
 	}
 
 	@Test
 	public void testPersistenceAndDeleteCustomer() {
 		Customer customer = new Customer();
-		HashSet<Artwork> artworks = new HashSet<Artwork>();
-		Artwork artwork = new Artwork();
-		artworks.add(artwork);
 		long creditCardNumber = 1111222233334444L;
 		int id = 12345;
-		customer.setArtwork(artworks);
 		customer.setCreditCardNumber(creditCardNumber);
 		customer.setId(id);
 		customerRepository.save(customer);
 		customer = null;
 		customer = customerRepository.findCustomerById(12345);
 		assertNotNull(customer);
-		assertEquals(artwork, customer.getArtwork());
 		assertEquals(creditCardNumber, customer.getCreditCardNumber());
 		assertEquals(id, customer.getId());
 		customerRepository.delete(customer);
