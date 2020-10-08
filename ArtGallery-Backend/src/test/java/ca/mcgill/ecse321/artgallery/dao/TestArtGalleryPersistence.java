@@ -308,24 +308,15 @@ public class TestArtGalleryPersistence {
 
 		Artwork artwork = new Artwork();
 		artwork.setArtist(artist);
+		artwork.setArtGallery(artGallery);
 		artwork.setId(1);
 		artworkRepository.save(artwork);
 		transaction.setArtwork(artwork);
-
-		// transaction.setCommisionCut(0.15);
 
 		Customer customer = new Customer();
 		customer.setId(33);
 		customerRepository.save(customer);
 		transaction.setCustomer(customer);
-
-		// long millis = System.currentTimeMillis();
-		// Date date = new Date(millis);
-		// transaction.setDateOfTransaction(date);
-
-		// DeliveryType delType = DeliveryType.PickedUp;
-		// transaction.setDeliveryType(delType);
-		// transaction.setId(5);
 
 		transaction.setId(55);
 
@@ -336,13 +327,7 @@ public class TestArtGalleryPersistence {
 		assertEquals(transaction.getArtGallery().getId(), queryTransaction.getArtGallery().getId());
 		assertEquals(transaction.getArtist().getId(), queryTransaction.getArtist().getId());
 		assertEquals(transaction.getArtwork().getId(), queryTransaction.getArtwork().getId());
-		// assertEquals(transaction.getCommisionCut(),
-		// queryTransaction.getCommisionCut());
 		assertEquals(transaction.getCustomer().getId(), queryTransaction.getCustomer().getId());
-		// assertEquals(transaction.getDateOfTransaction(),
-		// queryTransaction.getDateOfTransaction());
-		// assertEquals(transaction.getDeliveryType(),
-		// queryTransaction.getDeliveryType());
 		assertEquals(transaction.getId(), queryTransaction.getId());
 	}
 
