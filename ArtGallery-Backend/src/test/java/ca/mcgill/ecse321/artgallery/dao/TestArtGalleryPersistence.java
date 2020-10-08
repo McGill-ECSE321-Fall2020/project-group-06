@@ -251,7 +251,7 @@ public class TestArtGalleryPersistence {
 		customer.setUsername(username);
 		customerRepository.save(customer);
 		customer = null;
-		customer = customerRepository.findCustomerById(1);
+		customer = customerRepository.findCustomerById(12345);
 		assertNotNull(customer);
 		assertEquals(artwork, customer.getArtwork());
 		assertEquals(creditCardNumber, customer.getCreditCardNumber());
