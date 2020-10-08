@@ -327,14 +327,14 @@ public class TestArtGalleryPersistence {
 		transaction.setId(55);
 
 		transactionRepository.save(transaction);
-		Transaction queryTransaction = transactionRepository.findTransactionById(5);
+		transaction = null;
+		transaction = transactionRepository.findTransactionById(55);
 
-		assertNotNull(queryTransaction);
-		assertEquals(transaction.getArtGallery().getId(), queryTransaction.getArtGallery().getId());
-		assertEquals(transaction.getArtist().getId(), queryTransaction.getArtist().getId());
-		assertEquals(transaction.getArtwork().getId(), queryTransaction.getArtwork().getId());
-		assertEquals(transaction.getCustomer().getId(), queryTransaction.getCustomer().getId());
-		assertEquals(transaction.getId(), queryTransaction.getId());
+		assertNotNull(transaction);
+		assertEquals(artGallery.getId(), transaction.getArtGallery().getId());
+		assertEquals(artist.getId(), transaction.getArtist().getId());
+		assertEquals(artwork.getId(), transaction.getArtwork().getId());
+		assertEquals(customer.getId(), transaction.getCustomer().getId());
 	}
 
 }
