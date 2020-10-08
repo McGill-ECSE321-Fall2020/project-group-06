@@ -66,13 +66,13 @@ public class TestArtGalleryPersistence {
 
 	@AfterEach
 	public void clearDatabase() {
-		artistRepository.deleteAll();
-		userRepository.deleteAll();
-		customerRepository.deleteAll();
-		artworkRepository.deleteAll();
-		pictureRepository.deleteAll();
 		transactionRepository.deleteAll();
+		artworkRepository.deleteAll();
+		artistRepository.deleteAll();
+		customerRepository.deleteAll();
+		pictureRepository.deleteAll();
 		artGalleryRepository.deleteAll();
+		userRepository.deleteAll();
 	}
 
 	/**
@@ -171,10 +171,11 @@ public class TestArtGalleryPersistence {
 		artGalleryRepository.save(artGallery);
 		artwork.setArtGallery(artGallery);
 
-		Artist artist = new Artist();
+		User artist = new Artist();
 		artist.setId(7);
-		artistRepository.save(artist);
-		artwork.setArtist(artist);
+		userRepository.save(artist);
+		artistRepository.save((Artist) artist);
+		artwork.setArtist((Artist) artist);
 
 		artwork.setDescription("An absolute masterpiece");
 		artwork.setForSale(true);
