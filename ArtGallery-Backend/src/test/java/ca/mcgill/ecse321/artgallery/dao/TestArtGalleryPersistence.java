@@ -179,6 +179,8 @@ public class TestArtGalleryPersistence {
 		artwork.setDescription("An absolute masterpiece");
 		artwork.setForSale(true);
 
+		// NOTE (Sen): picture is an association, not an attribute so we do not need to
+		// include it in the test. Same for Picture
 		// Picture picture = new Picture();
 		// picture.setId(8);
 		// Set<Picture> pictureSet = new HashSet<Picture>();
