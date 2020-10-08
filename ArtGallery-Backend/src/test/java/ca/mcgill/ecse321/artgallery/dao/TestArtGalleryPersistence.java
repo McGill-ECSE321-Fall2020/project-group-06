@@ -120,15 +120,71 @@ public class TestArtGalleryPersistence {
 	@Test
 	public void testPersistenceAndLoadArtist() {
 		Artist artist = new Artist();
-		artist.setId(101);
-		artist.setFirstName("John");
-		artist.setLastName("Smith");
-		artist.setUsername("jsmith");
-		artist.setEmail("john.smith@mcgill.ca");
-		artist.setDescription("Hi I am a fancy artist");
-		artist.setPassword("12345");
-		artist.setPhoneNumber("5141234567");
-		artist.setBankAccountNumber("99999999");
+		int Id = 101;
+		String firstName = "John";
+		String lastName = "Smith";
+		String username = "jsmith";
+		String email = "john.smith@mail.ca";
+		String description = "Hi I am a fancy artist";
+		String password = "12345";
+		String phoneNumber = "5141234567";
+		String bankAccountNumber = "9999999";
+		 
+		artist.setId(Id);
+		artist.setFirstName(firstName);
+		artist.setLastName(lastName);
+		artist.setUsername(username);
+		artist.setEmail(email);
+		artist.setDescription(description);
+		artist.setPassword(password);
+		artist.setPhoneNumber(phoneNumber);
+		artist.setBankAccountNumber(bankAccountNumber);
+		
+		artistRepository.save(artist);
+		
+		artist = null;
+		
+		artist = artistRepository.findArtistById(Id);
+		assertEquals(Id, artist.getId());
+		assertEquals(firstName, artist.getFirstName());
+		assertEquals(lastName, artist.getLastName());
+		assertEquals(username, artist.getUsername());
+		assertEquals(email, artist.getEmail());
+		assertEquals(description, artist.getDescription());
+		assertEquals(password, artist.getPassword());
+		assertEquals(phoneNumber, artist.getPhoneNumber());
+		assertEquals(bankAccountNumber, artist.getBankAccountNumber());
+	}
+	
+	@Test
+	public void testPersistenceAndDeleteArtist() {
+	  Artist artist = new Artist();
+	  int Id = 101;
+	  String firstName = "John";
+	  String lastName = "Smith";
+	  String username = "jsmith";
+	  String email = "john.smith@mail.ca";
+	  String description = "Hi I am a fancy artist";
+	  String password = "12345";
+	  String phoneNumber = "5141234567";
+	  String bankAccountNumber = "9999999";
+	  
+	  artist.setId(Id);
+	  artist.setFirstName(firstName);
+	  artist.setLastName(lastName);
+	  artist.setUsername(username);
+	  artist.setEmail(email);
+	  artist.setDescription(description);
+	  artist.setPassword(password);
+	  artist.setPhoneNumber(phoneNumber);
+	  artist.setBankAccountNumber(bankAccountNumber);
+	  
+	  artistRepository.save(artist);
+	  artist = null;
+	  artistRepository.deleteById(Id);
+	  
+	  artist = artistRepository.findArtistById(Id);
+	  assertNull(artist);
 	}
 
 	@Test
