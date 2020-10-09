@@ -75,6 +75,7 @@ Heroku is a cloud service platform that is easy to use for many development proj
   - [Meeting Minutes 1.1](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Meeting-Minutes-1.1)
   - [Meeting Minutes 1.2](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Meeting-Minutes-1.2)
   - [Meeting Minutes 1.3](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Meeting-Minutes-1.3)
+  - [Meeting Minutes 1.4](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Meeting-Minutes-1.4)
   
 - Effort Table
   - [Effort Table](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Deliverable-1-Effort-Table)
