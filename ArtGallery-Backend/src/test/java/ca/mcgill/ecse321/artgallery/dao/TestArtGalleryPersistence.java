@@ -102,7 +102,7 @@ public class TestArtGalleryPersistence {
 		userRepository.deleteAll();
 	}
 
-	// Add test for null username and password? TODO
+	// TODO add null password, username test TODO
 
 	// Delete User Test
 	@Test
