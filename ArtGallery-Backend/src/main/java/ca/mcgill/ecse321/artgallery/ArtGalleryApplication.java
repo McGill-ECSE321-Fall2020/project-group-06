@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 public class ArtGalleryApplication {
 
+	// main application
 	public static void main(String[] args) {
 		SpringApplication.run(ArtGalleryApplication.class, args);
 	}
 
+	// default http endpoint
 	@RequestMapping("/")
 	public String greeting() {
 		return "Hello world from art-gallery backend group-06!";
