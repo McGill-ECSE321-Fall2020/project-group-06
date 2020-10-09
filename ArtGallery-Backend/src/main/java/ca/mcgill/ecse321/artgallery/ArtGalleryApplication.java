@@ -58,72 +58,7 @@ public class ArtGalleryApplication {
 
 	@RequestMapping("/")
 	public String greeting() {
-		return "Hello world!";
-	}
-
-	@RequestMapping("/userTest")
-	public User testUser() {
-		User user = new User();
-		user.setUsername("chaggy");
-		user.setId(1);
-		user.setPassword(null);
-		userRepository.save(user);
-		return userRepository.findUserByUsername("chaggy");
-	}
-
-	@RequestMapping("/nullUsername")
-	public Optional<User> testNullUsername() {
-		User user = new User();
-		user.setId(1);
-		userRepository.save(user);
-		return userRepository.findById(1);
-	}
-
-	@RequestMapping("/customerTest")
-	public Optional<Customer> customerTest() {
-		Customer customer = new Customer();
-		customer.setId(1);
-		customer.setCreditCardNumber(1234);
-		customerRespository.save(customer);
-		return customerRespository.findById(1);
-	}
-
-	@RequestMapping("/delete")
-
-	public void delete() {
-		transactionRepository.deleteAll();
-	}
-
-	@RequestMapping("/TransactionTest")
-	public Optional<Transaction> transactionTest() {
-		Transaction transaction = new Transaction();
-		Artist artist = new Artist();
-		artist.setId(2);
-		ArtistRepository.save(artist);
-		Customer customer = new Customer();
-		customer.setId(3);
-		customer.setCreditCardNumber(1234);
-		customerRespository.save(customer);
-		ArtGallery artGallery = new ArtGallery();
-		artGallery.setId(1);
-		artGalleryRepository.save(artGallery);
-		Artwork artwork = new Artwork();
-		artwork.setId(1);
-		artwork.setArtGallery(artGallery);
-		artwork.setArtist(artist);
-		ArtworkRepository.save(artwork);
-		transaction.setArtist(artist);
-		transaction.setCustomer(customer);
-		transaction.setArtGallery(artGallery);
-		transaction.setArtwork(artwork);
-		transaction.setId(1);
-		transactionRepository.save(transaction);
-		return transactionRepository.findById(1);
-	}
-
-	@GetMapping("/user/{userId}") // What is this???: get a specific user by Id from the db. (Sen)
-	public ResponseEntity<Optional<User>> findUserById(@PathVariable Integer userId) {
-		return ResponseEntity.ok(userRepository.findById(userId));
+		return "Hello world from art-gallery backend group-06!";
 	}
 
 }
