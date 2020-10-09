@@ -260,7 +260,7 @@ public class TestArtGalleryPersistence {
 		assertEquals(2, artGallery.getId());
 		assertEquals("1000 Rue des Arts", artGallery.getAdress());
 		assertEquals("VanGoghEstNous", artGallery.getName());
-		artGalleryRepository.delete(artGallery);
+		artGalleryRepository.deleteById(2);
 		artGallery = null;
 		artGallery = artGalleryRepository.findArtGalleryById(2);
 		assertNull(artGallery);
