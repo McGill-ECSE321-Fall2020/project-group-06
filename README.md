@@ -80,7 +80,14 @@ Heroku is a cloud service platform that is easy to use for many development proj
   - [Effort Table](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Deliverable-1-Effort-Table)
 
 ### Table
-Insert table
+#### Overview Table
+**Name** | **Total Working Hours** | Meetings | Requirements Model | Domain Model | Persistence Layer | Testing of Persistence Layer | Build System and Continuous Integration | Documentation
+-------- | ----------------------- | -------- | ------------------ | ------------ | ----------------- | ---------------------------- | ---------------------------------------- | -------------
+Noah Chamberland | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
+Justin Legrand | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
+Olivier Normandin | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
+André - Walter Panzini | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
+Sen Wang | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
 
 ## Deliverable 2
 ### Main Tasks
@@ -88,7 +95,14 @@ Insert table
 ### Documents
 
 ### Table
-
+#### Overview Table
+**Name** | **Total Working Hours** | Meetings | Requirements Model | Domain Model | Persistence Layer | Testing of Persistence Layer | Build System and Continuous Integration | Documentation
+-------- | ----------------------- | -------- | ------------------ | ------------ | ----------------- | ---------------------------- | ---------------------------------------- | -------------
+Noah Chamberland | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
+Justin Legrand | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
+Olivier Normandin | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
+André - Walter Panzini | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
+Sen Wang | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
 To be continued...
 
 ## Deliverable 3
@@ -97,7 +111,14 @@ To be continued...
 ### Documents
 
 ### Table
-
+#### Overview Table
+**Name** | **Total Working Hours** | Meetings | Requirements Model | Domain Model | Persistence Layer | Testing of Persistence Layer | Build System and Continuous Integration | Documentation
+-------- | ----------------------- | -------- | ------------------ | ------------ | ----------------- | ---------------------------- | ---------------------------------------- | -------------
+Noah Chamberland | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
+Justin Legrand | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
+Olivier Normandin | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
+André - Walter Panzini | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
+Sen Wang | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
 To be continued...
 
 ## Deliverable 4
@@ -106,5 +127,12 @@ To be continued...
 ### Documents
 
 ### Table
-
+#### Overview Table
+**Name** | **Total Working Hours** | Meetings | Requirements Model | Domain Model | Persistence Layer | Testing of Persistence Layer | Build System and Continuous Integration | Documentation
+-------- | ----------------------- | -------- | ------------------ | ------------ | ----------------- | ---------------------------- | ---------------------------------------- | -------------
+Noah Chamberland | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
+Justin Legrand | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
+Olivier Normandin | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
+André - Walter Panzini | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
+Sen Wang | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
 To be continued...
