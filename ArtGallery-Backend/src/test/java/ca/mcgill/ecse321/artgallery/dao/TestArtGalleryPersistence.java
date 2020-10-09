@@ -102,7 +102,7 @@ public class TestArtGalleryPersistence {
 		userRepository.deleteAll();
 	}
 
-	// TODO add null password, username test TODO
+	// null username test
 	@Test
 	public void testpersistenceAndLoadUserWithNullUsername() {
 		User user = new User();
@@ -123,6 +123,7 @@ public class TestArtGalleryPersistence {
 		assertNull(user);
 	}
 
+	// null password test
 	@Test
 	public void testPersistenceAndLoadUserWithNullPassword() {
 		User user = new User();
