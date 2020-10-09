@@ -102,6 +102,8 @@ public class TestArtGalleryPersistence {
 		userRepository.deleteAll();
 	}
 
+	// Add test for null username and password? TODO
+
 	// Delete User Test
 	@Test
 	public void testPersistenceAndDeleteUser() {
