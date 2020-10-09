@@ -103,6 +103,45 @@ public class TestArtGalleryPersistence {
 	}
 
 	// TODO add null password, username test TODO
+	@Test
+	public void testpersistenceAndLoadUserWithNullUsername() {
+		User user = new User();
+		user.setPassword("password");
+		user.setFirstName("John");
+		user.setLastName("Doe");
+		user.setDescription("Hi, my name is John Doe and I'm under the water");
+		user.setEmail("John@email.com");
+		user.setPhoneNumber("1111111");
+		user.setId(102);
+		try {
+			userRepository.save(user);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		user = null;
+		user = userRepository.findUserByUsername(null);
+		assertNull(user);
+	}
+
+	@Test
+	public void testPersistenceAndLoadUserWithNullPassword() {
+		User user = new User();
+		user.setUsername("John");
+		user.setFirstName("John");
+		user.setLastName("Doe");
+		user.setDescription("Hi, my name is John Doe and I'm under the water");
+		user.setEmail("John@email.com");
+		user.setPhoneNumber("1111111");
+		user.setId(102);
+		try {
+			userRepository.save(user);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		user = null;
+		user = userRepository.findUserByUsername("John");
+		assertNull(user);
+	}
 
 	// Delete User Test
 	@Test
@@ -110,6 +149,7 @@ public class TestArtGalleryPersistence {
 		User user = new User();
 		user.setId(102);
 		user.setUsername("John");
+		user.setPassword("password");
 		userRepository.save(user);
 		user = null;
 		userRepository.deleteById(102);
@@ -238,6 +278,8 @@ public class TestArtGalleryPersistence {
 		artwork.setArtGallery(artGallery);
 
 		User artist = new Artist();
+		artist.setUsername("user");
+		artist.setPassword("password");
 		artist.setId(7);
 		userRepository.save(artist);
 		artistRepository.save((Artist) artist);
@@ -269,6 +311,8 @@ public class TestArtGalleryPersistence {
 		artwork.setId(10);
 		Artist artist = new Artist();
 		artist.setId(1);
+		artist.setUsername("artist");
+		artist.setPassword("password");
 		artistRepository.save(artist);
 		ArtGallery artGallery = new ArtGallery();
 		artGallery.setId(1);
@@ -287,6 +331,8 @@ public class TestArtGalleryPersistence {
 	@Test
 	public void testPersistenceAndLoadCustomer() {
 		Customer customer = new Customer();
+		customer.setUsername("username");
+		customer.setPassword("password");
 		long creditCardNumber = 1111222233334444L;
 		String description = "My Description";
 		String email = "my.email@gmail.com";
@@ -321,6 +367,8 @@ public class TestArtGalleryPersistence {
 	@Test
 	public void testPersistenceAndDeleteCustomer() {
 		Customer customer = new Customer();
+		customer.setUsername("customer");
+		customer.setPassword("password");
 		long creditCardNumber = 1111222233334444L;
 		int id = 12345;
 		customer.setCreditCardNumber(creditCardNumber);
@@ -376,6 +424,8 @@ public class TestArtGalleryPersistence {
 		transaction.setArtGallery(artGallery);
 
 		Artist artist = new Artist();
+		artist.setUsername("artist");
+		artist.setPassword("password");
 		artist.setId(99);
 		artistRepository.save(artist);
 		transaction.setArtist(artist);
@@ -388,6 +438,8 @@ public class TestArtGalleryPersistence {
 		transaction.setArtwork(artwork);
 
 		Customer customer = new Customer();
+		customer.setUsername("username");
+		customer.setPassword("password");
 		customer.setId(33);
 		customerRepository.save(customer);
 		transaction.setCustomer(customer);
@@ -415,6 +467,8 @@ public class TestArtGalleryPersistence {
 		transaction.setArtGallery(artGallery);
 		Artist artist = new Artist();
 		artist.setId(99);
+		artist.setUsername("artist");
+		artist.setPassword("password");
 		artistRepository.save(artist);
 		transaction.setArtist(artist);
 		Artwork artwork = new Artwork();
@@ -424,6 +478,8 @@ public class TestArtGalleryPersistence {
 		artworkRepository.save(artwork);
 		transaction.setArtwork(artwork);
 		Customer customer = new Customer();
+		customer.setUsername("customer");
+		customer.setPassword("password");
 		customer.setId(33);
 		customerRepository.save(customer);
 		transaction.setCustomer(customer);

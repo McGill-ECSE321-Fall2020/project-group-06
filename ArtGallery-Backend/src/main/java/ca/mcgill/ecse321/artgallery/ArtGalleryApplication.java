@@ -66,8 +66,17 @@ public class ArtGalleryApplication {
 		User user = new User();
 		user.setUsername("chaggy");
 		user.setId(1);
+		user.setPassword(null);
 		userRepository.save(user);
 		return userRepository.findUserByUsername("chaggy");
+	}
+
+	@RequestMapping("/nullUsername")
+	public Optional<User> testNullUsername() {
+		User user = new User();
+		user.setId(1);
+		userRepository.save(user);
+		return userRepository.findById(1);
 	}
 
 	@RequestMapping("/customerTest")
