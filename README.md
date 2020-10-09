@@ -36,10 +36,10 @@ submitted at checkpoints throughout the term as described below.
  
 ## Menu
 - [Heroku Application](https://github.com/McGill-ECSE321-Fall2020/project-group-06#HerokuApplication)
-- [Deliverable 1](https://github.com/McGill-ECSE321-Fall2020/project-group-06#Deliverable1)
-- [Deliverable 2](https://github.com/McGill-ECSE321-Fall2020/project-group-06#Deliverable2)
-- [Deliverable 3](https://github.com/McGill-ECSE321-Fall2020/project-group-06#Deliverable3)
-- [Deliverable 4](https://github.com/McGill-ECSE321-Fall2020/project-group-06#Deliverable4)
+- [Deliverable 1](https://github.com/McGill-ECSE321-Fall2020/project-group-06/projects/1)
+- [Deliverable 2](https://github.com/McGill-ECSE321-Fall2020/project-group-06/projects/2)
+- [Deliverable 3](https://github.com/McGill-ECSE321-Fall2020/project-group-06/projects/3)
+- [Deliverable 4](https://github.com/McGill-ECSE321-Fall2020/project-group-06/projects/4)
 
 ## Heroku Application
 
