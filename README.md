@@ -69,7 +69,6 @@ Heroku is a cloud service platform that is easy to use for many development proj
   - [Class Diagram](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Domain-Model)
 
 - Reports
-  - [Testing Report](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Deliverable-1-Testing-Report)
   - [Deliverable 1 Project Report](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Deliverable-1-Report)
 
 - Minutes
