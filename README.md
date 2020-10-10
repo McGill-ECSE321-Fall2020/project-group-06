@@ -1,5 +1,23 @@
-# Art Gallery System [![Build Status](https://travis-ci.com/McGill-ECSE321-Fall2020/project-group-06.svg?token=g4pq4Csck3WcLdnC6sWk&branch=master)](https://travis-ci.com/McGill-ECSE321-Fall2020/project-group-06)
-ECSE321 (Fall 2020) - Group 06 project
+Art Gallery System - Group 06 project
+
+Team members
+ - Noah Chamberland
+ - Justin Legrand
+ - Olivier Normandin
+ - André-Walter Panzini
+ - Sen Wang
+
+We're just a bunch of U2 software engineering students at McGill University!
+
+ In addition, the README.md file should contain
+an overview table with names, team roles, and individual efforts (in hours) with separated entries for each
+deliverable. Project Deliverable 1 shall be accompanied with a succinct project report as part of the project wiki
+which records the meeting minutes and the key design decisions taken by the team. This project report should be
+navigable from the README.md file. Altogether, the team should comply with all the Technological Constraints.
+
+
+Project overview
+
 
 ## General
 ### Scenario
