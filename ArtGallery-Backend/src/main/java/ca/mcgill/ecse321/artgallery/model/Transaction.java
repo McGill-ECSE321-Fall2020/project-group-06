@@ -103,4 +103,5 @@ public class Transaction {
 	public DeliveryType getDeliveryType() {
 		return this.deliveryType;
 	}
+
 }
