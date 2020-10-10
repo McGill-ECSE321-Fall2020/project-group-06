@@ -82,13 +82,13 @@ Heroku is a cloud service platform that is easy to use for many development proj
 
 ### Table
 #### Overview Table
-**Name** | **Total Working Hours** | Meetings | Requirements Model | Domain Model | Persistence Layer | Testing of Persistence Layer | Build System and Continuous Integration | Documentation
+**Name** | **Total Working Hours** | **Total Working Hours in Meetings** | Requirements Model | Domain Model | Persistence Layer | Testing of Persistence Layer | Build System and Continuous Integration | Documentation
 -------- | ----------------------- | -------- | ------------------ | ------------ | ----------------- | ---------------------------- | ---------------------------------------- | -------------
-Noah Chamberland | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
-Justin Legrand | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
-Olivier Normandin | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
-André - Walter Panzini | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
-Sen Wang | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
+Noah Chamberland | 12 | 10 | 2 | 1 | 2 | 3 | 1 | 3 
+Justin Legrand | 12 | 10 | 2 | 3 | 2 | 2 | 1 | 2 
+Olivier Normandin | 12 | 10 | 3 | 1 | 1 | 3 | 1 | 3 
+André - Walter Panzini | 12 | 10 | 3 | 2 | 1 | 2 | 1 | 3 
+Sen Wang | 12 | 10 | 3 | 1 | 3 | 2 | 2 | 1 
 
 ## Deliverable 2
 ### Main Tasks
