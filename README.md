@@ -99,11 +99,11 @@ Sen Wang | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3
 #### Overview Table
 **Name** | **Total Working Hours** | Meetings | Requirements Model | Domain Model | Persistence Layer | Testing of Persistence Layer | Build System and Continuous Integration | Documentation
 -------- | ----------------------- | -------- | ------------------ | ------------ | ----------------- | ---------------------------- | ---------------------------------------- | -------------
-Noah Chamberland | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
-Justin Legrand | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
-Olivier Normandin | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
-André - Walter Panzini | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
-Sen Wang | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
+Noah Chamberland | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 
+Justin Legrand | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 
+Olivier Normandin | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 
+André - Walter Panzini | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 
+Sen Wang | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 
 To be continued...
 
 ## Deliverable 3
@@ -115,11 +115,11 @@ To be continued...
 #### Overview Table
 **Name** | **Total Working Hours** | Meetings | Requirements Model | Domain Model | Persistence Layer | Testing of Persistence Layer | Build System and Continuous Integration | Documentation
 -------- | ----------------------- | -------- | ------------------ | ------------ | ----------------- | ---------------------------- | ---------------------------------------- | -------------
-Noah Chamberland | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
-Justin Legrand | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
-Olivier Normandin | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
-André - Walter Panzini | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
-Sen Wang | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
+Noah Chamberland | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 
+Justin Legrand | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 
+Olivier Normandin | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 
+André - Walter Panzini | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 
+Sen Wang | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 
 To be continued...
 
 ## Deliverable 4
@@ -131,9 +131,9 @@ To be continued...
 #### Overview Table
 **Name** | **Total Working Hours** | Meetings | Requirements Model | Domain Model | Persistence Layer | Testing of Persistence Layer | Build System and Continuous Integration | Documentation
 -------- | ----------------------- | -------- | ------------------ | ------------ | ----------------- | ---------------------------- | ---------------------------------------- | -------------
-Noah Chamberland | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
-Justin Legrand | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
-Olivier Normandin | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
-André - Walter Panzini | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
-Sen Wang | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 
+Noah Chamberland | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 
+Justin Legrand | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 
+Olivier Normandin | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 
+André - Walter Panzini | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 
+Sen Wang | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 
 To be continued...
