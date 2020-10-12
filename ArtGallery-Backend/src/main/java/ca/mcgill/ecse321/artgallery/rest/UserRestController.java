@@ -1,7 +1,6 @@
 package ca.mcgill.ecse321.artgallery.rest;
 
 import javax.validation.Valid;
-import javax.xml.ws.Response;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
