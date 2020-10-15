@@ -19,7 +19,7 @@ import ca.mcgill.ecse321.artgallery.services.ArtGalleryService;
 @RequestMapping("/api/artgallery")
 public class ArtGalleryRestController {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserRestController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ArtGalleryRestController.class);
 
     @Autowired
     ArtGalleryService artGalleryService;
