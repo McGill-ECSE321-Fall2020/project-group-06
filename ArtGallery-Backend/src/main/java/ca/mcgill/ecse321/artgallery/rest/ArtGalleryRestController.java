@@ -3,8 +3,6 @@ package ca.mcgill.ecse321.artgallery.rest;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.ws.Response;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +36,7 @@ public class ArtGalleryRestController {
         try {
             return ResponseEntity.ok(artGalleryService.getAllArtworks());
         } catch (Exception e) {
-
-            logger.error("Exception when getting all artworks for art gallert");
+            logger.error("Exception when getting all artworks for art gallery");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
