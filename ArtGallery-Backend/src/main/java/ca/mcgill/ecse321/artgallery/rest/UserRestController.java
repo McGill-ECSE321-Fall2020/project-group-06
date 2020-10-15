@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.artgallery.model.User;
-import ca.mcgill.ecse321.artgallery.services.UserService;
+import ca.mcgill.ecse321.artgallery.services.UsersService;
 
 @RestController
 @RequestMapping("/api/user")
@@ -22,7 +22,7 @@ public class UserRestController {
     private static final Logger logger = LoggerFactory.getLogger(UserRestController.class);
 
     @Autowired
-    private UserService userService;
+    private UsersService usersService;
 
     @PostMapping("/updateUser")
     public ResponseEntity<Void> createUserProfile(@Valid @RequestBody User user) {
@@ -39,7 +39,7 @@ public class UserRestController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         try {
-            userService.saveUser(user);
+            usersService.saveUser(user);
             return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (Exception e) {
             logger.error("Exception when creating user");
