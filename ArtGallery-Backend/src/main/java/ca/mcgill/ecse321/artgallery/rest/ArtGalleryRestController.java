@@ -19,7 +19,7 @@ import ca.mcgill.ecse321.artgallery.services.ArtGalleryService;
 @RequestMapping("/api/artgallery")
 public class ArtGalleryRestController {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserRestController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ArtGalleryRestController.class);
 
     @Autowired
     ArtGalleryService artGalleryService;
@@ -31,7 +31,7 @@ public class ArtGalleryRestController {
      * @return List of Artworks
      * @author Sen Wang
      */
-    @GetMapping("/getAllArtworks")
+    @GetMapping("/allArtworks")
     public ResponseEntity<ArrayList<Artwork>> getAllArtworks() {
         try {
             return ResponseEntity.ok(artGalleryService.getAllArtworks());
