@@ -31,7 +31,7 @@ public class ArtGalleryRestController {
      * @return List of Artworks
      * @author Sen Wang
      */
-    @GetMapping("/getAllArtworks")
+    @GetMapping("/allArtworks")
     public ResponseEntity<ArrayList<Artwork>> getAllArtworks() {
         try {
             return ResponseEntity.ok(artGalleryService.getAllArtworks());
