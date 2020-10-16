@@ -12,7 +12,7 @@ import ca.mcgill.ecse321.artgallery.model.User;
  * </p>
  */
 @Service
-public class UserService {
+public class UsersService {
 
     @Autowired
     private UserRepository userRepository;
