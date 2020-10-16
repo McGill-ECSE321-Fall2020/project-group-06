@@ -24,10 +24,10 @@ public class UserRestController {
     @Autowired
     private UsersService usersService;
 
-    @PostMapping("/updateUser")
+    @PostMapping("/createUser")
     public ResponseEntity<Void> createUserProfile(@Valid @RequestBody User user) {
 
-        logger.info("updating user profile");
+        logger.info("creating user profile");
 
         if (user.getId() == 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
