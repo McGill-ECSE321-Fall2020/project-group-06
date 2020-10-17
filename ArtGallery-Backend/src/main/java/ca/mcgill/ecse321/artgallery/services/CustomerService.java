@@ -72,6 +72,14 @@ public class CustomerService {
         return artworksForSale;
     }
 
+    /**REQ3.4: The art gallery system shall allow a customer to decide the mean of delivery of their artwork
+     * 
+     * @author Noah Chamberland
+    */
+    public void setMeanOfDelivery(Transaction transaction, DeliveryType deliveryType){
+        transaction.setDeliveryType(deliveryType);
+        transactionRepository.save(transaction);
+    }
     
     /**REQ3.5: The art gallery system shall allow a customer to buy a chosen artwork
      * 
