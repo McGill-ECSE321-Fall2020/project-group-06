@@ -11,6 +11,11 @@ import org.springframework.stereotype.Service;
 import ca.mcgill.ecse321.artgallery.dao.UserRepository;
 import ca.mcgill.ecse321.artgallery.model.User;
 
+/**
+ * CustomUserDetailsService. Implements UserDetailsService
+ * 
+ * @author Sen Wang
+ */
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 

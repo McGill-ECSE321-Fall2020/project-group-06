@@ -11,6 +11,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+/**
+ * JwtUtil service class
+ * 
+ * @author Sen Wang
+ */
 @Service
 public class JwtUtil {
 
@@ -37,11 +42,24 @@ public class JwtUtil {
         return extractExpiration(token).before(new Date());
     }
 
+    /**
+     * GenerateToken method
+     * 
+     * @param username
+     * @return string
+     */
     public String generateToken(String username) {
         Map<String, Object> claims = new HashMap<>();
         return createToken(claims, username);
     }
 
+    /**
+     * Create Token method
+     * 
+     * @param claims
+     * @param subject
+     * @return string
+     */
     private String createToken(Map<String, Object> claims, String subject) {
 
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
@@ -49,6 +67,13 @@ public class JwtUtil {
                 .signWith(SignatureAlgorithm.HS256, secret).compact();
     }
 
+    /**
+     * Validate Token method
+     * 
+     * @param token
+     * @param userDetails
+     * @return boolean
+     */
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));

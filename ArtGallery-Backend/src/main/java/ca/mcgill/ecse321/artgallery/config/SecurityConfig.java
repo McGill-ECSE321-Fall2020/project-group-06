@@ -19,6 +19,11 @@ import ca.mcgill.ecse321.artgallery.services.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
+/**
+ * SecurityConfig class
+ * 
+ * @author Sen Wang
+ */
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -29,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // TODO Auto-generated method stub
+
         auth.userDetailsService(userDetailsService);
     }
 
@@ -41,9 +46,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
-        // TODO Auto-generated method stub
+
         return super.authenticationManagerBean();
     }
+
+    /**
+     * authorize /api/cognito/authenticate and /api/user/createUser requests to all
+     * users
+     * 
+     * @param HttpSecurity
+     */
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

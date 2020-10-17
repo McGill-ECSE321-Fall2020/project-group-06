@@ -2,6 +2,11 @@ package ca.mcgill.ecse321.artgallery.model;
 
 import javax.annotation.sql.DataSourceDefinition;
 
+/**
+ * AuthRequest model class
+ * 
+ * @author Sen Wang
+ */
 public class AuthRequest {
 
     private String userName;

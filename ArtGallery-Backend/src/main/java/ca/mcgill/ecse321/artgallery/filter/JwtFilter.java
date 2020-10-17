@@ -17,6 +17,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * JwtFilter class
+ * 
+ * @author Sen Wang
+ */
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
@@ -25,6 +30,13 @@ public class JwtFilter extends OncePerRequestFilter {
     @Autowired
     private CustomUserDetailsService service;
 
+    /**
+     * doFilterInternal method validates the token based on the userDetails
+     * 
+     * @param HttpServletRequest
+     * @param HttpServletResponse
+     * @param FilterChain
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
             FilterChain filterChain) throws ServletException, IOException {
