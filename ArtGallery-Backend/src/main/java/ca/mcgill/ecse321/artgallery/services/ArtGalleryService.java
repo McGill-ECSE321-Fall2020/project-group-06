@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ca.mcgill.ecse321.artgallery.dao.ArtGalleryRepository;
 import ca.mcgill.ecse321.artgallery.dao.ArtworkRepository;
 import ca.mcgill.ecse321.artgallery.model.Artwork;
 
@@ -19,6 +20,8 @@ public class ArtGalleryService {
 
 	@Autowired
 	ArtworkRepository artworkRepository;
+	@Autowired
+	ArtGalleryRepository artGalleryRepository;
 
 	/**
 	 * REQ5.3: The art gallery system should be able to browse the artworks
@@ -44,8 +47,10 @@ public class ArtGalleryService {
 	 * REQ 4.2 The art gallery system shall allow the art gallery to remove an
 	 * artwork.
 	 */
-	public void removeArtwork(Artwork artwork) {
+	public Artwork removeArtwork(int artworkID) {
+		Artwork artwork = artworkRepository.findArtworkById(artworkID);
 		artwork.setForSale(false);
-
+		artworkRepository.save(artwork);
+		return artwork;
 	}
 }
