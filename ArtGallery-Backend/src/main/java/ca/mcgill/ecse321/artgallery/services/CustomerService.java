@@ -72,6 +72,24 @@ public class CustomerService {
         return artworksForSale;
     }
 
+    /**REQ3.2: The art gallery system shall allow a customer to add artwork into their own favorite list.
+     * 
+     * @author Noah Chamberland
+     */
+    public void addArtwork(Artwork artwork, Customer customer){
+        customer.getArtwork().add(artwork);
+        customerRepository.save(customer);
+    }
+
+    /**REQ3.2: The art gallery system shall allow a customer to remove artwork into their own favorite list.
+     * 
+     * @author Noah Chamberland
+     */
+    public void removeArtwork(Artwork artwork, Customer customer){
+        customer.getArtwork().remove(artwork);
+        customerRepository.save(customer);
+    }
+
     /**REQ3.4: The art gallery system shall allow a customer to decide the mean of delivery of their artwork
      * 
      * @author Noah Chamberland
