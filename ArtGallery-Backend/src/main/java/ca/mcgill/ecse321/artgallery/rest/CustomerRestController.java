@@ -77,8 +77,10 @@ public class CustomerRestController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         try {
-            customerService.addArtwork(artwork, customer);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
+            if(customerService.addArtwork(artwork, customer))
+                return ResponseEntity.status(HttpStatus.OK).build();
+            else
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         } catch (Exception e) {
             logger.error("Exception when adding artwork");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -113,8 +115,10 @@ public class CustomerRestController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         try {
-            customerService.removeArtwork(artwork, customer);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
+            if(customerService.removeArtwork(artwork, customer))
+                return ResponseEntity.status(HttpStatus.OK).build();
+            else
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         } catch (Exception e) {
             logger.error("Exception when removing artwork");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -146,8 +150,10 @@ public class CustomerRestController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         try {
-            customerService.setMeanOfDelivery(transaction, deliveryType);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
+            if(customerService.setMeanOfDelivery(transaction, deliveryType))
+                return ResponseEntity.status(HttpStatus.OK).build();
+            else
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         } catch (Exception e) {
             logger.error("Exception when setting mean of delivery");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -160,7 +166,7 @@ public class CustomerRestController {
      * @author Noah Chamberland
      */
     @PostMapping("/buyArtwork")
-    public ResponseEntity<Void> buyArtwork(@Valid @RequestBody Artwork artwork, @Valid @RequestBody double commissionCut, @Valid @RequestBody Customer customer, @Valid @RequestBody Date date, @Valid @RequestBody DeliveryType deliveryType, @Valid @RequestBody int id){
+    public ResponseEntity<Void> buyArtwork(@Valid @RequestBody Artwork artwork, @Valid @RequestBody double commissionCut, @Valid @RequestBody Customer customer, @Valid @RequestBody Date date, @Valid @RequestBody DeliveryType deliveryType){
         logger.info("buying artwork");
 
         if (customer.getId() == 0) {
@@ -181,12 +187,11 @@ public class CustomerRestController {
         if(artwork.getArtist() == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-        if(id == 0){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
         try {
-            customerService.buyArtwork(artwork, commissionCut, customer, date, deliveryType, id);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
+            if(customerService.buyArtwork(artwork, commissionCut, customer, date, deliveryType))
+                return ResponseEntity.status(HttpStatus.CREATED).build();
+            else
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         } catch (Exception e) {
             logger.error("Exception when buying artwork");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

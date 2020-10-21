@@ -76,34 +76,58 @@ public class CustomerService {
      * 
      * @author Noah Chamberland
      */
-    public void addArtwork(Artwork artwork, Customer customer){
+    public boolean addArtwork(Artwork artwork, Customer customer){
+        if(artworkRepository.findArtworkById(artwork.getId()) == null)
+            return false;
+        if(customerRepository.findCustomerById(customer.getId()) == null)
+            return false;
+
         customer.getArtwork().add(artwork);
         customerRepository.save(customer);
+
+        return true;
     }
 
     /**REQ3.2: The art gallery system shall allow a customer to remove artwork into their own favorite list.
      * 
      * @author Noah Chamberland
      */
-    public void removeArtwork(Artwork artwork, Customer customer){
+    public boolean removeArtwork(Artwork artwork, Customer customer){
+        if(artworkRepository.findArtworkById(artwork.getId()) == null)
+            return false;
+        if(customerRepository.findCustomerById(customer.getId()) == null)
+            return false;
+
         customer.getArtwork().remove(artwork);
         customerRepository.save(customer);
+
+        return true;
     }
 
     /**REQ3.4: The art gallery system shall allow a customer to decide the mean of delivery of their artwork
      * 
      * @author Noah Chamberland
     */
-    public void setMeanOfDelivery(Transaction transaction, DeliveryType deliveryType){
+    public boolean setMeanOfDelivery(Transaction transaction, DeliveryType deliveryType){
+        if(transactionRepository.findTransactionById(transaction.getId()) == null)
+            return false;
+
         transaction.setDeliveryType(deliveryType);
         transactionRepository.save(transaction);
+
+        return true;
     }
     
     /**REQ3.5: The art gallery system shall allow a customer to buy a chosen artwork
      * 
      * @author Noah Chamberland
      */
-    public void buyArtwork(Artwork artwork, double commissionCut, Customer customer, Date date, DeliveryType deliveryType, int id){
+    public boolean buyArtwork(Artwork artwork, double commissionCut, Customer customer, Date date, DeliveryType deliveryType){
+        if(artworkRepository.findArtworkById(artwork.getId()) == null)
+            return false;
+        if(customerRepository.findCustomerById(customer.getId()) == null)
+            return false;
+        
         Transaction transaction = new Transaction();
 
         transaction.setArtGallery(artwork.getArtGallery());
@@ -128,8 +152,8 @@ public class CustomerService {
 
         transaction.setDeliveryType(deliveryType);
 
-        transaction.setId(id);
-
         transactionRepository.save(transaction);
+
+        return true;
     }
 }
