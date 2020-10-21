@@ -3,6 +3,8 @@ package ca.mcgill.ecse321.artgallery.model;
 import java.sql.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
@@ -80,6 +82,7 @@ public class Transaction {
 	}
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
 		return this.id;
 	}

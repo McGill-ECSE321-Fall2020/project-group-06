@@ -1,6 +1,8 @@
 package ca.mcgill.ecse321.artgallery.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Set;
 import javax.persistence.ManyToMany;
@@ -15,6 +17,7 @@ public class Picture {
    }
 
    @Id
+   @GeneratedValue(strategy = GenerationType.AUTO)
    public int getId() {
       return this.id;
    }

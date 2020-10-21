@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.artgallery.rest;
 
 import javax.validation.Valid;
+import javax.xml.ws.Response;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,9 +30,6 @@ public class UserRestController {
 
         logger.info("creating user profile");
 
-        if (user.getId() == 0) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
         if (user.getUsername() == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
@@ -39,8 +37,11 @@ public class UserRestController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         try {
-            usersService.saveUser(user);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
+            if (usersService.saveUser(user) == false) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            } else {
+                return ResponseEntity.status(HttpStatus.CREATED).build();
+            }
         } catch (Exception e) {
             logger.error("Exception when creating user");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

@@ -17,7 +17,13 @@ public class UsersService {
     @Autowired
     private UserRepository userRepository;
 
-    public User saveUser(User user) {
-        return userRepository.save(user);
+    public Boolean saveUser(User user) {
+        // a user with this username already exist
+        if (userRepository.findUserByUsername(user.getUsername()) != null) {
+            return false;
+        } else {
+            userRepository.save(user);
+            return true;
+        }
     }
 }
