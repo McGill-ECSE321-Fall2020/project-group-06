@@ -148,12 +148,12 @@ public class TestArtGalleryPersistence {
 	@Test
 	public void testPersistenceAndDeleteUser() {
 		User user = new User();
-		user.setId(102);
 		user.setUsername("John");
 		user.setPassword("password");
 		userRepository.save(user);
+		int userId = user.getId();
 		user = null;
-		userRepository.deleteById(102);
+		userRepository.deleteById(userId);
 		user = userRepository.findUserByUsername("John");
 		assertNull(user);
 	}
@@ -162,7 +162,6 @@ public class TestArtGalleryPersistence {
 	@Test
 	public void testPersistenceAndLoadArtist() {
 		Artist artist = new Artist();
-		int Id = 101;
 		String firstName = "John";
 		String lastName = "Smith";
 		String username = "jsmith";
@@ -172,7 +171,6 @@ public class TestArtGalleryPersistence {
 		String phoneNumber = "5141234567";
 		String bankAccountNumber = "9999999";
 
-		artist.setId(Id);
 		artist.setFirstName(firstName);
 		artist.setLastName(lastName);
 		artist.setUsername(username);
@@ -184,10 +182,12 @@ public class TestArtGalleryPersistence {
 
 		artistRepository.save(artist);
 
+		int artistId = artist.getId();
+
 		artist = null;
 
-		artist = artistRepository.findArtistById(Id);
-		assertEquals(Id, artist.getId());
+		artist = artistRepository.findArtistById(artistId);
+		assertEquals(artistId, artist.getId());
 		assertEquals(firstName, artist.getFirstName());
 		assertEquals(lastName, artist.getLastName());
 		assertEquals(username, artist.getUsername());
@@ -202,7 +202,6 @@ public class TestArtGalleryPersistence {
 	@Test
 	public void testPersistenceAndDeleteArtist() {
 		Artist artist = new Artist();
-		int Id = 101;
 		String firstName = "John";
 		String lastName = "Smith";
 		String username = "jsmith";
@@ -212,7 +211,6 @@ public class TestArtGalleryPersistence {
 		String phoneNumber = "5141234567";
 		String bankAccountNumber = "9999999";
 
-		artist.setId(Id);
 		artist.setFirstName(firstName);
 		artist.setLastName(lastName);
 		artist.setUsername(username);
@@ -223,10 +221,11 @@ public class TestArtGalleryPersistence {
 		artist.setBankAccountNumber(bankAccountNumber);
 
 		artistRepository.save(artist);
+		int id = artist.getId();
 		artist = null;
-		artistRepository.deleteById(Id);
+		artistRepository.deleteById(id);
 
-		artist = artistRepository.findArtistById(Id);
+		artist = artistRepository.findArtistById(id);
 		assertNull(artist);
 	}
 
@@ -235,13 +234,13 @@ public class TestArtGalleryPersistence {
 	public void testPersistenceAndLoadArtGallery() {
 		ArtGallery artGallery = new ArtGallery();
 		artGallery.setName("VanGoghEstNous");
-		artGallery.setId(2);
 		artGallery.setAdress("1000 Rue des Arts");
 
 		artGalleryRepository.save(artGallery);
-		ArtGallery oldGallery = artGalleryRepository.findArtGalleryById(2);
+		int artGalleryId = artGallery.getId();
+		ArtGallery oldGallery = artGalleryRepository.findArtGalleryById(artGalleryId);
 		assertNotNull(oldGallery);
-		assertEquals(artGallery.getId(), oldGallery.getId());
+		assertEquals(artGalleryId, oldGallery.getId());
 		assertEquals(artGallery.getAdress(), oldGallery.getAdress());
 		assertEquals(artGallery.getName(), oldGallery.getName());
 	}
@@ -251,18 +250,17 @@ public class TestArtGalleryPersistence {
 	public void testPersistenceAndDeleteArtGallery() {
 		ArtGallery artGallery = new ArtGallery();
 		artGallery.setName("VanGoghEstNous");
-		artGallery.setId(2);
 		artGallery.setAdress("1000 Rue des Arts");
 		artGalleryRepository.save(artGallery);
+		int id = artGallery.getId();
 		artGallery = null;
-		artGallery = artGalleryRepository.findArtGalleryById(2);
+		artGallery = artGalleryRepository.findArtGalleryById(id);
 		assertNotNull(artGallery);
-		assertEquals(2, artGallery.getId());
 		assertEquals("1000 Rue des Arts", artGallery.getAdress());
 		assertEquals("VanGoghEstNous", artGallery.getName());
-		artGalleryRepository.deleteById(2);
+		artGalleryRepository.deleteById(id);
 		artGallery = null;
-		artGallery = artGalleryRepository.findArtGalleryById(2);
+		artGallery = artGalleryRepository.findArtGalleryById(0);
 		assertNull(artGallery);
 	}
 
@@ -271,18 +269,17 @@ public class TestArtGalleryPersistence {
 	public void testPersistenceAndLoadArtwork() {
 		Artwork artwork = new Artwork();
 		artwork.setName("Starry Nights");
-		artwork.setId(3);
 
 		ArtGallery artGallery = new ArtGallery();
-		artGallery.setId(6);
 		artGalleryRepository.save(artGallery);
+		int artGalleryId = artGallery.getId();
 		artwork.setArtGallery(artGallery);
 
 		User artist = new Artist();
 		artist.setUsername("user");
 		artist.setPassword("password");
-		artist.setId(7);
 		userRepository.save(artist);
+		int artistId = artist.getId();
 		artistRepository.save((Artist) artist);
 		artwork.setArtist((Artist) artist);
 
@@ -293,10 +290,11 @@ public class TestArtGalleryPersistence {
 		artwork.setTypeOfArtwork(TypeOfArtwork.Painting);
 
 		artworkRepository.save(artwork);
-		Artwork oldArtwork = artworkRepository.findArtworkById(3);
+		int artworkId = artwork.getId();
+		Artwork oldArtwork = artworkRepository.findArtworkById(artworkId);
 		assertNotNull(oldArtwork);
-		assertEquals(artwork.getId(), oldArtwork.getId());
-		assertEquals(artwork.getArtGallery().getId(), oldArtwork.getArtGallery().getId());
+		assertEquals(artworkId, oldArtwork.getId());
+		assertEquals(artGalleryId, oldArtwork.getArtGallery().getId());
 		assertEquals(artwork.getName(), oldArtwork.getName());
 		assertEquals(artwork.getArtist().getId(), oldArtwork.getArtist().getId());
 		assertEquals(artwork.getDescription(), oldArtwork.getDescription());
@@ -309,22 +307,21 @@ public class TestArtGalleryPersistence {
 	public void testPersistenceAndDeleteArtwork() {
 		Artwork artwork = new Artwork();
 		artwork.setName("David and Goliath");
-		artwork.setId(10);
+		// artwork.setId(10);
 		Artist artist = new Artist();
-		artist.setId(1);
 		artist.setUsername("artist");
 		artist.setPassword("password");
 		artistRepository.save(artist);
 		ArtGallery artGallery = new ArtGallery();
-		artGallery.setId(1);
 		artGalleryRepository.save(artGallery);
 		artwork.setArtist(artist);
 		artwork.setArtGallery(artGallery);
 		artworkRepository.save(artwork);
+		int artworkId = artwork.getId();
 
-		artworkRepository.deleteById(artwork.getId());
+		artworkRepository.deleteById(artworkId);
 		artwork = null;
-		artwork = artworkRepository.findArtworkById(10);
+		artwork = artworkRepository.findArtworkById(artworkId);
 		assertNull(artwork);
 	}
 
@@ -338,7 +335,6 @@ public class TestArtGalleryPersistence {
 		String description = "My Description";
 		String email = "my.email@gmail.com";
 		String firstName = "John";
-		int id = 12345;
 		String lastName = "Doe";
 		String phoneNumber = "5147777777";
 		String username = "myUsername";
@@ -346,19 +342,19 @@ public class TestArtGalleryPersistence {
 		customer.setDescription(description);
 		customer.setEmail(email);
 		customer.setFirstName(firstName);
-		customer.setId(id);
 		customer.setLastName(lastName);
 		customer.setPhoneNumber(phoneNumber);
 		customer.setUsername(username);
 		customerRepository.save(customer);
+		int customerId = customer.getId();
 		customer = null;
-		customer = customerRepository.findCustomerById(12345);
+		customer = customerRepository.findCustomerById(customerId);
 		assertNotNull(customer);
 		assertEquals(creditCardNumber, customer.getCreditCardNumber());
 		assertEquals(description, customer.getDescription());
 		assertEquals(email, customer.getEmail());
 		assertEquals(firstName, customer.getFirstName());
-		assertEquals(id, customer.getId());
+		assertEquals(customerId, customer.getId());
 		assertEquals(lastName, customer.getLastName());
 		assertEquals(phoneNumber, customer.getPhoneNumber());
 		assertEquals(username, customer.getUsername());
@@ -371,18 +367,16 @@ public class TestArtGalleryPersistence {
 		customer.setUsername("customer");
 		customer.setPassword("password");
 		long creditCardNumber = 1111222233334444L;
-		int id = 12345;
 		customer.setCreditCardNumber(creditCardNumber);
-		customer.setId(id);
 		customerRepository.save(customer);
+		int customerId = customer.getId();
 		customer = null;
-		customer = customerRepository.findCustomerById(12345);
+		customer = customerRepository.findCustomerById(customerId);
 		assertNotNull(customer);
 		assertEquals(creditCardNumber, customer.getCreditCardNumber());
-		assertEquals(id, customer.getId());
 		customerRepository.delete(customer);
 		customer = null;
-		customer = customerRepository.findCustomerById(12345);
+		customer = customerRepository.findCustomerById(customerId);
 		assertNull(customer);
 	}
 
@@ -390,27 +384,27 @@ public class TestArtGalleryPersistence {
 	@Test
 	public void testPersistenceAndLoadPicture() {
 		Picture picture = new Picture();
-		picture.setId(4);
 		pictureRepository.save(picture);
+		int pictureId = picture.getId();
 		picture = null;
-		picture = pictureRepository.findPictureById(4);
+		picture = pictureRepository.findPictureById(pictureId);
 		assertNotNull(picture);
-		assertEquals(4, picture.getId());
+		assertEquals(pictureId, picture.getId());
 	}
 
 	// delete picture test
 	@Test
 	public void testPersistenceAndDeletePicture() {
 		Picture picture = new Picture();
-		picture.setId(4);
 		pictureRepository.save(picture);
+		int pictureId = picture.getId();
 		picture = null;
-		picture = pictureRepository.findPictureById(4);
+		picture = pictureRepository.findPictureById(pictureId);
 		assertNotNull(picture);
-		assertEquals(4, picture.getId());
+		assertEquals(pictureId, picture.getId());
 		pictureRepository.delete(picture);
 		picture = null;
-		picture = pictureRepository.findPictureById(4);
+		picture = pictureRepository.findPictureById(pictureId);
 		assertNull(picture);
 	}
 
@@ -420,42 +414,41 @@ public class TestArtGalleryPersistence {
 		Transaction transaction = new Transaction();
 
 		ArtGallery artGallery = new ArtGallery();
-		artGallery.setId(99);
 		artGalleryRepository.save(artGallery);
+		int artGalleryId = artGallery.getId();
 		transaction.setArtGallery(artGallery);
 
 		Artist artist = new Artist();
 		artist.setUsername("artist");
 		artist.setPassword("password");
-		artist.setId(99);
 		artistRepository.save(artist);
+		int artistId = artist.getId();
 		transaction.setArtist(artist);
 
 		Artwork artwork = new Artwork();
 		artwork.setArtist(artist);
 		artwork.setArtGallery(artGallery);
-		artwork.setId(1);
 		artworkRepository.save(artwork);
+		int artworkId = artwork.getId();
 		transaction.setArtwork(artwork);
 
 		Customer customer = new Customer();
 		customer.setUsername("username");
 		customer.setPassword("password");
-		customer.setId(33);
 		customerRepository.save(customer);
+		int customerId = customer.getId();
 		transaction.setCustomer(customer);
 
-		transaction.setId(55);
-
 		transactionRepository.save(transaction);
+		int transactionId = transaction.getId();
 		transaction = null;
-		transaction = transactionRepository.findTransactionById(55);
+		transaction = transactionRepository.findTransactionById(transactionId);
 
 		assertNotNull(transaction);
-		assertEquals(artGallery.getId(), transaction.getArtGallery().getId());
-		assertEquals(artist.getId(), transaction.getArtist().getId());
-		assertEquals(artwork.getId(), transaction.getArtwork().getId());
-		assertEquals(customer.getId(), transaction.getCustomer().getId());
+		assertEquals(artGalleryId, transaction.getArtGallery().getId());
+		assertEquals(artistId, transaction.getArtist().getId());
+		assertEquals(artworkId, transaction.getArtwork().getId());
+		assertEquals(customerId, transaction.getCustomer().getId());
 	}
 
 	// delete transaction test
@@ -463,39 +456,39 @@ public class TestArtGalleryPersistence {
 	public void testPersistenceAndDeleteTransaction() {
 		Transaction transaction = new Transaction();
 		ArtGallery artGallery = new ArtGallery();
-		artGallery.setId(99);
 		artGalleryRepository.save(artGallery);
+		int artGalleryId = artGallery.getId();
 		transaction.setArtGallery(artGallery);
 		Artist artist = new Artist();
-		artist.setId(99);
 		artist.setUsername("artist");
 		artist.setPassword("password");
 		artistRepository.save(artist);
+		int artistId = artist.getId();
 		transaction.setArtist(artist);
 		Artwork artwork = new Artwork();
 		artwork.setArtist(artist);
 		artwork.setArtGallery(artGallery);
-		artwork.setId(1);
 		artworkRepository.save(artwork);
+		int artworkId = artwork.getId();
 		transaction.setArtwork(artwork);
 		Customer customer = new Customer();
 		customer.setUsername("customer");
 		customer.setPassword("password");
-		customer.setId(33);
 		customerRepository.save(customer);
+		int customerId = customer.getId();
 		transaction.setCustomer(customer);
-		transaction.setId(55);
 		transactionRepository.save(transaction);
+		int transactionId = transaction.getId();
 		transaction = null;
-		transaction = transactionRepository.findTransactionById(55);
+		transaction = transactionRepository.findTransactionById(transactionId);
 		assertNotNull(transaction);
-		assertEquals(artGallery.getId(), transaction.getArtGallery().getId());
-		assertEquals(artist.getId(), transaction.getArtist().getId());
-		assertEquals(artwork.getId(), transaction.getArtwork().getId());
-		assertEquals(customer.getId(), transaction.getCustomer().getId());
+		assertEquals(artGalleryId, transaction.getArtGallery().getId());
+		assertEquals(artistId, transaction.getArtist().getId());
+		assertEquals(artworkId, transaction.getArtwork().getId());
+		assertEquals(customerId, transaction.getCustomer().getId());
 		transactionRepository.delete(transaction);
 		transaction = null;
-		transaction = transactionRepository.findTransactionById(55);
+		transaction = transactionRepository.findTransactionById(transactionId);
 		assertNull(transaction);
 	}
 
