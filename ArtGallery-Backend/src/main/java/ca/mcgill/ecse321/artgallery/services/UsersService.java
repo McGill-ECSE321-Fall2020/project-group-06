@@ -3,7 +3,9 @@ package ca.mcgill.ecse321.artgallery.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ca.mcgill.ecse321.artgallery.dao.CustomerRepository;
 import ca.mcgill.ecse321.artgallery.dao.UserRepository;
+import ca.mcgill.ecse321.artgallery.model.Customer;
 import ca.mcgill.ecse321.artgallery.model.User;
 
 /**
@@ -26,4 +28,7 @@ public class UsersService {
             return true;
         }
     }
+
+    // update user info method
+
 }
