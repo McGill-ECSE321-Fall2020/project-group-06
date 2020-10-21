@@ -29,6 +29,15 @@ public class UsersService {
         }
     }
 
-    // update user info method
+    // TODO fix bug
+    public Boolean updateUser(User user) {
+        // a user with this username does not exist
+        if (userRepository.findUserByUsername(user.getUsername()) == null) {
+            return false;
+        } else {
+            userRepository.save(user);
+            return true;
+        }
+    }
 
 }
