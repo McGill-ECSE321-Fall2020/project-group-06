@@ -16,9 +16,7 @@ import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
-public class TestArtGalleryService {
 
-	//Write this idk how@BeforeEach 
-	
-	
+public class TestArtworkService {
+
 }
