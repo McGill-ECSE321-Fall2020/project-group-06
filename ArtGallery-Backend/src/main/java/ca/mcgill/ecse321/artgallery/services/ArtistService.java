@@ -1,8 +1,12 @@
 package ca.mcgill.ecse321.artgallery.services;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ca.mcgill.ecse321.artgallery.dao.ArtworkRepository;
+import ca.mcgill.ecse321.artgallery.model.Artist;
 import ca.mcgill.ecse321.artgallery.model.Artwork;
 
 /**
@@ -25,10 +29,11 @@ public class ArtistService {
    * @return artwork the artwork that was added
    * @author Andre-Walter Panzini
    */
+  @Transactional
   public Artwork uploadArtwork(Artwork artwork) {
       artwork.setForSale(true);
       artworkRepository.save(artwork);
-      
+
       return artwork;
   }
   
@@ -40,9 +45,25 @@ public class ArtistService {
    * @return artwork the artwork that was removed
    * @author Andre-Walter Panzini
    */
-  public Artwork removeArtwork(int artworkID) {
+  @Transactional
+  public boolean removeArtwork(int artworkID) {
       Artwork artwork = artworkRepository.findArtworkById(artworkID);
-      artworkRepository.delete(artwork);
-      return artwork;
+      
+      if (artwork == null) {
+        return false;
+      }
+      else {
+        artworkRepository.delete(artwork);
+        return true;
+      }
+        
   }
+  
+  @Transactional
+  public List<Artwork> getArtworkUploadedByArtist(Artist artist) {
+      List<Artwork> artworksUploadedByArtist = new ArrayList<>();
+      artworksUploadedByArtist = (List<Artwork>) artist.getArtwork();
+      return artworksUploadedByArtist;
+  }
+  
 }
