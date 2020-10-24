@@ -30,10 +30,6 @@ public class ArtistRestController {
   @GetMapping("/uploadArtwork")
   public ResponseEntity<Void> uploadArtwork(@RequestParam Artwork artwork) {
     
-    if(artwork.getId() == 0)
-    {
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-    }
     if(artwork.getArtist() == null)
     {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -63,8 +59,17 @@ public class ArtistRestController {
    */
   @PostMapping("/removeArtwork")
   public ResponseEntity<Artwork> removeArtwork(@RequestParam int artworkID) {
+    
     try {
-          return ResponseEntity.ok(artistService.removeArtwork(artworkID));
+          boolean isRemoved = artistService.removeArtwork(artworkID);
+          
+          if(isRemoved) {
+            return ResponseEntity.status(HttpStatus.OK).build();
+          }
+          else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+          }
+          
       } catch (Exception e) {
           logger.error("Exception when removing artwork from artist");
           return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
