@@ -1,13 +1,17 @@
 package ca.mcgill.ecse321.artgallery.services;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.artgallery.dao.ArtGalleryRepository;
 import ca.mcgill.ecse321.artgallery.dao.ArtworkRepository;
+import ca.mcgill.ecse321.artgallery.dao.TransactionRepository;
 import ca.mcgill.ecse321.artgallery.model.Artwork;
+import ca.mcgill.ecse321.artgallery.model.Transaction;
 
 /**
  * <p>
@@ -22,6 +26,8 @@ public class ArtGalleryService {
 	ArtworkRepository artworkRepository;
 	@Autowired
 	ArtGalleryRepository artGalleryRepository;
+	@Autowired
+	TransactionRepository transactionRepository;
 
 	/**
 	 * REQ5.3: The art gallery system should be able to browse the artworks
@@ -53,4 +59,24 @@ public class ArtGalleryService {
 		artworkRepository.save(artwork);
 		return artwork;
 	}
+	
+	/**
+	   * REQ4.3 The art gallery system shall allow the art gallery to take a commission on each transaction.
+	   * 
+	   * @param int The transaction ID
+	   * @return double The art gallery<s commission on a sold piece of art
+	   * @author Olivier Normandin
+	   */
+	  
+	  @Transactional
+	  public double takeCommission(int transactionID) {
+		Transaction transaction = transactionRepository.findTransactionById(transactionID);
+		if(transaction == null) {
+			return 0;
+		}
+		else {
+			double artGalleryCommission = transaction.getCommisionCut()*transaction.getArtwork().getPrice();
+			return artGalleryCommission;
+		}
+	  }
 }

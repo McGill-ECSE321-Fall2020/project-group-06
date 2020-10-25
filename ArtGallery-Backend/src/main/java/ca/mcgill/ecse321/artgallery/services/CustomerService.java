@@ -2,9 +2,11 @@ package ca.mcgill.ecse321.artgallery.services;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.artgallery.dao.ArtGalleryRepository;
 import ca.mcgill.ecse321.artgallery.dao.ArtistRepository;
@@ -13,6 +15,7 @@ import ca.mcgill.ecse321.artgallery.dao.CustomerRepository;
 import ca.mcgill.ecse321.artgallery.dao.PictureRepository;
 import ca.mcgill.ecse321.artgallery.dao.TransactionRepository;
 import ca.mcgill.ecse321.artgallery.dao.UserRepository;
+import ca.mcgill.ecse321.artgallery.model.Artist;
 import ca.mcgill.ecse321.artgallery.model.Artwork;
 import ca.mcgill.ecse321.artgallery.model.Customer;
 import ca.mcgill.ecse321.artgallery.model.Transaction;
@@ -156,4 +159,24 @@ public class CustomerService {
 
         return true;
     }
+    
+    /**
+     * REQ3.3 The art gallery system shall provide the customer with a receipt of the transaction.
+     * 
+     * @param int The transaction ID
+     * @return Transaction The receipt
+     * @author Olivier Normandin
+     */
+    
+    @Transactional
+    public Transaction getTransactionReceipt(int transactionID) {
+  	Transaction receipt = transactionRepository.findTransactionById(transactionID);
+  	if (receipt == null) {
+  		return null;
+  	}
+  	else {
+  		return receipt;
+  		}
+    }
+    
 }

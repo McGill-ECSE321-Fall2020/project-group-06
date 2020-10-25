@@ -44,10 +44,34 @@ public class ArtGalleryRestController {
 
 	@PostMapping("/removeArtwork")
 	public ResponseEntity<Artwork> removeArtwork(@RequestParam int artworkID) {
+		
+		if (artworkID == 0) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
 		try {
 			return ResponseEntity.ok(artGalleryService.removeArtwork(artworkID));
 		} catch (Exception e) {
 			logger.error("Exception when removing artwork from artGallery");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	
+	/**
+	   * REQ4.3 The art gallery system shall allow the art gallery to take a commission on each transaction.
+	   * 
+	   * @param int The transaction ID
+	   * @return double The art gallery's commission on a sold piece of art
+	   * @author Olivier Normandin
+	   */
+	@GetMapping("/artGalleryCommission")
+	public ResponseEntity<Double> takeCommission(@RequestParam int transactionID) {
+		if (transactionID == 0) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+		try {
+			return ResponseEntity.ok(artGalleryService.takeCommission(transactionID));
+		} catch (Exception e) {
+			logger.error("Exception when taking commission from transaction");
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}

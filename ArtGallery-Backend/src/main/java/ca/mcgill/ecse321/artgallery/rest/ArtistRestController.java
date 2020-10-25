@@ -1,5 +1,7 @@
 package ca.mcgill.ecse321.artgallery.rest;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ca.mcgill.ecse321.artgallery.model.Artwork;
+import ca.mcgill.ecse321.artgallery.model.Transaction;
 import ca.mcgill.ecse321.artgallery.services.ArtistService;
 
 @RestController
@@ -74,5 +77,29 @@ public class ArtistRestController {
           logger.error("Exception when removing artwork from artist");
           return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
       }
+  }
+  
+  /**
+   * REQ2.3 The art gallery system shall allow an artist to keep track
+   * of its transaction history.
+   * 
+   * @param int The artist ID
+   * @return List<Transaction> The transaction history
+   * @author Olivier Normandin
+   */
+  
+  @GetMapping("/trackTransactionHistory")
+  public ResponseEntity<List<Transaction>> trackTransactionHistory(@RequestParam int artistID) {
+  
+	  if (artistID == 0) {
+		  return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+	  }
+	  
+	  try {
+		  return ResponseEntity.ok(artistService.viewTransactionHistory(artistID));
+	  } catch (Exception e) {
+		  logger.error("Exception when viewing transaction history");
+          return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	  }
   }
 }
