@@ -10,6 +10,11 @@ import ca.mcgill.ecse321.artgallery.dao.ArtGalleryRepository;
 import ca.mcgill.ecse321.artgallery.dao.ArtistRepository;
 import ca.mcgill.ecse321.artgallery.dao.ArtworkRepository;
 import ca.mcgill.ecse321.artgallery.dao.CustomerRepository;
+
+import ca.mcgill.ecse321.artgallery.dao.UserRepository;
+import ca.mcgill.ecse321.artgallery.model.Artwork;
+import ca.mcgill.ecse321.artgallery.model.Customer;
+
 import ca.mcgill.ecse321.artgallery.dao.PictureRepository;
 import ca.mcgill.ecse321.artgallery.dao.TransactionRepository;
 import ca.mcgill.ecse321.artgallery.dao.UserRepository;
@@ -164,4 +169,37 @@ public class CustomerService {
 
         return true;
     }
+
+    /**
+     * Creates a new customer service method
+     * 
+     * @param customer
+     * @return Boolean if the customer is created
+     * @author Sen Wang
+     */
+
+    public Boolean saveCustomer(Customer customer) {
+        // a user/customer/artist with username already exist
+        if (userRepository.findUserByUsername(customer.getUsername()) != null) {
+            return false;
+        } else {
+            customerRepository.save(customer);
+            return true;
+        }
+    }
+
+    /**
+     * This methods finds a customer by username
+     * 
+     * @param username
+     * @return Customer object
+     */
+    public Customer getCustomerByUsername(String username) {
+        if (customerRepository.findCustomerByUsername(username) == null) {
+            return null;
+        } else {
+            return customerRepository.findCustomerByUsername(username);
+        }
+    }
+
 }

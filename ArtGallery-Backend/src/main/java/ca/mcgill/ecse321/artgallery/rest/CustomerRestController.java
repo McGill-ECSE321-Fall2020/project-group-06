@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,8 +22,10 @@ import ca.mcgill.ecse321.artgallery.dto.BuyArtworkDto;
 import ca.mcgill.ecse321.artgallery.dto.TransactionDeliveryTypeDto;
 import ca.mcgill.ecse321.artgallery.model.Artwork;
 import ca.mcgill.ecse321.artgallery.model.Customer;
+
 import ca.mcgill.ecse321.artgallery.model.Transaction;
 import ca.mcgill.ecse321.artgallery.model.Transaction.DeliveryType;
+
 import ca.mcgill.ecse321.artgallery.services.CustomerService;
 
 @RestController
@@ -195,6 +198,57 @@ public class CustomerRestController {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         } catch (Exception e) {
             logger.error("Exception when buying artwork");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+  
+  @PostMapping("/createCustomer")
+    public ResponseEntity<Void> createCustomer(@Valid @RequestBody Customer customer) {
+
+        logger.info("creating customer profile");
+
+        if (customer.getUsername() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        if (customer.getPassword() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
+        try {
+            if (customerService.saveCustomer(customer) == false) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            } else {
+                return ResponseEntity.status(HttpStatus.CREATED).build();
+            }
+        } catch (Exception e) {
+            logger.error("Exception when creating a new customer " + e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    /**
+     * Http endpoint to get customer by username
+     * 
+     * @param username
+     * @return Customer object
+     */
+    @GetMapping("/getCustomer/{username}")
+    public ResponseEntity<Customer> getCustomerByUsername(@PathVariable("username") String username) {
+
+        logger.info("get customer by username");
+
+        if (username == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
+        try {
+            if (customerService.getCustomerByUsername(username) == null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            } else {
+                return ResponseEntity.ok(customerService.getCustomerByUsername(username));
+            }
+        } catch (Exception e) {
+            logger.error("Exception when getting customer by username" + e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
