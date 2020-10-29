@@ -2,9 +2,11 @@ package ca.mcgill.ecse321.artgallery.services;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.artgallery.dao.ArtGalleryRepository;
 import ca.mcgill.ecse321.artgallery.dao.ArtistRepository;
@@ -18,6 +20,7 @@ import ca.mcgill.ecse321.artgallery.model.Customer;
 import ca.mcgill.ecse321.artgallery.dao.PictureRepository;
 import ca.mcgill.ecse321.artgallery.dao.TransactionRepository;
 import ca.mcgill.ecse321.artgallery.dao.UserRepository;
+import ca.mcgill.ecse321.artgallery.model.Artist;
 import ca.mcgill.ecse321.artgallery.model.Artwork;
 import ca.mcgill.ecse321.artgallery.model.Customer;
 import ca.mcgill.ecse321.artgallery.model.Transaction;
@@ -134,39 +137,27 @@ public class CustomerService {
      * 
      * @author Noah Chamberland
      */
-    public boolean buyArtwork(Artwork artwork, double commissionCut, Customer customer, Date date,
-            DeliveryType deliveryType) {
-        if (artworkRepository.findArtworkById(artwork.getId()) == null)
+    public boolean buyArtwork(int customerId, int artistId, int artworkId, int artGalleryId) {
+        if (artGalleryRepository.findArtGalleryById(artGalleryId) == null) {
             return false;
-        if (customerRepository.findCustomerById(customer.getId()) == null)
+        }
+        if (artistRepository.findArtistById(artistId) == null) {
             return false;
-
+        }
+        if (artworkRepository.findArtworkById(artworkId) == null) {
+            return false;
+        }
+        if (customerRepository.findCustomerById(customerId) == null) {
+            return false;
+        }
         Transaction transaction = new Transaction();
-
-        transaction.setArtGallery(artwork.getArtGallery());
-        artwork.getArtGallery().getTransaction().add(transaction);
-        artGalleryRepository.save(artwork.getArtGallery());
-
-        transaction.setArtist(artwork.getArtist());
-        artwork.getArtist().getTransaction().add(transaction);
-        artistRepository.save(artwork.getArtist());
-
-        transaction.setArtwork(artwork);
-        artwork.getTransaction().add(transaction);
-        artworkRepository.save(artwork);
-
-        transaction.setCommisionCut(commissionCut);
-
-        transaction.setCustomer(customer);
-        customer.getTransaction().add(transaction);
-        customerRepository.save(customer);
-
-        transaction.setDateOfTransaction(date);
-
-        transaction.setDeliveryType(deliveryType);
-
+        transaction.setArtGallery(artGalleryRepository.findArtGalleryById(artGalleryId));
+        transaction.setArtist(artistRepository.findArtistById(artistId));
+        transaction.setArtwork(artworkRepository.findArtworkById(artworkId));
+        transaction.setCustomer(customerRepository.findCustomerById(customerId));
         transactionRepository.save(transaction);
 
+        // TODO SET ARTWORK FOR SALE = FALSE
         return true;
     }
 
@@ -199,6 +190,25 @@ public class CustomerService {
             return null;
         } else {
             return customerRepository.findCustomerByUsername(username);
+        }
+    }
+
+    /**
+     * REQ3.3 The art gallery system shall provide the customer with a receipt of
+     * the transaction.
+     * 
+     * @param int The transaction ID
+     * @return Transaction The receipt
+     * @author Olivier Normandin
+     */
+
+    @Transactional
+    public Transaction getTransactionReceipt(int transactionID) {
+        Transaction receipt = transactionRepository.findTransactionById(transactionID);
+        if (receipt == null) {
+            return null;
+        } else {
+            return receipt;
         }
     }
 
