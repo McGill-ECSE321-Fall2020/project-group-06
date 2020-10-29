@@ -39,7 +39,7 @@ public class CustomerRestController {
 
     /**
      * REQ3.1: The art gallery system shall allow a customer to browse all the
-     * artworks for sale Http endpoint for this requirement
+     * artworks for sale Http endpoint for this requirement. TESTED WITH POSTMAN
      * 
      * @return List of Artworks
      * @author Sen Wang
@@ -165,43 +165,42 @@ public class CustomerRestController {
 
     /**
      * REQ3.5: The art gallery system shall allow a customer to buy a chosen
-     * artwork. Http endpoint for this requirement
+     * artwork. Http endpoint for this requirement. TESTED WITH POSTMAN
      * 
      * @author Noah Chamberland
      */
-    @PostMapping("/buyArtwork")
-    public ResponseEntity<Void> buyArtwork(@Valid @RequestBody BuyArtworkDto buyArtworkDto) {
+    @PostMapping("/buyArtwork/{customerId}/{artistId}/{artworkId}/{artGalleryId}")
+    public ResponseEntity<Void> buyArtwork(@PathVariable("customerId") int customerId, @PathVariable("artistId") int artistId, @PathVariable("artworkId") int artworkId, @PathVariable("artGalleryId") int artGalleryId) {
         logger.info("buying artwork");
 
-        if (buyArtworkDto.customer.getId() == 0) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		if(customerId == 0){
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-        if (buyArtworkDto.customer.getUsername() == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-        if (buyArtworkDto.customer.getPassword() == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-        if (buyArtworkDto.artwork.getId() == 0) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-        if (buyArtworkDto.artwork.getArtGallery() == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-        if (buyArtworkDto.artwork.getArtist() == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-        try {
-            if (customerService.buyArtwork(buyArtworkDto.artwork, buyArtworkDto.commissionCut, buyArtworkDto.customer, buyArtworkDto.date, buyArtworkDto.deliveryType))
-                return ResponseEntity.status(HttpStatus.CREATED).build();
-            else
+        if(artistId == 0){
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }		
+        if(artworkId == 0){
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }		
+        if(artGalleryId == 0){
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+
+		try {
+            if (customerService.buyArtwork(customerId, artistId, artworkId, artGalleryId) == false) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            } else {
+                return ResponseEntity.status(HttpStatus.CREATED).build();
+            }
         } catch (Exception e) {
-            logger.error("Exception when buying artwork");
+            logger.error("Exception when buying artwork " + e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
   
+    /**
+     * TESTED WITH POSTMAN
+     */
   @PostMapping("/createCustomer")
     public ResponseEntity<Void> createCustomer(@Valid @RequestBody Customer customer) {
 

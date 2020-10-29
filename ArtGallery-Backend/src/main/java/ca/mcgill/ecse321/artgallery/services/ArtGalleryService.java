@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import ca.mcgill.ecse321.artgallery.dao.ArtGalleryRepository;
 import ca.mcgill.ecse321.artgallery.dao.ArtworkRepository;
+import ca.mcgill.ecse321.artgallery.model.ArtGallery;
 import ca.mcgill.ecse321.artgallery.model.Artwork;
 
 /**
@@ -53,4 +54,21 @@ public class ArtGalleryService {
 		artworkRepository.save(artwork);
 		return artwork;
 	}
+
+	public ArtGallery saveArtGallery(ArtGallery artGallery){
+		if (artGalleryRepository.findArtGalleryByName(artGallery.getName()) != null) {
+            return null;
+        } else {
+            artGalleryRepository.save(artGallery);
+            return artGalleryRepository.findArtGalleryByName(artGallery.getName());
+        }
+	}
+
+	public ArtGallery getArtGalleryByName(String name) {
+        if (artGalleryRepository.findArtGalleryByName(name) == null) {
+            return null;
+        } else {
+            return artGalleryRepository.findArtGalleryByName(name);
+        }
+    }
 }
