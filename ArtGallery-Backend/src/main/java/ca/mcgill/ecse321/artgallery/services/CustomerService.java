@@ -193,28 +193,23 @@ public class CustomerService {
         }
     }
 
-    
     /**
-     * REQ3.3 The art gallery system shall provide the customer with a receipt of the transaction.
+     * REQ3.3 The art gallery system shall provide the customer with a receipt of
+     * the transaction.
      * 
      * @param int The transaction ID
      * @return Transaction The receipt
      * @author Olivier Normandin
      */
-    
+
     @Transactional
     public Transaction getTransactionReceipt(int transactionID) {
-  	Transaction receipt = transactionRepository.findTransactionById(transactionID);
-  	if (receipt == null) {
-  		return null;
-  	}
-  	else {
-  		return receipt;
-  		}
+        Transaction receipt = transactionRepository.findTransactionById(transactionID);
+        if (receipt == null) {
+            return null;
+        } else {
+            return receipt;
+        }
     }
-    
-}
-
 
 }
-

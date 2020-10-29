@@ -25,16 +25,40 @@ import ca.mcgill.ecse321.artgallery.model.Artist;
 @Service
 public class ArtistService {
 
-  
   @Autowired
   ArtworkRepository artworkRepository;
-  
+
   @Autowired
   ArtistRepository artistRepository;
-  
+
   /**
-   * REQ2.1 The art gallery system shall allow the artist to upload an
-   * artwork.
+   * REQ2.3 The art gallery system shall allow an artist to keep track of its
+   * transaction history.
+   * 
+   * @param int The artist ID
+   * @return List<Transaction> The transaction history
+   * @author Olivier Normandin
+   */
+
+  @Transactional
+  public List<Transaction> viewTransactionHistory(int artistID) {
+    List<Transaction> transactionHistory = new ArrayList<>();
+    Artist artist = artistRepository.findArtistById(artistID);
+    if (artist == null) {
+      return transactionHistory;
+    } else {
+      artist.getTransaction().forEach(transaction -> {
+        transactionHistory.add(transaction);
+      });
+    }
+    return transactionHistory;
+  }
+
+  @Autowired
+  UserRepository userRepository;
+
+  /**
+   * REQ2.1 The art gallery system shall allow the artist to upload an artwork.
    * 
    * @param artwork the artwork to be added
    * @return artwork the artwork that was added
@@ -42,15 +66,14 @@ public class ArtistService {
    */
   @Transactional
   public Artwork uploadArtwork(Artwork artwork) {
-      artwork.setForSale(true);
-      artworkRepository.save(artwork);
+    artwork.setForSale(true);
+    artworkRepository.save(artwork);
 
-      return artwork;
+    return artwork;
   }
-  
+
   /**
-   * REQ2.2 The art gallery system shall allow the artist to remove an
-   * artwork.
+   * REQ2.2 The art gallery system shall allow the artist to remove an artwork.
    * 
    * @param artworkId the artwork ID from the database
    * @return artwork the artwork that was removed
@@ -58,125 +81,53 @@ public class ArtistService {
    */
   @Transactional
   public boolean removeArtwork(int artworkID) {
-      Artwork artwork = artworkRepository.findArtworkById(artworkID);
-      
-      if (artwork == null) {
-        return false;
-      }
-      else {
-        artworkRepository.delete(artwork);
-        return true;
-      }
-        
+    Artwork artwork = artworkRepository.findArtworkById(artworkID);
+
+    if (artwork == null) {
+      return false;
+    } else {
+      artworkRepository.delete(artwork);
+      return true;
+    }
+
   }
-  
+
   @Transactional
   public List<Artwork> getArtworkUploadedByArtist(Artist artist) {
-      List<Artwork> artworksUploadedByArtist = new ArrayList<>();
-      artworksUploadedByArtist = (List<Artwork>) artist.getArtwork();
-      return artworksUploadedByArtist;
+    List<Artwork> artworksUploadedByArtist = new ArrayList<>();
+    artworksUploadedByArtist = (List<Artwork>) artist.getArtwork();
+    return artworksUploadedByArtist;
   }
-  
+
   /**
-   * REQ2.3 The art gallery system shall allow an artist to keep track
-   * of its transaction history.
+   * Creates a new artist service method
    * 
-   * @param int The artist ID
-   * @return List<Transaction> The transaction history
-   * @author Olivier Normandin
+   * @param artist
+   * @return Boolean if the artist is created
+   * @author Sen Wang
    */
-  
-  @Transactional
-  public List<Transaction> viewTransactionHistory(int artistID) {
-	List<Transaction> transactionHistory = new ArrayList<>();
-	Artist artist = artistRepository.findArtistById(artistID);
-	if (artist == null) {
-		return transactionHistory;
-	}
-	else {
-		artist.getTransaction().forEach(transaction -> {
-			transactionHistory.add(transaction);
-		});
-	}
-	return transactionHistory;
+  public Boolean saveArtist(Artist artist) {
+    // a user/customer/artist with username already exist
+    if (userRepository.findUserByUsername(artist.getUsername()) != null) {
+      return false;
+    } else {
+      artistRepository.save(artist);
+      return true;
+    }
   }
 
-
-    @Autowired
-    UserRepository userRepository;
-
-    /**
-     * REQ2.1 The art gallery system shall allow the artist to upload an artwork.
-     * 
-     * @param artwork the artwork to be added
-     * @return artwork the artwork that was added
-     * @author Andre-Walter Panzini
-     */
-    @Transactional
-    public Artwork uploadArtwork(Artwork artwork) {
-        artwork.setForSale(true);
-        artworkRepository.save(artwork);
-
-        return artwork;
+  /**
+   * This methods finds an artist by username
+   * 
+   * @param username
+   * @return Artist object
+   */
+  public Artist getArtistByUsername(String username) {
+    if (artistRepository.findArtistByUsername(username) == null) {
+      return null;
+    } else {
+      return artistRepository.findArtistByUsername(username);
     }
-
-    /**
-     * REQ2.2 The art gallery system shall allow the artist to remove an artwork.
-     * 
-     * @param artworkId the artwork ID from the database
-     * @return artwork the artwork that was removed
-     * @author Andre-Walter Panzini
-     */
-    @Transactional
-    public boolean removeArtwork(int artworkID) {
-        Artwork artwork = artworkRepository.findArtworkById(artworkID);
-
-        if (artwork == null) {
-            return false;
-        } else {
-            artworkRepository.delete(artwork);
-            return true;
-        }
-
-    }
-
-    @Transactional
-    public List<Artwork> getArtworkUploadedByArtist(Artist artist) {
-        List<Artwork> artworksUploadedByArtist = new ArrayList<>();
-        artworksUploadedByArtist = (List<Artwork>) artist.getArtwork();
-        return artworksUploadedByArtist;
-    }
-
-    /**
-     * Creates a new artist service method
-     * 
-     * @param artist
-     * @return Boolean if the artist is created
-     * @author Sen Wang
-     */
-    public Boolean saveArtist(Artist artist) {
-        // a user/customer/artist with username already exist
-        if (userRepository.findUserByUsername(artist.getUsername()) != null) {
-            return false;
-        } else {
-            artistRepository.save(artist);
-            return true;
-        }
-    }
-
-    /**
-     * This methods finds an artist by username
-     * 
-     * @param username
-     * @return Artist object
-     */
-    public Artist getArtistByUsername(String username) {
-        if (artistRepository.findArtistByUsername(username) == null) {
-            return null;
-        } else {
-            return artistRepository.findArtistByUsername(username);
-        }
-    }
-
+  }
 
 }
