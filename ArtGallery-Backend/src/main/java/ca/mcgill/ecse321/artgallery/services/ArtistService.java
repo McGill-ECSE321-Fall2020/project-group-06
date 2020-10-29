@@ -12,6 +12,10 @@ import ca.mcgill.ecse321.artgallery.model.Artist;
 import ca.mcgill.ecse321.artgallery.model.Artwork;
 import ca.mcgill.ecse321.artgallery.model.Transaction;
 
+import ca.mcgill.ecse321.artgallery.dao.ArtistRepository;
+import ca.mcgill.ecse321.artgallery.dao.UserRepository;
+import ca.mcgill.ecse321.artgallery.model.Artist;
+
 /**
  * <p>
  * ArtistService: Methods used by artists (upload, remove artworks, artist
@@ -20,6 +24,7 @@ import ca.mcgill.ecse321.artgallery.model.Transaction;
  */
 @Service
 public class ArtistService {
+
   
   @Autowired
   ArtworkRepository artworkRepository;
@@ -95,5 +100,83 @@ public class ArtistService {
 	}
 	return transactionHistory;
   }
-  
+
+
+    @Autowired
+    UserRepository userRepository;
+
+    /**
+     * REQ2.1 The art gallery system shall allow the artist to upload an artwork.
+     * 
+     * @param artwork the artwork to be added
+     * @return artwork the artwork that was added
+     * @author Andre-Walter Panzini
+     */
+    @Transactional
+    public Artwork uploadArtwork(Artwork artwork) {
+        artwork.setForSale(true);
+        artworkRepository.save(artwork);
+
+        return artwork;
+    }
+
+    /**
+     * REQ2.2 The art gallery system shall allow the artist to remove an artwork.
+     * 
+     * @param artworkId the artwork ID from the database
+     * @return artwork the artwork that was removed
+     * @author Andre-Walter Panzini
+     */
+    @Transactional
+    public boolean removeArtwork(int artworkID) {
+        Artwork artwork = artworkRepository.findArtworkById(artworkID);
+
+        if (artwork == null) {
+            return false;
+        } else {
+            artworkRepository.delete(artwork);
+            return true;
+        }
+
+    }
+
+    @Transactional
+    public List<Artwork> getArtworkUploadedByArtist(Artist artist) {
+        List<Artwork> artworksUploadedByArtist = new ArrayList<>();
+        artworksUploadedByArtist = (List<Artwork>) artist.getArtwork();
+        return artworksUploadedByArtist;
+    }
+
+    /**
+     * Creates a new artist service method
+     * 
+     * @param artist
+     * @return Boolean if the artist is created
+     * @author Sen Wang
+     */
+    public Boolean saveArtist(Artist artist) {
+        // a user/customer/artist with username already exist
+        if (userRepository.findUserByUsername(artist.getUsername()) != null) {
+            return false;
+        } else {
+            artistRepository.save(artist);
+            return true;
+        }
+    }
+
+    /**
+     * This methods finds an artist by username
+     * 
+     * @param username
+     * @return Artist object
+     */
+    public Artist getArtistByUsername(String username) {
+        if (artistRepository.findArtistByUsername(username) == null) {
+            return null;
+        } else {
+            return artistRepository.findArtistByUsername(username);
+        }
+    }
+
+
 }

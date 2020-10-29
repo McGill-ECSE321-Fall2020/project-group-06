@@ -10,6 +10,17 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Picture {
+
+   private String url;
+
+   public void setUrl(String url) {
+      this.url = url;
+   }
+
+   public String getUrl() {
+      return this.url;
+   }
+
    private int id;
 
    public void setId(int value) {

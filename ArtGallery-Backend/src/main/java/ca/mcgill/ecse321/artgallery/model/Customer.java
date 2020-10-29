@@ -5,12 +5,15 @@ import javax.persistence.Id;
 import java.util.Set;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class Customer extends User{
 
 private Set<Transaction> transaction;
    
-   @OneToMany(mappedBy="customer" )
+   @OneToMany(mappedBy="customer")
+	@JsonIgnoreProperties({"artwork", "artist", "customer", "artGallery"})
    public Set<Transaction> getTransaction() {
       return this.transaction;
    }
@@ -32,6 +35,7 @@ private Set<Transaction> transaction;
    private Set<Artwork> artwork;
    
    @OneToMany
+   @JsonIgnoreProperties("artwork")
    public Set<Artwork> getArtwork() {
       return this.artwork;
    }
