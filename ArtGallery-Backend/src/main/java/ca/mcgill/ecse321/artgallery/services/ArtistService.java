@@ -1,11 +1,12 @@
 package ca.mcgill.ecse321.artgallery.services;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ca.mcgill.ecse321.artgallery.dao.ArtGalleryRepository;
+import ca.mcgill.ecse321.artgallery.dao.ArtistRepository;
 import ca.mcgill.ecse321.artgallery.dao.ArtworkRepository;
+import ca.mcgill.ecse321.artgallery.model.ArtGallery;
 import ca.mcgill.ecse321.artgallery.model.Artist;
 import ca.mcgill.ecse321.artgallery.model.Artwork;
 
@@ -20,6 +21,10 @@ public class ArtistService {
   
   @Autowired
   ArtworkRepository artworkRepository;
+  @Autowired
+  ArtistRepository artistRepository;
+  @Autowired
+  ArtGalleryRepository artGalleryRepository;
   
   /**
    * REQ2.1 The art gallery system shall allow the artist to upload an
@@ -30,11 +35,23 @@ public class ArtistService {
    * @author Andre-Walter Panzini
    */
   @Transactional
-  public Artwork uploadArtwork(Artwork artwork) {
-      artwork.setForSale(true);
+  public boolean uploadArtwork(Artwork artwork) {
+      Artist artist = artistRepository.findArtistById(artwork.getArtist().getId());
+      
+      if (artist == null) {
+        return false;
+      }
+      
+      ArtGallery artGallery = artGalleryRepository.findArtGalleryById(artwork.getArtGallery().getId());
+      
+      if (artGallery == null)
+      {
+        return false;
+      }
+      
       artworkRepository.save(artwork);
-
-      return artwork;
+  
+      return true;
   }
   
   /**
@@ -57,13 +74,6 @@ public class ArtistService {
         return true;
       }
         
-  }
-  
-  @Transactional
-  public List<Artwork> getArtworkUploadedByArtist(Artist artist) {
-      List<Artwork> artworksUploadedByArtist = new ArrayList<>();
-      artworksUploadedByArtist = (List<Artwork>) artist.getArtwork();
-      return artworksUploadedByArtist;
   }
   
 }
