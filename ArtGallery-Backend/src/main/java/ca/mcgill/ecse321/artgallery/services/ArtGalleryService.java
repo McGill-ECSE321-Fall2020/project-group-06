@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import ca.mcgill.ecse321.artgallery.dao.ArtGalleryRepository;
 import ca.mcgill.ecse321.artgallery.dao.ArtworkRepository;
+import ca.mcgill.ecse321.artgallery.model.ArtGallery;
 import ca.mcgill.ecse321.artgallery.model.Artwork;
+import ca.mcgill.ecse321.artgallery.model.User;
 
 /**
  * <p>
@@ -47,10 +49,23 @@ public class ArtGalleryService {
 	 * REQ 4.2 The art gallery system shall allow the art gallery to remove an
 	 * artwork.
 	 */
-	public Artwork removeArtwork(int artworkID) {
+	public boolean removeArtwork(int artworkID) {
 		Artwork artwork = artworkRepository.findArtworkById(artworkID);
+		if(artwork==null) {
+			return false;
+		}
 		artwork.setForSale(false);
 		artworkRepository.save(artwork);
-		return artwork;
+		return true;
+	}
+
+	public boolean saveArtGallery(ArtGallery artGallery) {
+		// this Art Gallery already exists
+		if (artGalleryRepository.findArtGalleryById(artGallery.getId()) != null) {
+			return false;
+		} else {
+			artGalleryRepository.save(artGallery);
+			return true;
+		}
 	}
 }
