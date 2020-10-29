@@ -134,17 +134,17 @@ public class CustomerService {
      * 
      * @author Noah Chamberland
      */
-    public boolean buyArtwork(int customerId, int artistId, int artworkId, int artGalleryId){
-		if (artGalleryRepository.findArtGalleryById(artGalleryId) == null) {
+    public boolean buyArtwork(int customerId, int artistId, int artworkId, int artGalleryId) {
+        if (artGalleryRepository.findArtGalleryById(artGalleryId) == null) {
             return false;
         }
-        if(artistRepository.findArtistById(artistId) == null){
-            return false;
-        } 
-        if(artworkRepository.findArtworkById(artworkId) == null){
+        if (artistRepository.findArtistById(artistId) == null) {
             return false;
         }
-        if(customerRepository.findCustomerById(customerId) == null){
+        if (artworkRepository.findArtworkById(artworkId) == null) {
+            return false;
+        }
+        if (customerRepository.findCustomerById(customerId) == null) {
             return false;
         }
         Transaction transaction = new Transaction();
@@ -153,6 +153,8 @@ public class CustomerService {
         transaction.setArtwork(artworkRepository.findArtworkById(artworkId));
         transaction.setCustomer(customerRepository.findCustomerById(customerId));
         transactionRepository.save(transaction);
+
+        // TODO SET ARTWORK FOR SALE = FALSE
         return true;
     }
 
