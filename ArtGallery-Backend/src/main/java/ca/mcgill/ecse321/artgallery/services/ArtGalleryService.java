@@ -67,15 +67,6 @@ public class ArtGalleryService {
 		return true;
 	}
 
-	public boolean saveArtGallery(ArtGallery artGallery) {
-		// this Art Gallery already exists
-		if (artGalleryRepository.findArtGalleryById(artGallery.getId()) != null) {
-			return false;
-		} else {
-			artGalleryRepository.save(artGallery);
-			return true;
-		}
-	}
 
 
 	/**
