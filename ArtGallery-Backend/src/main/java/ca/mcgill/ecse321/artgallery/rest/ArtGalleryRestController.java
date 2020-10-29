@@ -49,7 +49,7 @@ public class ArtGalleryRestController {
 
 	@PostMapping("/removeArtwork")
 	public ResponseEntity<Artwork> removeArtwork(@RequestParam int artworkID) {
-		
+
 		if (artworkID == 0) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
@@ -61,16 +61,16 @@ public class ArtGalleryRestController {
 		}
 	}
 
-	
 	/**
-	   * REQ4.3 The art gallery system shall allow the art gallery to take a commission on each transaction.
-	   * 
-	   * @param int The transaction ID
-	   * @return double The art gallery's commission on a sold piece of art
-	   * @author Olivier Normandin
-	   */
-	@GetMapping("/artGalleryCommission")
-	public ResponseEntity<Double> takeCommission(@RequestParam int transactionID) {
+	 * REQ4.3 The art gallery system shall allow the art gallery to take a
+	 * commission on each transaction.
+	 * 
+	 * @param int The transaction ID
+	 * @return double The art gallery's commission on a sold piece of art
+	 * @author Olivier Normandin
+	 */
+	@GetMapping("/artGalleryCommission/{transactionId}")
+	public ResponseEntity<Double> takeCommission(@PathVariable("transactionId") Integer transactionID) {
 		if (transactionID == 0) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
@@ -82,46 +82,45 @@ public class ArtGalleryRestController {
 		}
 	}
 
-
 	@PostMapping("/createArtGallery")
-	public ResponseEntity<Void> createArtGallery(@Valid @RequestBody ArtGallery artGallery){
+	public ResponseEntity<Void> createArtGallery(@Valid @RequestBody ArtGallery artGallery) {
 		logger.info("creating art gallery");
 
-		if(artGallery.getName() == null){
+		if (artGallery.getName() == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
 
 		try {
-            if (artGalleryService.saveArtGallery(artGallery) == null) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-            } else {
-                return ResponseEntity.status(HttpStatus.CREATED).build();
-            }
-        } catch (Exception e) {
-            logger.error("Exception when creating a new art gallery " + e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+			if (artGalleryService.saveArtGallery(artGallery) == null) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+			} else {
+				return ResponseEntity.status(HttpStatus.CREATED).build();
+			}
+		} catch (Exception e) {
+			logger.error("Exception when creating a new art gallery " + e);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
 	}
 
 	@GetMapping("/getArtGallery/{name}")
-    public ResponseEntity<ArtGallery> getArtGalleryByName(@PathVariable("name") String name) {
+	public ResponseEntity<ArtGallery> getArtGalleryByName(@PathVariable("name") String name) {
 
-        logger.info("get art gallery by name");
+		logger.info("get art gallery by name");
 
-        if (name == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
+		if (name == null) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
 
-        try {
-            if (artGalleryService.getArtGalleryByName(name) == null) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-            } else {
-                return ResponseEntity.ok(artGalleryService.getArtGalleryByName(name));
-            }
-        } catch (Exception e) {
-            logger.error("Exception when getting art gallery by name" + e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
+		try {
+			if (artGalleryService.getArtGalleryByName(name) == null) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+			} else {
+				return ResponseEntity.ok(artGalleryService.getArtGalleryByName(name));
+			}
+		} catch (Exception e) {
+			logger.error("Exception when getting art gallery by name" + e);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+	}
 
 }

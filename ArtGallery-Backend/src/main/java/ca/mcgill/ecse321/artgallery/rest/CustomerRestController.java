@@ -136,7 +136,8 @@ public class CustomerRestController {
      * @author Noah Chamberland
      */
     @PostMapping("/setMeanOfDelivery")
-    public ResponseEntity<Void> setMeanOfDelivery(@Valid @RequestBody TransactionDeliveryTypeDto transactionDeliveryType) {
+    public ResponseEntity<Void> setMeanOfDelivery(
+            @Valid @RequestBody TransactionDeliveryTypeDto transactionDeliveryType) {
         logger.info("setting mean of delivery");
 
         if (transactionDeliveryType.transaction.getId() == 0) {
@@ -155,7 +156,8 @@ public class CustomerRestController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         try {
-            if (customerService.setMeanOfDelivery(transactionDeliveryType.transaction, transactionDeliveryType.deliveryType))
+            if (customerService.setMeanOfDelivery(transactionDeliveryType.transaction,
+                    transactionDeliveryType.deliveryType))
                 return ResponseEntity.status(HttpStatus.OK).build();
             else
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -172,23 +174,25 @@ public class CustomerRestController {
      * @author Noah Chamberland
      */
     @PostMapping("/buyArtwork/{customerId}/{artistId}/{artworkId}/{artGalleryId}")
-    public ResponseEntity<Void> buyArtwork(@PathVariable("customerId") int customerId, @PathVariable("artistId") int artistId, @PathVariable("artworkId") int artworkId, @PathVariable("artGalleryId") int artGalleryId) {
+    public ResponseEntity<Void> buyArtwork(@PathVariable("customerId") int customerId,
+            @PathVariable("artistId") int artistId, @PathVariable("artworkId") int artworkId,
+            @PathVariable("artGalleryId") int artGalleryId) {
         logger.info("buying artwork");
 
-		if(customerId == 0){
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        if (customerId == 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-        if(artistId == 0){
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }		
-        if(artworkId == 0){
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }		
-        if(artGalleryId == 0){
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-		}
+        if (artistId == 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        if (artworkId == 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        if (artGalleryId == 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
 
-		try {
+        try {
             if (customerService.buyArtwork(customerId, artistId, artworkId, artGalleryId) == false) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
             } else {
@@ -199,11 +203,11 @@ public class CustomerRestController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-  
+
     /**
      * TESTED WITH POSTMAN
      */
-  @PostMapping("/createCustomer")
+    @PostMapping("/createCustomer")
     public ResponseEntity<Void> createCustomer(@Valid @RequestBody Customer customer) {
 
         logger.info("creating customer profile");
@@ -253,27 +257,28 @@ public class CustomerRestController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-    
+
     /**
-     * REQ3.3 The art gallery system shall provide the customer with a receipt of the transaction.
+     * REQ3.3 The art gallery system shall provide the customer with a receipt of
+     * the transaction.
      * 
      * @param int The transaction ID
      * @return Transaction The receipt
      * @author Olivier Normandin
      */
-    @PostMapping("/getTransactionReceipt")
-    public ResponseEntity<Transaction> getTransactionReceipt(@RequestParam int transactionID) {
-    	  
-  	  if (transactionID == 0) {
-  		  return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-  	  }
-  	  
-  	  try {
-  		  return ResponseEntity.ok(customerService.getTransactionReceipt(transactionID));
-  	  } catch (Exception e) {
-  		  logger.error("Exception when getting transaction receipt");
+    @GetMapping("/getTransactionReceipt/{transactionId}")
+    public ResponseEntity<Transaction> getTransactionReceipt(@PathVariable("transactionId") Integer transactionID) {
+
+        if (transactionID == 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
+        try {
+            return ResponseEntity.ok(customerService.getTransactionReceipt(transactionID));
+        } catch (Exception e) {
+            logger.error("Exception when getting transaction receipt");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-  	  }
+        }
     }
-    
+
 }
