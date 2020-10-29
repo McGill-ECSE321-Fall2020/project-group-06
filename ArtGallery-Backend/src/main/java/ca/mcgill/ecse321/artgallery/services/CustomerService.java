@@ -134,39 +134,25 @@ public class CustomerService {
      * 
      * @author Noah Chamberland
      */
-    public boolean buyArtwork(Artwork artwork, double commissionCut, Customer customer, Date date,
-            DeliveryType deliveryType) {
-        if (artworkRepository.findArtworkById(artwork.getId()) == null)
+    public boolean buyArtwork(int customerId, int artistId, int artworkId, int artGalleryId){
+		if (artGalleryRepository.findArtGalleryById(artGalleryId) == null) {
             return false;
-        if (customerRepository.findCustomerById(customer.getId()) == null)
+        }
+        if(artistRepository.findArtistById(artistId) == null){
             return false;
-
+        } 
+        if(artworkRepository.findArtworkById(artworkId) == null){
+            return false;
+        }
+        if(customerRepository.findCustomerById(customerId) == null){
+            return false;
+        }
         Transaction transaction = new Transaction();
-
-        transaction.setArtGallery(artwork.getArtGallery());
-        artwork.getArtGallery().getTransaction().add(transaction);
-        artGalleryRepository.save(artwork.getArtGallery());
-
-        transaction.setArtist(artwork.getArtist());
-        artwork.getArtist().getTransaction().add(transaction);
-        artistRepository.save(artwork.getArtist());
-
-        transaction.setArtwork(artwork);
-        artwork.getTransaction().add(transaction);
-        artworkRepository.save(artwork);
-
-        transaction.setCommisionCut(commissionCut);
-
-        transaction.setCustomer(customer);
-        customer.getTransaction().add(transaction);
-        customerRepository.save(customer);
-
-        transaction.setDateOfTransaction(date);
-
-        transaction.setDeliveryType(deliveryType);
-
+        transaction.setArtGallery(artGalleryRepository.findArtGalleryById(artGalleryId));
+        transaction.setArtist(artistRepository.findArtistById(artistId));
+        transaction.setArtwork(artworkRepository.findArtworkById(artworkId));
+        transaction.setCustomer(customerRepository.findCustomerById(customerId));
         transactionRepository.save(transaction);
-
         return true;
     }
 

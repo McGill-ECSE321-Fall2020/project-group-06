@@ -9,6 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Artwork {
@@ -71,7 +74,9 @@ public class Artwork {
 
 	private Artist artist;
 
-	@ManyToOne(optional = false)
+	//ManyToOne
+	@OneToOne(optional = false)
+	@JsonIgnoreProperties("artwork")
 	public Artist getArtist() {
 		return this.artist;
 	}
@@ -83,6 +88,7 @@ public class Artwork {
 	private Set<Transaction> transaction;
 
 	@OneToMany(mappedBy = "artwork")
+	@JsonIgnoreProperties({"artwork", "artist", "customer", "artGallery"})
 	public Set<Transaction> getTransaction() {
 		return this.transaction;
 	}
@@ -93,7 +99,9 @@ public class Artwork {
 
 	private ArtGallery artGallery;
 
-	@ManyToOne(optional = false)
+	//ManytoOne
+	@OneToOne(optional = false)
+	@JsonIgnoreProperties("artwork")
 	public ArtGallery getArtGallery() {
 		return this.artGallery;
 	}

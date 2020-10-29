@@ -26,6 +26,11 @@ public class UserRestController {
     @Autowired
     private UsersService usersService;
 
+    /**
+     * TESTED WITH POSTMAN
+     * @param user
+     * @return
+     */
     @PostMapping("/createUser")
     public ResponseEntity<Void> createUserProfile(@Valid @RequestBody User user) {
 

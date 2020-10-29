@@ -35,6 +35,11 @@ public class ArtistRestController {
     @Autowired
     ArtistService artistService;
 
+    /**
+     * TESTED WITH POSTMAN
+     * @param artist
+     * @return
+     */
     @PostMapping("/createArtist")
     public ResponseEntity<Void> createArtist(@Valid @RequestBody Artist artist) {
 

@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import java.util.Set;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class ArtGallery {
    private String name;
@@ -44,6 +46,7 @@ public class ArtGallery {
    private Set<Transaction> transaction;
 
    @OneToMany(mappedBy = "artGallery")
+   @JsonIgnoreProperties({"artwork", "artist", "customer", "artGallery"})
    public Set<Transaction> getTransaction() {
       return this.transaction;
    }
