@@ -23,7 +23,6 @@ import ca.mcgill.ecse321.artgallery.model.Customer;
 import ca.mcgill.ecse321.artgallery.model.Transaction;
 import ca.mcgill.ecse321.artgallery.model.Transaction.DeliveryType;
 
-
 /**
  * <p>
  * CustomerService: Methods used by customer (browse, add/remove favorites,
@@ -55,12 +54,6 @@ public class CustomerService {
     @Autowired
     private ArtGalleryRepository artGalleryRepository;
 
-    @Autowired
-    CustomerRepository customerRepository;
-
-    @Autowired
-    UserRepository userRepository;
-
     /**
      * REQ3.1: The art gallery system shall allow a customer to browse all the
      * artworks for sale Implement the service method for this requirement
@@ -85,39 +78,6 @@ public class CustomerService {
     }
 
     /**
-     * Creates a new customer service method
-     * 
-     * @param customer
-     * @return Boolean if the customer is created
-     * @author Sen Wang
-     */
-
-    public Boolean saveCustomer(Customer customer) {
-        // a user/customer/artist with username already exist
-        if (userRepository.findUserByUsername(customer.getUsername()) != null) {
-            return false;
-        } else {
-            customerRepository.save(customer);
-            return true;
-        }
-    }
-
-    /**
-     * This methods finds a customer by username
-     * 
-     * @param username
-     * @return Customer object
-     */
-    public Customer getCustomerByUsername(String username) {
-        if (customerRepository.findCustomerByUsername(username) == null) {
-            return null;
-        } else {
-            return customerRepository.findCustomerByUsername(username);
-        }
-    }
-
-}
-
      * REQ3.2: The art gallery system shall allow a customer to add artwork into
      * their own favorite list.
      * 
@@ -209,5 +169,37 @@ public class CustomerService {
 
         return true;
     }
-}
 
+    /**
+     * Creates a new customer service method
+     * 
+     * @param customer
+     * @return Boolean if the customer is created
+     * @author Sen Wang
+     */
+
+    public Boolean saveCustomer(Customer customer) {
+        // a user/customer/artist with username already exist
+        if (userRepository.findUserByUsername(customer.getUsername()) != null) {
+            return false;
+        } else {
+            customerRepository.save(customer);
+            return true;
+        }
+    }
+
+    /**
+     * This methods finds a customer by username
+     * 
+     * @param username
+     * @return Customer object
+     */
+    public Customer getCustomerByUsername(String username) {
+        if (customerRepository.findCustomerByUsername(username) == null) {
+            return null;
+        } else {
+            return customerRepository.findCustomerByUsername(username);
+        }
+    }
+
+}
