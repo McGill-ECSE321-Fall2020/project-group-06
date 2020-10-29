@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,6 +67,33 @@ public class CustomerRestController {
             }
         } catch (Exception e) {
             logger.error("Exception when creating a new customer " + e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    /**
+     * Http endpoint to get customer by username
+     * 
+     * @param username
+     * @return Customer object
+     */
+    @GetMapping("/getCustomer/{username}")
+    public ResponseEntity<Customer> getCustomerByUsername(@PathVariable("username") String username) {
+
+        logger.info("get customer by username");
+
+        if (username == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
+        try {
+            if (customerService.getCustomerByUsername(username) == null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            } else {
+                return ResponseEntity.ok(customerService.getCustomerByUsername(username));
+            }
+        } catch (Exception e) {
+            logger.error("Exception when getting customer by username" + e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

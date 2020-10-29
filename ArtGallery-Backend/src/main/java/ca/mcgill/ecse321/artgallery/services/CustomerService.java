@@ -70,6 +70,20 @@ public class CustomerService {
         }
     }
 
+    /**
+     * This methods finds a customer by username
+     * 
+     * @param username
+     * @return Customer object
+     */
+    public Customer getCustomerByUsername(String username) {
+        if (customerRepository.findCustomerByUsername(username) == null) {
+            return null;
+        } else {
+            return customerRepository.findCustomerByUsername(username);
+        }
+    }
+
     // Update customer infos method
 
 }

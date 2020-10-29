@@ -39,6 +39,20 @@ public class ArtistService {
         }
     }
 
+    /**
+     * This methods finds an artist by username
+     * 
+     * @param username
+     * @return Artist object
+     */
+    public Artist getArtistByUsername(String username) {
+        if (artistRepository.findArtistByUsername(username) == null) {
+            return null;
+        } else {
+            return artistRepository.findArtistByUsername(username);
+        }
+    }
+
     // update artist info method
 
 }
