@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,8 +28,8 @@ public class ArtistRestController {
    * 
    * @author Andre-Walter Panzini
    */
-  @GetMapping("/uploadArtwork")
-  public ResponseEntity<Void> uploadArtwork(@RequestParam Artwork artwork) {
+  @PostMapping("/uploadArtwork")
+  public ResponseEntity<Void> uploadArtwork(@RequestBody Artwork artwork) {
     
     if(artwork.getArtist() == null)
     {
@@ -38,11 +39,10 @@ public class ArtistRestController {
     {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
-    if(artwork.getPicture() == null)
+    if(artwork.getArtGallery() == null)
     {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
-    
     try {
       artistService.uploadArtwork(artwork);
       return ResponseEntity.status(HttpStatus.CREATED).build();
