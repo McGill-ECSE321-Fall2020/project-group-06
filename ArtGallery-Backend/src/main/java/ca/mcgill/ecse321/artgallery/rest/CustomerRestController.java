@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.artgallery.rest;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.artgallery.dto.ArtworkCustomerDto;
@@ -251,4 +253,27 @@ public class CustomerRestController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+    
+    /**
+     * REQ3.3 The art gallery system shall provide the customer with a receipt of the transaction.
+     * 
+     * @param int The transaction ID
+     * @return Transaction The receipt
+     * @author Olivier Normandin
+     */
+    @PostMapping("/getTransactionReceipt")
+    public ResponseEntity<Transaction> getTransactionReceipt(@RequestParam int transactionID) {
+    	  
+  	  if (transactionID == 0) {
+  		  return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+  	  }
+  	  
+  	  try {
+  		  return ResponseEntity.ok(customerService.getTransactionReceipt(transactionID));
+  	  } catch (Exception e) {
+  		  logger.error("Exception when getting transaction receipt");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+  	  }
+    }
+    
 }
