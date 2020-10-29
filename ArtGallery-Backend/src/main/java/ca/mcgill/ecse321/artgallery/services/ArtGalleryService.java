@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import ca.mcgill.ecse321.artgallery.dao.ArtGalleryRepository;
 import ca.mcgill.ecse321.artgallery.dao.ArtworkRepository;
+import ca.mcgill.ecse321.artgallery.dao.TransactionRepository;
 import ca.mcgill.ecse321.artgallery.model.Artwork;
+import ca.mcgill.ecse321.artgallery.model.Transaction;
 
 /**
  * <p>
@@ -22,6 +24,8 @@ public class ArtGalleryService {
 	ArtworkRepository artworkRepository;
 	@Autowired
 	ArtGalleryRepository artGalleryRepository;
+	@Autowired
+	TransactionRepository transactionRepository;
 
 	/**
 	 * REQ5.3: The art gallery system should be able to browse the artworks
@@ -52,5 +56,23 @@ public class ArtGalleryService {
 		artwork.setForSale(false);
 		artworkRepository.save(artwork);
 		return artwork;
+	}
+	
+	/**
+	 * REQ 4.1 The art gallery system shall allow the art gallery to browse all the artwork transactions
+	 * 
+	 * @return List of Transactions
+	 * @author Andre-Walter Panzini
+	 */
+	public ArrayList<Transaction> getAllTransactions() {
+	     
+	    // create new transaction array list
+	    ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+	    
+	    for (Transaction transaction : transactionRepository.findAll()) {
+	        transactions.add(transaction);
+	    }
+	    
+	    return transactions;
 	}
 }

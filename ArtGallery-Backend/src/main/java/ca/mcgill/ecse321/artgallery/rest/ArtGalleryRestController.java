@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.artgallery.model.Artwork;
+import ca.mcgill.ecse321.artgallery.model.Transaction;
 import ca.mcgill.ecse321.artgallery.services.ArtGalleryService;
 
 @RestController
@@ -40,6 +41,16 @@ public class ArtGalleryRestController {
 			logger.error("Exception when getting all artworks for art gallery");
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
+	}
+	
+	@GetMapping("/allTransactions")
+	public ResponseEntity<ArrayList<Transaction>> getAllTransactions() {
+	    try {
+	        return ResponseEntity.ok(artGalleryService.getAllTransactions());
+	    } catch (Exception e) {
+          logger.error("Exception when getting all transactions for art gallery");
+          return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+      }
 	}
 
 	@PostMapping("/removeArtwork")
