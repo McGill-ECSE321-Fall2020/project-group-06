@@ -14,6 +14,7 @@ import ca.mcgill.ecse321.artgallery.dao.ArtworkRepository;
 import ca.mcgill.ecse321.artgallery.dao.CustomerRepository;
 
 import ca.mcgill.ecse321.artgallery.dao.UserRepository;
+import ca.mcgill.ecse321.artgallery.dto.CustomerDto;
 import ca.mcgill.ecse321.artgallery.model.Artwork;
 import ca.mcgill.ecse321.artgallery.model.Customer;
 
@@ -86,14 +87,14 @@ public class CustomerService {
      * 
      * @author Noah Chamberland
      */
-    public boolean addArtwork(Artwork artwork, Customer customer) {
-        if (artworkRepository.findArtworkById(artwork.getId()) == null)
+    public boolean addArtwork(int customerId, int artworkId) {
+        if (artworkRepository.findArtworkById(artworkId) == null)
             return false;
-        if (customerRepository.findCustomerById(customer.getId()) == null)
+        if (customerRepository.findCustomerById(customerId) == null)
             return false;
 
-        customer.getArtwork().add(artwork);
-        customerRepository.save(customer);
+        customerRepository.findCustomerById(customerId).getArtwork().add(artworkRepository.findArtworkById(artworkId));
+        customerRepository.save(customerRepository.findCustomerById(customerId));
 
         return true;
     }
@@ -104,14 +105,14 @@ public class CustomerService {
      * 
      * @author Noah Chamberland
      */
-    public boolean removeArtwork(Artwork artwork, Customer customer) {
-        if (artworkRepository.findArtworkById(artwork.getId()) == null)
+    public boolean removeArtwork(int customerId, int artworkId) {
+        if (artworkRepository.findArtworkById(artworkId) == null)
             return false;
-        if (customerRepository.findCustomerById(customer.getId()) == null)
+        if (customerRepository.findCustomerById(customerId) == null)
             return false;
 
-        customer.getArtwork().remove(artwork);
-        customerRepository.save(customer);
+        customerRepository.findCustomerById(customerId).getArtwork().remove(artworkRepository.findArtworkById(artworkId));
+        customerRepository.save(customerRepository.findCustomerById(customerId));
 
         return true;
     }
@@ -122,12 +123,12 @@ public class CustomerService {
      * 
      * @author Noah Chamberland
      */
-    public boolean setMeanOfDelivery(Transaction transaction, DeliveryType deliveryType) {
-        if (transactionRepository.findTransactionById(transaction.getId()) == null)
+    public boolean setMeanOfDelivery(int transactionId, DeliveryType deliveryType) {
+        if (transactionRepository.findTransactionById(transactionId) == null)
             return false;
 
-        transaction.setDeliveryType(deliveryType);
-        transactionRepository.save(transaction);
+        transactionRepository.findTransactionById(transactionId).setDeliveryType(deliveryType);
+        transactionRepository.save(transactionRepository.findTransactionById(transactionId));
 
         return true;
     }
@@ -155,6 +156,8 @@ public class CustomerService {
         transaction.setArtist(artistRepository.findArtistById(artistId));
         transaction.setArtwork(artworkRepository.findArtworkById(artworkId));
         transaction.setCustomer(customerRepository.findCustomerById(customerId));
+        artworkRepository.findArtworkById(artworkId).setForSale(false);
+        artworkRepository.save(artworkRepository.findArtworkById(artworkId));
         transactionRepository.save(transaction);
 
         // TODO SET ARTWORK FOR SALE = FALSE
@@ -209,6 +212,33 @@ public class CustomerService {
             return null;
         } else {
             return receipt;
+        }
+    }
+
+    /**
+     * Service method to update customer
+     * 
+     * @param customerDto
+     * @return boolean
+     * @author Sen Wang
+     */
+    public Boolean updateCustomer(CustomerDto customerDto) {
+        if (customerRepository.findCustomerByUsername(customerDto.getUsername()) == null) {
+            return false;
+        } else {
+            Customer updatedCustomer = new Customer();
+            updatedCustomer = customerRepository.findCustomerByUsername(customerDto.getUsername());
+            updatedCustomer.setArtwork(customerDto.getArtwork());
+            updatedCustomer.setCreditCardNumber(customerDto.getCreditCardNumber());
+            updatedCustomer.setDescription(customerDto.getDescription());
+            updatedCustomer.setEmail(customerDto.getEmail());
+            updatedCustomer.setFirstName(customerDto.getFirstName());
+            updatedCustomer.setLastName(customerDto.getLastName());
+            updatedCustomer.setPhoneNumber(customerDto.getPhoneNumber());
+            updatedCustomer.setPicture(customerDto.getPicture());
+            updatedCustomer.setTransaction(customerDto.getTransaction());
+            customerRepository.save(updatedCustomer);
+            return true;
         }
     }
 

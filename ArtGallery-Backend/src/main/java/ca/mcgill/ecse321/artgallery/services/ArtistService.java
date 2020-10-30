@@ -14,6 +14,7 @@ import ca.mcgill.ecse321.artgallery.model.Transaction;
 
 import ca.mcgill.ecse321.artgallery.dao.ArtistRepository;
 import ca.mcgill.ecse321.artgallery.dao.UserRepository;
+import ca.mcgill.ecse321.artgallery.dto.ArtistDto;
 import ca.mcgill.ecse321.artgallery.model.Artist;
 
 /**
@@ -116,6 +117,29 @@ public class ArtistService {
     }
   }
 
+	public Boolean updateArtist(Artist artist) {
+		//check that the artist exists
+		if (userRepository.findUserByUsername(artist.getUsername()) == null) {
+			return false;
+		} else {
+			Artist newArtist;
+			newArtist=artistRepository.findArtistByUsername(artist.getUsername());
+			newArtist.setArtwork(artist.getArtwork());
+			newArtist.setBankAccountNumber(artist.getBankAccountNumber());
+			newArtist.setDescription(artist.getDescription());
+			newArtist.setEmail(artist.getEmail());
+			newArtist.setFirstName(artist.getFirstName());
+			newArtist.setLastName(artist.getLastName());
+			newArtist.setPassword(artist.getPassword());
+			newArtist.setPhoneNumber(artist.getPhoneNumber());
+			newArtist.setPicture(artist.getPicture());
+			newArtist.setTransaction(artist.getTransaction());
+			newArtist.setUsername(artist.getUsername());
+			artistRepository.save(newArtist);
+			return true;
+		}
+  }
+
   /**
    * This methods finds an artist by username
    * 
@@ -127,6 +151,33 @@ public class ArtistService {
       return null;
     } else {
       return artistRepository.findArtistByUsername(username);
+    }
+  }
+
+  /**
+   * This service method updates an artist info
+   * 
+   * @param artistDto
+   * @return boolean
+   * @author Sen Wang
+   */
+  public Boolean updateArtist(ArtistDto artistDto) {
+    if (artistRepository.findArtistByUsername(artistDto.getUsername()) == null) {
+      return false;
+    } else {
+      Artist updatedArtist = new Artist();
+      updatedArtist = artistRepository.findArtistByUsername(artistDto.getUsername());
+      updatedArtist.setArtwork(artistDto.getArtwork());
+      updatedArtist.setBankAccountNumber(artistDto.getBankAccountNumber());
+      updatedArtist.setDescription(artistDto.getDescription());
+      updatedArtist.setEmail(artistDto.getEmail());
+      updatedArtist.setFirstName(artistDto.getFirstName());
+      updatedArtist.setLastName(artistDto.getLastName());
+      updatedArtist.setPhoneNumber(artistDto.getPhoneNumber());
+      updatedArtist.setPicture(artistDto.getPicture());
+      updatedArtist.setTransaction(artistDto.getTransaction());
+      artistRepository.save(updatedArtist);
+      return true;
     }
   }
 
