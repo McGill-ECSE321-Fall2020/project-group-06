@@ -59,7 +59,7 @@ public class ArtGalleryService {
 	 */
 	public boolean removeArtwork(int artworkID) {
 		Artwork artwork = artworkRepository.findArtworkById(artworkID);
-		if(artwork==null) {
+		if (artwork == null) {
 			return false;
 		}
 		artwork.setForSale(false);
@@ -67,44 +67,41 @@ public class ArtGalleryService {
 		return true;
 	}
 
-
-
 	/**
-	   * REQ4.3 The art gallery system shall allow the art gallery to take a commission on each transaction.
-	   *
-	   * @param int The transaction ID
-	   * @return double The art gallery<s commission on a sold piece of art
-	   * @author Olivier Normandin
-	   */
+	 * REQ4.3 The art gallery system shall allow the art gallery to take a
+	 * commission on each transaction.
+	 *
+	 * @param int The transaction ID
+	 * @return double The art gallery<s commission on a sold piece of art
+	 * @author Olivier Normandin
+	 */
 
-	  @Transactional
-	  public double takeCommission(int transactionID) {
+	@Transactional
+	public double takeCommission(int transactionID) {
 		Transaction transaction = transactionRepository.findTransactionById(transactionID);
-		if(transaction == null) {
+		if (transaction == null) {
 			return 0;
-		}
-		else {
-			double artGalleryCommission = transaction.getCommisionCut()*transaction.getArtwork().getPrice();
+		} else {
+			double artGalleryCommission = transaction.getCommisionCut() * transaction.getArtwork().getPrice();
 			return artGalleryCommission;
 		}
-	  }
+	}
 
-
-	public ArtGallery saveArtGallery(ArtGallery artGallery){
+	public ArtGallery saveArtGallery(ArtGallery artGallery) {
 		if (artGalleryRepository.findArtGalleryByName(artGallery.getName()) != null) {
-            return null;
-        } else {
-            artGalleryRepository.save(artGallery);
-            return artGalleryRepository.findArtGalleryByName(artGallery.getName());
-        }
+			return null;
+		} else {
+			artGalleryRepository.save(artGallery);
+			return artGalleryRepository.findArtGalleryByName(artGallery.getName());
+		}
 	}
 
 	public ArtGallery getArtGalleryByName(String name) {
-        if (artGalleryRepository.findArtGalleryByName(name) == null) {
-            return null;
-        } else {
-            return artGalleryRepository.findArtGalleryByName(name);
-        }
-    }
+		if (artGalleryRepository.findArtGalleryByName(name) == null) {
+			return null;
+		} else {
+			return artGalleryRepository.findArtGalleryByName(name);
+		}
+	}
 
 }
