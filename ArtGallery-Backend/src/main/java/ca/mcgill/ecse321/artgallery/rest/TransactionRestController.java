@@ -10,10 +10,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ca.mcgill.ecse321.artgallery.model.ArtGallery;
+import ca.mcgill.ecse321.artgallery.model.Artist;
 import ca.mcgill.ecse321.artgallery.model.Transaction;
 import ca.mcgill.ecse321.artgallery.services.TransactionService;
 
@@ -25,6 +28,15 @@ public class TransactionRestController {
     @Autowired
     TransactionService transactionService;
 
+    /**
+     * TESTED WITH POSTMAN
+     * 
+     * @param customerId
+     * @param artistId
+     * @param artworkId
+     * @param artGalleryId
+     * @return
+     */
     @PostMapping("/createTransaction/{customerId}/{artistId}/{artworkId}/{artGalleryId}")
     public ResponseEntity<Void> createTransaction(@PathVariable("customerId") int customerId,
             @PathVariable("artistId") int artistId, @PathVariable("artworkId") int artworkId,
@@ -44,6 +56,16 @@ public class TransactionRestController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
+        if (artistId == 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        if (artworkId == 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        if (artGalleryId == 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
         try {
             if (transactionService.saveTransaction(customerId, artistId, artworkId, artGalleryId) == false) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -52,6 +74,62 @@ public class TransactionRestController {
             }
         } catch (Exception e) {
             logger.error("Exception when creating a new transaction " + e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+    }
+
+    @PutMapping("/updateTransaction")
+    public ResponseEntity<Void> updateTransaction(@Valid @RequestBody Transaction transaction) {
+
+        logger.info("updating Transaction profile");
+        if (transaction.getCustomer() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        if (transaction.getArtist() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        if (transaction.getArtwork() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        if (transaction.getArtGallery() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
+        try {
+            if (transactionService.updateTransaction(transaction) == false) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            } else {
+                return ResponseEntity.status(HttpStatus.OK).build();
+            }
+        } catch (Exception e) {
+            logger.error("Exception when updating Transaction" + e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    /**
+     * TESTED WITH POSTMAN
+     * 
+     * @param transactionId
+     * @return
+     */
+    @PostMapping("/removeTransaction/{transactionId}")
+    public ResponseEntity<Void> removeTransaction(@PathVariable("transactionId") int transactionId) {
+        logger.info("removing transaction");
+
+        if (transactionId == 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
+        try {
+            if (transactionService.removeTransaction(transactionId) == false) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            } else {
+                return ResponseEntity.status(HttpStatus.OK).build();
+            }
+        } catch (Exception e) {
+            logger.error("Exception when removing a transaction " + e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

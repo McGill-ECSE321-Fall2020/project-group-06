@@ -38,7 +38,7 @@ public class ArtistRestController {
 
   /**
    * TESTED WITH POSTMAN
-   * 
+   *
    * @param artist
    * @return
    */
@@ -68,7 +68,7 @@ public class ArtistRestController {
 
   /**
    * Http endpoint to get artist by username
-   * 
+   *
    * @param username
    * @return Arist object
    */
@@ -95,7 +95,7 @@ public class ArtistRestController {
 
   /**
    * REQ2.1: The art gallery system shall allow an artist to upload an artwork.
-   * 
+   *
    * @author Andre-Walter Panzini
    */
   @PostMapping("/uploadArtwork")
@@ -121,7 +121,7 @@ public class ArtistRestController {
 
   /**
    * REQ2.2: The art gallery system shall allow an artist to remove an artwork.
-   * 
+   *
    * @author Andre-Walter Panzini
    */
   @PostMapping("/removeArtwork")
@@ -145,9 +145,9 @@ public class ArtistRestController {
   /**
    * REQ2.3 The art gallery system shall allow an artist to keep track of its
    * transaction history.
-   * 
+   *
    * TESTED WITH POSTMAN
-   * 
+   *
    * @param String username
    * @return List<Transaction> The transaction history
    * @author Olivier Normandin
@@ -180,7 +180,7 @@ public class ArtistRestController {
 
   /**
    * Http endpoint to update an artist info / Tested with postman
-   * 
+   *
    * @param artistDto
    * @return
    */

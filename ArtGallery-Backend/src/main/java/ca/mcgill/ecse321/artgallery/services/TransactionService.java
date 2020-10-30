@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.artgallery.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.test.context.jdbc.SqlConfig.TransactionMode;
 
 import ca.mcgill.ecse321.artgallery.dao.ArtGalleryRepository;
 import ca.mcgill.ecse321.artgallery.dao.ArtistRepository;
@@ -50,9 +51,35 @@ public class TransactionService {
         transaction.setArtist(artistRepository.findArtistById(artistId));
         transaction.setArtwork(artworkRepository.findArtworkById(artworkId));
         transaction.setCustomer(customerRepository.findCustomerById(customerId));
+        //set for sale to false
         transactionRepository.save(transaction);
         return true;
 	}
+    public boolean updateTransaction(Transaction transaction) {
+		if (transactionRepository.findTransactionById(transaction.getId())==null){
+			return false;
+		}
+        Transaction newTransaction = new Transaction();
+        newTransaction.setArtGallery(transaction.getArtGallery());
+        newTransaction.setArtist(transaction.getArtist());
+        newTransaction.setArtwork(transaction.getArtwork());
+        newTransaction.setCommisionCut(transaction.getCommisionCut());
+        newTransaction.setCustomer(transaction.getCustomer());
+        newTransaction.setDateOfTransaction(transaction.getDateOfTransaction());
+        newTransaction.setDeliveryType(transaction.getDeliveryType());
+        transactionRepository.save(newTransaction);
+        return true;
+    }
+
+    public boolean removeTransaction(int transactionId){
+        if(transactionRepository.findTransactionById(transactionId) == null){
+            return false;
+        }
+        
+        transactionRepository.delete(transactionRepository.findTransactionById(transactionId));
+
+        return true;
+    }
 
 	public Transaction getTransactionById(int id) {
         if (transactionRepository.findTransactionById(id) == null) {
