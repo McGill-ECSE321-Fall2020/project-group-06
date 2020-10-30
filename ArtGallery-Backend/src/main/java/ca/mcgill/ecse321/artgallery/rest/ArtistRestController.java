@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ca.mcgill.ecse321.artgallery.model.Artwork;
 import ca.mcgill.ecse321.artgallery.model.Transaction;
 import ca.mcgill.ecse321.artgallery.services.ArtistService;
-
+import ca.mcgill.ecse321.artgallery.dto.ArtistDto;
 import ca.mcgill.ecse321.artgallery.model.Artist;
 import ca.mcgill.ecse321.artgallery.services.ArtistService;
 
@@ -173,6 +174,32 @@ public class ArtistRestController {
       }
     } catch (Exception e) {
       logger.error("Exception when getting artist by username" + e);
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+  }
+
+  /**
+   * Http endpoint to update an artist info / Tested with postman
+   * 
+   * @param artistDto
+   * @return
+   */
+  @PutMapping("/updateArtist")
+  public ResponseEntity<Void> updateArtist(@Valid @RequestBody ArtistDto artistDto) {
+    logger.info("updating artist profile");
+
+    if (artistDto.getUsername() == null) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
+    try {
+      if (artistService.updateArtist(artistDto) == false) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+      } else {
+        return ResponseEntity.status(HttpStatus.OK).build();
+      }
+    } catch (Exception e) {
+      logger.error("Exception when updating artist" + e);
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
   }

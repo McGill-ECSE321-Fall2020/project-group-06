@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.artgallery.dto.ArtworkCustomerDto;
 import ca.mcgill.ecse321.artgallery.dto.BuyArtworkDto;
+import ca.mcgill.ecse321.artgallery.dto.CustomerDto;
 import ca.mcgill.ecse321.artgallery.dto.TransactionDeliveryTypeDto;
 import ca.mcgill.ecse321.artgallery.model.Artwork;
 import ca.mcgill.ecse321.artgallery.model.Customer;
@@ -277,6 +279,33 @@ public class CustomerRestController {
             return ResponseEntity.ok(customerService.getTransactionReceipt(transactionID));
         } catch (Exception e) {
             logger.error("Exception when getting transaction receipt");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    /**
+     * Http endpoint to update customer
+     * 
+     * @param customerDto
+     * @return
+     * @author Sen Wang
+     */
+    @PutMapping("/updateCustomer")
+    public ResponseEntity<Void> updateCustomer(@Valid @RequestBody CustomerDto customerDto) {
+        logger.info("updating customer profile");
+
+        if (customerDto.getUsername() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
+        try {
+            if (customerService.updateCustomer(customerDto) == false) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            } else {
+                return ResponseEntity.status(HttpStatus.OK).build();
+            }
+        } catch (Exception e) {
+            logger.error("Exception when updating customer" + e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
