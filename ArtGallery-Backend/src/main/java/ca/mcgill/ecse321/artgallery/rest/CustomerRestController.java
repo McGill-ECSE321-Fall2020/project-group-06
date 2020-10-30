@@ -240,7 +240,7 @@ public class CustomerRestController {
      * @return Customer object
      */
     @GetMapping("/getCustomer/{username}")
-    public ResponseEntity<Customer> getCustomerByUsername(@PathVariable("username") String username) {
+    public ResponseEntity getCustomerByUsername(@PathVariable("username") String username) {
 
         logger.info("get customer by username");
 
@@ -250,7 +250,7 @@ public class CustomerRestController {
 
         try {
             if (customerService.getCustomerByUsername(username) == null) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("no username");
             } else {
                 return ResponseEntity.ok(customerService.getCustomerByUsername(username));
             }

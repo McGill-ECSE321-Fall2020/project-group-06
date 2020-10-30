@@ -20,29 +20,31 @@ import ca.mcgill.ecse321.artgallery.services.TransactionService;
 @RestController
 @RequestMapping("/api/transaction")
 public class TransactionRestController {
-	private static final Logger logger = LoggerFactory.getLogger(ArtGalleryRestController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ArtGalleryRestController.class);
 
     @Autowired
     TransactionService transactionService;
 
-	@PostMapping("/createTransaction/{customerId}/{artistId}/{artworkId}/{artGalleryId}")
-	public ResponseEntity<Void> createTransaction(@PathVariable("customerId") int customerId, @PathVariable("artistId") int artistId, @PathVariable("artworkId") int artworkId, @PathVariable("artGalleryId") int artGalleryId){
-		logger.info("creating transaction");
+    @PostMapping("/createTransaction/{customerId}/{artistId}/{artworkId}/{artGalleryId}")
+    public ResponseEntity<Void> createTransaction(@PathVariable("customerId") int customerId,
+            @PathVariable("artistId") int artistId, @PathVariable("artworkId") int artworkId,
+            @PathVariable("artGalleryId") int artGalleryId) {
+        logger.info("creating transaction");
 
-		if(customerId == 0){
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        if (customerId == 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-        if(artistId == 0){
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }		
-        if(artworkId == 0){
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }		
-        if(artGalleryId == 0){
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-		}
+        if (artistId == 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        if (artworkId == 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        if (artGalleryId == 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
 
-		try {
+        try {
             if (transactionService.saveTransaction(customerId, artistId, artworkId, artGalleryId) == false) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
             } else {
@@ -52,9 +54,9 @@ public class TransactionRestController {
             logger.error("Exception when creating a new transaction " + e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-	}
+    }
 
-	@GetMapping("/getTransaction/{id}")
+    @GetMapping("/getTransaction/{id}")
     public ResponseEntity<Transaction> getTransactionById(@PathVariable("id") int id) {
 
         logger.info("get transaction by id");

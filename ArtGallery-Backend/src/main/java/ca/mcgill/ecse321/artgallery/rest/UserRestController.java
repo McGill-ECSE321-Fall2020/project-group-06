@@ -28,6 +28,7 @@ public class UserRestController {
 
     /**
      * TESTED WITH POSTMAN
+     * 
      * @param user
      * @return
      */
