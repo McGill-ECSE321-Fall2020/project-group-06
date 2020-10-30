@@ -35,9 +35,17 @@ public class ArtworkRestController {
 		logger.info("creating artwork");
 
 		if(artwork.getName() == null){
+			System.out.println("Name");
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
-
+		if(artwork.getArtist()==null) {
+			System.out.println("Artist");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+		if(artwork.getArtGallery()==null) {
+			System.out.println("ArtGallery");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
 		try {
             if (artworkService.saveArtwork(artwork) == null) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();

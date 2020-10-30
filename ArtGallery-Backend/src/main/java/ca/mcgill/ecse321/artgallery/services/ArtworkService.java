@@ -28,15 +28,16 @@ public class ArtworkService {
 		if (artworkRepository.findArtworkByName(artwork.getName()) != null) {
             return null;
         }
-        if(artistRepository.findArtistByUsername(artwork.getArtist().getUsername()) == null){
+        if(artistRepository.findArtistById(artwork.getArtist().getId()) == null){
             return null;
         }
-        if(artGalleryRepository.findArtGalleryByName(artwork.getArtGallery().getName()) == null){
+        if(artGalleryRepository.findArtGalleryById(artwork.getArtGallery().getId()) == null){
             return null;
         }
         newArtwork.setName(artwork.getName());
-        newArtwork.setArtist(artistRepository.findArtistByUsername(artwork.getArtist().getUsername()));
-        newArtwork.setArtGallery(artGalleryRepository.findArtGalleryByName(artwork.getArtGallery().getName()));
+        newArtwork.setArtist(artistRepository.findArtistById(artwork.getArtist().getId()));
+        newArtwork.setArtGallery(artGalleryRepository.findArtGalleryById
+        		(artwork.getArtGallery().getId()));
         artworkRepository.save(newArtwork);
         return artworkRepository.findArtworkByName(newArtwork.getName());
 	}

@@ -71,9 +71,9 @@ public class ArtistRestController {
 	 * @return
 	 */
 	@PutMapping("/updateArtist")
-	    public ResponseEntity<Void> updateArtGallery(@Valid @RequestBody Artist artist) {
+	    public ResponseEntity<Void> updateArtist(@Valid @RequestBody Artist artist) {
 
-	        logger.info("updating artGallery profile");
+	        logger.info("updating artist profile");
 
 	        if (artist.getUsername() == null) {
 	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
