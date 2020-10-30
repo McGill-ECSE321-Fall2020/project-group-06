@@ -14,6 +14,7 @@ import ca.mcgill.ecse321.artgallery.dao.ArtworkRepository;
 import ca.mcgill.ecse321.artgallery.dao.CustomerRepository;
 
 import ca.mcgill.ecse321.artgallery.dao.UserRepository;
+import ca.mcgill.ecse321.artgallery.dto.CustomerDto;
 import ca.mcgill.ecse321.artgallery.model.Artwork;
 import ca.mcgill.ecse321.artgallery.model.Customer;
 
@@ -209,6 +210,33 @@ public class CustomerService {
             return null;
         } else {
             return receipt;
+        }
+    }
+
+    /**
+     * Service method to update customer
+     * 
+     * @param customerDto
+     * @return boolean
+     * @author Sen Wang
+     */
+    public Boolean updateCustomer(CustomerDto customerDto) {
+        if (customerRepository.findCustomerByUsername(customerDto.getUsername()) == null) {
+            return false;
+        } else {
+            Customer updatedCustomer = new Customer();
+            updatedCustomer = customerRepository.findCustomerByUsername(customerDto.getUsername());
+            updatedCustomer.setArtwork(customerDto.getArtwork());
+            updatedCustomer.setCreditCardNumber(customerDto.getCreditCardNumber());
+            updatedCustomer.setDescription(customerDto.getDescription());
+            updatedCustomer.setEmail(customerDto.getEmail());
+            updatedCustomer.setFirstName(customerDto.getFirstName());
+            updatedCustomer.setLastName(customerDto.getLastName());
+            updatedCustomer.setPhoneNumber(customerDto.getPhoneNumber());
+            updatedCustomer.setPicture(customerDto.getPicture());
+            updatedCustomer.setTransaction(customerDto.getTransaction());
+            customerRepository.save(updatedCustomer);
+            return true;
         }
     }
 
