@@ -28,18 +28,40 @@ public class ArtworkService {
 		if (artworkRepository.findArtworkByName(artwork.getName()) != null) {
             return null;
         }
-        if(artistRepository.findArtistById(artwork.getArtist().getId()) == null){
+        if(artistRepository.findArtistByUsername(artwork.getArtist().getUsername()) == null){
             return null;
         }
-        if(artGalleryRepository.findArtGalleryById(artwork.getArtGallery().getId()) == null){
+        if(artGalleryRepository.findArtGalleryByName(artwork.getArtGallery().getName()) == null){
             return null;
         }
         newArtwork.setName(artwork.getName());
-        newArtwork.setArtist(artistRepository.findArtistById(artwork.getArtist().getId()));
-        newArtwork.setArtGallery(artGalleryRepository.findArtGalleryById
-        		(artwork.getArtGallery().getId()));
+        newArtwork.setArtist(artistRepository.findArtistByUsername(artwork.getArtist().getUsername()));
+        newArtwork.setArtGallery(artGalleryRepository.findArtGalleryByName(artwork.getArtGallery().getName()));
         artworkRepository.save(newArtwork);
         return artworkRepository.findArtworkByName(newArtwork.getName());
+	}
+	public boolean updateArtwork(Artwork artwork) {
+        Artwork newArtwork = new Artwork();
+		if (artworkRepository.findArtworkByName(artwork.getName()) != null) {
+            return false;
+        }
+        if(artistRepository.findArtistById(artwork.getArtist().getId()) == null){
+            return false;
+        }
+        if(artGalleryRepository.findArtGalleryById(artwork.getArtGallery().getId()) == null){
+            return false;
+        }
+        newArtwork.setArtGallery(artwork.getArtGallery());
+        newArtwork.setArtist(artwork.getArtist());
+        newArtwork.setDescription(artwork.getDescription());
+        newArtwork.setForSale(artwork.isForSale());
+        newArtwork.setIsInStore(artwork.isIsInStore());
+        newArtwork.setName(artwork.getName());
+        newArtwork.setPicture(artwork.getPicture());
+        newArtwork.setPicture(artwork.getPicture());
+        newArtwork.setTransaction(artwork.getTransaction());
+        newArtwork.setTypeOfArtwork(artwork.getTypeOfArtwork());
+        return true;
 	}
 
 	public Artwork getArtworkByName(String name) {
