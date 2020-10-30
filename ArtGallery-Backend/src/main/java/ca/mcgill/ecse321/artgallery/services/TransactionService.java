@@ -50,9 +50,20 @@ public class TransactionService {
         transaction.setArtist(artistRepository.findArtistById(artistId));
         transaction.setArtwork(artworkRepository.findArtworkById(artworkId));
         transaction.setCustomer(customerRepository.findCustomerById(customerId));
+        //set for sale to false
         transactionRepository.save(transaction);
         return true;
 	}
+
+    public boolean removeTransaction(int transactionId){
+        if(transactionRepository.findTransactionById(transactionId) == null){
+            return false;
+        }
+        
+        transactionRepository.delete(transactionRepository.findTransactionById(transactionId));
+
+        return true;
+    }
 
 	public Transaction getTransactionById(int id) {
         if (transactionRepository.findTransactionById(id) == null) {

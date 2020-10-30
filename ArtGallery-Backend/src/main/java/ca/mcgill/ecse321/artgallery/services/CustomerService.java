@@ -83,14 +83,14 @@ public class CustomerService {
      * 
      * @author Noah Chamberland
      */
-    public boolean addArtwork(Artwork artwork, Customer customer) {
-        if (artworkRepository.findArtworkById(artwork.getId()) == null)
+    public boolean addArtwork(int customerId, int artworkId) {
+        if (artworkRepository.findArtworkById(artworkId) == null)
             return false;
-        if (customerRepository.findCustomerById(customer.getId()) == null)
+        if (customerRepository.findCustomerById(customerId) == null)
             return false;
 
-        customer.getArtwork().add(artwork);
-        customerRepository.save(customer);
+        customerRepository.findCustomerById(customerId).getArtwork().add(artworkRepository.findArtworkById(artworkId));
+        customerRepository.save(customerRepository.findCustomerById(customerId));
 
         return true;
     }
@@ -101,14 +101,14 @@ public class CustomerService {
      * 
      * @author Noah Chamberland
      */
-    public boolean removeArtwork(Artwork artwork, Customer customer) {
-        if (artworkRepository.findArtworkById(artwork.getId()) == null)
+    public boolean removeArtwork(int customerId, int artworkId) {
+        if (artworkRepository.findArtworkById(artworkId) == null)
             return false;
-        if (customerRepository.findCustomerById(customer.getId()) == null)
+        if (customerRepository.findCustomerById(customerId) == null)
             return false;
 
-        customer.getArtwork().remove(artwork);
-        customerRepository.save(customer);
+        customerRepository.findCustomerById(customerId).getArtwork().remove(artworkRepository.findArtworkById(artworkId));
+        customerRepository.save(customerRepository.findCustomerById(customerId));
 
         return true;
     }
@@ -119,12 +119,12 @@ public class CustomerService {
      * 
      * @author Noah Chamberland
      */
-    public boolean setMeanOfDelivery(Transaction transaction, DeliveryType deliveryType) {
-        if (transactionRepository.findTransactionById(transaction.getId()) == null)
+    public boolean setMeanOfDelivery(int transactionId, DeliveryType deliveryType) {
+        if (transactionRepository.findTransactionById(transactionId) == null)
             return false;
 
-        transaction.setDeliveryType(deliveryType);
-        transactionRepository.save(transaction);
+        transactionRepository.findTransactionById(transactionId).setDeliveryType(deliveryType);
+        transactionRepository.save(transactionRepository.findTransactionById(transactionId));
 
         return true;
     }
@@ -152,6 +152,8 @@ public class CustomerService {
         transaction.setArtist(artistRepository.findArtistById(artistId));
         transaction.setArtwork(artworkRepository.findArtworkById(artworkId));
         transaction.setCustomer(customerRepository.findCustomerById(customerId));
+        artworkRepository.findArtworkById(artworkId).setForSale(false);
+        artworkRepository.save(artworkRepository.findArtworkById(artworkId));
         transactionRepository.save(transaction);
         return true;
     }
