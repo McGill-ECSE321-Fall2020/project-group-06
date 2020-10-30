@@ -22,6 +22,7 @@ import ca.mcgill.ecse321.artgallery.model.ArtGallery;
 import ca.mcgill.ecse321.artgallery.model.Artwork;
 import ca.mcgill.ecse321.artgallery.services.ArtGalleryService;
 
+@ExtendWith(MockitoExtension.class)
 public class TestArtGalleryService {
 
 	// Write this idk how@BeforeEach

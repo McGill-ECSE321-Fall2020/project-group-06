@@ -22,6 +22,7 @@ import ca.mcgill.ecse321.artgallery.dao.UserRepository;
 import ca.mcgill.ecse321.artgallery.model.User;
 import ca.mcgill.ecse321.artgallery.services.UsersService;
 
+@ExtendWith(MockitoExtension.class)
 public class TestUsersService {
 
     @Mock

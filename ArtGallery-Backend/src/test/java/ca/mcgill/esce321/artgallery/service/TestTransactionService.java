@@ -21,6 +21,7 @@ import ca.mcgill.ecse321.artgallery.dao.TransactionRepository;
 import ca.mcgill.ecse321.artgallery.model.Transaction;
 import ca.mcgill.ecse321.artgallery.services.TransactionService;
 
+@ExtendWith(MockitoExtension.class)
 public class TestTransactionService {
 
     @Mock

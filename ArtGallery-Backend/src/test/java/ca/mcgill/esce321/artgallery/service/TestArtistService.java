@@ -20,6 +20,7 @@ import org.mockito.stubbing.Answer;
 import ca.mcgill.ecse321.artgallery.dao.ArtistRepository;
 import ca.mcgill.ecse321.artgallery.model.Artist;
 
+@ExtendWith(MockitoExtension.class)
 public class TestArtistService {
 
     @Mock
