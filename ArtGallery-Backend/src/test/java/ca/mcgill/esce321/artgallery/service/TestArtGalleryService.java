@@ -16,9 +16,46 @@ import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
+
+import ca.mcgill.ecse321.artgallery.dao.ArtGalleryRepository;
+import ca.mcgill.ecse321.artgallery.model.ArtGallery;
+import ca.mcgill.ecse321.artgallery.model.Artwork;
+import ca.mcgill.ecse321.artgallery.services.ArtGalleryService;
 public class TestArtGalleryService {
 
 	//Write this idk how@BeforeEach 
-	
+	@Mock
+	private ArtGalleryRepository artGalleryRepository;
+
+	@InjectMocks
+	private ArtGalleryService artGalleryService;
+
+	private static final int ART_GALLERY_KEY = 15;
+
+	@BeforeEach
+	public void setMockOutput() {
+	    lenient().when(artGalleryRepository.findArtGalleryById(any())).thenAnswer( (InvocationOnMock invocation) -> {
+	        if(invocation.getArgument(0).equals(ART_GALLERY_KEY)) {
+	            ArtGallery artGallery = new ArtGallery();
+	            artGallery.setId(ART_GALLERY_KEY);
+	            return artGallery;
+	        } else {
+	            return null;
+	        }
+	    });
+	}
+	public void testRemoveArtwork() {
+		Artwork artwork = new Artwork();
+		artwork.setForSale(true);
+
+		try {
+			artGalleryService.removeArtwork(artwork.getId());
+		} catch (IllegalArgumentException e) {
+			// Check that no error occurred
+			fail();
+		}
+		assertNotNull(artwork);
+		assertEquals(artwork.isForSale(), false);
+	}
 	
 }
