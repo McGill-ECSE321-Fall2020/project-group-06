@@ -63,7 +63,7 @@ public class ArtistService {
    * 
    * @param artwork the artwork to be added
    * @return artwork the artwork that was added
-   * @author Andre-Walter Panzini
+   * @author Andre-Walter Panzini This might need some rework
    */
   @Transactional
   public Artwork uploadArtwork(Artwork artwork) {
@@ -117,27 +117,27 @@ public class ArtistService {
     }
   }
 
-	public Boolean updateArtist(Artist artist) {
-		//check that the artist exists
-		if (userRepository.findUserByUsername(artist.getUsername()) == null) {
-			return false;
-		} else {
-			Artist newArtist;
-			newArtist=artistRepository.findArtistByUsername(artist.getUsername());
-			newArtist.setArtwork(artist.getArtwork());
-			newArtist.setBankAccountNumber(artist.getBankAccountNumber());
-			newArtist.setDescription(artist.getDescription());
-			newArtist.setEmail(artist.getEmail());
-			newArtist.setFirstName(artist.getFirstName());
-			newArtist.setLastName(artist.getLastName());
-			newArtist.setPassword(artist.getPassword());
-			newArtist.setPhoneNumber(artist.getPhoneNumber());
-			newArtist.setPicture(artist.getPicture());
-			newArtist.setTransaction(artist.getTransaction());
-			newArtist.setUsername(artist.getUsername());
-			artistRepository.save(newArtist);
-			return true;
-		}
+  public Boolean updateArtist(Artist artist) {
+    // check that the artist exists
+    if (userRepository.findUserByUsername(artist.getUsername()) == null) {
+      return false;
+    } else {
+      Artist newArtist;
+      newArtist = artistRepository.findArtistByUsername(artist.getUsername());
+      newArtist.setArtwork(artist.getArtwork());
+      newArtist.setBankAccountNumber(artist.getBankAccountNumber());
+      newArtist.setDescription(artist.getDescription());
+      newArtist.setEmail(artist.getEmail());
+      newArtist.setFirstName(artist.getFirstName());
+      newArtist.setLastName(artist.getLastName());
+      newArtist.setPassword(artist.getPassword());
+      newArtist.setPhoneNumber(artist.getPhoneNumber());
+      newArtist.setPicture(artist.getPicture());
+      newArtist.setTransaction(artist.getTransaction());
+      newArtist.setUsername(artist.getUsername());
+      artistRepository.save(newArtist);
+      return true;
+    }
   }
 
   /**

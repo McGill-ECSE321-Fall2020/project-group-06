@@ -21,7 +21,7 @@ import ca.mcgill.ecse321.artgallery.dao.UserRepository;
 import ca.mcgill.ecse321.artgallery.model.User;
 import ca.mcgill.ecse321.artgallery.services.UsersService;
 
-public class TestUsersService {
+public class TestCognitoService {
 
     @Mock
     private UserRepository userRepository;
@@ -50,10 +50,7 @@ public class TestUsersService {
         lenient().when(userRepository.save(any(User.class))).thenAnswer(returnParameterAsAnswer);
     }
 
-    // test public Boolean saveUser(User user)
+    // test public Boolean changePassword(String username, String newPassword)
 
-    // public Boolean updateUser(User user)
-
-    // ADD MORE TESTS IF NEEDED
-
+    // TODO ADD MORE TESTS IF NEEDED
 }

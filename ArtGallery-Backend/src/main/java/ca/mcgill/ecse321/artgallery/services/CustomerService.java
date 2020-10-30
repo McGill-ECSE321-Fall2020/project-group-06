@@ -111,7 +111,8 @@ public class CustomerService {
         if (customerRepository.findCustomerById(customerId) == null)
             return false;
 
-        customerRepository.findCustomerById(customerId).getArtwork().remove(artworkRepository.findArtworkById(artworkId));
+        customerRepository.findCustomerById(customerId).getArtwork()
+                .remove(artworkRepository.findArtworkById(artworkId));
         customerRepository.save(customerRepository.findCustomerById(customerId));
 
         return true;
@@ -159,8 +160,6 @@ public class CustomerService {
         artworkRepository.findArtworkById(artworkId).setForSale(false);
         artworkRepository.save(artworkRepository.findArtworkById(artworkId));
         transactionRepository.save(transaction);
-
-        // TODO SET ARTWORK FOR SALE = FALSE
         return true;
     }
 

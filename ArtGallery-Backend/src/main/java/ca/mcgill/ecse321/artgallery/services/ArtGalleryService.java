@@ -55,7 +55,7 @@ public class ArtGalleryService {
 
 	/**
 	 * REQ 4.2 The art gallery system shall allow the art gallery to remove an
-	 * artwork.
+	 * artwork. TODO This might need some rework
 	 */
 	public boolean removeArtwork(int artworkID) {
 		Artwork artwork = artworkRepository.findArtworkById(artworkID);
@@ -87,6 +87,12 @@ public class ArtGalleryService {
 		}
 	}
 
+	/**
+	 * Save art gallery
+	 * 
+	 * @param artGallery
+	 * @return ArtGalley
+	 */
 	public ArtGallery saveArtGallery(ArtGallery artGallery) {
 		if (artGalleryRepository.findArtGalleryByName(artGallery.getName()) != null) {
 			return null;
@@ -95,21 +101,34 @@ public class ArtGalleryService {
 			return artGalleryRepository.findArtGalleryByName(artGallery.getName());
 		}
 	}
-	public boolean updateArtGallery(ArtGallery artGallery){
+
+	/**
+	 * Update art gallery
+	 * 
+	 * @param artGallery
+	 * @return boolean
+	 */
+	public boolean updateArtGallery(ArtGallery artGallery) {
 		if (artGalleryRepository.findArtGalleryByName(artGallery.getName()) == null) {
-            return false;
-        } else {
-        	ArtGallery newArtGallery=new ArtGallery();
-        	newArtGallery=artGalleryRepository.findArtGalleryByName(artGallery.getName());
-        	newArtGallery.setAdress(artGallery.getAdress());
-        	newArtGallery.setArtwork(artGallery.getArtwork());
-        	newArtGallery.setName(artGallery.getName());
-        	newArtGallery.setTransaction(artGallery.getTransaction());
-            artGalleryRepository.save(newArtGallery);
-            return true;
-        }
+			return false;
+		} else {
+			ArtGallery newArtGallery = new ArtGallery();
+			newArtGallery = artGalleryRepository.findArtGalleryByName(artGallery.getName());
+			newArtGallery.setAdress(artGallery.getAdress());
+			newArtGallery.setArtwork(artGallery.getArtwork());
+			newArtGallery.setName(artGallery.getName());
+			newArtGallery.setTransaction(artGallery.getTransaction());
+			artGalleryRepository.save(newArtGallery);
+			return true;
+		}
 	}
 
+	/**
+	 * Get art gallery by name
+	 * 
+	 * @param name
+	 * @return Art Gallery
+	 */
 	public ArtGallery getArtGalleryByName(String name) {
 		if (artGalleryRepository.findArtGalleryByName(name) == null) {
 			return null;

@@ -29,13 +29,20 @@ public class UsersService {
         }
     }
 
-    // TODO fix bug
     public Boolean updateUser(User user) {
         // a user with this username does not exist
         if (userRepository.findUserByUsername(user.getUsername()) == null) {
             return false;
         } else {
-            userRepository.save(user);
+            User updatedUser = new User();
+            updatedUser = userRepository.findUserByUsername(user.getUsername());
+            updatedUser.setDescription(user.getDescription());
+            updatedUser.setEmail(user.getEmail());
+            updatedUser.setFirstName(user.getFirstName());
+            updatedUser.setLastName(user.getLastName());
+            updatedUser.setPhoneNumber(user.getPassword());
+            updatedUser.setPicture(user.getPicture());
+            userRepository.save(updatedUser);
             return true;
         }
     }

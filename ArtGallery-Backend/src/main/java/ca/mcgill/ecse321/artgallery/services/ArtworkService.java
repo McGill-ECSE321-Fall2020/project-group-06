@@ -25,15 +25,21 @@ public class ArtworkService {
     @Autowired
     ArtGalleryRepository artGalleryRepository;
 
-	public Artwork saveArtwork(Artwork artwork){
+    /**
+     * Save artwork
+     * 
+     * @param artwork
+     * @return Artwork
+     */
+    public Artwork saveArtwork(Artwork artwork) {
         Artwork newArtwork = new Artwork();
-		if (artworkRepository.findArtworkByName(artwork.getName()) != null) {
+        if (artworkRepository.findArtworkByName(artwork.getName()) != null) {
             return null;
         }
-        if(artistRepository.findArtistByUsername(artwork.getArtist().getUsername()) == null){
+        if (artistRepository.findArtistByUsername(artwork.getArtist().getUsername()) == null) {
             return null;
         }
-        if(artGalleryRepository.findArtGalleryByName(artwork.getArtGallery().getName()) == null){
+        if (artGalleryRepository.findArtGalleryByName(artwork.getArtGallery().getName()) == null) {
             return null;
         }
         newArtwork.setName(artwork.getName());
@@ -41,21 +47,22 @@ public class ArtworkService {
         newArtwork.setArtGallery(artGalleryRepository.findArtGalleryByName(artwork.getArtGallery().getName()));
         artworkRepository.save(newArtwork);
         return artworkRepository.findArtworkByName(newArtwork.getName());
-	}
-	public boolean updateArtwork(Artwork artwork) {
+    }
+
+    public boolean updateArtwork(Artwork artwork) {
         Artwork newArtwork = new Artwork();
-        Artist artist=artistRepository.findArtistById(artwork.getArtist().getId());
-        ArtGallery artGallery=artGalleryRepository.findArtGalleryById(artwork.getArtGallery().getId());
-		if (artworkRepository.findArtworkById(artwork.getId()) == null) {
+        Artist artist = artistRepository.findArtistById(artwork.getArtist().getId());
+        ArtGallery artGallery = artGalleryRepository.findArtGalleryById(artwork.getArtGallery().getId());
+        if (artworkRepository.findArtworkById(artwork.getId()) == null) {
             return false;
         }
-        if(artist == null){
+        if (artist == null) {
             return false;
         }
-        if(artGallery == null){
+        if (artGallery == null) {
             return false;
         }
-        newArtwork=artworkRepository.findArtworkById(artwork.getId());
+        newArtwork = artworkRepository.findArtworkById(artwork.getId());
         newArtwork.setArtGallery(artGallery);
         newArtwork.setArtist(artist);
         newArtwork.setDescription(artwork.getDescription());
@@ -70,9 +77,9 @@ public class ArtworkService {
         artworkRepository.save(newArtwork);
         System.out.println("After Save");
         return true;
-	}
+    }
 
-	public Artwork getArtworkByName(String name) {
+    public Artwork getArtworkByName(String name) {
         if (artworkRepository.findArtworkByName(name) == null) {
             return null;
         } else {
