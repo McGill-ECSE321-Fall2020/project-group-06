@@ -116,6 +116,29 @@ public class ArtistService {
     }
   }
 
+	public Boolean updateArtist(Artist artist) {
+		//check that the artist exists
+		if (userRepository.findUserByUsername(artist.getUsername()) == null) {
+			return false;
+		} else {
+			Artist newArtist;
+			newArtist=artistRepository.findArtistByUsername(artist.getUsername());
+			newArtist.setArtwork(artist.getArtwork());
+			newArtist.setBankAccountNumber(artist.getBankAccountNumber());
+			newArtist.setDescription(artist.getDescription());
+			newArtist.setEmail(artist.getEmail());
+			newArtist.setFirstName(artist.getFirstName());
+			newArtist.setLastName(artist.getLastName());
+			newArtist.setPassword(artist.getPassword());
+			newArtist.setPhoneNumber(artist.getPhoneNumber());
+			newArtist.setPicture(artist.getPicture());
+			newArtist.setTransaction(artist.getTransaction());
+			newArtist.setUsername(artist.getUsername());
+			artistRepository.save(newArtist);
+			return true;
+		}
+  }
+
   /**
    * This methods finds an artist by username
    * 

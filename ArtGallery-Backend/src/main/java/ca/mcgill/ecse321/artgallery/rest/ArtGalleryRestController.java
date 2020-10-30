@@ -63,6 +63,11 @@ public class ArtGalleryRestController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
+	/**
+	 * Tested with Postman
+	 * @param artGallery
+	 * @return
+	 */
 	 @PutMapping("/updateArtGallery")
 	    public ResponseEntity<Void> updateArtGallery(@Valid @RequestBody ArtGallery artGallery) {
 
@@ -104,7 +109,11 @@ public class ArtGalleryRestController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-
+	/**
+	 * Tested with postman
+	 * @param artGallery
+	 * @return
+	 */
 	@PostMapping("/createArtGallery")
 	public ResponseEntity<Void> createArtGallery(@Valid @RequestBody ArtGallery artGallery) {
 		logger.info("creating art gallery");
@@ -124,7 +133,11 @@ public class ArtGalleryRestController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-
+	/**
+	 * Tested with postman.
+	 * @param name
+	 * @return
+	 */
 	@GetMapping("/getArtGallery/{name}")
 	public ResponseEntity<ArtGallery> getArtGalleryByName(@PathVariable("name") String name) {
 
