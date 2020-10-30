@@ -51,6 +51,7 @@ public class TransactionService {
         transaction.setArtist(artistRepository.findArtistById(artistId));
         transaction.setArtwork(artworkRepository.findArtworkById(artworkId));
         transaction.setCustomer(customerRepository.findCustomerById(customerId));
+        //set for sale to false
         transactionRepository.save(transaction);
         return true;
 	}
@@ -67,6 +68,16 @@ public class TransactionService {
         newTransaction.setDateOfTransaction(transaction.getDateOfTransaction());
         newTransaction.setDeliveryType(transaction.getDeliveryType());
         transactionRepository.save(newTransaction);
+        return true;
+    }
+
+    public boolean removeTransaction(int transactionId){
+        if(transactionRepository.findTransactionById(transactionId) == null){
+            return false;
+        }
+        
+        transactionRepository.delete(transactionRepository.findTransactionById(transactionId));
+
         return true;
     }
 

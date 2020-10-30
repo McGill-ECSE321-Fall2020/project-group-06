@@ -52,10 +52,9 @@ public class ArtGalleryRestController {
 	@PostMapping("/removeArtwork")
 	public ResponseEntity<Void> removeArtwork(@RequestParam int artworkID) {
 		try {
-			if(artGalleryService.removeArtwork(artworkID)) {
+			if (artGalleryService.removeArtwork(artworkID)) {
 				return ResponseEntity.status(HttpStatus.OK).build();
-			}
-			else {
+			} else {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 			}
 		} catch (Exception e) {

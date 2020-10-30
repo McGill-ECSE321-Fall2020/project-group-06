@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ca.mcgill.ecse321.artgallery.model.Artwork;
 import ca.mcgill.ecse321.artgallery.model.Transaction;
 import ca.mcgill.ecse321.artgallery.services.ArtistService;
-import ca.mcgill.ecse321.artgallery.model.ArtGallery;
+import ca.mcgill.ecse321.artgallery.dto.ArtistDto;
 import ca.mcgill.ecse321.artgallery.model.Artist;
 import ca.mcgill.ecse321.artgallery.services.ArtistService;
 
@@ -31,178 +31,176 @@ import ca.mcgill.ecse321.artgallery.services.ArtistService;
 @RequestMapping("/api/artist")
 public class ArtistRestController {
 
-	private static final Logger logger = LoggerFactory.getLogger(ArtistRestController.class);
+  private static final Logger logger = LoggerFactory.getLogger(ArtistRestController.class);
 
-	@Autowired
-	ArtistService artistService;
+  @Autowired
+  ArtistService artistService;
 
-	/**
-	 * TESTED WITH POSTMAN
-	 * 
-	 * @param artist
-	 * @return
-	 */
-	@PostMapping("/createArtist")
-	public ResponseEntity<Void> createArtist(@Valid @RequestBody Artist artist) {
+  /**
+   * TESTED WITH POSTMAN
+   *
+   * @param artist
+   * @return
+   */
+  @PostMapping("/createArtist")
+  public ResponseEntity<Void> createArtist(@Valid @RequestBody Artist artist) {
 
-		logger.info("creating artist profile");
+    logger.info("creating artist profile");
 
-		if (artist.getUsername() == null) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-		}
-		if (artist.getPassword() == null) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-		}
+    if (artist.getUsername() == null) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+    if (artist.getPassword() == null) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
 
-		try {
-			if (artistService.saveArtist(artist) == false) {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-			} else {
-				return ResponseEntity.status(HttpStatus.CREATED).build();
-			}
-		} catch (Exception e) {
-			logger.error("Exception when creating a new artist" + e);
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
-	}
-	/**
-	 * Tested with Postman
-	 * @param artist
-	 * @return
-	 */
-	@PutMapping("/updateArtist")
-	    public ResponseEntity<Void> updateArtist(@Valid @RequestBody Artist artist) {
+    try {
+      if (artistService.saveArtist(artist) == false) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+      } else {
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+      }
+    } catch (Exception e) {
+      logger.error("Exception when creating a new artist" + e);
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+  }
 
-	        logger.info("updating artist profile");
+  /**
+   * Http endpoint to get artist by username
+   *
+   * @param username
+   * @return Arist object
+   */
+  @GetMapping("/getArtist/{username}")
+  public ResponseEntity<Artist> getArtistByUsername(@PathVariable("username") String username) {
 
-	        if (artist.getUsername() == null) {
-	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-	        }
-	        if (artist.getPassword() == null) {
-	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-	          }
+    logger.info("get artist by username");
 
-	        try {
-	            if (artistService.updateArtist(artist) == false) {
-	                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-	            } else {
-	                return ResponseEntity.status(HttpStatus.OK).build();
-	            }
-	        } catch (Exception e) {
-	            logger.error("Exception when updating Artist"+e);
-	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-	        }
-	    }
+    if (username == null) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
 
-	/**
-	 * Http endpoint to get artist by username
-	 * Tested with Postman
-	 * @param username
-	 * @return Arist object
-	 */
-	@GetMapping("/getArtist/{username}")
-	public ResponseEntity<Artist> getArtistByUsername(@PathVariable("username") String username) {
+    try {
+      if (artistService.getArtistByUsername(username) == null) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+      } else {
+        return ResponseEntity.ok(artistService.getArtistByUsername(username));
+      }
+    } catch (Exception e) {
+      logger.error("Exception when getting artist by username" + e);
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+  }
 
-		logger.info("get artist by username");
+  /**
+   * REQ2.1: The art gallery system shall allow an artist to upload an artwork.
+   *
+   * @author Andre-Walter Panzini
+   */
+  @PostMapping("/uploadArtwork")
+  public ResponseEntity<Void> uploadArtwork(@RequestBody Artwork artwork) {
 
-		if (username == null) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-		}
+    if (artwork.getArtist() == null) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+    if (artwork.getName() == null) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+    if (artwork.getArtGallery() == null) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+    try {
+      artistService.uploadArtwork(artwork);
+      return ResponseEntity.status(HttpStatus.CREATED).build();
+    } catch (Exception e) {
+      logger.error("Exception when uploading artwork from artist");
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+  }
 
-		try {
-			if (artistService.getArtistByUsername(username) == null) {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-			} else {
-				return ResponseEntity.ok(artistService.getArtistByUsername(username));
-			}
-		} catch (Exception e) {
-			logger.error("Exception when getting artist by username" + e);
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
-	}
+  /**
+   * REQ2.2: The art gallery system shall allow an artist to remove an artwork.
+   *
+   * @author Andre-Walter Panzini
+   */
+  @PostMapping("/removeArtwork")
+  public ResponseEntity<Artwork> removeArtwork(@RequestParam int artworkID) {
 
-	/**
-	 * REQ2.1: The art gallery system shall allow an artist to upload an artwork.
-	 * 
-	 * @author Andre-Walter Panzini
-	 */
-	@PostMapping("/uploadArtwork")
-	public ResponseEntity<Void> uploadArtwork(@RequestBody Artwork artwork) {
+    try {
+      boolean isRemoved = artistService.removeArtwork(artworkID);
 
-		if (artwork.getArtist() == null) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-		}
-		if (artwork.getName() == null) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-		}
-		if (artwork.getArtGallery() == null) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-		}
-		try {
-			artistService.uploadArtwork(artwork);
-			return ResponseEntity.status(HttpStatus.CREATED).build();
-		} catch (Exception e) {
-			logger.error("Exception when uploading artwork from artist"+e);
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
-	}
+      if (isRemoved) {
+        return ResponseEntity.status(HttpStatus.OK).build();
+      } else {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+      }
 
-	/**
-	 * REQ2.2: The art gallery system shall allow an artist to remove an artwork.
-	 * 
-	 * @author Andre-Walter Panzini
-	 */
-	@PostMapping("/removeArtwork")
-	public ResponseEntity<Artwork> removeArtwork(@RequestParam int artworkID) {
+    } catch (Exception e) {
+      logger.error("Exception when removing artwork from artist");
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+  }
 
-		try {
-			boolean isRemoved = artistService.removeArtwork(artworkID);
+  /**
+   * REQ2.3 The art gallery system shall allow an artist to keep track of its
+   * transaction history.
+   *
+   * TESTED WITH POSTMAN
+   *
+   * @param String username
+   * @return List<Transaction> The transaction history
+   * @author Olivier Normandin
+   */
 
-			if (isRemoved) {
-				return ResponseEntity.status(HttpStatus.OK).build();
-			} else {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-			}
+  @GetMapping("/trackTransactionHistory/{username}")
+  public ResponseEntity<ArrayList<Transaction>> trackTransactionHistory(@PathVariable("username") String username) {
 
-		} catch (Exception e) {
-			logger.error("Exception when removing artwork from artist"+e);
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
-	}
+    logger.info("get artist by username");
 
-	/**
-	 * REQ2.3 The art gallery system shall allow an artist to keep track of its
-	 * transaction history.
-	 * 
-	 * TESTED WITH POSTMAN
-	 * 
-	 * @param String username
-	 * @return List<Transaction> The transaction history
-	 * @author Olivier Normandin
-	 */
+    if (username == null) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
 
-	@GetMapping("/trackTransactionHistory/{username}")
-	public ResponseEntity<ArrayList<Transaction>> trackTransactionHistory(@PathVariable("username") String username) {
+    try {
+      if (artistService.getArtistByUsername(username) == null) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+      } else {
+        ArrayList<Transaction> transactionList = new ArrayList<Transaction>();
+        artistService.getArtistByUsername(username).getTransaction().forEach(transaction -> {
+          transactionList.add(transaction);
+        });
+        return ResponseEntity.ok(transactionList);
+      }
+    } catch (Exception e) {
+      logger.error("Exception when getting artist by username" + e);
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+  }
 
-		logger.info("get artist by username");
+  /**
+   * Http endpoint to update an artist info / Tested with postman
+   *
+   * @param artistDto
+   * @return
+   */
+  @PutMapping("/updateArtist")
+  public ResponseEntity<Void> updateArtist(@Valid @RequestBody ArtistDto artistDto) {
+    logger.info("updating artist profile");
 
-		if (username == null) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-		}
+    if (artistDto.getUsername() == null) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
 
-		try {
-			if (artistService.getArtistByUsername(username) == null) {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-			} else {
-				ArrayList<Transaction> transactionList = new ArrayList<Transaction>();
-				artistService.getArtistByUsername(username).getTransaction().forEach(transaction -> {
-					transactionList.add(transaction);
-				});
-				return ResponseEntity.ok(transactionList);
-			}
-		} catch (Exception e) {
-			logger.error("Exception when getting artist by username" + e);
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
-	}
+    try {
+      if (artistService.updateArtist(artistDto) == false) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+      } else {
+        return ResponseEntity.status(HttpStatus.OK).build();
+      }
+    } catch (Exception e) {
+      logger.error("Exception when updating artist" + e);
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+  }
 }
