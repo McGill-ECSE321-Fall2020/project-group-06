@@ -25,6 +25,14 @@ public class TransactionRestController {
     @Autowired
     TransactionService transactionService;
 
+    /**
+     * TESTED WITH POSTMAN
+     * @param customerId
+     * @param artistId
+     * @param artworkId
+     * @param artGalleryId
+     * @return
+     */
 	@PostMapping("/createTransaction/{customerId}/{artistId}/{artworkId}/{artGalleryId}")
 	public ResponseEntity<Void> createTransaction(@PathVariable("customerId") int customerId, @PathVariable("artistId") int artistId, @PathVariable("artworkId") int artworkId, @PathVariable("artGalleryId") int artGalleryId){
 		logger.info("creating transaction");
@@ -52,8 +60,32 @@ public class TransactionRestController {
             logger.error("Exception when creating a new transaction " + e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-	}
+    }
+    
+    /**
+     * TESTED WITH POSTMAN
+     * @param transactionId
+     * @return
+     */
+    @PostMapping("/removeTransaction/{transactionId}")
+    public ResponseEntity<Void> removeTransaction(@PathVariable("transactionId") int transactionId){
+		logger.info("removing transaction");
 
+		if(transactionId == 0){
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
+		try {
+            if (transactionService.removeTransaction(transactionId) == false) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            } else {
+                return ResponseEntity.status(HttpStatus.OK).build();
+            }
+        } catch (Exception e) {
+            logger.error("Exception when removing a transaction " + e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 	@GetMapping("/getTransaction/{id}")
     public ResponseEntity<Transaction> getTransactionById(@PathVariable("id") int id) {
 
