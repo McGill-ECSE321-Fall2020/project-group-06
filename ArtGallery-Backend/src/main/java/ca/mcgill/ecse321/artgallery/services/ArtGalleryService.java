@@ -98,6 +98,20 @@ public class ArtGalleryService {
             return artGalleryRepository.findArtGalleryByName(artGallery.getName());
         }
 	}
+	public boolean updateArtGallery(ArtGallery artGallery){
+		if (artGalleryRepository.findArtGalleryByName(artGallery.getName()) == null) {
+            return false;
+        } else {
+        	ArtGallery newArtGallery=new ArtGallery();
+        	newArtGallery=artGalleryRepository.findArtGalleryByName(artGallery.getName());
+        	newArtGallery.setAdress(artGallery.getAdress());
+        	newArtGallery.setArtwork(artGallery.getArtwork());
+        	newArtGallery.setName(artGallery.getName());
+        	newArtGallery.setTransaction(artGallery.getTransaction());
+            artGalleryRepository.save(newArtGallery);
+            return true;
+        }
+	}
 
 	public ArtGallery getArtGalleryByName(String name) {
         if (artGalleryRepository.findArtGalleryByName(name) == null) {

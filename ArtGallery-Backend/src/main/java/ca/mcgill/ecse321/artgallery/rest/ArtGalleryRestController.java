@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,7 +44,7 @@ public class ArtGalleryRestController {
 		try {
 			return ResponseEntity.ok(artGalleryService.getAllArtworks());
 		} catch (Exception e) {
-			logger.error("Exception when getting all artworks for art gallery");
+			logger.error("Exception when getting all artworks for art gallery"+e);
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
@@ -58,10 +59,30 @@ public class ArtGalleryRestController {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 			}
 		} catch (Exception e) {
-			logger.error("Exception when removing artwork from artGallery");
+			logger.error("Exception when removing artwork from artGallery"+e);
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
+	 @PutMapping("/updateArtGallery")
+	    public ResponseEntity<Void> updateArtGallery(@Valid @RequestBody ArtGallery artGallery) {
+
+	        logger.info("updating artGallery profile");
+
+	        if (artGallery.getName() == null) {
+	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+	        }
+
+	        try {
+	            if (artGalleryService.updateArtGallery(artGallery) == false) {
+	                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+	            } else {
+	                return ResponseEntity.status(HttpStatus.OK).build();
+	            }
+	        } catch (Exception e) {
+	            logger.error("Exception when updating Art Gallery"+e);
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	        }
+	    }
 
 	/**
 	 * REQ4.3 The art gallery system shall allow the art gallery to take a
@@ -79,7 +100,7 @@ public class ArtGalleryRestController {
 		try {
 			return ResponseEntity.ok(artGalleryService.takeCommission(transactionID));
 		} catch (Exception e) {
-			logger.error("Exception when taking commission from transaction");
+			logger.error("Exception when taking commission from transaction"+e);
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
