@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import ca.mcgill.ecse321.artgallery.dao.ArtGalleryRepository;
 import ca.mcgill.ecse321.artgallery.dao.ArtistRepository;
 import ca.mcgill.ecse321.artgallery.dao.ArtworkRepository;
+import ca.mcgill.ecse321.artgallery.model.ArtGallery;
+import ca.mcgill.ecse321.artgallery.model.Artist;
 import ca.mcgill.ecse321.artgallery.model.Artwork;
 
 /**
@@ -42,25 +44,31 @@ public class ArtworkService {
 	}
 	public boolean updateArtwork(Artwork artwork) {
         Artwork newArtwork = new Artwork();
-		if (artworkRepository.findArtworkByName(artwork.getName()) != null) {
+        Artist artist=artistRepository.findArtistById(artwork.getArtist().getId());
+        ArtGallery artGallery=artGalleryRepository.findArtGalleryById(artwork.getArtGallery().getId());
+		if (artworkRepository.findArtworkById(artwork.getId()) == null) {
             return false;
         }
-        if(artistRepository.findArtistById(artwork.getArtist().getId()) == null){
+        if(artist == null){
             return false;
         }
-        if(artGalleryRepository.findArtGalleryById(artwork.getArtGallery().getId()) == null){
+        if(artGallery == null){
             return false;
         }
-        newArtwork.setArtGallery(artwork.getArtGallery());
-        newArtwork.setArtist(artwork.getArtist());
+        newArtwork=artworkRepository.findArtworkById(artwork.getId());
+        newArtwork.setArtGallery(artGallery);
+        newArtwork.setArtist(artist);
         newArtwork.setDescription(artwork.getDescription());
         newArtwork.setForSale(artwork.isForSale());
         newArtwork.setIsInStore(artwork.isIsInStore());
         newArtwork.setName(artwork.getName());
         newArtwork.setPicture(artwork.getPicture());
-        newArtwork.setPicture(artwork.getPicture());
+        newArtwork.setPrice(artwork.getPrice());
         newArtwork.setTransaction(artwork.getTransaction());
         newArtwork.setTypeOfArtwork(artwork.getTypeOfArtwork());
+        System.out.println("Before Save");
+        artworkRepository.save(newArtwork);
+        System.out.println("After Save");
         return true;
 	}
 
