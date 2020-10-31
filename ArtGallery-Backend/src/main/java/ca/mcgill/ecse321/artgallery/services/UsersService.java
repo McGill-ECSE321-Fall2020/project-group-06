@@ -47,4 +47,17 @@ public class UsersService {
         }
     }
 
+    public User getUserById(int userId) {
+        return userRepository.findUserById(userId);
+    }
+
+    public Boolean deleteUserById(int userId) {
+        if (userRepository.findUserById(userId) == null) {
+            return false;
+        } else {
+            userRepository.deleteById(userId);
+            return true;
+        }
+    }
+
 }

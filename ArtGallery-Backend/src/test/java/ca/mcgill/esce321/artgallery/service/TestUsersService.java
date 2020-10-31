@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.lenient;
 
@@ -32,6 +33,7 @@ public class TestUsersService {
     private UsersService usersService;
 
     private static final String USER_KEY = "TestUser";
+    private static final int testUserId = 3;
     private static final String NONEXISTING_KEY = "NotAUser";
 
     @BeforeEach
@@ -50,6 +52,17 @@ public class TestUsersService {
             return invocation.getArgument(0);
         };
         lenient().when(userRepository.save(any(User.class))).thenAnswer(returnParameterAsAnswer);
+
+        // user invocation on mock
+        lenient().when(userRepository.findUserById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
+            if (invocation.getArgument(0).equals(testUserId)) {
+                User user = new User();
+                user.setId(testUserId);
+                return user;
+            } else {
+                return null;
+            }
+        });
     }
 
     // test public Boolean saveUser(User user)
@@ -71,10 +84,9 @@ public class TestUsersService {
     // public Boolean updateUser(User user) TODO fix for tests
     @Test
     public void testUpdateUser() {
-        // create a user with name TestUser
-        String username = "TestUser";
+        // create a user with name TestUser;
         User user = new User();
-        user.setUsername(username);
+        user.setUsername(USER_KEY);
         // save it to mock database
         usersService.saveUser(user);
         Boolean updated = false;
@@ -85,6 +97,31 @@ public class TestUsersService {
             fail();
         }
         assertEquals(true, updated);
+    }
+
+    @Test
+    public void testGetUserById() {
+        User existingUser = new User();
+        try {
+            existingUser = usersService.getUserById(testUserId);
+        } catch (Exception e) {
+            fail();
+        }
+
+        assertNotNull(existingUser);
+        assertEquals(testUserId, existingUser.getId());
+    }
+
+    @Test
+    public void testDeleteUserById() {
+        Boolean userDeleted = false;
+        try {
+            userDeleted = usersService.deleteUserById(testUserId);
+        } catch (Exception e) {
+            fail();
+        }
+
+        assertEquals(true, userDeleted);
     }
 
     // ADD MORE TESTS
