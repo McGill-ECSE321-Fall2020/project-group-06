@@ -223,9 +223,34 @@ public class TestTransactionService {
 
 		assertEquals(true, transactionUpdated);
 	}
+
 	// test public boolean removeTransaction(int transactionId)
+	@Test
+	public void testRemoveTransaction() {
+		Boolean transactionDeleted = false;
+		try {
+			transactionDeleted = transactionService.removeTransaction(TRANSACTION_KEY);
+		} catch (Exception e) {
+			fail();
+		}
+
+		assertEquals(true, transactionDeleted);
+	}
 
 	// test public Transaction getTransactionById(int id)
+
+	@Test
+	public void testgetTransaction() {
+		Transaction existingTransaction = new Transaction();
+		try {
+			existingTransaction = transactionService.getTransactionById(TRANSACTION_KEY);
+		} catch (Exception e) {
+			fail();
+		}
+
+		assertNotNull(existingTransaction);
+		assertEquals(TRANSACTION_KEY, existingTransaction.getId());
+	}
 
 	// TODO ADD MORE TESTS FOR TRANSACTION IF NEEDED
 
