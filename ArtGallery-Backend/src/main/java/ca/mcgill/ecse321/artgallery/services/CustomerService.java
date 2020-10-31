@@ -2,17 +2,26 @@ package ca.mcgill.ecse321.artgallery.services;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.artgallery.dao.ArtGalleryRepository;
 import ca.mcgill.ecse321.artgallery.dao.ArtistRepository;
 import ca.mcgill.ecse321.artgallery.dao.ArtworkRepository;
 import ca.mcgill.ecse321.artgallery.dao.CustomerRepository;
+
+import ca.mcgill.ecse321.artgallery.dao.UserRepository;
+import ca.mcgill.ecse321.artgallery.dto.CustomerDto;
+import ca.mcgill.ecse321.artgallery.model.Artwork;
+import ca.mcgill.ecse321.artgallery.model.Customer;
+
 import ca.mcgill.ecse321.artgallery.dao.PictureRepository;
 import ca.mcgill.ecse321.artgallery.dao.TransactionRepository;
 import ca.mcgill.ecse321.artgallery.dao.UserRepository;
+import ca.mcgill.ecse321.artgallery.model.Artist;
 import ca.mcgill.ecse321.artgallery.model.Artwork;
 import ca.mcgill.ecse321.artgallery.model.Customer;
 import ca.mcgill.ecse321.artgallery.model.Transaction;
@@ -78,14 +87,14 @@ public class CustomerService {
      * 
      * @author Noah Chamberland
      */
-    public boolean addArtwork(Artwork artwork, Customer customer) {
-        if (artworkRepository.findArtworkById(artwork.getId()) == null)
+    public boolean addArtwork(int customerId, int artworkId) {
+        if (artworkRepository.findArtworkById(artworkId) == null)
             return false;
-        if (customerRepository.findCustomerById(customer.getId()) == null)
+        if (customerRepository.findCustomerById(customerId) == null)
             return false;
 
-        customer.getArtwork().add(artwork);
-        customerRepository.save(customer);
+        customerRepository.findCustomerById(customerId).getArtwork().add(artworkRepository.findArtworkById(artworkId));
+        customerRepository.save(customerRepository.findCustomerById(customerId));
 
         return true;
     }
@@ -96,14 +105,15 @@ public class CustomerService {
      * 
      * @author Noah Chamberland
      */
-    public boolean removeArtwork(Artwork artwork, Customer customer) {
-        if (artworkRepository.findArtworkById(artwork.getId()) == null)
+    public boolean removeArtwork(int customerId, int artworkId) {
+        if (artworkRepository.findArtworkById(artworkId) == null)
             return false;
-        if (customerRepository.findCustomerById(customer.getId()) == null)
+        if (customerRepository.findCustomerById(customerId) == null)
             return false;
 
-        customer.getArtwork().remove(artwork);
-        customerRepository.save(customer);
+        customerRepository.findCustomerById(customerId).getArtwork()
+                .remove(artworkRepository.findArtworkById(artworkId));
+        customerRepository.save(customerRepository.findCustomerById(customerId));
 
         return true;
     }
@@ -114,12 +124,12 @@ public class CustomerService {
      * 
      * @author Noah Chamberland
      */
-    public boolean setMeanOfDelivery(Transaction transaction, DeliveryType deliveryType) {
-        if (transactionRepository.findTransactionById(transaction.getId()) == null)
+    public boolean setMeanOfDelivery(int transactionId, DeliveryType deliveryType) {
+        if (transactionRepository.findTransactionById(transactionId) == null)
             return false;
 
-        transaction.setDeliveryType(deliveryType);
-        transactionRepository.save(transaction);
+        transactionRepository.findTransactionById(transactionId).setDeliveryType(deliveryType);
+        transactionRepository.save(transactionRepository.findTransactionById(transactionId));
 
         return true;
     }
@@ -129,39 +139,106 @@ public class CustomerService {
      * 
      * @author Noah Chamberland
      */
-    public boolean buyArtwork(Artwork artwork, double commissionCut, Customer customer, Date date,
-            DeliveryType deliveryType) {
-        if (artworkRepository.findArtworkById(artwork.getId()) == null)
+    public boolean buyArtwork(int customerId, int artistId, int artworkId, int artGalleryId) {
+        if (artGalleryRepository.findArtGalleryById(artGalleryId) == null) {
             return false;
-        if (customerRepository.findCustomerById(customer.getId()) == null)
+        }
+        if (artistRepository.findArtistById(artistId) == null) {
             return false;
-
+        }
+        if (artworkRepository.findArtworkById(artworkId) == null) {
+            return false;
+        }
+        if (customerRepository.findCustomerById(customerId) == null) {
+            return false;
+        }
         Transaction transaction = new Transaction();
-
-        transaction.setArtGallery(artwork.getArtGallery());
-        artwork.getArtGallery().getTransaction().add(transaction);
-        artGalleryRepository.save(artwork.getArtGallery());
-
-        transaction.setArtist(artwork.getArtist());
-        artwork.getArtist().getTransaction().add(transaction);
-        artistRepository.save(artwork.getArtist());
-
-        transaction.setArtwork(artwork);
-        artwork.getTransaction().add(transaction);
-        artworkRepository.save(artwork);
-
-        transaction.setCommisionCut(commissionCut);
-
-        transaction.setCustomer(customer);
-        customer.getTransaction().add(transaction);
-        customerRepository.save(customer);
-
-        transaction.setDateOfTransaction(date);
-
-        transaction.setDeliveryType(deliveryType);
-
+        transaction.setArtGallery(artGalleryRepository.findArtGalleryById(artGalleryId));
+        transaction.setArtist(artistRepository.findArtistById(artistId));
+        transaction.setArtwork(artworkRepository.findArtworkById(artworkId));
+        transaction.setCustomer(customerRepository.findCustomerById(customerId));
+        artworkRepository.findArtworkById(artworkId).setForSale(false);
+        artworkRepository.save(artworkRepository.findArtworkById(artworkId));
         transactionRepository.save(transaction);
-
         return true;
     }
+
+    /**
+     * Creates a new customer service method
+     * 
+     * @param customer
+     * @return Boolean if the customer is created
+     * @author Sen Wang
+     */
+
+    public Boolean saveCustomer(Customer customer) {
+        // a user/customer/artist with username already exist
+        if (userRepository.findUserByUsername(customer.getUsername()) != null) {
+            return false;
+        } else {
+            customerRepository.save(customer);
+            return true;
+        }
+    }
+
+    /**
+     * This methods finds a customer by username
+     * 
+     * @param username
+     * @return Customer object
+     */
+    public Customer getCustomerByUsername(String username) {
+        if (customerRepository.findCustomerByUsername(username) == null) {
+            return null;
+        } else {
+            return customerRepository.findCustomerByUsername(username);
+        }
+    }
+
+    /**
+     * REQ3.3 The art gallery system shall provide the customer with a receipt of
+     * the transaction.
+     * 
+     * @param int The transaction ID
+     * @return Transaction The receipt
+     * @author Olivier Normandin
+     */
+
+    @Transactional
+    public Transaction getTransactionReceipt(int transactionID) {
+        Transaction receipt = transactionRepository.findTransactionById(transactionID);
+        if (receipt == null) {
+            return null;
+        } else {
+            return receipt;
+        }
+    }
+
+    /**
+     * Service method to update customer
+     * 
+     * @param customerDto
+     * @return boolean
+     * @author Sen Wang
+     */
+    public Boolean updateCustomer(CustomerDto customerDto) {
+        if (customerRepository.findCustomerByUsername(customerDto.getUsername()) == null) {
+            return false;
+        } else {
+            Customer updatedCustomer = new Customer();
+            updatedCustomer = customerRepository.findCustomerByUsername(customerDto.getUsername());
+            updatedCustomer.setArtwork(customerDto.getArtwork());
+            updatedCustomer.setCreditCardNumber(customerDto.getCreditCardNumber());
+            updatedCustomer.setDescription(customerDto.getDescription());
+            updatedCustomer.setEmail(customerDto.getEmail());
+            updatedCustomer.setFirstName(customerDto.getFirstName());
+            updatedCustomer.setLastName(customerDto.getLastName());
+            updatedCustomer.setPhoneNumber(customerDto.getPhoneNumber());
+            updatedCustomer.setPicture(customerDto.getPicture());
+            updatedCustomer.setTransaction(customerDto.getTransaction());
+            customerRepository.save(updatedCustomer);
+            return true;
+        }
+    }
+
 }

@@ -55,5 +55,30 @@ public class Picture {
    public void setUser(User user) {
       this.user = user;
    }
+   @Override
+	public boolean equals(Object obj) {
+		if (!obj.getClass().getSimpleName().equalsIgnoreCase("Picture")) {
+			return false;
+		}
+		Picture picture=(Picture)(obj);
+		if(picture.getFavorites()==null&&this.getFavorites()==null) {
+			
+		}
+		else if((picture.getFavorites()==null&&this.getFavorites()!=null)||
+				(picture.getFavorites()!=null&&this.getFavorites()==null)||
+				picture.getFavorites().size()!=this.getFavorites().size()) {
+			return false;
+		}
+		if(picture.getId()!=this.getId()) {
+			return false;
+		}
+		if(picture.getUrl().equalsIgnoreCase(this.getUrl())) {
+			return false;
+		}
+		if(picture.getUser().getId()!=this.getUser().getId()) {
+			return false;
+		}
+		return true;
+	}
 
 }

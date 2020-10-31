@@ -13,4 +13,6 @@ public interface ArtGalleryRepository extends CrudRepository<ArtGallery, Integer
 
     ArtGallery findArtGalleryById(Integer artGalleryId);
 
+    ArtGallery findArtGalleryByName(String name);
+
 }
