@@ -1,5 +1,7 @@
 package ca.mcgill.ecse321.artgallery.services;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,8 +47,8 @@ public class ArtistService {
    */
 
   @Transactional
-  public List<Transaction> viewTransactionHistory(int artistID) {
-    List<Transaction> transactionHistory = new ArrayList<>();
+  public ArrayList<Transaction> viewTransactionHistory(int artistID) {
+    ArrayList<Transaction> transactionHistory = new ArrayList<>();
     Artist artist = artistRepository.findArtistById(artistID);
     if (artist == null) {
       return transactionHistory;
@@ -71,7 +73,7 @@ public class ArtistService {
   @Transactional
   public boolean uploadArtwork(Artwork artwork) {
     Artwork newArtwork = new Artwork();
-    
+
     if (artworkRepository.findArtworkByName(artwork.getName()) != null) {
       return false;
     }
@@ -81,12 +83,12 @@ public class ArtistService {
     if (artGalleryRepository.findArtGalleryByName(artwork.getArtGallery().getName()) == null) {
       return false;
     }
-    
+
     newArtwork.setName(artwork.getName());
     newArtwork.setArtist(artistRepository.findArtistByUsername(artwork.getArtist().getUsername()));
     newArtwork.setArtGallery(artGalleryRepository.findArtGalleryByName(artwork.getArtGallery().getName()));
     artworkRepository.save(newArtwork);
-    
+
     return true;
   }
 
@@ -111,9 +113,9 @@ public class ArtistService {
   }
 
   @Transactional
-  public List<Artwork> getArtworkUploadedByArtist(Artist artist) {
-    List<Artwork> artworksUploadedByArtist = new ArrayList<>();
-    artworksUploadedByArtist = (List<Artwork>) artist.getArtwork();
+  public ArrayList<Artwork> getArtworkUploadedByArtist(Artist artist) {
+    ArrayList<Artwork> artworksUploadedByArtist = new ArrayList<>();
+    artworksUploadedByArtist = (ArrayList<Artwork>) artist.getArtwork();
     return artworksUploadedByArtist;
   }
 
