@@ -53,9 +53,40 @@ public class TestUsersService {
     }
 
     // test public Boolean saveUser(User user)
+    @Test
+    public void testCreateUser() {
+        String username = NONEXISTING_KEY;
+        User user = new User();
+        user.setUsername(username);
+        Boolean created = false;
+        try {
+            created = usersService.saveUser(user);
+        } catch (Exception e) {
+            fail();
+        }
 
-    // public Boolean updateUser(User user)
+        assertEquals(true, created);
+    }
 
-    // ADD MORE TESTS IF NEEDED
+    // public Boolean updateUser(User user) TODO fix for tests
+    @Test
+    public void testUpdateUser() {
+        // create a user with name TestUser
+        String username = "TestUser";
+        User user = new User();
+        user.setUsername(username);
+        // save it to mock database
+        usersService.saveUser(user);
+        Boolean updated = false;
+        try {
+            user.setLastName("lastName");
+            updated = usersService.updateUser(user);
+        } catch (Exception e) {
+            fail();
+        }
+        assertEquals(true, updated);
+    }
+
+    // ADD MORE TESTS
 
 }
