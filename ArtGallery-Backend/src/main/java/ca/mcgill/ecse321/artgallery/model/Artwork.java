@@ -9,6 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Artwork {
@@ -71,7 +74,9 @@ public class Artwork {
 
 	private Artist artist;
 
-	@ManyToOne(optional = false)
+	//ManyToOne
+	@OneToOne(optional = false)
+	@JsonIgnoreProperties("artwork")
 	public Artist getArtist() {
 		return this.artist;
 	}
@@ -83,6 +88,7 @@ public class Artwork {
 	private Set<Transaction> transaction;
 
 	@OneToMany(mappedBy = "artwork")
+	@JsonIgnoreProperties({"artwork", "artist", "customer", "artGallery"})
 	public Set<Transaction> getTransaction() {
 		return this.transaction;
 	}
@@ -93,7 +99,9 @@ public class Artwork {
 
 	private ArtGallery artGallery;
 
-	@ManyToOne(optional = false)
+	//ManytoOne
+	@OneToOne(optional = false)
+	@JsonIgnoreProperties("artwork")
 	public ArtGallery getArtGallery() {
 		return this.artGallery;
 	}
@@ -130,5 +138,51 @@ public class Artwork {
 
 	public TypeOfArtwork getTypeOfArtwork() {
 		return this.typeOfArtwork;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (!obj.getClass().getSimpleName().equalsIgnoreCase("Artwork")) {
+			return false;
+		}
+		Artwork artwork=(Artwork)obj;
+		if(artwork.getArtGallery().getId()!=this.getId()) {
+			return false;
+		}
+		if(artwork.getArtist().getId()!=this.getId()) {
+			return false;
+		}
+		if(!artwork.getDescription().equalsIgnoreCase(this.getDescription())) {
+			return false;
+		}
+		if(artwork.getId()!=this.getId()) {
+			return false;
+		}
+		if(!artwork.getName().equalsIgnoreCase(this.getName())) {
+			return false;
+		}
+		if(artwork.getPicture()==null&&this.getPicture()==null) {
+			
+		}
+		else if((artwork.getPicture()==null&&this.getPicture()!=null)||
+				(artwork.getPicture()!=null&&this.getPicture()==null)
+			||artwork.getPicture().size()!=(this.getPicture().size())) {
+			return false;
+		}
+		if(artwork.getPrice()!=this.getPrice()) {
+			return false;
+		}
+		if(artwork.getTransaction()==null&&this.getTransaction()==null) {
+			
+		}
+		else if((artwork.getTransaction()==null&&this.getTransaction()!=null)||
+				(artwork.getTransaction()!=null&&this.getTransaction()==null)||
+				artwork.getTransaction().size()!=this.getTransaction().size()){
+			return false;
+		}
+		if(!artwork.getTypeOfArtwork().toString().equalsIgnoreCase
+				(this.getTypeOfArtwork().toString())) {
+			return false;
+		}
+		return true;
 	}
 }

@@ -16,14 +16,13 @@ import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import ca.mcgill.ecse321.artgallery.dao.UserRepository;
 import ca.mcgill.ecse321.artgallery.model.User;
 import ca.mcgill.ecse321.artgallery.services.UsersService;
 
 @ExtendWith(MockitoExtension.class)
-public class TestUsersService {
+public class TestCognitoService {
 
     @Mock
     private UserRepository userRepository;
@@ -52,41 +51,7 @@ public class TestUsersService {
         lenient().when(userRepository.save(any(User.class))).thenAnswer(returnParameterAsAnswer);
     }
 
-    // test public Boolean saveUser(User user)
-    @Test
-    public void testCreateUser() {
-        String username = NONEXISTING_KEY;
-        User user = new User();
-        user.setUsername(username);
-        Boolean created = false;
-        try {
-            created = usersService.saveUser(user);
-        } catch (Exception e) {
-            fail();
-        }
+    // test public Boolean changePassword(String username, String newPassword)
 
-        assertEquals(true, created);
-    }
-
-    // public Boolean updateUser(User user) TODO fix for tests
-    @Test
-    public void testUpdateUser() {
-        // create a user with name TestUser
-        String username = "TestUser";
-        User user = new User();
-        user.setUsername(username);
-        // save it to mock database
-        usersService.saveUser(user);
-        Boolean updated = false;
-        try {
-            user.setLastName("lastName");
-            updated = usersService.updateUser(user);
-        } catch (Exception e) {
-            fail();
-        }
-        assertEquals(true, updated);
-    }
-
-    // ADD MORE TESTS
-
+    // TODO ADD MORE TESTS IF NEEDED
 }
