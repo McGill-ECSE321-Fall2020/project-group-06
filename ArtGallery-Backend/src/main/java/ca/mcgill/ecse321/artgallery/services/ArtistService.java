@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ca.mcgill.ecse321.artgallery.dao.ArtGalleryRepository;
 import ca.mcgill.ecse321.artgallery.dao.ArtistRepository;
 import ca.mcgill.ecse321.artgallery.dao.ArtworkRepository;
 import ca.mcgill.ecse321.artgallery.model.Artist;
@@ -31,6 +32,9 @@ public class ArtistService {
 
   @Autowired
   ArtistRepository artistRepository;
+
+  @Autowired
+  ArtGalleryRepository artGalleryRepository;
 
   /**
    * REQ2.3 The art gallery system shall allow an artist to keep track of its
@@ -63,14 +67,25 @@ public class ArtistService {
    * 
    * @param artwork the artwork to be added
    * @return artwork the artwork that was added
-   * @author Andre-Walter Panzini This might need some rework
+   * @author Andre-Walter Panzini
    */
   @Transactional
   public Artwork uploadArtwork(Artwork artwork) {
-    artwork.setForSale(true);
-    artworkRepository.save(artwork);
-
-    return artwork;
+    Artwork newArtwork = new Artwork();
+    if (artworkRepository.findArtworkByName(artwork.getName()) != null) {
+      return null;
+    }
+    if (artistRepository.findArtistByUsername(artwork.getArtist().getUsername()) == null) {
+      return null;
+    }
+    if (artGalleryRepository.findArtGalleryByName(artwork.getArtGallery().getName()) == null) {
+      return null;
+    }
+    newArtwork.setName(artwork.getName());
+    newArtwork.setArtist(artistRepository.findArtistByUsername(artwork.getArtist().getUsername()));
+    newArtwork.setArtGallery(artGalleryRepository.findArtGalleryByName(artwork.getArtGallery().getName()));
+    artworkRepository.save(newArtwork);
+    return artworkRepository.findArtworkByName(newArtwork.getName());
   }
 
   /**

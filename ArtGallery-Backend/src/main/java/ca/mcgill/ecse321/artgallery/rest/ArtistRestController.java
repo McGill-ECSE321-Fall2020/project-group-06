@@ -95,26 +95,27 @@ public class ArtistRestController {
 
   /**
    * REQ2.1: The art gallery system shall allow an artist to upload an artwork.
-   *
+   * Tested with postman
+   * 
    * @author Andre-Walter Panzini
    */
   @PostMapping("/uploadArtwork")
   public ResponseEntity<Void> uploadArtwork(@RequestBody Artwork artwork) {
 
-    if (artwork.getArtist() == null) {
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-    }
+    logger.info("creating artwork");
+
     if (artwork.getName() == null) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
-    if (artwork.getArtGallery() == null) {
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-    }
+
     try {
-      artistService.uploadArtwork(artwork);
-      return ResponseEntity.status(HttpStatus.CREATED).build();
+      if (artistService.uploadArtwork(artwork) == null) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+      } else {
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+      }
     } catch (Exception e) {
-      logger.error("Exception when uploading artwork from artist");
+      logger.error("Exception when creating a new artwork " + e);
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
   }
