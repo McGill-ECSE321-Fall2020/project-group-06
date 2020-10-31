@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ca.mcgill.ecse321.artgallery.dto.TransactionDto;
 import ca.mcgill.ecse321.artgallery.model.ArtGallery;
 import ca.mcgill.ecse321.artgallery.model.Artist;
 import ca.mcgill.ecse321.artgallery.model.Transaction;
@@ -77,27 +78,33 @@ public class TransactionRestController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
+
     }
 
-    @PutMapping("/updateTransaction")
-    public ResponseEntity<Void> updateTransaction(@Valid @RequestBody Transaction transaction) {
+	/**
+	 * Tested with Postman
+	 * @param transactionDto
+	 * @return
+	 */
+	@PutMapping("/updateTransaction")
+    public ResponseEntity<Void> updateTransaction(@Valid @RequestBody TransactionDto transactionDto) {
 
         logger.info("updating Transaction profile");
-        if (transaction.getCustomer() == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		if(transactionDto.getCustomerId() == 0){
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-        if (transaction.getArtist() == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        if(transactionDto.getArtistId() == 0){
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-        if (transaction.getArtwork() == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        if(transactionDto.getArtworkId() == 0){
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-        if (transaction.getArtGallery() == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
+        if(transactionDto.getArtGalleryId() == 0){
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
 
         try {
-            if (transactionService.updateTransaction(transaction) == false) {
+            if (transactionService.updateTransaction(transactionDto) == false) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
             } else {
                 return ResponseEntity.status(HttpStatus.OK).build();

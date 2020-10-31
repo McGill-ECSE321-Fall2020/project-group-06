@@ -2,13 +2,13 @@ package ca.mcgill.ecse321.artgallery.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.test.context.jdbc.SqlConfig.TransactionMode;
 
 import ca.mcgill.ecse321.artgallery.dao.ArtGalleryRepository;
 import ca.mcgill.ecse321.artgallery.dao.ArtistRepository;
 import ca.mcgill.ecse321.artgallery.dao.ArtworkRepository;
 import ca.mcgill.ecse321.artgallery.dao.CustomerRepository;
 import ca.mcgill.ecse321.artgallery.dao.TransactionRepository;
+import ca.mcgill.ecse321.artgallery.dto.TransactionDto;
 import ca.mcgill.ecse321.artgallery.model.Transaction;
 
 /**
@@ -55,16 +55,21 @@ public class TransactionService {
         transactionRepository.save(transaction);
         return true;
 	}
-    public boolean updateTransaction(Transaction transaction) {
+    /**
+     * Updates transaction
+     * @param transaction
+     * @return
+     */
+    public boolean updateTransaction(TransactionDto transaction) {
 		if (transactionRepository.findTransactionById(transaction.getId())==null){
 			return false;
 		}
         Transaction newTransaction = new Transaction();
-        newTransaction.setArtGallery(transaction.getArtGallery());
-        newTransaction.setArtist(transaction.getArtist());
-        newTransaction.setArtwork(transaction.getArtwork());
+        newTransaction.setArtGallery(artGalleryRepository.findArtGalleryById(transaction.getArtGalleryId()));
+        newTransaction.setArtist(artistRepository.findArtistById(transaction.getArtistId()));
+        newTransaction.setArtwork(artworkRepository.findArtworkById(transaction.getArtworkId()));
         newTransaction.setCommisionCut(transaction.getCommisionCut());
-        newTransaction.setCustomer(transaction.getCustomer());
+        newTransaction.setCustomer(customerRepository.findCustomerById(transaction.getCustomerId()));
         newTransaction.setDateOfTransaction(transaction.getDateOfTransaction());
         newTransaction.setDeliveryType(transaction.getDeliveryType());
         transactionRepository.save(newTransaction);
