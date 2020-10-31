@@ -64,7 +64,7 @@ public class TransactionService {
 		if (transactionRepository.findTransactionById(transaction.getId())==null){
 			return false;
 		}
-        Transaction newTransaction = new Transaction();
+        Transaction newTransaction =transactionRepository.findTransactionById(transaction.getId());
         newTransaction.setArtGallery(artGalleryRepository.findArtGalleryById(transaction.getArtGalleryId()));
         newTransaction.setArtist(artistRepository.findArtistById(transaction.getArtistId()));
         newTransaction.setArtwork(artworkRepository.findArtworkById(transaction.getArtworkId()));

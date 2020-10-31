@@ -139,4 +139,50 @@ public class Artwork {
 	public TypeOfArtwork getTypeOfArtwork() {
 		return this.typeOfArtwork;
 	}
+	@Override
+	public boolean equals(Object obj) {
+		if (!obj.getClass().getSimpleName().equalsIgnoreCase("Artwork")) {
+			return false;
+		}
+		Artwork artwork=(Artwork)obj;
+		if(artwork.getArtGallery().getId()!=this.getId()) {
+			return false;
+		}
+		if(artwork.getArtist().getId()!=this.getId()) {
+			return false;
+		}
+		if(!artwork.getDescription().equalsIgnoreCase(this.getDescription())) {
+			return false;
+		}
+		if(artwork.getId()!=this.getId()) {
+			return false;
+		}
+		if(!artwork.getName().equalsIgnoreCase(this.getName())) {
+			return false;
+		}
+		if(artwork.getPicture()==null&&this.getPicture()==null) {
+			
+		}
+		else if((artwork.getPicture()==null&&this.getPicture()!=null)||
+				(artwork.getPicture()!=null&&this.getPicture()==null)
+			||artwork.getPicture().size()!=(this.getPicture().size())) {
+			return false;
+		}
+		if(artwork.getPrice()!=this.getPrice()) {
+			return false;
+		}
+		if(artwork.getTransaction()==null&&this.getTransaction()==null) {
+			
+		}
+		else if((artwork.getTransaction()==null&&this.getTransaction()!=null)||
+				(artwork.getTransaction()!=null&&this.getTransaction()==null)||
+				artwork.getTransaction().size()!=this.getTransaction().size()){
+			return false;
+		}
+		if(!artwork.getTypeOfArtwork().toString().equalsIgnoreCase
+				(this.getTypeOfArtwork().toString())) {
+			return false;
+		}
+		return true;
+	}
 }

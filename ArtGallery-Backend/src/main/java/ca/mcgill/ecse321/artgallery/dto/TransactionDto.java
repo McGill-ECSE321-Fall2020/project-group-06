@@ -2,7 +2,14 @@ package ca.mcgill.ecse321.artgallery.dto;
 
 import java.sql.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import ca.mcgill.ecse321.artgallery.dao.ArtGalleryRepository;
+import ca.mcgill.ecse321.artgallery.dao.ArtistRepository;
+import ca.mcgill.ecse321.artgallery.dao.TransactionRepository;
+import ca.mcgill.ecse321.artgallery.model.Transaction;
 import ca.mcgill.ecse321.artgallery.model.Transaction.DeliveryType;
+import ca.mcgill.ecse321.artgallery.services.TransactionService;
 
 public class TransactionDto {
 	private Date dateOfTransaction;
@@ -61,5 +68,21 @@ public class TransactionDto {
 	public void setDeliveryType(DeliveryType deliveryType) {
 		this.deliveryType = deliveryType;
 	}
-
+	public static TransactionDto convertToDTO(Transaction transaction) {
+		TransactionDto transactionDTO= new TransactionDto();
+		transactionDTO.setArtGalleryId(transaction.getArtGallery().getId());
+		transactionDTO.setArtistId(transaction.getArtist().getId());
+		transactionDTO.setArtworkId(transaction.getArtwork().getId());
+		transactionDTO.setCommisionCut(transaction.getCommisionCut());
+		transactionDTO.setCustomerId(transaction.getCustomer().getId());
+		transactionDTO.setDateOfTransaction(transaction.getDateOfTransaction());
+		transactionDTO.setDeliveryType(transaction.getDeliveryType());
+		transactionDTO.setArtGalleryId(transaction.getId());
+		return transactionDTO;
+	}
+	public static Transaction convertToDomainObject(TransactionDto transactionDto) {
+		TransactionService transactionService = new TransactionService();
+		Transaction transaction=transactionService.getTransactionById(transactionDto.getId());
+		return transaction;
+	}
 }

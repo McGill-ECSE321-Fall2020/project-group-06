@@ -8,6 +8,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.lenient;
 
+import java.sql.Date;
+
+import javax.validation.constraints.AssertFalse;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,8 +21,18 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
 
+import ca.mcgill.ecse321.artgallery.dao.ArtGalleryRepository;
+import ca.mcgill.ecse321.artgallery.dao.ArtistRepository;
+import ca.mcgill.ecse321.artgallery.dao.ArtworkRepository;
+import ca.mcgill.ecse321.artgallery.dao.CustomerRepository;
 import ca.mcgill.ecse321.artgallery.dao.TransactionRepository;
+import ca.mcgill.ecse321.artgallery.dto.TransactionDto;
+import ca.mcgill.ecse321.artgallery.model.ArtGallery;
+import ca.mcgill.ecse321.artgallery.model.Artist;
+import ca.mcgill.ecse321.artgallery.model.Artwork;
+import ca.mcgill.ecse321.artgallery.model.Customer;
 import ca.mcgill.ecse321.artgallery.model.Transaction;
+import ca.mcgill.ecse321.artgallery.model.Transaction.DeliveryType;
 import ca.mcgill.ecse321.artgallery.services.TransactionService;
 
 @ExtendWith(MockitoExtension.class)
@@ -26,6 +40,14 @@ public class TestTransactionService {
 
     @Mock
     private TransactionRepository transactionRepository;
+    @Mock
+    private CustomerRepository customerRepository;
+    @Mock
+    private ArtworkRepository artworkRepository;
+    @Mock 
+    private ArtGalleryRepository artGalleryRepository;
+    @Mock
+    private ArtistRepository artistRepository;
 
     @InjectMocks
     private TransactionService transactionService;
@@ -53,9 +75,80 @@ public class TestTransactionService {
 
     // test public boolean saveTransaction(int customerId, int artistId, int
     // artworkId, int artGalleryId)
-
+    @Test
+    public void testSaveTransaction() {
+    	Customer customer=new Customer();
+    	customerRepository.save(customer);
+    	
+    	Artist artist=new Artist();
+    	artistRepository.save(artist);
+    	
+    	Artwork artwork=new Artwork();
+    	artworkRepository.save(artwork);
+    	
+    	ArtGallery artGallery=new ArtGallery();
+    	artGalleryRepository.save(artGallery);
+    	
+    	transactionService.saveTransaction(customer.getId(), 
+    			artist.getId(), artwork.getId(), artGallery.getId());
+    	Artist newArtist=artistRepository.findArtistById(artist.getId());
+    	Transaction transaction=(Transaction) newArtist.getTransaction().toArray()[0];
+    	assertEquals(newArtist.getTransaction().isEmpty(),false);
+    	assertEquals(transaction.getCustomer().getId(),customer.getId());
+    	assertEquals(transaction.getArtist().getId(), artist.getId());
+    	assertEquals(transaction.getArtwork().getId(), artwork.getId());
+    	assertEquals(transaction.getArtGallery().getId(), artGallery.getId());
+    }
     // test public boolean updateTransaction(Transaction transaction)
-
+    @Test
+    public void testUpdateTransaction() {
+    	Customer customer=new Customer();
+    	customerRepository.save(customer);
+    	
+    	Artist artist=new Artist();
+    	artistRepository.save(artist);
+    	
+    	Artwork artwork=new Artwork();
+    	artworkRepository.save(artwork);
+    	
+    	ArtGallery artGallery=new ArtGallery();
+    	artGalleryRepository.save(artGallery);
+    	
+    	transactionService.saveTransaction(customer.getId(), 
+    			artist.getId(), artwork.getId(), artGallery.getId());
+    	
+    	artist=artistRepository.findArtistById(artist.getId());
+    	Transaction transaction=(Transaction) artist.getTransaction().toArray()[0];
+    	TransactionDto transactionDTO = TransactionDto.convertToDTO(transaction);
+    	
+    	Customer newCustomer=new Customer();
+    	customerRepository.save(newCustomer);
+    	
+    	Artist newArtist=new Artist();
+    	artistRepository.save(newArtist);
+    	
+    	Artwork newArtwork=new Artwork();
+    	artworkRepository.save(newArtwork);
+    	
+    	ArtGallery newArtGallery=new ArtGallery();
+    	artGalleryRepository.save(newArtGallery);
+    	
+    	Date dateOfTransaction=new Date(100000);
+    	transactionDTO.setCommisionCut(0.30);
+    	transactionDTO.setArtGalleryId(newArtGallery.getId());
+    	transactionDTO.setArtistId(newArtist.getId());
+    	transactionDTO.setArtworkId(newArtwork.getId());
+    	transactionDTO.setCustomerId(newCustomer.getId());
+    	transactionDTO.setDateOfTransaction(dateOfTransaction);
+    	transactionDTO.setDeliveryType(DeliveryType.Delivered);
+    	transactionService.updateTransaction(transactionDTO);
+    	
+    	artist=artistRepository.findArtistById(artist.getId());
+    	Transaction updatedTransaction=(Transaction) artist.getTransaction().toArray()[0];
+    	assertEquals(transaction.getId(), updatedTransaction.getId());
+    	assertEquals(newArtGallery, updatedTransaction.getArtGallery().getId());
+    	
+    }
     // test public boolean removeTransaction(int transactionId)
 
     // test public Transaction getTransactionById(int id)
