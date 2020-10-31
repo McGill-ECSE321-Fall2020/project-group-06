@@ -9,11 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.artgallery.dao.ArtGalleryRepository;
 import ca.mcgill.ecse321.artgallery.dao.ArtworkRepository;
-
 import ca.mcgill.ecse321.artgallery.dao.TransactionRepository;
 
 import ca.mcgill.ecse321.artgallery.model.ArtGallery;
-
 import ca.mcgill.ecse321.artgallery.model.Artwork;
 import ca.mcgill.ecse321.artgallery.model.Transaction;
 
@@ -136,5 +134,22 @@ public class ArtGalleryService {
 			return artGalleryRepository.findArtGalleryByName(name);
 		}
 	}
-
+	
+	/**
+	 * REQ 4.1 The art gallery system shall allow the art gallery to browse all the artwork transactions
+	 * 
+	 * @return List of Transactions
+	 * @author Andre-Walter Panzini
+	 */
+	public ArrayList<Transaction> getAllTransactions() {
+	     
+	    // create new transaction array list
+	    ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+	    
+	    for (Transaction transaction : transactionRepository.findAll()) {
+	        transactions.add(transaction);
+	    }
+	    
+	    return transactions;
+	}
 }
