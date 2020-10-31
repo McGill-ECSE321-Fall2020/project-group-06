@@ -19,6 +19,7 @@ import org.mockito.stubbing.Answer;
 
 import ca.mcgill.ecse321.artgallery.dao.UserRepository;
 import ca.mcgill.ecse321.artgallery.model.User;
+import ca.mcgill.ecse321.artgallery.services.CognitoService;
 import ca.mcgill.ecse321.artgallery.services.UsersService;
 
 @ExtendWith(MockitoExtension.class)
@@ -28,7 +29,7 @@ public class TestCognitoService {
     private UserRepository userRepository;
 
     @InjectMocks
-    private UsersService usersService;
+    private CognitoService cognitoService;
 
     private static final String USER_KEY = "TestUser";
     private static final String NONEXISTING_KEY = "NotAUser";
@@ -52,6 +53,17 @@ public class TestCognitoService {
     }
 
     // test public Boolean changePassword(String username, String newPassword)
+    @Test
+    public void testChangePassword() {
+        Boolean changedPassword = false;
+        try {
+            changedPassword = cognitoService.changePassword(USER_KEY, "newPassword");
+        } catch (Exception e) {
+            fail();
+        }
+
+        assertEquals(true, changedPassword);
+    }
 
     // TODO ADD MORE TESTS IF NEEDED
 }

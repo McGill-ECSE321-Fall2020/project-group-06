@@ -55,13 +55,12 @@ public class ArtGalleryService {
 	 * REQ 4.2 The art gallery system shall allow the art gallery to remove an
 	 * artwork. TODO This might need some rework
 	 */
-	public boolean removeArtwork(int artworkID) {
+	public boolean removeArtworkById(int artworkID) {
 		Artwork artwork = artworkRepository.findArtworkById(artworkID);
 		if (artwork == null) {
 			return false;
 		}
-		artwork.setForSale(false);
-		artworkRepository.save(artwork);
+		artworkRepository.deleteById(artworkID);
 		return true;
 	}
 
@@ -91,12 +90,12 @@ public class ArtGalleryService {
 	 * @param artGallery
 	 * @return ArtGalley
 	 */
-	public ArtGallery saveArtGallery(ArtGallery artGallery) {
+	public Boolean saveArtGallery(ArtGallery artGallery) {
 		if (artGalleryRepository.findArtGalleryByName(artGallery.getName()) != null) {
-			return null;
+			return false;
 		} else {
 			artGalleryRepository.save(artGallery);
-			return artGalleryRepository.findArtGalleryByName(artGallery.getName());
+			return true;
 		}
 	}
 
@@ -134,22 +133,32 @@ public class ArtGalleryService {
 			return artGalleryRepository.findArtGalleryByName(name);
 		}
 	}
-	
+
 	/**
-	 * REQ 4.1 The art gallery system shall allow the art gallery to browse all the artwork transactions
+	 * REQ 4.1 The art gallery system shall allow the art gallery to browse all the
+	 * artwork transactions
 	 * 
 	 * @return List of Transactions
 	 * @author Andre-Walter Panzini
 	 */
 	public ArrayList<Transaction> getAllTransactions() {
-	     
-	    // create new transaction array list
-	    ArrayList<Transaction> transactions = new ArrayList<Transaction>();
-	    
-	    for (Transaction transaction : transactionRepository.findAll()) {
-	        transactions.add(transaction);
-	    }
-	    
-	    return transactions;
+
+		// create new transaction array list
+		ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+
+		for (Transaction transaction : transactionRepository.findAll()) {
+			transactions.add(transaction);
+		}
+
+		return transactions;
+	}
+
+	public Boolean deleteArtGalleyById(int artGalleryId) {
+		if (artGalleryRepository.findArtGalleryById(artGalleryId) == null) {
+			return false;
+		} else {
+			artGalleryRepository.deleteById(artGalleryId);
+			return true;
+		}
 	}
 }

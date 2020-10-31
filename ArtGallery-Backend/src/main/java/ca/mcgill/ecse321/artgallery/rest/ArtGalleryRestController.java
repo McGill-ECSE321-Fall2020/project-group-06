@@ -68,7 +68,7 @@ public class ArtGalleryRestController {
 	@PostMapping("/removeArtwork")
 	public ResponseEntity<Void> removeArtwork(@RequestParam int artworkID) {
 		try {
-			if (artGalleryService.removeArtwork(artworkID)) {
+			if (artGalleryService.removeArtworkById(artworkID)) {
 				return ResponseEntity.status(HttpStatus.OK).build();
 			} else {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -142,7 +142,7 @@ public class ArtGalleryRestController {
 		}
 
 		try {
-			if (artGalleryService.saveArtGallery(artGallery) == null) {
+			if (artGalleryService.saveArtGallery(artGallery) == false) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 			} else {
 				return ResponseEntity.status(HttpStatus.CREATED).build();

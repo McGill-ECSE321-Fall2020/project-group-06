@@ -107,13 +107,15 @@ public class ArtistRestController {
     if (artwork.getName() == null) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
-
+    
     try {
-      if (artistService.uploadArtwork(artwork) == null) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-      } else {
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+      if (artistService.uploadArtwork(artwork)) {
+          return ResponseEntity.status(HttpStatus.CREATED).build();
       }
+      else {
+          return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+      }
+
     } catch (Exception e) {
       logger.error("Exception when creating a new artwork " + e);
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -124,6 +126,9 @@ public class ArtistRestController {
    * REQ2.2: The art gallery system shall allow an artist to remove an artwork.
    *
    * @author Andre-Walter Panzini
+   * 
+   * @param artworkID 
+   * @return ResponseEntity artwork
    */
   @PostMapping("/removeArtwork")
   public ResponseEntity<Artwork> removeArtwork(@RequestParam int artworkID) {
