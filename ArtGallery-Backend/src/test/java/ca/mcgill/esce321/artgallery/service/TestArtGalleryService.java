@@ -25,7 +25,6 @@ import ca.mcgill.ecse321.artgallery.services.ArtGalleryService;
 @ExtendWith(MockitoExtension.class)
 public class TestArtGalleryService {
 
-	// Write this idk how@BeforeEach
 	@Mock
 	private ArtGalleryRepository artGalleryRepository;
 
@@ -35,7 +34,6 @@ public class TestArtGalleryService {
 	private static final int ART_GALLERY_KEY = 69696969;
 
 	@BeforeEach
-	// I think this needs to be changed????
 	public void setMockOutput() {
 		lenient().when(artGalleryRepository.findArtGalleryById(any())).thenAnswer((InvocationOnMock invocation) -> {
 			if (invocation.getArgument(0).equals(ART_GALLERY_KEY)) {
