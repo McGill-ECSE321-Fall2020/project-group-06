@@ -43,10 +43,15 @@ public class TestArtworkService {
     private static final String ARTWORK_KEY = "TestArtwork";
     private static final String NONEXISTING_KEY = "NotAArtwork";
     private static final int ARTWORK_ID=100;
+    private static final int Non_Existant_Artwork_ID = 50;
 	private static final int ART_GALLERY_KEY = 15;
+	private static final int Non_Existing_ART_GALLERY_KEY = 30;
     private static final String testArtGalleryName="testArtGalleryName";
+    private static final String NonExistingArtGalleryName="NotArtGalleryName";
     private static final String ARTIST_USERNAME="artistName";
+    private static final String Non_Existant_ARTIST_USERNAME="NotArtistName";
     private static final int ARTIST_ID=20;
+    private static final int Non_Existant_ARTIST_ID=10;
     private Artist artist=new Artist();
     private ArtGallery artGallery= new ArtGallery();
 
@@ -148,6 +153,70 @@ public class TestArtworkService {
 
 		assertNotNull(newArtwork);
 	}
+	
+	// test public Artwork saveArtwork(Artwork artwork)
+	@Test
+	public void testSaveArtworkWithExistingArtworkName() {
+		Artwork artwork = new Artwork();
+		artwork.setId(ARTWORK_ID);
+		artwork.setName(ARTWORK_KEY);
+		artist.setUsername(ARTIST_USERNAME);
+		artist.setId(ARTIST_ID);
+		artwork.setArtist(artist);
+		artGallery.setId(ART_GALLERY_KEY);
+		artGallery.setName(testArtGalleryName);
+		artwork.setArtGallery(artGallery);
+		Artwork newArtwork=new Artwork();
+		try {
+			newArtwork = artworkService.saveArtwork(artwork);
+		} catch (Exception e) {
+			fail();
+		}
+		assertNull(newArtwork);
+	}
+	
+	// test public Artwork saveArtwork(Artwork artwork)
+		@Test
+		public void testSaveArtworkWithNonExistingArtistUsername() {
+			Artwork artwork = new Artwork();
+			artwork.setId(ARTWORK_ID);
+			artwork.setName(NONEXISTING_KEY);
+			artist.setUsername(Non_Existant_ARTIST_USERNAME);
+			artist.setId(ARTIST_ID);
+			artwork.setArtist(artist);
+			artGallery.setId(ART_GALLERY_KEY);
+			artGallery.setName(testArtGalleryName);
+			artwork.setArtGallery(artGallery);
+			Artwork newArtwork=new Artwork();
+			try {
+				newArtwork = artworkService.saveArtwork(artwork);
+			} catch (Exception e) {
+				fail();
+			}
+			assertNull(newArtwork);
+		}
+		
+		// test public Artwork saveArtwork(Artwork artwork)
+	@Test
+	public void testSaveArtworkWithNonExistingArtGalleryName() {
+		Artwork artwork = new Artwork();
+		artwork.setId(ARTWORK_ID);
+		artwork.setName(NONEXISTING_KEY);
+		artist.setUsername(ARTIST_USERNAME);
+		artist.setId(ARTIST_ID);
+		artwork.setArtist(artist);
+		artGallery.setId(ART_GALLERY_KEY);
+		artGallery.setName(NonExistingArtGalleryName);
+		artwork.setArtGallery(artGallery);
+		Artwork newArtwork=new Artwork();
+		try {
+			newArtwork = artworkService.saveArtwork(artwork);
+		} catch (Exception e) {
+			fail();
+		}
+		assertNull(newArtwork);
+	}
+	
     // test public boolean updateArtwork(Artwork artwork)
 	@Test
 	public void testUpdateArtwork() {
@@ -166,6 +235,64 @@ public class TestArtworkService {
 		}
 		assertEquals(true, artworkSaved);
 	}
+	
+	// test public boolean updateArtwork(Artwork artwork) : non existing arwtorkID
+	@Test
+	public void testUpdateArtworkWithWrongArtworkID() {
+		Boolean artworkSaved=true;
+		Artwork artwork = new Artwork();
+		artwork.setId(Non_Existant_Artwork_ID);
+		artwork.setName(ARTWORK_KEY);
+		artist.setId(ARTIST_ID);
+		artGallery.setId(ART_GALLERY_KEY);
+		artwork.setArtist(artist);
+		artwork.setArtGallery(artGallery);
+		try {
+			artworkSaved = artworkService.updateArtwork(artwork);
+		} catch (Exception e) {
+			fail();
+		}
+		assertEquals(false, artworkSaved);
+	}
+	
+	// test public boolean updateArtwork(Artwork artwork) : non existing artistID
+	@Test
+	public void testUpdateArtworkWithWrongArtistID() {
+		Boolean artworkSaved=true;
+		Artwork artwork = new Artwork();
+		artwork.setId(ARTWORK_ID);
+		artwork.setName(ARTWORK_KEY);
+		artist.setId(Non_Existant_ARTIST_ID);
+		artGallery.setId(ART_GALLERY_KEY);
+		artwork.setArtist(artist);
+		artwork.setArtGallery(artGallery);
+		try {
+			artworkSaved = artworkService.updateArtwork(artwork);
+		} catch (Exception e) {
+			fail();
+		}
+		assertEquals(false, artworkSaved);
+	}
+		
+	// test public boolean updateArtwork(Artwork artwork) : non existing artGalleryID
+	@Test
+	public void testUpdateArtworkWithWrongGalleryID() {
+		Boolean artworkSaved=true;
+		Artwork artwork = new Artwork();
+		artwork.setId(ARTWORK_ID);
+		artwork.setName(ARTWORK_KEY);
+		artist.setId(ARTIST_ID);
+		artGallery.setId(Non_Existing_ART_GALLERY_KEY);
+		artwork.setArtist(artist);
+		artwork.setArtGallery(artGallery);
+		try {
+			artworkSaved = artworkService.updateArtwork(artwork);
+		} catch (Exception e) {
+			fail();
+		}
+		assertEquals(false, artworkSaved);
+	}
+		
     // test public Artwork getArtworkByName(String name)
 	@Test
 	public void testGetArtworkByName() {
@@ -182,17 +309,44 @@ public class TestArtworkService {
 		assertEquals(newArtwork.getId(), artwork.getId());
 		assertEquals(newArtwork.getName(), artwork.getName());
 	}
+	
+	// test public Artwork getArtworkByName(String name)
+	@Test
+	public void testGetNonExistantArtworkByName() {
+		Artwork artwork = new Artwork();
+		artwork.setId(ARTWORK_ID);
+		artwork.setName(NONEXISTING_KEY);
+		Artwork newArtwork=new Artwork();
+		try {
+			newArtwork=artworkService.getArtworkByName(NONEXISTING_KEY);
+		} catch (Exception e) {
+			fail();
+		}
+		assertNull(newArtwork);
+	}
+	
     //test public bool deleteArtworkByID(int artworkId)
 	@Test
 	public void testDeleteArtworkByID() {
-		Boolean artworkDeleted=true;
+		Boolean artworkDeleted=false;
 		try {
 			artworkDeleted=artworkService.deleteArtworkById(ARTWORK_ID);
 		} catch (Exception e) {
 			fail();
 		}
-		assertEquals(artworkDeleted, true);
+		assertEquals(true, artworkDeleted);
 				
 	}
     
+	//test public bool deleteArtworkByID(int artworkId) : non existant artworkID
+	@Test
+	public void testDeleteNonExistantArtworkByID() {
+		Boolean artworkDeleted=false;
+		try {
+			artworkDeleted=artworkService.deleteArtworkById(Non_Existant_Artwork_ID);
+		} catch (Exception e) {
+			fail();
+		}
+		assertEquals(false, artworkDeleted);
+	}
 }
