@@ -1,8 +1,6 @@
 package ca.mcgill.ecse321.artgallery.services;
 
-import java.sql.Date;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,12 +16,7 @@ import ca.mcgill.ecse321.artgallery.dto.CustomerDto;
 import ca.mcgill.ecse321.artgallery.model.Artwork;
 import ca.mcgill.ecse321.artgallery.model.Customer;
 
-import ca.mcgill.ecse321.artgallery.dao.PictureRepository;
 import ca.mcgill.ecse321.artgallery.dao.TransactionRepository;
-import ca.mcgill.ecse321.artgallery.dao.UserRepository;
-import ca.mcgill.ecse321.artgallery.model.Artist;
-import ca.mcgill.ecse321.artgallery.model.Artwork;
-import ca.mcgill.ecse321.artgallery.model.Customer;
 import ca.mcgill.ecse321.artgallery.model.Transaction;
 import ca.mcgill.ecse321.artgallery.model.Transaction.DeliveryType;
 
@@ -50,9 +43,6 @@ public class CustomerService {
     private ArtworkRepository artworkRepository;
 
     @Autowired
-    private PictureRepository pictureRepository;
-
-    @Autowired
     private TransactionRepository transactionRepository;
 
     @Autowired
@@ -66,6 +56,7 @@ public class CustomerService {
      * @author Sen Wang
      */
 
+    @Transactional
     public ArrayList<Artwork> getAllArtworksForSale() {
 
         // create new artwork for sale array list
@@ -87,6 +78,7 @@ public class CustomerService {
      * 
      * @author Noah Chamberland
      */
+    @Transactional
     public boolean addArtwork(int customerId, int artworkId) {
         if (artworkRepository.findArtworkById(artworkId) == null)
             return false;
@@ -105,6 +97,7 @@ public class CustomerService {
      * 
      * @author Noah Chamberland
      */
+    @Transactional
     public boolean removeArtwork(int customerId, int artworkId) {
         if (artworkRepository.findArtworkById(artworkId) == null)
             return false;
@@ -124,6 +117,7 @@ public class CustomerService {
      * 
      * @author Noah Chamberland
      */
+    @Transactional
     public boolean setMeanOfDelivery(int transactionId, DeliveryType deliveryType) {
         if (transactionRepository.findTransactionById(transactionId) == null)
             return false;
@@ -139,6 +133,7 @@ public class CustomerService {
      * 
      * @author Noah Chamberland
      */
+    @Transactional
     public boolean buyArtwork(int customerId, int artistId, int artworkId, int artGalleryId) {
         if (artGalleryRepository.findArtGalleryById(artGalleryId) == null) {
             return false;
@@ -171,6 +166,7 @@ public class CustomerService {
      * @author Sen Wang
      */
 
+    @Transactional
     public Boolean saveCustomer(Customer customer) {
         // a user/customer/artist with username already exist
         if (userRepository.findUserByUsername(customer.getUsername()) != null) {
@@ -187,6 +183,7 @@ public class CustomerService {
      * @param username
      * @return Customer object
      */
+    @Transactional
     public Customer getCustomerByUsername(String username) {
         if (customerRepository.findCustomerByUsername(username) == null) {
             return null;
@@ -221,6 +218,7 @@ public class CustomerService {
      * @return boolean
      * @author Sen Wang
      */
+    @Transactional
     public Boolean updateCustomer(CustomerDto customerDto) {
         if (customerRepository.findCustomerByUsername(customerDto.getUsername()) == null) {
             return false;

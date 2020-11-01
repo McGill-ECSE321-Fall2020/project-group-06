@@ -1,7 +1,6 @@
 package ca.mcgill.ecse321.artgallery.services;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +34,9 @@ public class ArtistService {
   @Autowired
   ArtGalleryRepository artGalleryRepository;
 
+  @Autowired
+  UserRepository userRepository;
+
   /**
    * REQ2.3 The art gallery system shall allow an artist to keep track of its
    * transaction history.
@@ -57,9 +59,6 @@ public class ArtistService {
     }
     return transactionHistory;
   }
-
-  @Autowired
-  UserRepository userRepository;
 
   /**
    * REQ2.1 The art gallery system shall allow the artist to upload an artwork.
@@ -110,6 +109,12 @@ public class ArtistService {
 
   }
 
+  /**
+   * get artwork uploaded by artist
+   * 
+   * @param artist
+   * @return array list of artwork
+   */
   @Transactional
   public ArrayList<Artwork> getArtworkUploadedByArtist(Artist artist) {
     ArrayList<Artwork> artworksUploadedByArtist = new ArrayList<>();
@@ -124,6 +129,7 @@ public class ArtistService {
    * @return Boolean if the artist is created
    * @author Sen Wang
    */
+  @Transactional
   public Boolean saveArtist(Artist artist) {
     // a user/customer/artist with username already exist
     if (userRepository.findUserByUsername(artist.getUsername()) != null) {
@@ -134,6 +140,13 @@ public class ArtistService {
     }
   }
 
+  /**
+   * update artist
+   * 
+   * @param artist
+   * @return boolean
+   */
+  @Transactional
   public Boolean updateArtist(Artist artist) {
     // check that the artist exists
     if (userRepository.findUserByUsername(artist.getUsername()) == null) {
@@ -163,6 +176,7 @@ public class ArtistService {
    * @param username
    * @return Artist object
    */
+  @Transactional
   public Artist getArtistByUsername(String username) {
     if (artistRepository.findArtistByUsername(username) == null) {
       return null;

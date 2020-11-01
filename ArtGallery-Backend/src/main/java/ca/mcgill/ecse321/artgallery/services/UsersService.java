@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.artgallery.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.artgallery.dao.CustomerRepository;
 import ca.mcgill.ecse321.artgallery.dao.UserRepository;
@@ -19,6 +20,13 @@ public class UsersService {
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * save user
+     * 
+     * @param user
+     * @return boolean
+     */
+    @Transactional
     public Boolean saveUser(User user) {
         // a user with this username already exist
         if (userRepository.findUserByUsername(user.getUsername()) != null) {
@@ -29,6 +37,13 @@ public class UsersService {
         }
     }
 
+    /**
+     * Update user
+     * 
+     * @param user
+     * @return
+     */
+    @Transactional
     public Boolean updateUser(User user) {
         // a user with this username does not exist
         if (userRepository.findUserByUsername(user.getUsername()) == null) {
@@ -47,10 +62,24 @@ public class UsersService {
         }
     }
 
+    /**
+     * Get user by id
+     * 
+     * @param userId
+     * @return User
+     */
+    @Transactional
     public User getUserById(int userId) {
         return userRepository.findUserById(userId);
     }
 
+    /**
+     * Delete User by Id
+     * 
+     * @param userId
+     * @return
+     */
+    @Transactional
     public Boolean deleteUserById(int userId) {
         if (userRepository.findUserById(userId) == null) {
             return false;

@@ -4,12 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import java.time.Month;
-import java.time.LocalDate;
-import java.sql.Date;
-import java.util.HashSet;
-import java.util.Set;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,7 +18,6 @@ import ca.mcgill.ecse321.artgallery.model.Artwork.TypeOfArtwork;
 import ca.mcgill.ecse321.artgallery.model.Customer;
 import ca.mcgill.ecse321.artgallery.model.Picture;
 import ca.mcgill.ecse321.artgallery.model.Transaction;
-import ca.mcgill.ecse321.artgallery.model.Transaction.DeliveryType;
 import ca.mcgill.ecse321.artgallery.model.User;
 
 /**

@@ -1,7 +1,6 @@
 package ca.mcgill.ecse321.artgallery.services;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,8 +25,10 @@ public class ArtGalleryService {
 
 	@Autowired
 	ArtworkRepository artworkRepository;
+
 	@Autowired
 	ArtGalleryRepository artGalleryRepository;
+
 	@Autowired
 	TransactionRepository transactionRepository;
 
@@ -38,6 +39,7 @@ public class ArtGalleryService {
 	 * @return List of Artworks
 	 * @author Sen Wang
 	 */
+	@Transactional
 	public ArrayList<Artwork> getAllArtworks() {
 
 		// create new artwork array list
@@ -53,8 +55,9 @@ public class ArtGalleryService {
 
 	/**
 	 * REQ 4.2 The art gallery system shall allow the art gallery to remove an
-	 * artwork. TODO This might need some rework
+	 * artwork.
 	 */
+	@Transactional
 	public boolean removeArtworkById(int artworkID) {
 		Artwork artwork = artworkRepository.findArtworkById(artworkID);
 		if (artwork == null) {
@@ -90,6 +93,7 @@ public class ArtGalleryService {
 	 * @param artGallery
 	 * @return ArtGalley
 	 */
+	@Transactional
 	public Boolean saveArtGallery(ArtGallery artGallery) {
 		if (artGalleryRepository.findArtGalleryByName(artGallery.getName()) != null) {
 			return false;
@@ -105,6 +109,7 @@ public class ArtGalleryService {
 	 * @param artGallery
 	 * @return boolean
 	 */
+	@Transactional
 	public boolean updateArtGallery(ArtGallery artGallery) {
 		if (artGalleryRepository.findArtGalleryByName(artGallery.getName()) == null) {
 			return false;
@@ -126,6 +131,7 @@ public class ArtGalleryService {
 	 * @param name
 	 * @return Art Gallery
 	 */
+	@Transactional
 	public ArtGallery getArtGalleryByName(String name) {
 		if (artGalleryRepository.findArtGalleryByName(name) == null) {
 			return null;
@@ -141,6 +147,7 @@ public class ArtGalleryService {
 	 * @return List of Transactions
 	 * @author Andre-Walter Panzini
 	 */
+	@Transactional
 	public ArrayList<Transaction> getAllTransactions() {
 
 		// create new transaction array list
@@ -153,6 +160,13 @@ public class ArtGalleryService {
 		return transactions;
 	}
 
+	/**
+	 * Delete art gallery by id
+	 * 
+	 * @param artGalleryId
+	 * @return boolean
+	 */
+	@Transactional
 	public Boolean deleteArtGalleyById(int artGalleryId) {
 		if (artGalleryRepository.findArtGalleryById(artGalleryId) == null) {
 			return false;
