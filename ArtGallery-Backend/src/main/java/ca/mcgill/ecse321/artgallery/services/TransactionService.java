@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.artgallery.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.artgallery.dao.ArtGalleryRepository;
 import ca.mcgill.ecse321.artgallery.dao.ArtistRepository;
@@ -33,17 +34,27 @@ public class TransactionService {
     @Autowired
     TransactionRepository transactionRepository;
 
-    public boolean saveTransaction(int customerId, int artistId, int artworkId, int artGalleryId){
-		if (artGalleryRepository.findArtGalleryById(artGalleryId) == null) {
+    /**
+     * Save transaction
+     * 
+     * @param customerId
+     * @param artistId
+     * @param artworkId
+     * @param artGalleryId
+     * @return boolean
+     */
+    @Transactional
+    public boolean saveTransaction(int customerId, int artistId, int artworkId, int artGalleryId) {
+        if (artGalleryRepository.findArtGalleryById(artGalleryId) == null) {
             return false;
         }
-        if(artistRepository.findArtistById(artistId) == null){
-            return false;
-        } 
-        if(artworkRepository.findArtworkById(artworkId) == null){
+        if (artistRepository.findArtistById(artistId) == null) {
             return false;
         }
-        if(customerRepository.findCustomerById(customerId) == null){
+        if (artworkRepository.findArtworkById(artworkId) == null) {
+            return false;
+        }
+        if (customerRepository.findCustomerById(customerId) == null) {
             return false;
         }
         Transaction transaction = new Transaction();
@@ -51,42 +62,71 @@ public class TransactionService {
         transaction.setArtist(artistRepository.findArtistById(artistId));
         transaction.setArtwork(artworkRepository.findArtworkById(artworkId));
         transaction.setCustomer(customerRepository.findCustomerById(customerId));
-        //set for sale to false
+        // set for sale to false
         transactionRepository.save(transaction);
         return true;
-	}
+    }
+
     /**
      * Updates transaction
+     * 
      * @param transaction
-     * @return
+     * @return boolean
      */
-    public boolean updateTransaction(TransactionDto transaction) {
-		if (transactionRepository.findTransactionById(transaction.getId())==null){
-			return false;
-		}
-        Transaction newTransaction =transactionRepository.findTransactionById(transaction.getId());
-        newTransaction.setArtGallery(artGalleryRepository.findArtGalleryById(transaction.getArtGalleryId()));
-        newTransaction.setArtist(artistRepository.findArtistById(transaction.getArtistId()));
-        newTransaction.setArtwork(artworkRepository.findArtworkById(transaction.getArtworkId()));
-        newTransaction.setCommisionCut(transaction.getCommisionCut());
-        newTransaction.setCustomer(customerRepository.findCustomerById(transaction.getCustomerId()));
-        newTransaction.setDateOfTransaction(transaction.getDateOfTransaction());
-        newTransaction.setDeliveryType(transaction.getDeliveryType());
+    @Transactional
+    public boolean updateTransaction(TransactionDto transactionDto) {
+        if (transactionRepository.findTransactionById(transactionDto.getId()) == null) {
+            return false;
+        }
+        if (artGalleryRepository.findArtGalleryById(transactionDto.getArtGalleryId()) == null) {
+            return false;
+        }
+        if (artistRepository.findArtistById(transactionDto.getArtistId()) == null) {
+            return false;
+        }
+        if (artworkRepository.findArtworkById(transactionDto.getArtworkId()) == null) {
+            return false;
+        }
+        if (customerRepository.findCustomerById(transactionDto.getCustomerId()) == null) {
+            return false;
+        }
+        Transaction newTransaction = transactionRepository.findTransactionById(transactionDto.getId());
+        newTransaction.setArtGallery(artGalleryRepository.findArtGalleryById(transactionDto.getArtGalleryId()));
+        newTransaction.setArtist(artistRepository.findArtistById(transactionDto.getArtistId()));
+        newTransaction.setArtwork(artworkRepository.findArtworkById(transactionDto.getArtworkId()));
+        newTransaction.setCommisionCut(transactionDto.getCommisionCut());
+        newTransaction.setCustomer(customerRepository.findCustomerById(transactionDto.getCustomerId()));
+        newTransaction.setDateOfTransaction(transactionDto.getDateOfTransaction());
+        newTransaction.setDeliveryType(transactionDto.getDeliveryType());
         transactionRepository.save(newTransaction);
         return true;
     }
 
-    public boolean removeTransaction(int transactionId){
-        if(transactionRepository.findTransactionById(transactionId) == null){
+    /**
+     * Remove transaction
+     * 
+     * @param transactionId
+     * @return
+     */
+    @Transactional
+    public boolean removeTransaction(int transactionId) {
+        if (transactionRepository.findTransactionById(transactionId) == null) {
             return false;
         }
-        
+
         transactionRepository.delete(transactionRepository.findTransactionById(transactionId));
 
         return true;
     }
 
-	public Transaction getTransactionById(int id) {
+    /**
+     * Get transaction by id
+     * 
+     * @param id
+     * @return Transaction
+     */
+    @Transactional
+    public Transaction getTransactionById(int id) {
         if (transactionRepository.findTransactionById(id) == null) {
             return null;
         } else {

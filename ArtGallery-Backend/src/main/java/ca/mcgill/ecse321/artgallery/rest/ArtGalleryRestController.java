@@ -15,12 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.artgallery.model.ArtGallery;
 import ca.mcgill.ecse321.artgallery.model.Artwork;
-import ca.mcgill.ecse321.artgallery.model.User;
+import ca.mcgill.ecse321.artgallery.model.Transaction;
 import ca.mcgill.ecse321.artgallery.services.ArtGalleryService;
 
 @RestController
@@ -34,7 +33,7 @@ public class ArtGalleryRestController {
 
 	/**
 	 * REQ5.3: The art gallery system should be able to browse the artworks. Http
-	 * endpoit for this requirement. TESTED WITH POSTMAN
+	 * endpoit for this requirement. TESTED WITH POSTMAN + newman
 	 *
 	 * @return List of Artworks
 	 * @author Sen Wang
@@ -44,49 +43,72 @@ public class ArtGalleryRestController {
 		try {
 			return ResponseEntity.ok(artGalleryService.getAllArtworks());
 		} catch (Exception e) {
-			logger.error("Exception when getting all artworks for art gallery"+e);
+			logger.error("Exception when getting all artworks for art gallery" + e);
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
 
-	@PostMapping("/removeArtwork")
-	public ResponseEntity<Void> removeArtwork(@RequestParam int artworkID) {
+	/**
+	 * Get all transactions Tested with postman + newman
+	 * 
+	 * @return
+	 */
+	@GetMapping("/allTransactions")
+	public ResponseEntity<ArrayList<Transaction>> getAllTransactions() {
 		try {
-			if (artGalleryService.removeArtwork(artworkID)) {
+			return ResponseEntity.ok(artGalleryService.getAllTransactions());
+		} catch (Exception e) {
+			logger.error("Exception when getting all transactions for art gallery");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+
+	/**
+	 * Remove an artwork from the artgallery tested with postman + newman
+	 * 
+	 * @param artworkID
+	 * @return
+	 */
+	@PostMapping("/removeArtwork/{artworkId}")
+	public ResponseEntity<Void> removeArtwork(@PathVariable("artworkId") Integer artworkID) {
+		try {
+			if (artGalleryService.removeArtworkById(artworkID)) {
 				return ResponseEntity.status(HttpStatus.OK).build();
 			} else {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 			}
 		} catch (Exception e) {
-			logger.error("Exception when removing artwork from artGallery"+e);
+			logger.error("Exception when removing artwork from artGallery" + e);
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
+
 	/**
-	 * Tested with Postman
+	 * Tested with Postman + newman
+	 * 
 	 * @param artGallery
 	 * @return
 	 */
-	 @PutMapping("/updateArtGallery")
-	    public ResponseEntity<Void> updateArtGallery(@Valid @RequestBody ArtGallery artGallery) {
+	@PutMapping("/updateArtGallery")
+	public ResponseEntity<Void> updateArtGallery(@Valid @RequestBody ArtGallery artGallery) {
 
-	        logger.info("updating artGallery profile");
+		logger.info("updating artGallery profile");
 
-	        if (artGallery.getName() == null) {
-	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-	        }
+		if (artGallery.getName() == null) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
 
-	        try {
-	            if (artGalleryService.updateArtGallery(artGallery) == false) {
-	                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-	            } else {
-	                return ResponseEntity.status(HttpStatus.OK).build();
-	            }
-	        } catch (Exception e) {
-	            logger.error("Exception when updating Art Gallery"+e);
-	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-	        }
-	    }
+		try {
+			if (artGalleryService.updateArtGallery(artGallery) == false) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+			} else {
+				return ResponseEntity.status(HttpStatus.OK).build();
+			}
+		} catch (Exception e) {
+			logger.error("Exception when updating Art Gallery" + e);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+	}
 
 	/**
 	 * REQ4.3 The art gallery system shall allow the art gallery to take a
@@ -104,12 +126,14 @@ public class ArtGalleryRestController {
 		try {
 			return ResponseEntity.ok(artGalleryService.takeCommission(transactionID));
 		} catch (Exception e) {
-			logger.error("Exception when taking commission from transaction"+e);
+			logger.error("Exception when taking commission from transaction" + e);
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
+
 	/**
-	 * Tested with postman
+	 * Tested with postman + newman
+	 * 
 	 * @param artGallery
 	 * @return
 	 */
@@ -122,7 +146,7 @@ public class ArtGalleryRestController {
 		}
 
 		try {
-			if (artGalleryService.saveArtGallery(artGallery) == null) {
+			if (artGalleryService.saveArtGallery(artGallery) == false) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 			} else {
 				return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -132,8 +156,10 @@ public class ArtGalleryRestController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
+
 	/**
-	 * Tested with postman.
+	 * Tested with postman + newman
+	 * 
 	 * @param name
 	 * @return
 	 */

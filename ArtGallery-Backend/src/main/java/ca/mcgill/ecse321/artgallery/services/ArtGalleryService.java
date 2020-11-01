@@ -1,7 +1,6 @@
 package ca.mcgill.ecse321.artgallery.services;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,11 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.artgallery.dao.ArtGalleryRepository;
 import ca.mcgill.ecse321.artgallery.dao.ArtworkRepository;
-
 import ca.mcgill.ecse321.artgallery.dao.TransactionRepository;
 
 import ca.mcgill.ecse321.artgallery.model.ArtGallery;
-
 import ca.mcgill.ecse321.artgallery.model.Artwork;
 import ca.mcgill.ecse321.artgallery.model.Transaction;
 
@@ -28,8 +25,10 @@ public class ArtGalleryService {
 
 	@Autowired
 	ArtworkRepository artworkRepository;
+
 	@Autowired
 	ArtGalleryRepository artGalleryRepository;
+
 	@Autowired
 	TransactionRepository transactionRepository;
 
@@ -40,6 +39,7 @@ public class ArtGalleryService {
 	 * @return List of Artworks
 	 * @author Sen Wang
 	 */
+	@Transactional
 	public ArrayList<Artwork> getAllArtworks() {
 
 		// create new artwork array list
@@ -55,15 +55,15 @@ public class ArtGalleryService {
 
 	/**
 	 * REQ 4.2 The art gallery system shall allow the art gallery to remove an
-	 * artwork. TODO This might need some rework
+	 * artwork.
 	 */
-	public boolean removeArtwork(int artworkID) {
+	@Transactional
+	public boolean removeArtworkById(int artworkID) {
 		Artwork artwork = artworkRepository.findArtworkById(artworkID);
 		if (artwork == null) {
 			return false;
 		}
-		artwork.setForSale(false);
-		artworkRepository.save(artwork);
+		artworkRepository.deleteById(artworkID);
 		return true;
 	}
 
@@ -93,12 +93,13 @@ public class ArtGalleryService {
 	 * @param artGallery
 	 * @return ArtGalley
 	 */
-	public ArtGallery saveArtGallery(ArtGallery artGallery) {
+	@Transactional
+	public Boolean saveArtGallery(ArtGallery artGallery) {
 		if (artGalleryRepository.findArtGalleryByName(artGallery.getName()) != null) {
-			return null;
+			return false;
 		} else {
 			artGalleryRepository.save(artGallery);
-			return artGalleryRepository.findArtGalleryByName(artGallery.getName());
+			return true;
 		}
 	}
 
@@ -108,6 +109,7 @@ public class ArtGalleryService {
 	 * @param artGallery
 	 * @return boolean
 	 */
+	@Transactional
 	public boolean updateArtGallery(ArtGallery artGallery) {
 		if (artGalleryRepository.findArtGalleryByName(artGallery.getName()) == null) {
 			return false;
@@ -129,6 +131,7 @@ public class ArtGalleryService {
 	 * @param name
 	 * @return Art Gallery
 	 */
+	@Transactional
 	public ArtGallery getArtGalleryByName(String name) {
 		if (artGalleryRepository.findArtGalleryByName(name) == null) {
 			return null;
@@ -137,4 +140,39 @@ public class ArtGalleryService {
 		}
 	}
 
+	/**
+	 * REQ 4.1 The art gallery system shall allow the art gallery to browse all the
+	 * artwork transactions
+	 * 
+	 * @return List of Transactions
+	 * @author Andre-Walter Panzini
+	 */
+	@Transactional
+	public ArrayList<Transaction> getAllTransactions() {
+
+		// create new transaction array list
+		ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+
+		for (Transaction transaction : transactionRepository.findAll()) {
+			transactions.add(transaction);
+		}
+
+		return transactions;
+	}
+
+	/**
+	 * Delete art gallery by id
+	 * 
+	 * @param artGalleryId
+	 * @return boolean
+	 */
+	@Transactional
+	public Boolean deleteArtGalleyById(int artGalleryId) {
+		if (artGalleryRepository.findArtGalleryById(artGalleryId) == null) {
+			return false;
+		} else {
+			artGalleryRepository.deleteById(artGalleryId);
+			return true;
+		}
+	}
 }

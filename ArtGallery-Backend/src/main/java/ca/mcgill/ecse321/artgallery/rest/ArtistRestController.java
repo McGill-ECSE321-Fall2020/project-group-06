@@ -1,7 +1,6 @@
 package ca.mcgill.ecse321.artgallery.rest;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.validation.Valid;
 
@@ -25,7 +24,6 @@ import ca.mcgill.ecse321.artgallery.model.Transaction;
 import ca.mcgill.ecse321.artgallery.services.ArtistService;
 import ca.mcgill.ecse321.artgallery.dto.ArtistDto;
 import ca.mcgill.ecse321.artgallery.model.Artist;
-import ca.mcgill.ecse321.artgallery.services.ArtistService;
 
 @RestController
 @RequestMapping("/api/artist")
@@ -95,26 +93,28 @@ public class ArtistRestController {
 
   /**
    * REQ2.1: The art gallery system shall allow an artist to upload an artwork.
-   *
+   * Tested with postman
+   * 
    * @author Andre-Walter Panzini
    */
   @PostMapping("/uploadArtwork")
   public ResponseEntity<Void> uploadArtwork(@RequestBody Artwork artwork) {
 
-    if (artwork.getArtist() == null) {
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-    }
+    logger.info("creating artwork");
+
     if (artwork.getName() == null) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
-    if (artwork.getArtGallery() == null) {
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-    }
+
     try {
-      artistService.uploadArtwork(artwork);
-      return ResponseEntity.status(HttpStatus.CREATED).build();
+      if (artistService.uploadArtwork(artwork)) {
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+      } else {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+      }
+
     } catch (Exception e) {
-      logger.error("Exception when uploading artwork from artist");
+      logger.error("Exception when creating a new artwork " + e);
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
   }
@@ -123,6 +123,9 @@ public class ArtistRestController {
    * REQ2.2: The art gallery system shall allow an artist to remove an artwork.
    *
    * @author Andre-Walter Panzini
+   * 
+   * @param artworkID
+   * @return ResponseEntity artwork
    */
   @PostMapping("/removeArtwork")
   public ResponseEntity<Artwork> removeArtwork(@RequestParam int artworkID) {

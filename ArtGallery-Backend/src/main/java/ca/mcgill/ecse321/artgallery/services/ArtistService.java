@@ -1,21 +1,20 @@
 package ca.mcgill.ecse321.artgallery.services;
 
 import java.util.ArrayList;
-import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ca.mcgill.ecse321.artgallery.dao.ArtGalleryRepository;
 import ca.mcgill.ecse321.artgallery.dao.ArtistRepository;
 import ca.mcgill.ecse321.artgallery.dao.ArtworkRepository;
 import ca.mcgill.ecse321.artgallery.model.Artist;
 import ca.mcgill.ecse321.artgallery.model.Artwork;
 import ca.mcgill.ecse321.artgallery.model.Transaction;
 
-import ca.mcgill.ecse321.artgallery.dao.ArtistRepository;
 import ca.mcgill.ecse321.artgallery.dao.UserRepository;
 import ca.mcgill.ecse321.artgallery.dto.ArtistDto;
-import ca.mcgill.ecse321.artgallery.model.Artist;
 
 /**
  * <p>
@@ -32,6 +31,12 @@ public class ArtistService {
   @Autowired
   ArtistRepository artistRepository;
 
+  @Autowired
+  ArtGalleryRepository artGalleryRepository;
+
+  @Autowired
+  UserRepository userRepository;
+
   /**
    * REQ2.3 The art gallery system shall allow an artist to keep track of its
    * transaction history.
@@ -42,8 +47,8 @@ public class ArtistService {
    */
 
   @Transactional
-  public List<Transaction> viewTransactionHistory(int artistID) {
-    List<Transaction> transactionHistory = new ArrayList<>();
+  public ArrayList<Transaction> viewTransactionHistory(int artistID) {
+    ArrayList<Transaction> transactionHistory = new ArrayList<>();
     Artist artist = artistRepository.findArtistById(artistID);
     if (artist == null) {
       return transactionHistory;
@@ -55,22 +60,33 @@ public class ArtistService {
     return transactionHistory;
   }
 
-  @Autowired
-  UserRepository userRepository;
-
   /**
    * REQ2.1 The art gallery system shall allow the artist to upload an artwork.
    * 
    * @param artwork the artwork to be added
    * @return artwork the artwork that was added
-   * @author Andre-Walter Panzini This might need some rework
+   * @author Andre-Walter Panzini
    */
   @Transactional
-  public Artwork uploadArtwork(Artwork artwork) {
-    artwork.setForSale(true);
-    artworkRepository.save(artwork);
+  public boolean uploadArtwork(Artwork artwork) {
+    Artwork newArtwork = new Artwork();
 
-    return artwork;
+    if (artworkRepository.findArtworkByName(artwork.getName()) != null) {
+      return false;
+    }
+    if (artistRepository.findArtistByUsername(artwork.getArtist().getUsername()) == null) {
+      return false;
+    }
+    if (artGalleryRepository.findArtGalleryByName(artwork.getArtGallery().getName()) == null) {
+      return false;
+    }
+
+    newArtwork.setName(artwork.getName());
+    newArtwork.setArtist(artistRepository.findArtistByUsername(artwork.getArtist().getUsername()));
+    newArtwork.setArtGallery(artGalleryRepository.findArtGalleryByName(artwork.getArtGallery().getName()));
+    artworkRepository.save(newArtwork);
+
+    return true;
   }
 
   /**
@@ -93,10 +109,16 @@ public class ArtistService {
 
   }
 
+  /**
+   * get artwork uploaded by artist
+   * 
+   * @param artist
+   * @return array list of artwork
+   */
   @Transactional
-  public List<Artwork> getArtworkUploadedByArtist(Artist artist) {
-    List<Artwork> artworksUploadedByArtist = new ArrayList<>();
-    artworksUploadedByArtist = (List<Artwork>) artist.getArtwork();
+  public ArrayList<Artwork> getArtworkUploadedByArtist(Artist artist) {
+    ArrayList<Artwork> artworksUploadedByArtist = new ArrayList<>();
+    artworksUploadedByArtist = (ArrayList<Artwork>) artist.getArtwork();
     return artworksUploadedByArtist;
   }
 
@@ -107,6 +129,7 @@ public class ArtistService {
    * @return Boolean if the artist is created
    * @author Sen Wang
    */
+  @Transactional
   public Boolean saveArtist(Artist artist) {
     // a user/customer/artist with username already exist
     if (userRepository.findUserByUsername(artist.getUsername()) != null) {
@@ -117,6 +140,13 @@ public class ArtistService {
     }
   }
 
+  /**
+   * update artist
+   * 
+   * @param artist
+   * @return boolean
+   */
+  @Transactional
   public Boolean updateArtist(Artist artist) {
     // check that the artist exists
     if (userRepository.findUserByUsername(artist.getUsername()) == null) {
@@ -146,6 +176,7 @@ public class ArtistService {
    * @param username
    * @return Artist object
    */
+  @Transactional
   public Artist getArtistByUsername(String username) {
     if (artistRepository.findArtistByUsername(username) == null) {
       return null;
