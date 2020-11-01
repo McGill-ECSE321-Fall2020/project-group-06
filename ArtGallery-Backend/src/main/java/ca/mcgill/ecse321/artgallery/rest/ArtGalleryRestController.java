@@ -35,7 +35,7 @@ public class ArtGalleryRestController {
 
 	/**
 	 * REQ5.3: The art gallery system should be able to browse the artworks. Http
-	 * endpoit for this requirement. TESTED WITH POSTMAN
+	 * endpoit for this requirement. TESTED WITH POSTMAN + newman
 	 *
 	 * @return List of Artworks
 	 * @author Sen Wang
@@ -51,7 +51,7 @@ public class ArtGalleryRestController {
 	}
 
 	/**
-	 * Get all transactions Tested with postman
+	 * Get all transactions Tested with postman + newman
 	 * 
 	 * @return
 	 */
@@ -65,8 +65,14 @@ public class ArtGalleryRestController {
 		}
 	}
 
-	@PostMapping("/removeArtwork")
-	public ResponseEntity<Void> removeArtwork(@RequestParam int artworkID) {
+	/**
+	 * Remove an artwork from the artgallery tested with postman + newman
+	 * 
+	 * @param artworkID
+	 * @return
+	 */
+	@PostMapping("/removeArtwork/{artworkId}")
+	public ResponseEntity<Void> removeArtwork(@PathVariable("artworkId") Integer artworkID) {
 		try {
 			if (artGalleryService.removeArtworkById(artworkID)) {
 				return ResponseEntity.status(HttpStatus.OK).build();
@@ -80,7 +86,7 @@ public class ArtGalleryRestController {
 	}
 
 	/**
-	 * Tested with Postman
+	 * Tested with Postman + newman
 	 * 
 	 * @param artGallery
 	 * @return
@@ -128,7 +134,7 @@ public class ArtGalleryRestController {
 	}
 
 	/**
-	 * Tested with postman
+	 * Tested with postman + newman
 	 * 
 	 * @param artGallery
 	 * @return
@@ -154,7 +160,7 @@ public class ArtGalleryRestController {
 	}
 
 	/**
-	 * Tested with postman.
+	 * Tested with postman + newman
 	 * 
 	 * @param name
 	 * @return
