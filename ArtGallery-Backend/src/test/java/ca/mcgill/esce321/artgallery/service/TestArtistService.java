@@ -25,6 +25,7 @@ import ca.mcgill.ecse321.artgallery.dao.ArtGalleryRepository;
 import ca.mcgill.ecse321.artgallery.dao.ArtistRepository;
 import ca.mcgill.ecse321.artgallery.dao.ArtworkRepository;
 import ca.mcgill.ecse321.artgallery.dao.UserRepository;
+import ca.mcgill.ecse321.artgallery.dto.ArtistDto;
 import ca.mcgill.ecse321.artgallery.model.ArtGallery;
 import ca.mcgill.ecse321.artgallery.model.Artist;
 import ca.mcgill.ecse321.artgallery.model.Artwork;
@@ -161,9 +162,6 @@ public class TestArtistService {
 	// test public List<Transaction> viewTransactionHistory(int artistID)
 	@Test
 	public void testViewTransactionHistory() {
-		Artist artist = new Artist();
-
-		artist.setId(ARTIST_ID);
 		ArrayList<Transaction> transactionHistory2 = new ArrayList<Transaction>();
 		try {
 			transactionHistory2 = artistService.viewTransactionHistory(ARTIST_ID);
@@ -171,6 +169,18 @@ public class TestArtistService {
 			fail();
 		}
 		assertEquals(transactionHistory2.size(), 1);
+		;
+	}
+	// test public List<Transaction> viewTransactionHistory(int artistID) with a bad artistID
+	@Test
+	public void testViewTransactionHistoryBadKey() {
+		ArrayList<Transaction> transactionHistory2 = new ArrayList<Transaction>();
+		try {
+			transactionHistory2 = artistService.viewTransactionHistory(NON_EXISTING_ARTIST_ID);
+		} catch (Exception e) {
+			fail();
+		}
+		assertEquals(transactionHistory2.size(), 0);
 		;
 	}
 
@@ -338,7 +348,7 @@ public class TestArtistService {
 
 	// public Boolean updateArtist(Artist artist) : existant artist
 	@Test
-	public void updateArtist() {
+	public void testUpdateArtist() {
 		boolean saveWorked = false;
 		Artist artist = new Artist();
 		artist.setUsername(ARTIST_KEY);
@@ -348,6 +358,32 @@ public class TestArtistService {
 			fail();
 		}
 		assertEquals(true, saveWorked);
+	}
+	// public Boolean updateArtist(ArtistDto artistdto) : existant artist
+	@Test
+	public void testUpdateArtistDto() {
+		boolean saveWorked = false;
+		ArtistDto artistdto=new ArtistDto();
+		artistdto.setUsername(ARTIST_KEY);
+		try {
+			saveWorked = artistService.updateArtist(artistdto);
+		} catch (Exception e) {
+			fail();
+		}
+		assertEquals(true, saveWorked);
+	}
+	// public Boolean updateArtist(ArtistDto artistdto) : bad username, no existing artist
+	@Test
+	public void testUpdateArtistDtoBadUsername() {
+		boolean saveWorked = false;
+		ArtistDto artistdto=new ArtistDto();
+		artistdto.setUsername(NONEXISTING_KEY);
+		try {
+			saveWorked = artistService.updateArtist(artistdto);
+		} catch (Exception e) {
+			fail();
+		}
+		assertEquals(false, saveWorked);
 	}
 
 	// public Boolean updateArtist(Artist artist) : non existant artist

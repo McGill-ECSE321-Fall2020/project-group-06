@@ -57,6 +57,7 @@ public class TestTransactionService {
 	private static final int testArtistId = 2;
 	private static final int testArtworkId = 3;
 	private static final int testCustomerId = 4;
+	private static final int BAD_KEY=10;
 	private static final String NONEXISTING_KEY = "NotATransaction";
 
 	@BeforeEach
@@ -137,6 +138,65 @@ public class TestTransactionService {
 		}
 		assertEquals(true, transactionSaved);
 	}
+	// test public boolean saveTransaction(int customerId, int artistId, int
+	// artworkId, int artGalleryId) with a bad artGalleryID
+	@Test
+	public void testSaveTransactionBadArtGalleryId() {
+
+		Boolean transactionSaved = false;
+
+		try {
+			transactionSaved = transactionService.saveTransaction(testCustomerId, testArtistId, testArtworkId,
+					BAD_KEY);
+		} catch (Exception e) {
+			fail();
+		}
+		assertEquals(false, transactionSaved);
+	}
+	// test public boolean saveTransaction(int customerId, int artistId, int
+	// artworkId, int artGalleryId) with a bad CustomerID
+	@Test
+	public void testSaveTransactionBadCustomerId() {
+		Boolean transactionSaved = false;
+
+		try {
+			transactionSaved = transactionService.saveTransaction(BAD_KEY, testArtistId, testArtworkId,
+					testArtGalleryId);
+		} catch (Exception e) {
+			fail();
+		}
+		assertEquals(false, transactionSaved);
+	}
+	// test public boolean saveTransaction(int customerId, int artistId, int
+	// artworkId, int artGalleryId) with a bad ArtistId
+	@Test
+	public void testSaveTransactionBadArtistId() {
+
+		Boolean transactionSaved = false;
+
+		try {
+			transactionSaved = transactionService.saveTransaction(testCustomerId, BAD_KEY, testArtworkId,
+					testArtGalleryId);
+		} catch (Exception e) {
+			fail();
+		}
+		assertEquals(false, transactionSaved);
+	}
+	// test public boolean saveTransaction(int customerId, int artistId, int
+	// artworkId, int artGalleryId) with a bad ArtworkID
+	@Test
+	public void testSaveTransactionBadArtworkId() {
+
+		Boolean transactionSaved = false;
+
+		try {
+			transactionSaved = transactionService.saveTransaction(testCustomerId, testArtistId, BAD_KEY,
+					testArtGalleryId);
+		} catch (Exception e) {
+			fail();
+		}
+		assertEquals(false, transactionSaved);
+	}
 
 	// test public boolean updateTransaction(Transaction transaction)
 	@Test
@@ -158,6 +218,106 @@ public class TestTransactionService {
 
 		assertEquals(true, transactionUpdated);
 	}
+	// test public boolean updateTransaction(Transaction transaction) with a bad customer Id
+	@Test
+	public void testUpdateTransactionBadCustomerId() {
+		
+		TransactionDto transactionDto = new TransactionDto();
+		transactionDto.setId(TRANSACTION_KEY);
+		transactionDto.setArtGalleryId(testArtGalleryId);
+		transactionDto.setArtistId(testArtistId);
+		transactionDto.setArtworkId(testArtworkId);
+		transactionDto.setCustomerId(BAD_KEY);
+
+		Boolean transactionUpdated = false;
+		try {
+			transactionUpdated = transactionService.updateTransaction(transactionDto);
+		} catch (Exception e) {
+			fail();
+		}
+
+		assertEquals(false, transactionUpdated);
+	}
+	// test public boolean updateTransaction(Transaction transaction) with a bad Artwork Id
+	@Test
+	public void testUpdateTransactionBadArtworkId() {
+		
+		TransactionDto transactionDto = new TransactionDto();
+		transactionDto.setId(TRANSACTION_KEY);
+		transactionDto.setArtGalleryId(testArtGalleryId);
+		transactionDto.setArtistId(testArtistId);
+		transactionDto.setArtworkId(BAD_KEY);
+		transactionDto.setCustomerId(testCustomerId);
+
+		Boolean transactionUpdated = false;
+		try {
+			transactionUpdated = transactionService.updateTransaction(transactionDto);
+		} catch (Exception e) {
+			fail();
+		}
+
+		assertEquals(false, transactionUpdated);
+	}
+	// test public boolean updateTransaction(Transaction transaction) with a bad Artist Id
+	@Test
+	public void testUpdateTransactionBadArtistId() {
+		
+		TransactionDto transactionDto = new TransactionDto();
+		transactionDto.setId(TRANSACTION_KEY);
+		transactionDto.setArtGalleryId(testArtGalleryId);
+		transactionDto.setArtistId(BAD_KEY);
+		transactionDto.setArtworkId(testArtworkId);
+		transactionDto.setCustomerId(testCustomerId);
+
+		Boolean transactionUpdated = false;
+		try {
+			transactionUpdated = transactionService.updateTransaction(transactionDto);
+		} catch (Exception e) {
+			fail();
+		}
+
+		assertEquals(false, transactionUpdated);
+	}
+	// test public boolean updateTransaction(Transaction transaction) with a bad ArtGallery Id
+	@Test
+	public void testUpdateTransactionBadArtGalleryId() {
+		
+		TransactionDto transactionDto = new TransactionDto();
+		transactionDto.setId(TRANSACTION_KEY);
+		transactionDto.setArtGalleryId(BAD_KEY);
+		transactionDto.setArtistId(testArtistId);
+		transactionDto.setArtworkId(testArtworkId);
+		transactionDto.setCustomerId(testCustomerId);
+
+		Boolean transactionUpdated = false;
+		try {
+			transactionUpdated = transactionService.updateTransaction(transactionDto);
+		} catch (Exception e) {
+			fail();
+		}
+
+		assertEquals(false, transactionUpdated);
+	}
+	// test public boolean updateTransaction(Transaction transaction) with a bad Transaction Id
+	@Test
+	public void testUpdateTransactionBadTransactionId() {
+		
+		TransactionDto transactionDto = new TransactionDto();
+		transactionDto.setId(BAD_KEY);
+		transactionDto.setArtGalleryId(testArtGalleryId);
+		transactionDto.setArtistId(testArtistId);
+		transactionDto.setArtworkId(testArtworkId);
+		transactionDto.setCustomerId(testCustomerId);
+
+		Boolean transactionUpdated = false;
+		try {
+			transactionUpdated = transactionService.updateTransaction(transactionDto);
+		} catch (Exception e) {
+			fail();
+		}
+
+		assertEquals(false, transactionUpdated);
+	}
 
 	// test public boolean removeTransaction(int transactionId)
 	@Test
@@ -170,6 +330,18 @@ public class TestTransactionService {
 		}
 
 		assertEquals(true, transactionDeleted);
+	}
+	// test public boolean removeTransaction(int transactionId) with a bad transaction key
+	@Test
+	public void testRemoveTransactionBadKey() {
+		Boolean transactionDeleted = false;
+		try {
+			transactionDeleted = transactionService.removeTransaction(BAD_KEY);
+		} catch (Exception e) {
+			fail();
+		}
+
+		assertEquals(false, transactionDeleted);
 	}
 
 	// test public Transaction getTransactionById(int id)
@@ -186,7 +358,18 @@ public class TestTransactionService {
 		assertNotNull(existingTransaction);
 		assertEquals(TRANSACTION_KEY, existingTransaction.getId());
 	}
+	// test public Transaction getTransactionById(int id) with a bad transaction key
+	@Test
+	public void testgetTransactionBadKey() {
+		Transaction existingTransaction = new Transaction();
+		try {
+			existingTransaction = transactionService.getTransactionById(BAD_KEY);
+		} catch (Exception e) {
+			fail();
+		}
 
+		assertNull(existingTransaction);
+	}
 	// TODO ADD MORE TESTS FOR TRANSACTION IF NEEDED
 
 }
