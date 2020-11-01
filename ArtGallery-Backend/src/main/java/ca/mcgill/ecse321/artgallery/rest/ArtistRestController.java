@@ -127,8 +127,8 @@ public class ArtistRestController {
    * @param artworkID
    * @return ResponseEntity artwork
    */
-  @PostMapping("/removeArtwork")
-  public ResponseEntity<Artwork> removeArtwork(@RequestParam int artworkID) {
+  @PostMapping("/removeArtwork/{artworkId}")
+  public ResponseEntity<Artwork> removeArtwork(@PathVariable ("artworkId") int artworkID) {
 
     try {
       boolean isRemoved = artistService.removeArtwork(artworkID);
@@ -206,7 +206,7 @@ public class ArtistRestController {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
   }
-  @GetMapping("/getArtworkUploadedByArtist/{artistId}")
+  @GetMapping("/getArtworkUploadedByArtist/{username}")
   public ResponseEntity<ArrayList<Artwork>> getArtworkUploadedByArtist(@PathVariable("username") String username) {
 
     logger.info("get artwork uploaded by Artist");

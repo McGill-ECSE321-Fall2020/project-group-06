@@ -102,19 +102,20 @@ public class ArtworkService {
             return artworkRepository.findArtworkByName(name);
         }
     }
-	/**
-	 * Delete artwork by id
-	 * 
-	 * @param artwork ID
-	 * @return boolean
-	 */
-	@Transactional
-	public Boolean deleteArtworkById(int artworkId) {
-		if (artworkRepository.findArtworkById(artworkId) == null) {
-			return false;
-		} else {
-			artworkRepository.deleteById(artworkId);
-			return true;
-		}
-	}
+
+    /**
+     * Delete artwork by id
+     * 
+     * @param artwork ID
+     * @return boolean
+     */
+    @Transactional
+    public Boolean deleteArtworkById(int artworkId) {
+        if (artworkRepository.findArtworkById(artworkId) == null) {
+            return false;
+        } else {
+            artworkRepository.deleteById(artworkId);
+            return true;
+        }
+    }
 }

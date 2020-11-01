@@ -84,6 +84,7 @@ public class ArtistService {
 		newArtwork.setName(artwork.getName());
 		newArtwork.setArtist(artistRepository.findArtistByUsername(artwork.getArtist().getUsername()));
 		newArtwork.setArtGallery(artGalleryRepository.findArtGalleryByName(artwork.getArtGallery().getName()));
+		newArtwork.setForSale(true);
 		artworkRepository.save(newArtwork);
 
 		return true;

@@ -78,6 +78,4 @@ public class TestCognitoService {
         assertEquals(false, changedPassword);
 
     }
-
-    // TODO ADD MORE TESTS IF NEEDED
 }
