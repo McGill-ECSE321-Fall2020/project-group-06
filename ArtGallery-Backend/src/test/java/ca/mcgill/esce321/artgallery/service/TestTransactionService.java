@@ -5,12 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.lenient;
 
-import java.sql.Date;
-
-import javax.validation.constraints.AssertFalse;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,7 +28,6 @@ import ca.mcgill.ecse321.artgallery.model.Artist;
 import ca.mcgill.ecse321.artgallery.model.Artwork;
 import ca.mcgill.ecse321.artgallery.model.Customer;
 import ca.mcgill.ecse321.artgallery.model.Transaction;
-import ca.mcgill.ecse321.artgallery.model.Transaction.DeliveryType;
 import ca.mcgill.ecse321.artgallery.services.TransactionService;
 
 @ExtendWith(MockitoExtension.class)

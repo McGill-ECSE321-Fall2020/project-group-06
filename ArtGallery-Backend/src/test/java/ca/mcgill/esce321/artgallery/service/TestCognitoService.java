@@ -1,8 +1,7 @@
 package ca.mcgill.esce321.artgallery.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -20,7 +19,6 @@ import org.mockito.stubbing.Answer;
 import ca.mcgill.ecse321.artgallery.dao.UserRepository;
 import ca.mcgill.ecse321.artgallery.model.User;
 import ca.mcgill.ecse321.artgallery.services.CognitoService;
-import ca.mcgill.ecse321.artgallery.services.UsersService;
 
 @ExtendWith(MockitoExtension.class)
 public class TestCognitoService {

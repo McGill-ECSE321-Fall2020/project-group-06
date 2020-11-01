@@ -4,9 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ca.mcgill.ecse321.artgallery.dao.CustomerRepository;
 import ca.mcgill.ecse321.artgallery.dao.UserRepository;
-import ca.mcgill.ecse321.artgallery.model.Customer;
 import ca.mcgill.ecse321.artgallery.model.User;
 
 /**
