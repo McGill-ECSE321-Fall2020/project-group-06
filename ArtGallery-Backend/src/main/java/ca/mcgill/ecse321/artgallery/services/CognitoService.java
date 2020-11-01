@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.artgallery.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.artgallery.dao.UserRepository;
 import ca.mcgill.ecse321.artgallery.model.User;
@@ -17,6 +18,14 @@ public class CognitoService {
     @Autowired
     UserRepository userRepository;
 
+    /**
+     * Change password
+     * 
+     * @param username
+     * @param newPassword
+     * @return boolean
+     */
+    @Transactional
     public Boolean changePassword(String username, String newPassword) {
         // get the user
         User user = userRepository.findUserByUsername(username);

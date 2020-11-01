@@ -17,13 +17,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import ca.mcgill.ecse321.artgallery.dto.ArtworkCustomerDto;
-import ca.mcgill.ecse321.artgallery.dto.BuyArtworkDto;
 import ca.mcgill.ecse321.artgallery.dto.CustomerDto;
-import ca.mcgill.ecse321.artgallery.dto.TransactionDeliveryTypeDto;
+
 import ca.mcgill.ecse321.artgallery.model.Artwork;
 import ca.mcgill.ecse321.artgallery.model.Customer;
 
@@ -61,12 +58,14 @@ public class CustomerRestController {
 
     /**
      * REQ3.2: The art gallery system shall allow a customer to add artwork into
-     * their own favorite list. Http endpoint for this requirement. TESTED WITH POSTMAN
+     * their own favorite list. Http endpoint for this requirement. TESTED WITH
+     * POSTMAN
      * 
      * @author Noah Chamberland
      */
     @PostMapping("/addArtwork/{customerId}/{artworkId}")
-    public ResponseEntity<Void> addArtwork(@PathVariable("customerId") int customerId, @PathVariable("artworkId") int artworkId) {
+    public ResponseEntity<Void> addArtwork(@PathVariable("customerId") int customerId,
+            @PathVariable("artworkId") int artworkId) {
         logger.info("adding artwork");
 
         if (customerId == 0) {
@@ -88,12 +87,14 @@ public class CustomerRestController {
 
     /**
      * REQ3.2: The art gallery system shall allow a customer to remove artwork into
-     * their own favorite list. Http endpoint for this requirement. TESTED WITH POSTMAN
+     * their own favorite list. Http endpoint for this requirement. TESTED WITH
+     * POSTMAN
      * 
      * @author Noah Chamberland
      */
     @PostMapping("/removeArtwork/{customerId}/{artworkId}")
-    public ResponseEntity<Void> removeArtwork(@PathVariable("customerId") int customerId, @PathVariable("artworkId") int artworkId) {
+    public ResponseEntity<Void> removeArtwork(@PathVariable("customerId") int customerId,
+            @PathVariable("artworkId") int artworkId) {
         logger.info("removing artwork");
 
         if (customerId == 0) {
@@ -115,12 +116,14 @@ public class CustomerRestController {
 
     /**
      * REQ3.4: The art gallery system shall allow a customer to decide the mean of
-     * delivery of their artwork. Http endpoint for this requirement. TESTED WITH POSTMAN
+     * delivery of their artwork. Http endpoint for this requirement. TESTED WITH
+     * POSTMAN
      * 
      * @author Noah Chamberland
      */
     @PostMapping("/setMeanOfDelivery/{transactionId}")
-    public ResponseEntity<Void> setMeanOfDelivery(@PathVariable("transactionId") int transactionId, @Valid @RequestBody DeliveryType deliveryType) {
+    public ResponseEntity<Void> setMeanOfDelivery(@PathVariable("transactionId") int transactionId,
+            @Valid @RequestBody DeliveryType deliveryType) {
         logger.info("setting mean of delivery");
 
         if (transactionId == 0) {

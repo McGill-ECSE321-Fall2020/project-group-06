@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.artgallery.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.artgallery.dao.ArtGalleryRepository;
 import ca.mcgill.ecse321.artgallery.dao.ArtistRepository;
@@ -33,6 +34,16 @@ public class TransactionService {
     @Autowired
     TransactionRepository transactionRepository;
 
+    /**
+     * Save transaction
+     * 
+     * @param customerId
+     * @param artistId
+     * @param artworkId
+     * @param artGalleryId
+     * @return boolean
+     */
+    @Transactional
     public boolean saveTransaction(int customerId, int artistId, int artworkId, int artGalleryId) {
         if (artGalleryRepository.findArtGalleryById(artGalleryId) == null) {
             return false;
@@ -60,8 +71,9 @@ public class TransactionService {
      * Updates transaction
      * 
      * @param transaction
-     * @return
+     * @return boolean
      */
+    @Transactional
     public boolean updateTransaction(TransactionDto transactionDto) {
         if (transactionRepository.findTransactionById(transactionDto.getId()) == null) {
             return false;
@@ -90,6 +102,13 @@ public class TransactionService {
         return true;
     }
 
+    /**
+     * Remove transaction
+     * 
+     * @param transactionId
+     * @return
+     */
+    @Transactional
     public boolean removeTransaction(int transactionId) {
         if (transactionRepository.findTransactionById(transactionId) == null) {
             return false;
@@ -100,6 +119,13 @@ public class TransactionService {
         return true;
     }
 
+    /**
+     * Get transaction by id
+     * 
+     * @param id
+     * @return Transaction
+     */
+    @Transactional
     public Transaction getTransactionById(int id) {
         if (transactionRepository.findTransactionById(id) == null) {
             return null;

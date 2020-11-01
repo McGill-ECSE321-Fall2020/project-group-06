@@ -1,7 +1,6 @@
 package ca.mcgill.ecse321.artgallery.rest;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.validation.Valid;
 
@@ -25,7 +24,6 @@ import ca.mcgill.ecse321.artgallery.model.Transaction;
 import ca.mcgill.ecse321.artgallery.services.ArtistService;
 import ca.mcgill.ecse321.artgallery.dto.ArtistDto;
 import ca.mcgill.ecse321.artgallery.model.Artist;
-import ca.mcgill.ecse321.artgallery.services.ArtistService;
 
 @RestController
 @RequestMapping("/api/artist")
@@ -107,13 +105,12 @@ public class ArtistRestController {
     if (artwork.getName() == null) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
-    
+
     try {
       if (artistService.uploadArtwork(artwork)) {
-          return ResponseEntity.status(HttpStatus.CREATED).build();
-      }
-      else {
-          return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+      } else {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
       }
 
     } catch (Exception e) {
@@ -127,7 +124,7 @@ public class ArtistRestController {
    *
    * @author Andre-Walter Panzini
    * 
-   * @param artworkID 
+   * @param artworkID
    * @return ResponseEntity artwork
    */
   @PostMapping("/removeArtwork")

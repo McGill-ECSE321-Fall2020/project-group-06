@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.artgallery.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.artgallery.dao.ArtGalleryRepository;
 import ca.mcgill.ecse321.artgallery.dao.ArtistRepository;
@@ -20,8 +21,10 @@ public class ArtworkService {
 
     @Autowired
     ArtworkRepository artworkRepository;
+
     @Autowired
     ArtistRepository artistRepository;
+
     @Autowired
     ArtGalleryRepository artGalleryRepository;
 
@@ -31,6 +34,7 @@ public class ArtworkService {
      * @param artwork
      * @return Artwork
      */
+    @Transactional
     public Artwork saveArtwork(Artwork artwork) {
         Artwork newArtwork = new Artwork();
         if (artworkRepository.findArtworkByName(artwork.getName()) != null) {
@@ -49,6 +53,13 @@ public class ArtworkService {
         return artworkRepository.findArtworkByName(newArtwork.getName());
     }
 
+    /**
+     * update artwork
+     * 
+     * @param artwork
+     * @return boolean
+     */
+    @Transactional
     public boolean updateArtwork(Artwork artwork) {
         Artwork newArtwork = new Artwork();
         Artist artist = artistRepository.findArtistById(artwork.getArtist().getId());
@@ -79,6 +90,13 @@ public class ArtworkService {
         return true;
     }
 
+    /**
+     * Get artwork by name
+     * 
+     * @param name
+     * @return Artwork
+     */
+    @Transactional
     public Artwork getArtworkByName(String name) {
         if (artworkRepository.findArtworkByName(name) == null) {
             return null;

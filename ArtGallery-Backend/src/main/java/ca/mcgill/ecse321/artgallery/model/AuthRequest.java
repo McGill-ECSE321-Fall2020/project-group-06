@@ -1,7 +1,5 @@
 package ca.mcgill.ecse321.artgallery.model;
 
-import javax.annotation.sql.DataSourceDefinition;
-
 /**
  * AuthRequest model class
  * 
