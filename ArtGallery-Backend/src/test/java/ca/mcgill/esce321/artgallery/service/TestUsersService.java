@@ -33,8 +33,9 @@ public class TestUsersService {
     private UsersService usersService;
 
     private static final String USER_KEY = "TestUser";
-    private static final int testUserId = 3;
     private static final String NONEXISTING_KEY = "NotAUser";
+    private static final int testUserId = 3;
+    private static final int NonExistingUserId = 5;
 
     @BeforeEach
     public void setMockOutput() {
@@ -67,7 +68,7 @@ public class TestUsersService {
 
     // test public Boolean saveUser(User user)
     @Test
-    public void testCreateUser() {
+    public void saveUser() {
         String username = NONEXISTING_KEY;
         User user = new User();
         user.setUsername(username);
@@ -80,8 +81,24 @@ public class TestUsersService {
 
         assertEquals(true, created);
     }
+    
+    // test public Boolean saveUser(User user)
+    @Test
+    public void saveUserWhenExistingUser() {
+        String username = USER_KEY;
+        User user = new User();
+        user.setUsername(username);
+        Boolean created = false;
+        try {
+            created = usersService.saveUser(user);
+        } catch (Exception e) {
+            fail();
+        }
 
-    // public Boolean updateUser(User user) TODO fix for tests
+        assertEquals(false, created);
+    }
+
+    // public Boolean updateUser(User user)
     @Test
     public void testUpdateUser() {
         // create a user with name TestUser;
@@ -98,6 +115,24 @@ public class TestUsersService {
         }
         assertEquals(true, updated);
     }
+    
+    // public Boolean updateUser(User user)
+    @Test
+    public void testUpdateUserWhenNonExistingUser() {
+        // create a user with name TestUser;
+        User user = new User();
+        user.setUsername(NONEXISTING_KEY);
+        // save it to mock database
+        usersService.saveUser(user);
+        Boolean updated = false;
+        try {
+            user.setLastName("lastName");
+            updated = usersService.updateUser(user);
+        } catch (Exception e) {
+            fail();
+        }
+        assertEquals(false, updated);
+    }
 
     @Test
     public void testGetUserById() {
@@ -111,6 +146,18 @@ public class TestUsersService {
         assertNotNull(existingUser);
         assertEquals(testUserId, existingUser.getId());
     }
+    
+    @Test
+    public void testGetUserByNonExistingId() {
+        User existingUser = new User();
+        try {
+            existingUser = usersService.getUserById(NonExistingUserId);
+        } catch (Exception e) {
+            fail();
+        }
+
+        assertNull(existingUser);
+    }
 
     @Test
     public void testDeleteUserById() {
@@ -123,7 +170,17 @@ public class TestUsersService {
 
         assertEquals(true, userDeleted);
     }
+    
+    @Test
+    public void testDeleteUserByNonExistingId() {
+        Boolean userDeleted = false;
+        try {
+            userDeleted = usersService.deleteUserById(NonExistingUserId);
+        } catch (Exception e) {
+            fail();
+        }
 
-    // ADD MORE TESTS
+        assertEquals(false, userDeleted);
+    }
 
 }
