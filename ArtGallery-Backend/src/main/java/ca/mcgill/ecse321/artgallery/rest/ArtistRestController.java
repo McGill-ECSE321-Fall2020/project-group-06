@@ -206,4 +206,22 @@ public class ArtistRestController {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
   }
+  @GetMapping("/getArtworkUploadedByArtist/{artistId}")
+  public ResponseEntity<ArrayList<Artwork>> getArtworkUploadedByArtist(@PathVariable("username") String username) {
+
+    logger.info("get artwork uploaded by Artist");
+
+    if (username == null) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+    if(artistService.getArtistByUsername(username)==null){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+      }
+    try {
+    	return ResponseEntity.ok(artistService.getArtworkUploadedByArtist(username));
+    } catch (Exception e) {
+      logger.error("Exception when getting artist by ID" + e);
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+  }
 }

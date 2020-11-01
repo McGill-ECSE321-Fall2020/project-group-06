@@ -50,7 +50,7 @@ public class ArtworkService {
         newArtwork.setArtist(artistRepository.findArtistByUsername(artwork.getArtist().getUsername()));
         newArtwork.setArtGallery(artGalleryRepository.findArtGalleryByName(artwork.getArtGallery().getName()));
         artworkRepository.save(newArtwork);
-        return artworkRepository.findArtworkByName(newArtwork.getName());
+        return newArtwork;
     }
 
     /**
@@ -84,9 +84,7 @@ public class ArtworkService {
         newArtwork.setPrice(artwork.getPrice());
         newArtwork.setTransaction(artwork.getTransaction());
         newArtwork.setTypeOfArtwork(artwork.getTypeOfArtwork());
-        System.out.println("Before Save");
         artworkRepository.save(newArtwork);
-        System.out.println("After Save");
         return true;
     }
 

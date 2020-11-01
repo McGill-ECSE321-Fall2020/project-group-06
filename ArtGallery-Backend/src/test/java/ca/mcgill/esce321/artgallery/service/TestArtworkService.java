@@ -38,6 +38,8 @@ public class TestArtworkService {
     private ArtGalleryRepository artGalleryRepository;
     @Mock
     private ArtistRepository artistRepository;
+    @InjectMocks
+    private ArtworkService artworkService;
     private static final String ARTWORK_KEY = "TestArtwork";
     private static final String NONEXISTING_KEY = "NotAArtwork";
     private static final int ARTWORK_ID=100;
@@ -47,7 +49,7 @@ public class TestArtworkService {
     private static final int ARTIST_ID=20;
     private Artist artist=new Artist();
     private ArtGallery artGallery= new ArtGallery();
-    private ArtworkService artworkService;
+
 
 
     @BeforeEach
@@ -55,6 +57,7 @@ public class TestArtworkService {
         lenient().when(artworkRepository.findArtworkByName(anyString())).thenAnswer((InvocationOnMock invocation) -> {
             if (invocation.getArgument(0).equals(ARTWORK_KEY)) {
                 Artwork artwork = new Artwork();
+                artwork.setId(ARTWORK_ID);
                 artwork.setName(ARTWORK_KEY);
                 return artwork;
             } else {
@@ -75,7 +78,7 @@ public class TestArtworkService {
 		});
         // artist invocation on mock
 		lenient().when(artistRepository.findArtistByUsername(any())).thenAnswer((InvocationOnMock invocation) -> {
-			if (invocation.getArgument(0).equals("artistName")) {
+			if (invocation.getArgument(0).equals(ARTIST_USERNAME)) {
 				Artist artist = new Artist();
                 artist.setId(ARTIST_ID);
                 artist.setArtwork(new HashSet<Artwork>());
@@ -107,6 +110,16 @@ public class TestArtworkService {
 				return null;
 			}
 		});
+		//find Artwork By ID
+		lenient().when(artworkRepository.findArtworkById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
+			if (invocation.getArgument(0).equals(ARTWORK_ID)) {
+				Artwork artwork = new Artwork();
+				artwork.setId(ARTWORK_ID);
+				return artwork;
+			} else {
+				return null;
+			}
+		});
         // Whenever anything is saved, just return the parameter object
         Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
             return invocation.getArgument(0);
@@ -119,9 +132,11 @@ public class TestArtworkService {
 	public void testSaveArtwork() {
 		Artwork artwork = new Artwork();
 		artwork.setId(ARTWORK_ID);
-		artwork.setName(ARTWORK_KEY);
+		artwork.setName(NONEXISTING_KEY);
 		artist.setUsername(ARTIST_USERNAME);
+		artist.setId(ARTIST_ID);
 		artwork.setArtist(artist);
+		artGallery.setId(ART_GALLERY_KEY);
 		artGallery.setName(testArtGalleryName);
 		artwork.setArtGallery(artGallery);
 		Artwork newArtwork=new Artwork();
@@ -140,6 +155,8 @@ public class TestArtworkService {
 		Artwork artwork = new Artwork();
 		artwork.setId(ARTWORK_ID);
 		artwork.setName(ARTWORK_KEY);
+		artist.setId(ARTIST_ID);
+		artGallery.setId(ART_GALLERY_KEY);
 		artwork.setArtist(artist);
 		artwork.setArtGallery(artGallery);
 		try {
