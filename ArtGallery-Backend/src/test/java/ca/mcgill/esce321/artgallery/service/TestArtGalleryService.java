@@ -2,7 +2,7 @@ package ca.mcgill.esce321.artgallery.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -46,9 +46,15 @@ public class TestArtGalleryService {
 
 	private static final String testArtGalleryName = "art gallery";
 
+	private static final String testNonExistingArtGalleryName = "Not a gallery";
+
 	private static final int testArtworkId = 1;
 
+	private static final int testNonExistantArtworkId = 3;
+
 	private static final int testTransactionId = 2;
+
+	private static final int testNonExistantTransactionId = 4;
 
 	@BeforeEach
 	public void setMockOutput() {
@@ -124,7 +130,7 @@ public class TestArtGalleryService {
 		});
 	}
 
-	// test for public ArrayList<Artwork> getAllArtworks()
+	// test for public ArrayList<Artwork> getAllArtworks().
 	@Test
 	public void testGetAllArtworks() {
 		ArrayList<Artwork> allArtworks = new ArrayList<Artwork>();
@@ -136,9 +142,9 @@ public class TestArtGalleryService {
 		assertEquals(1, allArtworks.size());
 	}
 
-	// test for public boolean removeArtworkById(int artworkID)
+	// test for public boolean removeArtworkById(int artworkID) : existing artwork
 	@Test
-	public void testRemoveArtworkById() {
+	public void testRemoveExistingArtworkById() {
 		Boolean removedArtwork = false;
 		try {
 			removedArtwork = artGalleryService.removeArtworkById(testArtworkId);
@@ -149,9 +155,24 @@ public class TestArtGalleryService {
 		assertEquals(true, removedArtwork);
 	}
 
-	// test for public double takeCommission(int transactionID)
+	// test for public boolean removeArtworkById(int artworkID) : non existing
+	// artwork
 	@Test
-	public void testTakeCommission() {
+	public void testRemoveNonExistingArtworkById() {
+		Boolean removedArtwork = false;
+		try {
+			removedArtwork = artGalleryService.removeArtworkById(testNonExistantArtworkId);
+		} catch (Exception e) {
+			fail();
+		}
+
+		assertEquals(false, removedArtwork);
+	}
+
+	// test for public double takeCommission(int transactionID) : existing
+	// transaction
+	@Test
+	public void testTakeCommissionOnExistingTransaction() {
 		double commission = 0;
 		try {
 			commission = artGalleryService.takeCommission(testTransactionId);
@@ -162,10 +183,25 @@ public class TestArtGalleryService {
 		assertEquals(75, commission);
 	}
 
-	// test public ArtGallery saveArtGallery(ArtGallery artGallery)
+	// test for public double takeCommission(int transactionID) : non existing
+	// transaction
 	@Test
-	public void testSaveArtGallery() {
-		Boolean artGallerySaved = true;
+	public void testTakeCommissionOnNonExistingTransaction() {
+		double commission = 0;
+		try {
+			commission = artGalleryService.takeCommission(testNonExistantTransactionId);
+		} catch (Exception e) {
+			fail();
+		}
+
+		assertEquals(0, commission);
+	}
+
+	// test public ArtGallery saveArtGallery(ArtGallery artGallery) : existing
+	// artgallery
+	@Test
+	public void testSaveExistingArtGallery() {
+		Boolean artGallerySaved = false;
 		ArtGallery artGallery = new ArtGallery();
 		artGallery.setId(ART_GALLERY_KEY);
 		artGallery.setName(testArtGalleryName);
@@ -178,7 +214,24 @@ public class TestArtGalleryService {
 		assertEquals(false, artGallerySaved);
 	}
 
-	// public boolean updateArtGallery(ArtGallery artGallery)
+	// test public ArtGallery saveArtGallery(ArtGallery artGallery) : non existing
+	// artgallery
+	@Test
+	public void testSaveNonExistingArtGallery() {
+		Boolean artGallerySaved = false;
+		ArtGallery artGallery = new ArtGallery();
+		artGallery.setId(1);
+		artGallery.setName(testNonExistingArtGalleryName);
+		try {
+			artGallerySaved = artGalleryService.saveArtGallery(artGallery);
+		} catch (Exception e) {
+			fail();
+		}
+
+		assertEquals(true, artGallerySaved);
+	}
+
+	// public boolean updateArtGallery(ArtGallery artGallery) : existing gallery
 	@Test
 	public void testUpdateArtGallery() {
 		Boolean artGalleryUpdated = false;
@@ -195,7 +248,24 @@ public class TestArtGalleryService {
 		assertEquals(true, artGalleryUpdated);
 	}
 
-	// public ArtGallery getArtGalleryByName(String name)
+	// public boolean updateArtGallery(ArtGallery artGallery) : non existing gallery
+	@Test
+	public void testUpdateNonExistingArtGallery() {
+		Boolean artGalleryUpdated = false;
+		ArtGallery updatedArtGallery = new ArtGallery();
+		updatedArtGallery.setId(1);
+		updatedArtGallery.setName(testNonExistingArtGalleryName);
+
+		try {
+			artGalleryUpdated = artGalleryService.updateArtGallery(updatedArtGallery);
+		} catch (Exception e) {
+			fail();
+		}
+
+		assertEquals(false, artGalleryUpdated);
+	}
+
+	// public ArtGallery getArtGalleryByName(String name) : existing art gallery
 	@Test
 	public void testGetArtGalleryByName() {
 		ArtGallery existingArtGallery = new ArtGallery();
@@ -208,6 +278,18 @@ public class TestArtGalleryService {
 		assertNotNull(existingArtGallery);
 		assertEquals(testArtGalleryName, existingArtGallery.getName());
 		assertEquals(ART_GALLERY_KEY, existingArtGallery.getId());
+	}
+
+	// public ArtGallery getArtGalleryByName(String name) : non existing art gallery
+	@Test
+	public void testGetNonExistingArtGalleryByName() {
+		ArtGallery nonExistingArtGallery = new ArtGallery();
+		try {
+			nonExistingArtGallery = artGalleryService.getArtGalleryByName(testNonExistingArtGalleryName);
+		} catch (Exception e) {
+			fail();
+		}
+		assertNull(nonExistingArtGallery);
 	}
 
 	// test public ArrayList<Transaction> getAllTransactions()
@@ -224,7 +306,8 @@ public class TestArtGalleryService {
 		assertEquals(1, transactionList.size());
 	}
 
-	// test public Boolean deleteArtGalleyById(int artGalleryId)
+	// test public Boolean deleteArtGalleyById(int artGalleryId) : existing art
+	// gallery
 	@Test
 	public void testDeleteArtGalleryById() {
 		Boolean deletedArtGallery = false;
@@ -237,5 +320,17 @@ public class TestArtGalleryService {
 		assertEquals(true, deletedArtGallery);
 	}
 
-	// ADD MORE TESTS OR METHODS IF NEEDED
+	// test public Boolean deleteArtGalleyById(int artGalleryId) : non existing art
+	// gallery
+	@Test
+	public void testDeleteNonExistingArtGalleryById() {
+		Boolean deletedArtGallery = false;
+		try {
+			deletedArtGallery = artGalleryService.deleteArtGalleyById(1);
+		} catch (Exception e) {
+			fail();
+		}
+
+		assertEquals(false, deletedArtGallery);
+	}
 }
