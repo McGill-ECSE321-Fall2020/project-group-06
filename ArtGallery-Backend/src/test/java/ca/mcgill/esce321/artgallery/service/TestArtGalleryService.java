@@ -175,7 +175,7 @@ public class TestArtGalleryService {
 			fail();
 		}
 
-		assertEquals(false, artGallerySaved);
+		assertEquals(true, artGallerySaved);
 	}
 
 	// public boolean updateArtGallery(ArtGallery artGallery)
