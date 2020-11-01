@@ -286,7 +286,9 @@
 							"});\r",
 							"pm.test(\"Response time is less than 2000ms\", function () {\r",
 							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
-							"});"
+							"});\r",
+							"var artworkId = pm.response.json().id;\r",
+							"pm.environment.set(\"artworkId\", artworkId);"
 						],
 						"type": "text/javascript"
 					}
@@ -317,6 +319,108 @@
 						"artwork",
 						"getArtwork",
 						"artworkNoah1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get art gallery",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f60928fb-f628-45b9-b1f3-1cce409fae82",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});\r",
+							"var artGalleryId = pm.response.json().id;\r",
+							"pm.environment.set(\"artGalleryId\", artGalleryId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/artgallery/getArtGallery/galleryNoah1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"artgallery",
+						"getArtGallery",
+						"galleryNoah1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get artist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c9a34356-8e9b-4383-b3c2-b69f33a0daa7",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});\r",
+							"var artistId = pm.response.json().id;\r",
+							"pm.environment.set(\"artistId\", artistId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/artist/getArtist/artistNoah1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"artist",
+						"getArtist",
+						"artistNoah1"
 					]
 				}
 			},
@@ -356,7 +460,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"artworkNoah1\",\r\n    \"artGallery\":{\r\n        \"name\":\"galleryNoah1\"\r\n    },\r\n    \"artist\":{\r\n        \"username\":\"artistNoah1\"\r\n    },\r\n    \"typeOfArtwork\":\"Painting\"\r\n}",
+					"raw": "{\r\n    \"name\": \"artworkNoah1\",\r\n    \"id\":{{artworkId}},\r\n    \"artGallery\":{\r\n        \"name\":\"galleryNoah1\",\r\n        \"id\":{{artGalleryId}}\r\n    },\r\n    \"artist\":{\r\n        \"username\":\"artistNoah1\",\r\n        \"id\":{{artistId}}\r\n    },\r\n    \"typeOfArtwork\":\"Painting\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
