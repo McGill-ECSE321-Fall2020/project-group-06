@@ -146,7 +146,14 @@ public class TestTransactionService {
     	artist=artistRepository.findArtistById(artist.getId());
     	Transaction updatedTransaction=(Transaction) artist.getTransaction().toArray()[0];
     	assertEquals(transaction.getId(), updatedTransaction.getId());
-    	assertEquals(newArtGallery, updatedTransaction.getArtGallery().getId());
+    	assertEquals(newArtGallery, updatedTransaction.getArtGallery());
+    	assertEquals(newArtwork,updatedTransaction.getArtwork());
+    	assertEquals(newArtist,updatedTransaction.getArtist());
+    	assertEquals(newCustomer,updatedTransaction.getCustomer());
+    	assertEquals(0.30,updatedTransaction.getCommisionCut());
+    	assertEquals(dateOfTransaction, updatedTransaction.getDateOfTransaction());
+    	assertEquals(DeliveryType.Delivered.toString(),
+    			updatedTransaction.getDeliveryType().toString());
     	
     }
     // test public boolean removeTransaction(int transactionId)
