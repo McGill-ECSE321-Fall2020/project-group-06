@@ -216,4 +216,19 @@ public class ArtistService {
 		}
 	}
 
+	/**
+	 * Remove artist by id
+	 * 
+	 * @param artistId
+	 * @return boolean
+	 */
+	public boolean removeArtist(int artistId) {
+		if (artistRepository.findArtistById(artistId) == null) {
+			return false;
+		} else {
+			artistRepository.deleteById(artistId);
+			return true;
+		}
+	}
+
 }

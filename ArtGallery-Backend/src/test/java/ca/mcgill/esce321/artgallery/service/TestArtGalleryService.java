@@ -46,7 +46,7 @@ public class TestArtGalleryService {
 
 	private static final String testArtGalleryName = "art gallery";
 
-	private static final String testNonExistingArtGalleryName = "Not a gallery";
+	private static final String testNonExistantArtGalleryName = "Not a gallery";
 
 	private static final int testArtworkId = 1;
 
@@ -144,7 +144,7 @@ public class TestArtGalleryService {
 
 	// test for public boolean removeArtworkById(int artworkID) : existing artwork
 	@Test
-	public void testRemoveExistingArtworkById() {
+	public void testRemoveExistantArtworkById() {
 		Boolean removedArtwork = false;
 		try {
 			removedArtwork = artGalleryService.removeArtworkById(testArtworkId);
@@ -158,7 +158,7 @@ public class TestArtGalleryService {
 	// test for public boolean removeArtworkById(int artworkID) : non existing
 	// artwork
 	@Test
-	public void testRemoveNonExistingArtworkById() {
+	public void testRemoveNonExistantArtworkById() {
 		Boolean removedArtwork = false;
 		try {
 			removedArtwork = artGalleryService.removeArtworkById(testNonExistantArtworkId);
@@ -172,7 +172,7 @@ public class TestArtGalleryService {
 	// test for public double takeCommission(int transactionID) : existing
 	// transaction
 	@Test
-	public void testTakeCommissionOnExistingTransaction() {
+	public void testTakeCommissionOnExistantTransaction() {
 		double commission = 0;
 		try {
 			commission = artGalleryService.takeCommission(testTransactionId);
@@ -186,7 +186,7 @@ public class TestArtGalleryService {
 	// test for public double takeCommission(int transactionID) : non existing
 	// transaction
 	@Test
-	public void testTakeCommissionOnNonExistingTransaction() {
+	public void testTakeCommissionOnNonExistantTransaction() {
 		double commission = 0;
 		try {
 			commission = artGalleryService.takeCommission(testNonExistantTransactionId);
@@ -200,7 +200,7 @@ public class TestArtGalleryService {
 	// test public ArtGallery saveArtGallery(ArtGallery artGallery) : existing
 	// artgallery
 	@Test
-	public void testSaveExistingArtGallery() {
+	public void testSaveExistantArtGallery() {
 		Boolean artGallerySaved = false;
 		ArtGallery artGallery = new ArtGallery();
 		artGallery.setId(ART_GALLERY_KEY);
@@ -217,11 +217,11 @@ public class TestArtGalleryService {
 	// test public ArtGallery saveArtGallery(ArtGallery artGallery) : non existing
 	// artgallery
 	@Test
-	public void testSaveNonExistingArtGallery() {
+	public void testSaveNonExistantArtGallery() {
 		Boolean artGallerySaved = false;
 		ArtGallery artGallery = new ArtGallery();
 		artGallery.setId(1);
-		artGallery.setName(testNonExistingArtGalleryName);
+		artGallery.setName(testNonExistantArtGalleryName);
 		try {
 			artGallerySaved = artGalleryService.saveArtGallery(artGallery);
 		} catch (Exception e) {
@@ -250,11 +250,11 @@ public class TestArtGalleryService {
 
 	// public boolean updateArtGallery(ArtGallery artGallery) : non existing gallery
 	@Test
-	public void testUpdateNonExistingArtGallery() {
+	public void testUpdateNonExistantArtGallery() {
 		Boolean artGalleryUpdated = false;
 		ArtGallery updatedArtGallery = new ArtGallery();
 		updatedArtGallery.setId(1);
-		updatedArtGallery.setName(testNonExistingArtGalleryName);
+		updatedArtGallery.setName(testNonExistantArtGalleryName);
 
 		try {
 			artGalleryUpdated = artGalleryService.updateArtGallery(updatedArtGallery);
@@ -282,10 +282,10 @@ public class TestArtGalleryService {
 
 	// public ArtGallery getArtGalleryByName(String name) : non existing art gallery
 	@Test
-	public void testGetNonExistingArtGalleryByName() {
+	public void testGetNonExistantArtGalleryByName() {
 		ArtGallery nonExistingArtGallery = new ArtGallery();
 		try {
-			nonExistingArtGallery = artGalleryService.getArtGalleryByName(testNonExistingArtGalleryName);
+			nonExistingArtGallery = artGalleryService.getArtGalleryByName(testNonExistantArtGalleryName);
 		} catch (Exception e) {
 			fail();
 		}
@@ -323,7 +323,7 @@ public class TestArtGalleryService {
 	// test public Boolean deleteArtGalleyById(int artGalleryId) : non existing art
 	// gallery
 	@Test
-	public void testDeleteNonExistingArtGalleryById() {
+	public void testDeleteNonExistantArtGalleryById() {
 		Boolean deletedArtGallery = false;
 		try {
 			deletedArtGallery = artGalleryService.deleteArtGalleyById(1);
