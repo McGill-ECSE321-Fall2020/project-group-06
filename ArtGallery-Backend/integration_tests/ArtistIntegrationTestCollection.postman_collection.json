@@ -568,6 +568,67 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "TrackTransaction",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c3899b81-34e0-488a-a174-7eb0cebd4118",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});\r",
+							"\r",
+							"var transactionArr = JSON.parse(responseBody);\r",
+							"pm.test(\"Get the right artwork for artist\", function () {\r",
+							"    pm.expect(transactionArr.length).to.eql(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/artist/trackTransactionHistory/awpanzArtist",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"artist",
+						"trackTransactionHistory",
+						"awpanzArtist"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
