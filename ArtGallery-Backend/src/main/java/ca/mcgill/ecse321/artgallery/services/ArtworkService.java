@@ -61,10 +61,13 @@ public class ArtworkService {
      */
     @Transactional
     public boolean updateArtwork(Artwork artwork) {
-        Artwork newArtwork = new Artwork();
-        Artist artist = artistRepository.findArtistById(artwork.getArtist().getId());
-        ArtGallery artGallery = artGalleryRepository.findArtGalleryById(artwork.getArtGallery().getId());
-        if (artworkRepository.findArtworkById(artwork.getId()) == null) {
+        Artwork newArtwork = getArtworkByName(artwork.getName());
+        if(newArtwork == null){
+            return false;
+        }
+        Artist artist = artistRepository.findArtistById(newArtwork.getArtist().getId());
+        ArtGallery artGallery = artGalleryRepository.findArtGalleryById(newArtwork.getArtGallery().getId());
+        if (artworkRepository.findArtworkById(newArtwork.getId()) == null) {
             return false;
         }
         if (artist == null) {
@@ -73,7 +76,6 @@ public class ArtworkService {
         if (artGallery == null) {
             return false;
         }
-        newArtwork = artworkRepository.findArtworkById(artwork.getId());
         newArtwork.setArtGallery(artGallery);
         newArtwork.setArtist(artist);
         newArtwork.setDescription(artwork.getDescription());
