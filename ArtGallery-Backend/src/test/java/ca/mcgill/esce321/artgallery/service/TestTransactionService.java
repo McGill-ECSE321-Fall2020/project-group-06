@@ -126,23 +126,9 @@ public class TestTransactionService {
 	// artworkId, int artGalleryId)
 	@Test
 	public void testSaveTransaction() {
-		// We dont need to create objects here because we only pass ids as parameter
-		// Customer customer = new Customer();
-		// customerRepository.save(customer);
 
-		// Artist artist = new Artist();
-		// artistRepository.save(artist);
-
-		// Artwork artwork = new Artwork();
-		// artworkRepository.save(artwork);
-
-		// ArtGallery artGallery = new ArtGallery();
-		// artGalleryRepository.save(artGallery);
 		Boolean transactionSaved = false;
-		// Don't need this because when u save its already bidirectional;
-		// Artist newArtist = artistRepository.findArtistById(artist.getId());
-		// Transaction transaction = (Transaction)
-		// newArtist.getTransaction().toArray()[0];
+
 		try {
 			transactionSaved = transactionService.saveTransaction(testCustomerId, testArtistId, testArtworkId,
 					testArtGalleryId);
@@ -150,63 +136,12 @@ public class TestTransactionService {
 			fail();
 		}
 		assertEquals(true, transactionSaved);
-		// assertEquals(newArtist.getTransaction().isEmpty(), false);
-		// assertEquals(transaction.getCustomer().getId(), customer.getId());
-		// assertEquals(transaction.getArtist().getId(), artist.getId());
-		// assertEquals(transaction.getArtwork().getId(), artwork.getId());
-		// assertEquals(transaction.getArtGallery().getId(), artGallery.getId());
 	}
 
 	// test public boolean updateTransaction(Transaction transaction)
 	@Test
 	public void testUpdateTransaction() {
-		// Customer customer = new Customer();
-		// customerRepository.save(customer);
-
-		// Artist artist = new Artist();
-		// artistRepository.save(artist);
-
-		// Artwork artwork = new Artwork();
-		// artworkRepository.save(artwork);
-
-		// ArtGallery artGallery = new ArtGallery();
-		// artGalleryRepository.save(artGallery);
-
-		// transactionService.saveTransaction(customer.getId(), artist.getId(),
-		// artwork.getId(), artGallery.getId());
-
-		// artist = artistRepository.findArtistById(artist.getId());
-		// Transaction transaction = (Transaction) artist.getTransaction().toArray()[0];
-		// TransactionDto transactionDTO = TransactionDto.convertToDTO(transaction);
-
-		// Customer newCustomer = new Customer();
-		// customerRepository.save(newCustomer);
-
-		// Artist newArtist = new Artist();
-		// artistRepository.save(newArtist);
-
-		// Artwork newArtwork = new Artwork();
-		// artworkRepository.save(newArtwork);
-
-		// ArtGallery newArtGallery = new ArtGallery();
-		// artGalleryRepository.save(newArtGallery);
-
-		// Date dateOfTransaction = new Date(100000);
-		// transactionDTO.setCommisionCut(0.30);
-		// transactionDTO.setArtGalleryId(newArtGallery.getId());
-		// transactionDTO.setArtistId(newArtist.getId());
-		// transactionDTO.setArtworkId(newArtwork.getId());
-		// transactionDTO.setCustomerId(newCustomer.getId());
-		// transactionDTO.setDateOfTransaction(dateOfTransaction);
-		// transactionDTO.setDeliveryType(DeliveryType.Delivered);
-		// transactionService.updateTransaction(transactionDTO);
-
-		// artist = artistRepository.findArtistById(artist.getId());
-		// Transaction updatedTransaction = (Transaction)
-		// artist.getTransaction().toArray()[0];
-		// assertEquals(transaction.getId(), updatedTransaction.getId());
-		// assertEquals(newArtGallery, updatedTransaction.getArtGallery().getId());
-
+		
 		TransactionDto transactionDto = new TransactionDto();
 		transactionDto.setId(TRANSACTION_KEY);
 		transactionDto.setArtGalleryId(testArtGalleryId);
