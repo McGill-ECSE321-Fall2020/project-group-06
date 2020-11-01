@@ -74,6 +74,7 @@ public class TestCustomerService {
     private ArtworkService artworkService;
 
     private static final String CUSTOMER_KEY = "TestCustomer";
+    private static final String USER_KEY="TestUser";
     
 	private static final int testArtGalleryId = 1;
 	private static final int testArtistId = 2;
@@ -81,6 +82,7 @@ public class TestCustomerService {
     private static final int testCustomerId = 4;
     private static final int testTransactionId = 5;
     private static final int testUserId = 6;
+
 
     @BeforeEach
     public void setMockOutput() {
@@ -180,9 +182,10 @@ public class TestCustomerService {
         
         // user invocation on mock
 		lenient().when(userRepository.findUserByUsername(any())).thenAnswer((InvocationOnMock invocation) -> {
-			if (invocation.getArgument(0).equals(testUserId)) {
+			if (invocation.getArgument(0).equals(USER_KEY)) {
 				User user = new User();
 				user.setId(testUserId);
+				user.setUsername(USER_KEY);
 				return user;
 			} else {
 				return null;
