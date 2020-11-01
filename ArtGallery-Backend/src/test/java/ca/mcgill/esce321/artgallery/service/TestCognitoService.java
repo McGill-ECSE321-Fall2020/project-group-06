@@ -65,5 +65,19 @@ public class TestCognitoService {
         assertEquals(true, changedPassword);
     }
 
+    // test public Boolean changePassword(String username, String newPassword) : non
+    // existant user
+    @Test
+    public void testChangePasswordOnNonExistantUser() {
+        Boolean changedPassword = false;
+        try {
+            changedPassword = cognitoService.changePassword(NONEXISTING_KEY, "newPassword");
+        } catch (Exception e) {
+            fail();
+        }
+        assertEquals(false, changedPassword);
+
+    }
+
     // TODO ADD MORE TESTS IF NEEDED
 }
