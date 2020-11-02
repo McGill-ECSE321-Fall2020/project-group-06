@@ -101,14 +101,14 @@ Sen Wang | 12 | 10 | 3 | 1 | 3 | 2 | 2 | 1
 
 ### Table
 #### Overview Table
-**Name** | **Total Working Hours** | Meetings | Requirements Model | Domain Model | Persistence Layer | Testing of Persistence Layer | Build System and Continuous Integration | Documentation
--------- | ----------------------- | -------- | ------------------ | ------------ | ----------------- | ---------------------------- | ---------------------------------------- | -------------
-Noah Chamberland | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 
-Justin Legrand | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 
-Olivier Normandin | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 
-André - Walter Panzini | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 
-Sen Wang | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 
-To be continued...
+**Name** | **Total Working Hours** | Service Methods | REST Methods | DTO methods | Software Quality Assurance Plan | Unit Testing of Backend | Integration Testing of Backend Services | Build System and Continuous Integration | Project Management
+-------- | ----------------------- | --------------- | ------------ | ----------- | ------------------------------- | ----------------------- | ---------------------------------------- | ---------------------------------------- | -----------------
+Noah Chamberland | 16 | x | x | x |  | x | x |  | 
+Justin Legrand | 17 | x | x | x | x | x | x | x | x
+Olivier Normandin | 16 | x | x |  |  | x | x |  | x
+André - Walter Panzini | 16 | x | x |  | x | x | x |  | x
+Sen Wang | 18 | x | x | x |  | x | x | x |
+
 
 ## Deliverable 3
 ### Main Tasks
@@ -124,7 +124,6 @@ Justin Legrand | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0
 Olivier Normandin | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 
 André - Walter Panzini | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 
 Sen Wang | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 
-To be continued...
 
 ## Deliverable 4
 ### Main Tasks
