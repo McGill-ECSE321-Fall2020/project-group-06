@@ -76,9 +76,6 @@ Heroku is a cloud service platform that is easy to use for many development proj
   - [Meeting Minutes 1.2](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Meeting-Minutes-1.2)
   - [Meeting Minutes 1.3](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Meeting-Minutes-1.3)
   - [Meeting Minutes 1.4](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Meeting-Minutes-1.4)
-  
-- Effort Table
-  - [Effort Table](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Deliverable-1-Effort-Table)
 
 ### Table
 #### Overview Table
@@ -98,7 +95,17 @@ Sen Wang | 12 | 10 | 3 | 1 | 3 | 2 | 2 | 1
 - Integration Testing of Backend Services
 
 ### Documents
+- Software Quality Assurance Plan
+  - [Software Quality Assurnace Plan and Report](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Software-Quality-Assurance-Plan-and-Report)
+- Report
+  - [Deliverable 2 Project Report](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Deliverable-2-Report)
 
+- Minutes
+  - [Meeting Minutes 2.1](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Meeting-Minutes-2.1)
+  - [Meeting Minutes 2.2](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Meeting-Minutes-2.2)
+  - [Meeting Minutes 2.3](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Meeting-Minutes-2.3)
+  - [Meeting Minutes 2.4](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Meeting-Minutes-2.4)
+  
 ### Table
 #### Overview Table
 **Name** | **Total Working Hours** | Service Methods | REST Methods | DTO methods | Software Quality Assurance Plan | Unit Testing of Backend | Integration Testing of Backend Services | Build System and Continuous Integration | Project Management
