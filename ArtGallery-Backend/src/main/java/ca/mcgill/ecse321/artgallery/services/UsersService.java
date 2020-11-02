@@ -8,83 +8,86 @@ import ca.mcgill.ecse321.artgallery.dao.UserRepository;
 import ca.mcgill.ecse321.artgallery.model.User;
 
 /**
- * <p>
- * UserServices : Methods used to crud user details
- * </p>
+ * User Service Class
+ * @author Sen Wang
+ * @author Noah Chamberland
+ * @author Justin Legrand
+ * @author Olivier Normandin
+ * @author Andre-Walter Panzini
  */
 @Service
 public class UsersService {
 
-    @Autowired
-    private UserRepository userRepository;
+	@Autowired
+	private UserRepository userRepository;
 
-    /**
-     * save user
-     * 
-     * @param user
-     * @return boolean
-     */
-    @Transactional
-    public Boolean saveUser(User user) {
-        // a user with this username already exist
-        if (userRepository.findUserByUsername(user.getUsername()) != null) {
-            return false;
-        } else {
-            userRepository.save(user);
-            return true;
-        }
-    }
+	/**
+	 * Save user to database
+	 * 
+	 * @param user
+	 * @return boolean true if successful
+	 */
+	@Transactional
+	public Boolean saveUser(User user) {
+		// a user with this username already exist
+		if (userRepository.findUserByUsername(user.getUsername()) != null) {
+			return false;
+		} else {
+			userRepository.save(user);
+			return true;
+		}
+	}
 
-    /**
-     * Update user
-     * 
-     * @param user
-     * @return
-     */
-    @Transactional
-    public Boolean updateUser(User user) {
-        // a user with this username does not exist
-        if (userRepository.findUserByUsername(user.getUsername()) == null) {
-            return false;
-        } else {
-            User updatedUser = new User();
-            updatedUser = userRepository.findUserByUsername(user.getUsername());
-            updatedUser.setDescription(user.getDescription());
-            updatedUser.setEmail(user.getEmail());
-            updatedUser.setFirstName(user.getFirstName());
-            updatedUser.setLastName(user.getLastName());
-            updatedUser.setPhoneNumber(user.getPassword());
-            updatedUser.setPicture(user.getPicture());
-            userRepository.save(updatedUser);
-            return true;
-        }
-    }
+	/**
+	 * Update user in database
+	 * 
+	 * @param user
+	 * @return boolean true if successful
+	 */
+	@Transactional
+	public Boolean updateUser(User user) {
+		// a user with this username does not exist
+		if (userRepository.findUserByUsername(user.getUsername()) == null) {
+			return false;
+		} else {
+			User updatedUser = new User();
+			updatedUser = userRepository.findUserByUsername(user.getUsername());
+			updatedUser.setDescription(user.getDescription());
+			updatedUser.setEmail(user.getEmail());
+			updatedUser.setFirstName(user.getFirstName());
+			updatedUser.setLastName(user.getLastName());
+			updatedUser.setPhoneNumber(user.getPassword());
+			updatedUser.setPicture(user.getPicture());
+			userRepository.save(updatedUser);
+			return true;
+		}
+	}
 
-    /**
-     * Get user by id
-     * 
-     * @param userId
-     * @return User
-     */
-    @Transactional
-    public User getUserById(int userId) {
-        return userRepository.findUserById(userId);
-    }
+	/**
+	 * Get user by id
+	 * 
+	 * @param int userId
+	 * @return User found by Id
+	 */
+	@Transactional
+	public User getUserById(int userId) {
+		return userRepository.findUserById(userId);
+	}
 
-    /**
-     * Delete User by Id
-     * 
-     * @param userId
-     * @return
-     */
-    @Transactional
-    public Boolean deleteUserById(int userId) {
-        if (userRepository.findUserById(userId) == null) {
-            return false;
-        } else {
-            userRepository.deleteById(userId);
-            return true;
-        }
-    }
+	/**
+	 * Delete User by Id
+	 * 
+	 * @param int userId
+	 * @return boolean true if successful
+	 */
+	@Transactional
+	public Boolean deleteUserById(int userId) {
+		if (userRepository.findUserById(userId) == null) {
+			return false;
+		} else {
+			userRepository.deleteById(userId);
+			return true;
+		}
+	}
 
 }

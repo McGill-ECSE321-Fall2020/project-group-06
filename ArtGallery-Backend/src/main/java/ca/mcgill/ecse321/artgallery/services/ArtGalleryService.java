@@ -18,6 +18,12 @@ import ca.mcgill.ecse321.artgallery.model.Transaction;
  * <p>
  * ArtGalleryService: methods used by artgallery such as browse/remove artworks,
  * commissions
+ * 
+ * @author Noah Chamberland
+ * @author Justin Legrand
+ * @author Olivier Normandin
+ * @author Andre-Walter Panzini
+ * @author Sen Wang
  * </p>
  */
 @Service
@@ -37,7 +43,6 @@ public class ArtGalleryService {
 	 * Implement the service method for this requirement
 	 *
 	 * @return List of Artworks
-	 * @author Sen Wang
 	 */
 	@Transactional
 	public ArrayList<Artwork> getAllArtworks() {
@@ -56,6 +61,9 @@ public class ArtGalleryService {
 	/**
 	 * REQ 4.2 The art gallery system shall allow the art gallery to remove an
 	 * artwork.
+	 * 
+	 * @param artworkID
+	 * @return true if the artwork was successfully removed, false if not
 	 */
 	@Transactional
 	public boolean removeArtworkById(int artworkID) {
@@ -72,8 +80,7 @@ public class ArtGalleryService {
 	 * commission on each transaction.
 	 *
 	 * @param int The transaction ID
-	 * @return double The art gallery<s commission on a sold piece of art
-	 * @author Olivier Normandin
+	 * @return double The art gallery's commission on a artwork sold
 	 */
 
 	@Transactional
@@ -91,7 +98,7 @@ public class ArtGalleryService {
 	 * Save art gallery
 	 * 
 	 * @param artGallery
-	 * @return ArtGalley
+	 * @return true if the art gallery was successfully saved, false if not
 	 */
 	@Transactional
 	public Boolean saveArtGallery(ArtGallery artGallery) {
@@ -107,7 +114,7 @@ public class ArtGalleryService {
 	 * Update art gallery
 	 * 
 	 * @param artGallery
-	 * @return boolean
+	 * @return true if the art gallery was successfully updated, false if not
 	 */
 	@Transactional
 	public boolean updateArtGallery(ArtGallery artGallery) {
@@ -128,7 +135,7 @@ public class ArtGalleryService {
 	/**
 	 * Get art gallery by name
 	 * 
-	 * @param name
+	 * @param name of the art gallery
 	 * @return Art Gallery
 	 */
 	@Transactional
@@ -145,7 +152,6 @@ public class ArtGalleryService {
 	 * artwork transactions
 	 * 
 	 * @return List of Transactions
-	 * @author Andre-Walter Panzini
 	 */
 	@Transactional
 	public ArrayList<Transaction> getAllTransactions() {
