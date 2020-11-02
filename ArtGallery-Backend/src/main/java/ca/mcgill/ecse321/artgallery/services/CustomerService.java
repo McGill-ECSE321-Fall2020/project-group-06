@@ -21,10 +21,12 @@ import ca.mcgill.ecse321.artgallery.model.Transaction;
 import ca.mcgill.ecse321.artgallery.model.Transaction.DeliveryType;
 
 /**
- * <p>
- * CustomerService: Methods used by customer (browse, add/remove favorites,
- * transaction history etc)
- * </p>
+ * Customer Service Class : Methods used by customer
+ * @author Sen Wang
+ * @author Noah Chamberland
+ * @author Justin Legrand
+ * @author Olivier Normandin
+ * @author Andre-Walter Panzini
  */
 @Service
 public class CustomerService {

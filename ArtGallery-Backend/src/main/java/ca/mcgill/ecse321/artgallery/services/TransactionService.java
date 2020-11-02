@@ -13,8 +13,12 @@ import ca.mcgill.ecse321.artgallery.dto.TransactionDto;
 import ca.mcgill.ecse321.artgallery.model.Transaction;
 
 /**
- * <p>
- * TransactionService: Methods used to crud transactions
+ * Transaction Service Class
+ * @author Sen Wang
+ * @author Noah Chamberland
+ * @author Justin Legrand
+ * @author Olivier Normandin
+ * @author Andre-Walter Panzini
  */
 @Service
 public class TransactionService {

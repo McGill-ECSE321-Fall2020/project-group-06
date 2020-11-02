@@ -8,9 +8,12 @@ import ca.mcgill.ecse321.artgallery.dao.UserRepository;
 import ca.mcgill.ecse321.artgallery.model.User;
 
 /**
- * <p>
- * CognitoServices: methods used to sign up, sign in, change password etc
- * </p>
+ * Cognito Service Class: Used for authentication
+ * @author Sen Wang
+ * @author Noah Chamberland
+ * @author Justin Legrand
+ * @author Olivier Normandin
+ * @author Andre-Walter Panzini
  */
 @Service
 public class CognitoService {

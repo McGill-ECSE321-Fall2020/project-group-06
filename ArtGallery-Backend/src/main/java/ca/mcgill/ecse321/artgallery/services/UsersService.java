@@ -8,9 +8,12 @@ import ca.mcgill.ecse321.artgallery.dao.UserRepository;
 import ca.mcgill.ecse321.artgallery.model.User;
 
 /**
- * <p>
- * UserServices : Methods used to crud user details
- * </p>
+ * User Service Class
+ * @author Sen Wang
+ * @author Noah Chamberland
+ * @author Justin Legrand
+ * @author Olivier Normandin
+ * @author Andre-Walter Panzini
  */
 @Service
 public class UsersService {
