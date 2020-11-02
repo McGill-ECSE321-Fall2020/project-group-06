@@ -26,10 +26,13 @@ public class AmazonClient {
 
     @Value("${amazonProperties.endpointUrl}")
     private String endpointUrl;
+    
     @Value("${amazonProperties.bucketName}")
     private String bucketName;
+    
     @Value("${amazonProperties.accessKey}")
     private String accessKey;
+    
     @Value("${amazonProperties.secretKey}")
     private String secretKey;
 
