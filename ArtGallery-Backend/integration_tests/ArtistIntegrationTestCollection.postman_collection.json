@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "cc3b570d-793c-44c3-8a67-355782f94324",
+		"_postman_id": "1df9678f-1cd7-4761-838a-8e18dfb553d1",
 		"name": "ArtistCollection",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -11,13 +11,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "34447cd9-1528-4202-9b0e-85c3a3d95d0b",
+						"id": "b97b5ec8-5aaa-48c3-bd87-9b05fb034fec",
 						"exec": [
 							"pm.test(\"Successful POST request\", function () {\r",
 							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
 							"});\r",
-							"pm.test(\"Response time is less than 2000ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -37,12 +37,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/user/createUser",
-					"protocol": "http",
+					"raw": "https://art-gallery-backend.herokuapp.com/api/user/createUser",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"user",
@@ -58,13 +59,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "631ad465-2ce4-40b4-8c85-3a18e10e07b4",
+						"id": "20ac84a9-b5cb-4d1b-a74e-36591ae867b3",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"Response time is less than 1000ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
 							"});\r",
 							"var jsonData = responseBody.toString();\r",
 							"pm.environment.set(\"BearerToken\", jsonData);"
@@ -86,12 +87,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/cognito/authenticate",
-					"protocol": "http",
+					"raw": "https://art-gallery-backend.herokuapp.com/api/cognito/authenticate",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"cognito",
@@ -107,13 +109,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "7e0e3f74-6202-4b15-9c95-82adce3b31a2",
+						"id": "c27e34ec-0d3b-4d92-985d-451ddc1494a5",
 						"exec": [
 							"pm.test(\"Successful POST request\", function () {\r",
 							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
 							"});\r",
-							"pm.test(\"Response time is less than 2000ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -143,12 +145,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/artgallery/createArtGallery",
-					"protocol": "http",
+					"raw": "https://art-gallery-backend.herokuapp.com/api/artgallery/createArtGallery",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"artgallery",
@@ -164,13 +167,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "56713c3f-14b4-457f-8f56-025a809fe67f",
+						"id": "9cbcf56b-51ab-46be-bc28-f0f43509590f",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {\r",
 							"    pm.response.to.have.status(201);\r",
 							"});\r",
-							"pm.test(\"Response time is less than 2000ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -200,12 +203,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/artist/createArtist",
-					"protocol": "http",
+					"raw": "https://art-gallery-backend.herokuapp.com/api/artist/createArtist",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"artist",
@@ -221,13 +225,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "6fa3d2c1-02d1-48c5-8c79-c50fff22c859",
+						"id": "0123d1be-d0ec-4f48-85d3-6ff0111ebb52",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"Response time is less than 2000ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -257,12 +261,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/artist/updateArtist",
-					"protocol": "http",
+					"raw": "https://art-gallery-backend.herokuapp.com/api/artist/updateArtist",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"artist",
@@ -278,13 +283,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "0d479a78-5c73-42e8-83b3-77a8abe2ae43",
+						"id": "60fd25ca-492b-4504-99d0-31f1a2fc4f15",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"Response time is less than 2000ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
 							"});\r",
 							"\r",
 							"var jsonData = pm.response.json();\r",
@@ -314,12 +319,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/artist/getArtist/awpanzArtist",
-					"protocol": "http",
+					"raw": "https://art-gallery-backend.herokuapp.com/api/artist/getArtist/awpanzArtist",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"artist",
@@ -336,13 +342,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "ee8724e6-2119-4fef-90a8-2b7622a31964",
+						"id": "f6da9c2a-fc75-4c16-a469-9ca27b34817f",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {\r",
 							"    pm.response.to.have.status(201);\r",
 							"});\r",
-							"pm.test(\"Response time is less than 2000ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -372,12 +378,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/artist/uploadArtwork",
-					"protocol": "http",
+					"raw": "https://art-gallery-backend.herokuapp.com/api/artist/uploadArtwork",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"artist",
@@ -393,13 +400,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "1081a3db-c9e2-44e5-882a-fbc0af01f538",
+						"id": "354e1461-d445-46e1-831a-9f16e0371724",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"Response time is less than 2000ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
 							"});\r",
 							"\r",
 							"var artworkArr = JSON.parse(responseBody);\r",
@@ -425,12 +432,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/artist/getArtworkUploadedByArtist/awpanzArtist",
-					"protocol": "http",
+					"raw": "https://art-gallery-backend.herokuapp.com/api/artist/getArtworkUploadedByArtist/awpanzArtist",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"artist",
@@ -447,13 +455,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "faf48745-668a-4e07-8d16-e689da06428e",
+						"id": "d43290eb-2542-438a-86f3-44c7e4089b52",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"Response time is less than 2000ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
 							"});\r",
 							"var artworkId = pm.response.json().id;\r",
 							"pm.environment.set(\"artworkId\", artworkId);"
@@ -488,12 +496,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/artwork/getArtwork/awpanzArtwork",
-					"protocol": "http",
+					"raw": "https://art-gallery-backend.herokuapp.com/api/artwork/getArtwork/awpanzArtwork",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"artwork",
@@ -510,13 +519,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "0a9cb44e-6776-4e8f-927d-eafdbe5fc914",
+						"id": "7777763a-5352-4f00-a681-2363788b6b79",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"Response time is less than 2000ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -546,12 +555,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/artist/removeArtwork/{{artworkId}}",
-					"protocol": "http",
+					"raw": "https://art-gallery-backend.herokuapp.com/api/artist/removeArtwork/{{artworkId}}",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"artist",
@@ -575,13 +585,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "c3899b81-34e0-488a-a174-7eb0cebd4118",
+						"id": "38cdfcd1-a983-438f-a456-2d4c23f722ea",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"Response time is less than 2000ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
 							"});\r",
 							"\r",
 							"var transactionArr = JSON.parse(responseBody);\r",
@@ -614,12 +624,13 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/artist/trackTransactionHistory/awpanzArtist",
-					"protocol": "http",
+					"raw": "https://art-gallery-backend.herokuapp.com/api/artist/trackTransactionHistory/awpanzArtist",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"artist",
@@ -635,7 +646,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "8cf91235-5910-4eb8-97ca-8f7439e5f9ce",
+				"id": "cfb1a413-7d23-4c47-a74c-0b783899d87e",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -645,7 +656,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "6a032755-e99e-442c-b233-6164a003fa43",
+				"id": "bf66a858-8780-43b9-8ac7-d38690524883",
 				"type": "text/javascript",
 				"exec": [
 					""
