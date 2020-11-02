@@ -92,7 +92,11 @@ Sen Wang | 12 | 10 | 3 | 1 | 3 | 2 | 2 | 1
 
 ## Deliverable 2
 ### Main Tasks
-(Backend and Quality Assurance)
+- Backend Implementation and Evolution of Persistence Layer
+- Software Quality Assurance Plan
+- Unit Testing of Backend
+- Integration Testing of Backend Services
+
 ### Documents
 
 ### Table
