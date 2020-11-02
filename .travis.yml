@@ -6,7 +6,7 @@ script:
   - newman run ArtGallery-Backend/integration_tests/ArtGalleryIntegrationTestCollection.json
   - newman run ArtGallery-Backend/integration_tests/ArtistIntegrationTestCollection.json
   - newman run ArtGallery-Backend/integration_tests/ArtworkIntegrationTestCollection.json
-
+  - newman run ArtGallery-Backend/integration_tests/CustomerIntegrationTestCollection.json
 install:
   - npm install -g newman
 
