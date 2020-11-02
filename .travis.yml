@@ -1,6 +1,7 @@
 language: java
 script:
   - ./gradlew build --stacktrace
+  - newman run ArtGallery-Backend/integration_tests/UserIntegrationTestCollection.json
 
 install:
   - npm install -g newman
