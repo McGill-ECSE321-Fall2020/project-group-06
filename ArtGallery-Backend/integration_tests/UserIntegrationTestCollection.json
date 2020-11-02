@@ -37,12 +37,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/user/createUser",
-					"protocol": "http",
+					"raw": "https://art-gallery-backend.herokuapp.com/api/user/createUser",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"user",
@@ -87,12 +88,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/cognito/authenticate",
-					"protocol": "http",
+					"raw": "https://art-gallery-backend.herokuapp.com/api/cognito/authenticate",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"cognito",
@@ -145,12 +147,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/",
-					"protocol": "http",
+					"raw": "https://art-gallery-backend.herokuapp.com/",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						""
 					],
