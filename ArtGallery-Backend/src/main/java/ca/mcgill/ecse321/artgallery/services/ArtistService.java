@@ -20,6 +20,12 @@ import ca.mcgill.ecse321.artgallery.dto.ArtistDto;
  * <p>
  * ArtistService: Methods used by artists (upload, remove artworks, artist
  * transaction history)
+ * 
+ * @author Noah Chamberland
+ * @author Justin Legrand
+ * @author Olivier Normandin
+ * @author Andre-Walter Panzini
+ * @author Sen Wang
  * </p>
  */
 @Service
@@ -41,15 +47,15 @@ public class ArtistService {
 	 * REQ2.3 The art gallery system shall allow an artist to keep track of its
 	 * transaction history.
 	 * 
-	 * @param int The artist ID
+	 * @param int artist ID
 	 * @return List<Transaction> The transaction history
-	 * @author Olivier Normandin
 	 */
-
 	@Transactional
 	public ArrayList<Transaction> viewTransactionHistory(int artistID) {
 		ArrayList<Transaction> transactionHistory = new ArrayList<>();
+		
 		Artist artist = artistRepository.findArtistById(artistID);
+		
 		if (artist == null) {
 			return transactionHistory;
 		} else {
@@ -57,15 +63,15 @@ public class ArtistService {
 				transactionHistory.add(transaction);
 			});
 		}
+		
 		return transactionHistory;
 	}
 
 	/**
 	 * REQ2.1 The art gallery system shall allow the artist to upload an artwork.
 	 * 
-	 * @param artwork the artwork to be added
-	 * @return artwork the artwork that was added
-	 * @author Andre-Walter Panzini
+	 * @param artwork to be added
+	 * @return true if the artwork was successfully updated, false if not
 	 */
 	@Transactional
 	public boolean uploadArtwork(Artwork artwork) {
@@ -94,8 +100,7 @@ public class ArtistService {
 	 * REQ2.2 The art gallery system shall allow the artist to remove an artwork.
 	 * 
 	 * @param artworkId the artwork ID from the database
-	 * @return artwork the artwork that was removed
-	 * @author Andre-Walter Panzini
+	 * @return true if the artwork was successfully removed, false if not
 	 */
 	@Transactional
 	public boolean removeArtwork(int artworkID) {
@@ -131,8 +136,7 @@ public class ArtistService {
 	 * Creates a new artist service method
 	 * 
 	 * @param artist
-	 * @return Boolean if the artist is created
-	 * @author Sen Wang
+	 * @return true if the artist was successfully saved, false if not
 	 */
 	@Transactional
 	public Boolean saveArtist(Artist artist) {
@@ -149,7 +153,7 @@ public class ArtistService {
 	 * update artist
 	 * 
 	 * @param artist
-	 * @return boolean
+	 * @return true if the artist was successfully updated, false if not
 	 */
 	@Transactional
 	public Boolean updateArtist(Artist artist) {
@@ -195,7 +199,6 @@ public class ArtistService {
 	 * 
 	 * @param artistDto
 	 * @return boolean
-	 * @author Sen Wang
 	 */
 	public Boolean updateArtist(ArtistDto artistDto) {
 		if (artistRepository.findArtistByUsername(artistDto.getUsername()) == null) {
@@ -221,7 +224,7 @@ public class ArtistService {
 	 * Remove artist by id
 	 * 
 	 * @param artistId
-	 * @return boolean
+	 * @return true if the artist was successfully removed, false if not
 	 */
 	public boolean removeArtist(int artistId) {
 		if (artistRepository.findArtistById(artistId) == null) {
