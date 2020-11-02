@@ -18,7 +18,8 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
+//This is an extra service class we wrote for future implementation/front end. 
+//We therefore did not write any Service tests for it.
 @Service
 public class AmazonClient {
 
