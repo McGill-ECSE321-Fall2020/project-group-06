@@ -72,29 +72,34 @@ public class TestCustomerService {
     @InjectMocks
     private ArtworkService artworkService;
 
-    private static final String CUSTOMER_KEY = "TestCustomer";
-    private static final String NOT_A_CUSTOMER_KEY = "NotACustomer";
-    private static final String USER_KEY = "TestUser";
+    private static final int UserId = 6;
+    private static final String UserUsername = "my User username";
+    
+    private static final int CustomerId = 4;
+    private static final int NonExistant_CustomerId = 7;
+    
+    private static final String CustomerUsername = "my Customer name";
+    private static final String NonExistant_CustomerName = "not my Customer name";
 
-    private static final int testArtGalleryId = 1;
-    private static final int testNonExistantArtGalleryId = 11;
-    private static final int testArtistId = 2;
-    private static final int testNonExisantArtistId = 10;
-    private static final int testArtworkId = 3;
-    private static final int testNonExistantArtworkId = 8;
-    private static final int testCustomerId = 4;
-    private static final int testNonExistantCustomerId = 7;
-    private static final int testTransactionId = 5;
-    private static final int testNonExisantTransactionId = 9;
-    private static final int testUserId = 6;
+    private static final int ArtGalleryId = 1;
+    private static final int NonExistant_ArtGalleryId = 11;
+    
+    private static final int ArtistId = 2;
+    private static final int NonExisant_ArtistId = 10;
+    
+    private static final int ArtworkId = 3;
+    private static final int NonExistant_ArtworkId = 8;
+    
+    private static final int TransactionId = 5;
+    private static final int NonExisant_TransactionId = 9;
 
     @BeforeEach
     public void setMockOutput() {
         lenient().when(customerRepository.findCustomerByUsername(anyString()))
                 .thenAnswer((InvocationOnMock invocation) -> {
-                    if (invocation.getArgument(0).equals(CUSTOMER_KEY)) {
+                    if (invocation.getArgument(0).equals(CustomerUsername)) {
                         Customer customer = new Customer();
-                        customer.setUsername(CUSTOMER_KEY);
+                        customer.setUsername(CustomerUsername);
                         return customer;
                     } else {
                         return null;
@@ -109,7 +114,7 @@ public class TestCustomerService {
         lenient().when(artworkRepository.findAll()).thenAnswer((InvocationOnMock invocation) -> {
             ArrayList<Artwork> array = new ArrayList<Artwork>();
             Artwork artwork = new Artwork();
-            artwork.setId(testArtworkId);
+            artwork.setId(ArtworkId);
             artwork.setForSale(true);
             array.add(artwork);
             return array;
@@ -117,9 +122,9 @@ public class TestCustomerService {
 
         // art gallery invocation on mock
         lenient().when(artGalleryRepository.findArtGalleryById(any())).thenAnswer((InvocationOnMock invocation) -> {
-            if (invocation.getArgument(0).equals(testArtGalleryId)) {
+            if (invocation.getArgument(0).equals(ArtGalleryId)) {
                 ArtGallery artGallery = new ArtGallery();
-                artGallery.setId(testArtGalleryId);
+                artGallery.setId(ArtGalleryId);
                 return artGallery;
             } else {
                 return null;
@@ -128,9 +133,9 @@ public class TestCustomerService {
 
         // artist invocation on mock
         lenient().when(artistRepository.findArtistById(any())).thenAnswer((InvocationOnMock invocation) -> {
-            if (invocation.getArgument(0).equals(testArtistId)) {
+            if (invocation.getArgument(0).equals(ArtistId)) {
                 Artist artist = new Artist();
-                artist.setId(testArtistId);
+                artist.setId(ArtistId);
                 return artist;
             } else {
                 return null;
@@ -139,9 +144,9 @@ public class TestCustomerService {
 
         // customer invocation on mock
         lenient().when(customerRepository.findCustomerById(any())).thenAnswer((InvocationOnMock invocation) -> {
-            if (invocation.getArgument(0).equals(testCustomerId)) {
+            if (invocation.getArgument(0).equals(CustomerId)) {
                 Customer customer = new Customer();
-                customer.setId(testCustomerId);
+                customer.setId(CustomerId);
                 customer.setArtwork(new HashSet<Artwork>());
                 return customer;
             } else {
@@ -153,7 +158,7 @@ public class TestCustomerService {
         lenient().when(customerRepository.findCustomerByUsername(any())).thenAnswer((InvocationOnMock invocation) -> {
             if (invocation.getArgument(0).equals("customer")) {
                 Customer customer = new Customer();
-                customer.setId(testCustomerId);
+                customer.setId(CustomerId);
                 customer.setArtwork(new HashSet<Artwork>());
                 customer.setUsername("customer");
                 return customer;
@@ -164,9 +169,9 @@ public class TestCustomerService {
 
         // artwork invocation on mock
         lenient().when(artworkRepository.findArtworkById(any())).thenAnswer((InvocationOnMock invocation) -> {
-            if (invocation.getArgument(0).equals(testArtworkId)) {
+            if (invocation.getArgument(0).equals(ArtworkId)) {
                 Artwork artwork = new Artwork();
-                artwork.setId(testArtworkId);
+                artwork.setId(ArtworkId);
                 return artwork;
             } else {
                 return null;
@@ -175,9 +180,9 @@ public class TestCustomerService {
 
         // transaction invocation on mock
         lenient().when(transactionRepository.findTransactionById(any())).thenAnswer((InvocationOnMock invocation) -> {
-            if (invocation.getArgument(0).equals(testTransactionId)) {
+            if (invocation.getArgument(0).equals(TransactionId)) {
                 Transaction transaction = new Transaction();
-                transaction.setId(testTransactionId);
+                transaction.setId(TransactionId);
                 return transaction;
             } else {
                 return null;
@@ -186,10 +191,10 @@ public class TestCustomerService {
 
         // user invocation on mock
         lenient().when(userRepository.findUserByUsername(any())).thenAnswer((InvocationOnMock invocation) -> {
-            if (invocation.getArgument(0).equals(USER_KEY)) {
+            if (invocation.getArgument(0).equals(UserUsername)) {
                 User user = new User();
-                user.setId(testUserId);
-                user.setUsername(USER_KEY);
+                user.setId(UserId);
+                user.setUsername(UserUsername);
                 return user;
             } else {
                 return null;
@@ -217,7 +222,7 @@ public class TestCustomerService {
     public void testCreateExistingCustomer() {
         boolean saveWorked = false;
         Customer customer = new Customer();
-        customer.setUsername(USER_KEY);
+        customer.setUsername(UserUsername);
         try {
             saveWorked = customerService.saveCustomer(customer);
         } catch (Exception e) {
@@ -241,7 +246,7 @@ public class TestCustomerService {
     public void testAddArtwork() {
         boolean valid = false;
         try {
-            valid = customerService.addArtwork(testCustomerId, testArtworkId);
+            valid = customerService.addArtwork(CustomerId, ArtworkId);
         } catch (Exception e) {
             fail();
         }
@@ -252,7 +257,7 @@ public class TestCustomerService {
     public void testAddArtworkWithNonExistantCustomerId() {
         boolean valid = false;
         try {
-            valid = customerService.addArtwork(testNonExistantCustomerId, testArtworkId);
+            valid = customerService.addArtwork(NonExistant_CustomerId, ArtworkId);
         } catch (Exception e) {
             fail();
         }
@@ -263,7 +268,7 @@ public class TestCustomerService {
     public void testAddArtworkWithNonExistantArtworkId() {
         boolean valid = false;
         try {
-            valid = customerService.addArtwork(testCustomerId, testNonExistantArtworkId);
+            valid = customerService.addArtwork(CustomerId, NonExistant_ArtworkId);
         } catch (Exception e) {
             fail();
         }
@@ -274,7 +279,7 @@ public class TestCustomerService {
     public void testRemoveArtwork() {
         boolean valid = false;
         try {
-            valid = customerService.removeArtwork(testCustomerId, testArtworkId);
+            valid = customerService.removeArtwork(CustomerId, ArtworkId);
         } catch (Exception e) {
             fail();
         }
@@ -285,7 +290,7 @@ public class TestCustomerService {
     public void testRemoveArtworkWithNonExistantCustomerId() {
         boolean valid = false;
         try {
-            valid = customerService.removeArtwork(testNonExistantCustomerId, testArtworkId);
+            valid = customerService.removeArtwork(NonExistant_CustomerId, ArtworkId);
         } catch (Exception e) {
             fail();
         }
@@ -296,7 +301,7 @@ public class TestCustomerService {
     public void testRemoveArtworkWithNonExistantArtworkId() {
         boolean valid = false;
         try {
-            valid = customerService.removeArtwork(testCustomerId, testNonExistantArtworkId);
+            valid = customerService.removeArtwork(CustomerId, NonExistant_ArtworkId);
         } catch (Exception e) {
             fail();
         }
@@ -308,7 +313,7 @@ public class TestCustomerService {
         boolean valid = false;
         DeliveryType deliveryType = DeliveryType.Delivered;
         try {
-            valid = customerService.setMeanOfDelivery(testTransactionId, deliveryType);
+            valid = customerService.setMeanOfDelivery(TransactionId, deliveryType);
         } catch (Exception e) {
             fail();
         }
@@ -320,7 +325,7 @@ public class TestCustomerService {
         boolean valid = false;
         DeliveryType deliveryType = DeliveryType.Delivered;
         try {
-            valid = customerService.setMeanOfDelivery(testNonExisantTransactionId, deliveryType);
+            valid = customerService.setMeanOfDelivery(NonExisant_TransactionId, deliveryType);
         } catch (Exception e) {
             fail();
         }
@@ -331,7 +336,7 @@ public class TestCustomerService {
     public void testBuyArtwork() {
         boolean valid = false;
         try {
-            valid = customerService.buyArtwork(testCustomerId, testArtistId, testArtworkId, testArtGalleryId);
+            valid = customerService.buyArtwork(CustomerId, ArtistId, ArtworkId, ArtGalleryId);
         } catch (Exception e) {
             fail();
         }
@@ -342,8 +347,8 @@ public class TestCustomerService {
     public void testBuyArtworkWithNonExistantCustomerId() {
         boolean valid = false;
         try {
-            valid = customerService.buyArtwork(testNonExistantCustomerId, testArtistId, testArtworkId,
-                    testArtGalleryId);
+            valid = customerService.buyArtwork(NonExistant_CustomerId, ArtistId, ArtworkId,
+            		ArtGalleryId);
         } catch (Exception e) {
             fail();
         }
@@ -355,7 +360,7 @@ public class TestCustomerService {
     public void testBuyArtworkWithNonExistantArtistId() {
         boolean valid = false;
         try {
-            valid = customerService.buyArtwork(testCustomerId, testNonExisantArtistId, testArtworkId, testArtGalleryId);
+            valid = customerService.buyArtwork(CustomerId, NonExisant_ArtistId, ArtworkId, ArtGalleryId);
         } catch (Exception e) {
             fail();
         }
@@ -366,8 +371,8 @@ public class TestCustomerService {
     public void testBuyArtworkWithNonExistantArtworkId() {
         boolean valid = false;
         try {
-            valid = customerService.buyArtwork(testCustomerId, testArtistId, testNonExistantArtworkId,
-                    testArtGalleryId);
+            valid = customerService.buyArtwork(CustomerId, ArtistId, NonExistant_ArtworkId,
+            		ArtGalleryId);
         } catch (Exception e) {
             fail();
         }
@@ -378,8 +383,8 @@ public class TestCustomerService {
     public void testBuyArtworkWithNonExistantArtGalleryId() {
         boolean valid = false;
         try {
-            valid = customerService.buyArtwork(testCustomerId, testArtistId, testArtworkId,
-                    testNonExistantArtGalleryId);
+            valid = customerService.buyArtwork(CustomerId, ArtistId, ArtworkId,
+            		NonExistant_ArtGalleryId);
         } catch (Exception e) {
             fail();
         }
@@ -403,7 +408,7 @@ public class TestCustomerService {
     public void testSaveExistingCustomer() {
         boolean valid = false;
         Customer customer = new Customer();
-        customer.setUsername(USER_KEY);
+        customer.setUsername(UserUsername);
         try {
             valid = customerService.saveCustomer(customer);
         } catch (Exception e) {
@@ -427,7 +432,7 @@ public class TestCustomerService {
     public void testGetNonExistantCustomerByUsername() {
         Customer customer = new Customer();
         try {
-            customer = customerService.getCustomerByUsername(NOT_A_CUSTOMER_KEY);
+            customer = customerService.getCustomerByUsername(NonExistant_CustomerName);
         } catch (Exception e) {
             fail();
         }
@@ -438,18 +443,18 @@ public class TestCustomerService {
     public void testGetTransactionReceipt() {
         Transaction transaction = new Transaction();
         try {
-            transaction = customerService.getTransactionReceipt(testTransactionId);
+            transaction = customerService.getTransactionReceipt(TransactionId);
         } catch (Exception e) {
             fail();
         }
-        assertEquals(testTransactionId, transaction.getId());
+        assertEquals(TransactionId, transaction.getId());
     }
 
     @Test
     public void testGetNonExistantTransactionReceipt() {
         Transaction transaction = new Transaction();
         try {
-            transaction = customerService.getTransactionReceipt(testNonExisantTransactionId);
+            transaction = customerService.getTransactionReceipt(NonExisant_TransactionId);
         } catch (Exception e) {
             fail();
         }
@@ -492,7 +497,7 @@ public class TestCustomerService {
         customerDto.setPhoneNumber("phoneNumber");
         customerDto.setPicture(new Picture());
         customerDto.setTransaction(new HashSet<Transaction>());
-        customerDto.setUsername(NOT_A_CUSTOMER_KEY);
+        customerDto.setUsername(NonExistant_CustomerName);
 
         boolean valid = false;
         try {
