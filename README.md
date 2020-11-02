@@ -97,6 +97,10 @@ Sen Wang | 12 | 10 | 3 | 1 | 3 | 2 | 2 | 1
 ### Documents
 - Software Quality Assurance Plan
   - [Software Quality Assurnace Plan and Report](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Software-Quality-Assurance-Plan-and-Report)
+
+- Endpoint Wiki
+  - [Endpoint Wiki](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Endpoint-Wiki)
+
 - Report
   - [Deliverable 2 Project Report](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Deliverable-2-Report)
 
