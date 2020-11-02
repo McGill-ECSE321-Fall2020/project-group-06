@@ -26,7 +26,7 @@ public class UserRestController {
     private UsersService usersService;
 
     /**
-     * TESTED WITH POSTMAN
+     * REQ1.1(A): The art gallery system shall allow the user to register a new account.
      * 
      * @param user
      * @return

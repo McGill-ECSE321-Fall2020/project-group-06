@@ -12,6 +12,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 import ca.mcgill.ecse321.artgallery.services.AmazonClient;
 
+/**
+ * Art Gallery REST controller class
+ * @author Sen Wang
+ * @author Noah Chamberland
+ * @author Justin Legrand
+ * @author Olivier Normandin
+ * @author Andre-Walter Panzini
+ */
+
 @RestController
 @RequestMapping("/storageTest")
 public class PictureUploadRestTest {

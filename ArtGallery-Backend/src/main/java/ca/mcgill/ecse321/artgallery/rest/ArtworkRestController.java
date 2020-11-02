@@ -17,19 +17,27 @@ import org.springframework.web.bind.annotation.RestController;
 import ca.mcgill.ecse321.artgallery.model.Artwork;
 import ca.mcgill.ecse321.artgallery.services.ArtworkService;
 
+/**
+ * Art Gallery REST controller class
+ * @author Sen Wang
+ * @author Noah Chamberland
+ * @author Justin Legrand
+ * @author Olivier Normandin
+ * @author Andre-Walter Panzini
+ */
+
 @RestController
 @RequestMapping("/api/artwork")
 public class ArtworkRestController {
 	private static final Logger logger = LoggerFactory.getLogger(ArtGalleryRestController.class);
-
+	
 	@Autowired
 	ArtworkService artworkService;
 
 	/**
-	 * TESTED WITH POSTMAN
+	 * It shall be possible to create an artwork.
 	 * 
-	 * @param artwork
-	 * @return
+	 * @param Artwork artwork The artowrk to be created
 	 */
 	@PostMapping("/createArtwork")
 	public ResponseEntity<Void> createArtwork(@Valid @RequestBody Artwork artwork) {
@@ -51,6 +59,12 @@ public class ArtworkRestController {
 		}
 	}
 
+	/**
+	 * It shall be possible to get an artwork by its name
+	 * 
+	 * @param String name
+	 * @return Artwork The artwork
+	 */
 	@GetMapping("/getArtwork/{name}")
 	public ResponseEntity<Artwork> getArtworkByName(@PathVariable("name") String name) {
 
@@ -73,10 +87,9 @@ public class ArtworkRestController {
 	}
 
 	/**
-	 * Tested with postman
+	 * It shall be possible to upload an artwork
 	 * 
-	 * @param artwork
-	 * @return
+	 * @param Artwork artwork The artwork
 	 */
 	@PutMapping("/updateArtwork")
 	public ResponseEntity<Void> updateArtwork(@Valid @RequestBody Artwork artwork) {

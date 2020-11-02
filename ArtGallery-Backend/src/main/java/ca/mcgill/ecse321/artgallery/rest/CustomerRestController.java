@@ -1,8 +1,6 @@
 package ca.mcgill.ecse321.artgallery.rest;
 
-import java.sql.Date;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.validation.Valid;
 
@@ -29,6 +27,15 @@ import ca.mcgill.ecse321.artgallery.model.Transaction.DeliveryType;
 
 import ca.mcgill.ecse321.artgallery.services.CustomerService;
 
+/**
+ * Art Gallery REST controller class
+ * @author Sen Wang
+ * @author Noah Chamberland
+ * @author Justin Legrand
+ * @author Olivier Normandin
+ * @author Andre-Walter Panzini
+ */
+
 @RestController
 @RequestMapping("/api/customer")
 public class CustomerRestController {
@@ -40,12 +47,10 @@ public class CustomerRestController {
 
     /**
      * REQ3.1: The art gallery system shall allow a customer to browse all the
-     * artworks for sale Http endpoint for this requirement. TESTED WITH POSTMAN
+     * artworks for sale.
      * 
-     * @return List of Artworks
-     * @author Sen Wang
+     * @return ArrayList<Artwork> List of Artworks
      */
-
     @GetMapping("/artworksForSale")
     public ResponseEntity<ArrayList<Artwork>> getAllArtworks() {
         try {
@@ -57,11 +62,10 @@ public class CustomerRestController {
     }
 
     /**
-     * REQ3.2: The art gallery system shall allow a customer to add artwork into
-     * their own favorite list. Http endpoint for this requirement. TESTED WITH
-     * POSTMAN
+     * REQ3.2(A): The art gallery system shall allow a customer to add artwork into
+     * their own favorite list.
      * 
-     * @author Noah Chamberland
+     * @param int customerId The customer id
      */
     @PostMapping("/addArtwork/{customerId}/{artworkId}")
     public ResponseEntity<Void> addArtwork(@PathVariable("customerId") int customerId,
@@ -86,11 +90,10 @@ public class CustomerRestController {
     }
 
     /**
-     * REQ3.2: The art gallery system shall allow a customer to remove artwork into
-     * their own favorite list. Http endpoint for this requirement. TESTED WITH
-     * POSTMAN
+     * REQ3.2(B): The art gallery system shall allow a customer to remove artwork into
+     * their own favorite list.
      * 
-     * @author Noah Chamberland
+     * @param int customerId The customer id
      */
     @PostMapping("/removeArtwork/{customerId}/{artworkId}")
     public ResponseEntity<Void> removeArtwork(@PathVariable("customerId") int customerId,
@@ -116,10 +119,9 @@ public class CustomerRestController {
 
     /**
      * REQ3.4: The art gallery system shall allow a customer to decide the mean of
-     * delivery of their artwork. Http endpoint for this requirement. TESTED WITH
-     * POSTMAN
+     * delivery of their artwork.
      * 
-     * @author Noah Chamberland
+     * @param int transactionId The transaction id
      */
     @PostMapping("/setMeanOfDelivery/{transactionId}")
     public ResponseEntity<Void> setMeanOfDelivery(@PathVariable("transactionId") int transactionId,
@@ -145,9 +147,9 @@ public class CustomerRestController {
 
     /**
      * REQ3.5: The art gallery system shall allow a customer to buy a chosen
-     * artwork. Http endpoint for this requirement. TESTED WITH POSTMAN
+     * artwork.
      * 
-     * @author Noah Chamberland
+     * @param int customerId The customer id
      */
     @PostMapping("/buyArtwork/{customerId}/{artistId}/{artworkId}/{artGalleryId}")
     public ResponseEntity<Void> buyArtwork(@PathVariable("customerId") int customerId,
@@ -181,7 +183,9 @@ public class CustomerRestController {
     }
 
     /**
-     * TESTED WITH POSTMAN
+     * It shall be possible to create a customer profile.
+     * 
+     * @param Customer customer The customer profile
      */
     @PostMapping("/createCustomer")
     public ResponseEntity<Void> createCustomer(@Valid @RequestBody Customer customer) {
@@ -208,10 +212,10 @@ public class CustomerRestController {
     }
 
     /**
-     * Http endpoint to get customer by username
+     * It shall be possible to retrieve a customer by its username.
      * 
-     * @param username
-     * @return Customer object
+     * @param String username The customer's username
+     * @return Customer The customer
      */
     @GetMapping("/getCustomer/{username}")
     public ResponseEntity getCustomerByUsername(@PathVariable("username") String username) {
@@ -238,9 +242,8 @@ public class CustomerRestController {
      * REQ3.3 The art gallery system shall provide the customer with a receipt of
      * the transaction.
      * 
-     * @param int The transaction ID
+     * @param int transactionID The transaction ID
      * @return Transaction The receipt
-     * @author Olivier Normandin
      */
     @GetMapping("/getTransactionReceipt/{transactionId}")
     public ResponseEntity<Transaction> getTransactionReceipt(@PathVariable("transactionId") Integer transactionID) {
@@ -258,11 +261,9 @@ public class CustomerRestController {
     }
 
     /**
-     * Http endpoint to update customer
+     * It shall be possible to update a customer profile.
      * 
-     * @param customerDto
-     * @return
-     * @author Sen Wang
+     * @param CustomerDto customerDto The data transfer object relating to the customer
      */
     @PutMapping("/updateCustomer")
     public ResponseEntity<Void> updateCustomer(@Valid @RequestBody CustomerDto customerDto) {

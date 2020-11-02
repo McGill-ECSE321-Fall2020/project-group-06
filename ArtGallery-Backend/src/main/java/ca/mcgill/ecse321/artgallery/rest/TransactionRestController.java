@@ -20,22 +20,30 @@ import ca.mcgill.ecse321.artgallery.dto.TransactionDto;
 import ca.mcgill.ecse321.artgallery.model.Transaction;
 import ca.mcgill.ecse321.artgallery.services.TransactionService;
 
+/**
+ * Art Gallery REST controller class
+ * @author Sen Wang
+ * @author Noah Chamberland
+ * @author Justin Legrand
+ * @author Olivier Normandin
+ * @author Andre-Walter Panzini
+ */
+
 @RestController
 @RequestMapping("/api/transaction")
 public class TransactionRestController {
-    private static final Logger logger = LoggerFactory.getLogger(ArtGalleryRestController.class);
+    private static final Logger logger = LoggerFactory.getLogger(TransactionRestController.class);
 
     @Autowired
     TransactionService transactionService;
 
     /**
-     * TESTED WITH POSTMAN
+     * It shall be possible to create a transaction.
      * 
-     * @param customerId
-     * @param artistId
-     * @param artworkId
-     * @param artGalleryId
-     * @return
+     * @param int customerId The customer's ID
+     * @param int artistId The artist's ID
+     * @param int artworkId The artwork's ID
+     * @param int artGalleryId The art gallery's ID
      */
     @PostMapping("/createTransaction/{customerId}/{artistId}/{artworkId}/{artGalleryId}")
     public ResponseEntity<Void> createTransaction(@PathVariable("customerId") int customerId,
@@ -80,10 +88,9 @@ public class TransactionRestController {
     }
 
     /**
-     * Tested with Postman
+     * It shall be possible to update a transaction.
      * 
-     * @param transactionDto
-     * @return
+     * @param TransactionDto transactionDto The data transfer object relating to the transaction
      */
     @PutMapping("/updateTransaction")
     public ResponseEntity<Void> updateTransaction(@Valid @RequestBody TransactionDto transactionDto) {
@@ -115,10 +122,9 @@ public class TransactionRestController {
     }
 
     /**
-     * TESTED WITH POSTMAN
+     * It shall be possible to remove a transaction.
      * 
-     * @param transactionId
-     * @return
+     * @param int transactionId The transaction ID
      */
     @PostMapping("/removeTransaction/{transactionId}")
     public ResponseEntity<Void> removeTransaction(@PathVariable("transactionId") int transactionId) {
@@ -140,6 +146,11 @@ public class TransactionRestController {
         }
     }
 
+    /**
+     * It shall be possible to get a transaction by its ID.
+     * @param int id The transaction id
+     * @return Transaction The transaction
+     */
     @GetMapping("/getTransaction/{id}")
     public ResponseEntity<Transaction> getTransactionById(@PathVariable("id") int id) {
 
