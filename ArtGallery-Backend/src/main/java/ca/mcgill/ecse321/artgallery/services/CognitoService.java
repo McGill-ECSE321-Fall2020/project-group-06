@@ -21,9 +21,9 @@ public class CognitoService {
     /**
      * Change password
      * 
-     * @param username
-     * @param newPassword
-     * @return boolean
+     * @param String username
+     * @param String newPassword
+     * @return boolean true if successful
      */
     @Transactional
     public Boolean changePassword(String username, String newPassword) {

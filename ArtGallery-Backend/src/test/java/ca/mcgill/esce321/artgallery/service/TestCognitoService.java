@@ -29,15 +29,15 @@ public class TestCognitoService {
     @InjectMocks
     private CognitoService cognitoService;
 
-    private static final String USER_KEY = "TestUser";
-    private static final String NONEXISTING_KEY = "NotAUser";
+    private static final String UserUsername = "my User username";
+    private static final String NonExistant_UserUsername = "not my User username";
 
     @BeforeEach
     public void setMockOutput() {
         lenient().when(userRepository.findUserByUsername(anyString())).thenAnswer((InvocationOnMock invocation) -> {
-            if (invocation.getArgument(0).equals(USER_KEY)) {
+            if (invocation.getArgument(0).equals(UserUsername)) {
                 User user = new User();
-                user.setUsername(USER_KEY);
+                user.setUsername(UserUsername);
                 return user;
             } else {
                 return null;
@@ -55,7 +55,7 @@ public class TestCognitoService {
     public void testChangePassword() {
         Boolean changedPassword = false;
         try {
-            changedPassword = cognitoService.changePassword(USER_KEY, "newPassword");
+            changedPassword = cognitoService.changePassword(UserUsername, "newPassword");
         } catch (Exception e) {
             fail();
         }
@@ -69,7 +69,7 @@ public class TestCognitoService {
     public void testChangePasswordOnNonExistantUser() {
         Boolean changedPassword = false;
         try {
-            changedPassword = cognitoService.changePassword(NONEXISTING_KEY, "newPassword");
+            changedPassword = cognitoService.changePassword(NonExistant_UserUsername, "newPassword");
         } catch (Exception e) {
             fail();
         }
