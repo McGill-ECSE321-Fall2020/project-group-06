@@ -33,3 +33,9 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
+
+task integrationTest(type: Exec){
+	ignoreExitValue true
+
+	commandLine 'sh', "./integration_tests/integrationTest.sh"
+}
