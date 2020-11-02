@@ -3,6 +3,8 @@ package ca.mcgill.ecse321.artgallery.model;
 import java.sql.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
@@ -80,6 +82,7 @@ public class Transaction {
 	}
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
 		return this.id;
 	}
@@ -102,6 +105,40 @@ public class Transaction {
 
 	public DeliveryType getDeliveryType() {
 		return this.deliveryType;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (!obj.getClass().getSimpleName().equalsIgnoreCase("Transaction")) {
+			return false;
+		}
+		Transaction transaction = (Transaction) obj;
+		if (transaction.getArtGallery().getId() != this.getArtGallery().getId()) {
+			return false;
+		}
+		if(transaction.getArtist().getId()!= this.getArtist().getId()) {
+			return false;
+		}
+		if(transaction.getArtwork().getId()!= this.getArtwork().getId()) {
+			return false;
+		}
+		if(transaction.getCommisionCut()!=this.getCommisionCut()) {
+			return false;
+		}
+		if(transaction.getCustomer().getId()!=this.getCustomer().getId()) {
+			return false;
+		}
+		if(!transaction.getDateOfTransaction().equals(this.getDateOfTransaction())) {
+			return false;
+		}
+		if(!transaction.getDeliveryType().toString().equalsIgnoreCase
+				(this.getDeliveryType().toString())) {
+			return false;
+		}
+		if(transaction.getId()!=this.getId()) {
+			return false;
+		}
+		return true;
 	}
 
 }

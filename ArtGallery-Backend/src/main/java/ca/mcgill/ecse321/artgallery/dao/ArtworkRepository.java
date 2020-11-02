@@ -13,4 +13,6 @@ public interface ArtworkRepository extends CrudRepository<Artwork, Integer> {
 
     Artwork findArtworkById(Integer artWorkId);
 
+    Artwork findArtworkByName(String name);
+
 }

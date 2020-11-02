@@ -2,15 +2,12 @@ package ca.mcgill.ecse321.artgallery.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 
-import java.util.Set;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 @Entity
 // @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
@@ -70,6 +67,8 @@ public class User {
       return this.email;
    }
 
+   @Id
+   @GeneratedValue(strategy = GenerationType.AUTO)
    private int userId;
 
    public void setId(int value) {
@@ -77,6 +76,7 @@ public class User {
    }
 
    @Id
+   @GeneratedValue(strategy = GenerationType.AUTO)
    public int getId() {
       return this.userId;
    }

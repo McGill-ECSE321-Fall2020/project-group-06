@@ -1,0 +1,889 @@
+{
+	"info": {
+		"_postman_id": "0227f02d-026c-4d46-99f7-fa35037368b2",
+		"name": "TransactionIntegrationTestCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CreateUserForCustomer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a21e56a1-2f22-4917-a8a8-7d1843ad6c5b",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\" : \"John\",\r\n    \"password\" : \"Johnny\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/user/createUser",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"user",
+						"createUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UserLoginForCustomer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0b2dbac0-f994-41be-93da-2a7d82713959",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
+							"});\r",
+							"var jsonData = responseBody.toString();\r",
+							"pm.environment.set(\"BearerToken\", jsonData);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\" : \"John\",\r\n    \"password\" : \"Johnny\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/cognito/authenticate",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"cognito",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GoToHomeForCustomer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4359e803-d81f-475c-a183-c10eb003092d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateCustomer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "49d7ee1d-c31d-4e92-b979-f7b6ff997ec5",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\" : \"Bob\",\r\n    \"password\" : \"Bobby\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/customer/createCustomer",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"customer",
+						"createCustomer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetCustomerByUsername",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "770037cb-b0dd-4c21-92c2-377aadfcd789",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
+							"});\r",
+							"var CustomerID = pm.response.json().id;\r",
+							"pm.environment.set(\"CustomerID\", CustomerID);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/customer/getCustomer/Bob",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"customer",
+						"getCustomer",
+						"Bob"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateArtist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d9d42c16-5b79-483f-937a-76ad9257099e",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 100000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(100000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\" : \"Yvan\",\r\n    \"password\" : \"Marchildon\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/artist/createArtist",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"artist",
+						"createArtist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetArtistByUsername",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9f44eacb-6800-4f31-870c-e1f3af69ed66",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 100000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(100000);\r",
+							"});\r",
+							"var ArtistID = pm.response.json().id;\r",
+							"pm.environment.set(\"ArtistID\", ArtistID);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/artist/getArtist/Yvan",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"artist",
+						"getArtist",
+						"Yvan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateArtGallery",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4768ed40-2617-4510-875c-e8132246b5fc",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 100000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(100000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"Alexandre\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/artgallery/createArtGallery",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"artgallery",
+						"createArtGallery"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetArtGalleryByUsername",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f6deecd9-c545-45bb-b22e-71590e05b1f3",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 100000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(100000);\r",
+							"});\r",
+							"var ArtGalleryID = pm.response.json().id;\r",
+							"pm.environment.set(\"ArtGalleryID\", ArtGalleryID);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/artgallery/getArtGallery/Alexandre",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"artgallery",
+						"getArtGallery",
+						"Alexandre"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateArtwork",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "38902d3b-cafb-492e-b3b5-64814344e3f2",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 100000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(100000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"TheCollege\",\r\n    \"artist\" : {\r\n        \"username\": \"Yvan\"},\r\n    \"artGallery\" : {\r\n        \"name\" : \"Alexandre\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/artwork/createArtwork",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"artwork",
+						"createArtwork"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getArtworkByName",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0f0ebfa5-e98f-4023-b6e5-8925b7271bc6",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 100000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(100000);\r",
+							"});\r",
+							"var ArtworkID = pm.response.json().id;\r",
+							"pm.environment.set(\"ArtworkID\", ArtworkID);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/artwork/getArtwork/TheCollege",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"artwork",
+						"getArtwork",
+						"TheCollege"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateTransaction",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "52ad3550-fed5-49cc-bbea-92258be56e81",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 100000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(100000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/transaction/createTransaction/{{CustomerID}}/{{ArtistID}}/{{ArtworkID}}/{{ArtGalleryID}}",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"transaction",
+						"createTransaction",
+						"{{CustomerID}}",
+						"{{ArtistID}}",
+						"{{ArtworkID}}",
+						"{{ArtGalleryID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetTransactionIDThroughCustomer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c187bed2-b382-4983-99dd-44a9917f6fc5",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 100000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(100000);\r",
+							"});\r",
+							"var TransactionID = pm.response.json().transaction[0].id;\r",
+							"pm.environment.set(\"TransactionID\", TransactionID);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/customer/getCustomer/Bob",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"customer",
+						"getCustomer",
+						"Bob"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetTransactionByID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9ce85873-59c8-449a-a366-705577318648",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 100000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(100000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/transaction/getTransaction/{{TransactionID}}",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"transaction",
+						"getTransaction",
+						"{{TransactionID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateTransaction",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1eb57826-73bc-40a4-9e34-8e13ebef3b74",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 100000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(100000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : {{TransactionID}},\r\n    \"customerId\" : {{CustomerID}},\r\n    \"artistId\" : {{ArtistID}},\r\n    \"artworkId\" : {{ArtworkID}},\r\n    \"artGalleryId\" : {{ArtGalleryID}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/transaction/updateTransaction",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"transaction",
+						"updateTransaction"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RemoveTransaction",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "848054d8-1d0f-4907-ae3d-cb1ccc80cc9d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 100000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(100000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/transaction/removeTransaction/{{TransactionID}}",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"transaction",
+						"removeTransaction",
+						"{{TransactionID}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
