@@ -15,6 +15,12 @@ import ca.mcgill.ecse321.artgallery.model.Artwork;
  * <p>
  * Artwork services: methods used to crud artworks
  * </p>
+ * 
+ * @author Noah Chamberland
+ * @author Justin Legrand
+ * @author Olivier Normandin
+ * @author Andre-Walter Panzini
+ * @author Sen Wang
  */
 @Service
 public class ArtworkService {
@@ -57,7 +63,7 @@ public class ArtworkService {
      * update artwork
      * 
      * @param artwork
-     * @return boolean
+     * @return true if the artwork was successfully updated, false if not
      */
     @Transactional
     public boolean updateArtwork(Artwork artwork) {
@@ -107,7 +113,7 @@ public class ArtworkService {
      * Delete artwork by id
      * 
      * @param artwork ID
-     * @return boolean
+     * @return true if the artwork was successfully removed, false if not
      */
     @Transactional
     public Boolean deleteArtworkById(int artworkId) {
