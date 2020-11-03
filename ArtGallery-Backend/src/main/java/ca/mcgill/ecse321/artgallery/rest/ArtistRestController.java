@@ -17,13 +17,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ca.mcgill.ecse321.artgallery.model.Artwork;
 import ca.mcgill.ecse321.artgallery.model.Transaction;
 import ca.mcgill.ecse321.artgallery.services.ArtistService;
 import ca.mcgill.ecse321.artgallery.dto.ArtistDto;
 import ca.mcgill.ecse321.artgallery.model.Artist;
+
+/**
+ * Art Gallery REST controller class
+ * @author Sen Wang
+ * @author Noah Chamberland
+ * @author Justin Legrand
+ * @author Olivier Normandin
+ * @author Andre-Walter Panzini
+ */
 
 @RestController
 @RequestMapping("/api/artist")
@@ -35,67 +43,10 @@ public class ArtistRestController {
   ArtistService artistService;
 
   /**
-   * TESTED WITH POSTMAN
-   *
-   * @param artist
-   * @return
-   */
-  @PostMapping("/createArtist")
-  public ResponseEntity<Void> createArtist(@Valid @RequestBody Artist artist) {
-
-    logger.info("creating artist profile");
-
-    if (artist.getUsername() == null) {
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-    }
-    if (artist.getPassword() == null) {
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-    }
-
-    try {
-      if (artistService.saveArtist(artist) == false) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-      } else {
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-      }
-    } catch (Exception e) {
-      logger.error("Exception when creating a new artist" + e);
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-    }
-  }
-
-  /**
-   * Http endpoint to get artist by username
-   *
-   * @param username
-   * @return Arist object
-   */
-  @GetMapping("/getArtist/{username}")
-  public ResponseEntity<Artist> getArtistByUsername(@PathVariable("username") String username) {
-
-    logger.info("get artist by username");
-
-    if (username == null) {
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-    }
-
-    try {
-      if (artistService.getArtistByUsername(username) == null) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-      } else {
-        return ResponseEntity.ok(artistService.getArtistByUsername(username));
-      }
-    } catch (Exception e) {
-      logger.error("Exception when getting artist by username" + e);
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-    }
-  }
-
-  /**
    * REQ2.1: The art gallery system shall allow an artist to upload an artwork.
    * Tested with postman
    * 
-   * @author Andre-Walter Panzini
+   * @param Artwork artwork
    */
   @PostMapping("/uploadArtwork")
   public ResponseEntity<Void> uploadArtwork(@RequestBody Artwork artwork) {
@@ -121,11 +72,9 @@ public class ArtistRestController {
 
   /**
    * REQ2.2: The art gallery system shall allow an artist to remove an artwork.
-   *
-   * @author Andre-Walter Panzini
    * 
-   * @param artworkID
-   * @return ResponseEntity artwork
+   * @param int artworkID
+   * @return Artwork artwork
    */
   @PostMapping("/removeArtwork/{artworkId}")
   public ResponseEntity<Artwork> removeArtwork(@PathVariable ("artworkId") int artworkID) {
@@ -149,13 +98,9 @@ public class ArtistRestController {
    * REQ2.3 The art gallery system shall allow an artist to keep track of its
    * transaction history.
    *
-   * TESTED WITH POSTMAN
-   *
    * @param String username
    * @return List<Transaction> The transaction history
-   * @author Olivier Normandin
    */
-
   @GetMapping("/trackTransactionHistory/{username}")
   public ResponseEntity<ArrayList<Transaction>> trackTransactionHistory(@PathVariable("username") String username) {
 
@@ -182,10 +127,66 @@ public class ArtistRestController {
   }
 
   /**
-   * Http endpoint to update an artist info / Tested with postman
+   * It shall be possible to create an artist profile.
    *
-   * @param artistDto
-   * @return
+   * @param Artist artist The artist
+   */
+  @PostMapping("/createArtist")
+  public ResponseEntity<Void> createArtist(@Valid @RequestBody Artist artist) {
+
+    logger.info("creating artist profile");
+
+    if (artist.getUsername() == null) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+    if (artist.getPassword() == null) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
+    try {
+      if (artistService.saveArtist(artist) == false) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+      } else {
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+      }
+    } catch (Exception e) {
+      logger.error("Exception when creating a new artist" + e);
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+  }
+
+  /**
+   * It shall be possible to get an artist by its username.
+   *
+   * @param String username The artist's username
+   * @return Artist The artist
+   */
+  @GetMapping("/getArtist/{username}")
+  public ResponseEntity<Artist> getArtistByUsername(@PathVariable("username") String username) {
+
+    logger.info("get artist by username");
+
+    if (username == null) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
+    try {
+      if (artistService.getArtistByUsername(username) == null) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+      } else {
+        return ResponseEntity.ok(artistService.getArtistByUsername(username));
+      }
+    } catch (Exception e) {
+      logger.error("Exception when getting artist by username" + e);
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+  }
+  
+  
+  /**
+   * It shall be possible to update the artist profile.
+   *
+   * @param ArtistDto artistDto The Data Transfer Object relating to the artist
    */
   @PutMapping("/updateArtist")
   public ResponseEntity<Void> updateArtist(@Valid @RequestBody ArtistDto artistDto) {
@@ -206,6 +207,13 @@ public class ArtistRestController {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
   }
+  
+  /**
+   * It shall be possible to retrive the artwork uploaded by an artist.
+   * 
+   * @param String username The artist's username
+   * @return ArrayList<Artwork> A list of artworks
+   */
   @GetMapping("/getArtworkUploadedByArtist/{username}")
   public ResponseEntity<ArrayList<Artwork>> getArtworkUploadedByArtist(@PathVariable("username") String username) {
 

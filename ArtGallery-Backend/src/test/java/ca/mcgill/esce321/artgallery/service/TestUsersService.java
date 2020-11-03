@@ -31,17 +31,18 @@ public class TestUsersService {
     @InjectMocks
     private UsersService usersService;
 
-    private static final String USER_KEY = "TestUser";
-    private static final String NONEXISTING_KEY = "NotAUser";
-    private static final int testUserId = 3;
+    private static final int UserId = 3;
     private static final int NonExistingUserId = 5;
+    
+    private static final String UserUsername = "my User username";
+    private static final String NonExistant_UserUsername = "not my User username";
 
     @BeforeEach
     public void setMockOutput() {
         lenient().when(userRepository.findUserByUsername(anyString())).thenAnswer((InvocationOnMock invocation) -> {
-            if (invocation.getArgument(0).equals(USER_KEY)) {
+            if (invocation.getArgument(0).equals(UserUsername)) {
                 User user = new User();
-                user.setUsername(USER_KEY);
+                user.setUsername(UserUsername);
                 return user;
             } else {
                 return null;
@@ -55,9 +56,9 @@ public class TestUsersService {
 
         // user invocation on mock
         lenient().when(userRepository.findUserById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
-            if (invocation.getArgument(0).equals(testUserId)) {
+            if (invocation.getArgument(0).equals(UserId)) {
                 User user = new User();
-                user.setId(testUserId);
+                user.setId(UserId);
                 return user;
             } else {
                 return null;
@@ -68,7 +69,7 @@ public class TestUsersService {
     // test public Boolean saveUser(User user)
     @Test
     public void saveUser() {
-        String username = NONEXISTING_KEY;
+        String username = NonExistant_UserUsername;
         User user = new User();
         user.setUsername(username);
         Boolean created = false;
@@ -84,7 +85,7 @@ public class TestUsersService {
     // test public Boolean saveUser(User user)
     @Test
     public void saveUserWhenExistingUser() {
-        String username = USER_KEY;
+        String username = UserUsername;
         User user = new User();
         user.setUsername(username);
         Boolean created = false;
@@ -102,7 +103,7 @@ public class TestUsersService {
     public void testUpdateUser() {
         // create a user with name TestUser;
         User user = new User();
-        user.setUsername(USER_KEY);
+        user.setUsername(UserUsername);
         // save it to mock database
         usersService.saveUser(user);
         Boolean updated = false;
@@ -120,7 +121,7 @@ public class TestUsersService {
     public void testUpdateUserWhenNonExistingUser() {
         // create a user with name TestUser;
         User user = new User();
-        user.setUsername(NONEXISTING_KEY);
+        user.setUsername(NonExistant_UserUsername);
         // save it to mock database
         usersService.saveUser(user);
         Boolean updated = false;
@@ -137,13 +138,13 @@ public class TestUsersService {
     public void testGetUserById() {
         User existingUser = new User();
         try {
-            existingUser = usersService.getUserById(testUserId);
+            existingUser = usersService.getUserById(UserId);
         } catch (Exception e) {
             fail();
         }
 
         assertNotNull(existingUser);
-        assertEquals(testUserId, existingUser.getId());
+        assertEquals(UserId, existingUser.getId());
     }
     
     @Test
@@ -162,7 +163,7 @@ public class TestUsersService {
     public void testDeleteUserById() {
         Boolean userDeleted = false;
         try {
-            userDeleted = usersService.deleteUserById(testUserId);
+            userDeleted = usersService.deleteUserById(UserId);
         } catch (Exception e) {
             fail();
         }

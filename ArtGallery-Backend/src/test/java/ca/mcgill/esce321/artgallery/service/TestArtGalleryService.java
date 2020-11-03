@@ -42,28 +42,25 @@ public class TestArtGalleryService {
 	@InjectMocks
 	private ArtGalleryService artGalleryService;
 
-	private static final int ART_GALLERY_KEY = 69696969;
+	private static final int ArtGalleryID = 1234;
 
-	private static final String testArtGalleryName = "art gallery";
+	private static final String ArtGalleryName = "my Art_Gallery";
+	private static final String NonExistant_ArtGalleryName = "not my Art_Gallery";
 
-	private static final String testNonExistantArtGalleryName = "Not a gallery";
+	private static final int ArtworkID = 1;
+	private static final int NonExistant_ArtworkId = 3;
 
-	private static final int testArtworkId = 1;
-
-	private static final int testNonExistantArtworkId = 3;
-
-	private static final int testTransactionId = 2;
-
-	private static final int testNonExistantTransactionId = 4;
+	private static final int TransactionId = 2;
+	private static final int NonExistant_TransactionId = 4;
 
 	@BeforeEach
 	public void setMockOutput() {
 
 		// art gallery find by id invocation mock
 		lenient().when(artGalleryRepository.findArtGalleryById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
-			if (invocation.getArgument(0).equals(ART_GALLERY_KEY)) {
+			if (invocation.getArgument(0).equals(ArtGalleryID)) {
 				ArtGallery artGallery = new ArtGallery();
-				artGallery.setId(ART_GALLERY_KEY);
+				artGallery.setId(ArtGalleryID);
 				return artGallery;
 			} else {
 				return null;
@@ -73,10 +70,10 @@ public class TestArtGalleryService {
 		// art gallery find by name invocation mock
 		lenient().when(artGalleryRepository.findArtGalleryByName(anyString()))
 				.thenAnswer((InvocationOnMock invocation) -> {
-					if (invocation.getArgument(0).equals(testArtGalleryName)) {
+					if (invocation.getArgument(0).equals(ArtGalleryName)) {
 						ArtGallery artGallery = new ArtGallery();
-						artGallery.setId(ART_GALLERY_KEY);
-						artGallery.setName(testArtGalleryName);
+						artGallery.setId(ArtGalleryID);
+						artGallery.setName(ArtGalleryName);
 						return artGallery;
 					} else {
 						return null;
@@ -87,7 +84,7 @@ public class TestArtGalleryService {
 		lenient().when(artworkRepository.findAll()).thenAnswer((InvocationOnMock invocation) -> {
 			ArrayList<Artwork> artworkList = new ArrayList<Artwork>();
 			Artwork artwork = new Artwork();
-			artwork.setId(testArtworkId);
+			artwork.setId(ArtworkID);
 			artworkList.add(artwork);
 			return artworkList;
 		});
@@ -95,12 +92,12 @@ public class TestArtGalleryService {
 		// transaction find by id invocation mock
 		lenient().when(transactionRepository.findTransactionById(anyInt()))
 				.thenAnswer((InvocationOnMock invocation) -> {
-					if (invocation.getArgument(0).equals(testTransactionId)) {
+					if (invocation.getArgument(0).equals(TransactionId)) {
 						Transaction transaction = new Transaction();
-						transaction.setId(testTransactionId);
+						transaction.setId(TransactionId);
 						transaction.setCommisionCut(0.15);
 						Artwork artwork = new Artwork();
-						artwork.setId(testArtworkId);
+						artwork.setId(ArtworkID);
 						artwork.setPrice(500);
 						transaction.setArtwork(artwork);
 						return transaction;
@@ -113,16 +110,16 @@ public class TestArtGalleryService {
 		lenient().when(transactionRepository.findAll()).thenAnswer((InvocationOnMock invocation) -> {
 			ArrayList<Transaction> transactionList = new ArrayList<Transaction>();
 			Transaction transaction = new Transaction();
-			transaction.setId(testTransactionId);
+			transaction.setId(TransactionId);
 			transactionList.add(transaction);
 			return transactionList;
 		});
 
 		// artwork find by id invocation mock
 		lenient().when(artworkRepository.findArtworkById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
-			if (invocation.getArgument(0).equals(testArtworkId)) {
+			if (invocation.getArgument(0).equals(ArtworkID)) {
 				Artwork artwork = new Artwork();
-				artwork.setId(testArtworkId);
+				artwork.setId(ArtworkID);
 				return artwork;
 			} else {
 				return null;
@@ -147,7 +144,7 @@ public class TestArtGalleryService {
 	public void testRemoveExistantArtworkById() {
 		Boolean removedArtwork = false;
 		try {
-			removedArtwork = artGalleryService.removeArtworkById(testArtworkId);
+			removedArtwork = artGalleryService.removeArtworkById(ArtworkID);
 		} catch (Exception e) {
 			fail();
 		}
@@ -161,7 +158,7 @@ public class TestArtGalleryService {
 	public void testRemoveNonExistantArtworkById() {
 		Boolean removedArtwork = false;
 		try {
-			removedArtwork = artGalleryService.removeArtworkById(testNonExistantArtworkId);
+			removedArtwork = artGalleryService.removeArtworkById(NonExistant_ArtworkId);
 		} catch (Exception e) {
 			fail();
 		}
@@ -175,7 +172,7 @@ public class TestArtGalleryService {
 	public void testTakeCommissionOnExistantTransaction() {
 		double commission = 0;
 		try {
-			commission = artGalleryService.takeCommission(testTransactionId);
+			commission = artGalleryService.takeCommission(TransactionId);
 		} catch (Exception e) {
 			fail();
 		}
@@ -189,7 +186,7 @@ public class TestArtGalleryService {
 	public void testTakeCommissionOnNonExistantTransaction() {
 		double commission = 0;
 		try {
-			commission = artGalleryService.takeCommission(testNonExistantTransactionId);
+			commission = artGalleryService.takeCommission(NonExistant_TransactionId);
 		} catch (Exception e) {
 			fail();
 		}
@@ -203,8 +200,8 @@ public class TestArtGalleryService {
 	public void testSaveExistantArtGallery() {
 		Boolean artGallerySaved = false;
 		ArtGallery artGallery = new ArtGallery();
-		artGallery.setId(ART_GALLERY_KEY);
-		artGallery.setName(testArtGalleryName);
+		artGallery.setId(ArtGalleryID);
+		artGallery.setName(ArtGalleryName);
 		try {
 			artGallerySaved = artGalleryService.saveArtGallery(artGallery);
 		} catch (Exception e) {
@@ -221,7 +218,7 @@ public class TestArtGalleryService {
 		Boolean artGallerySaved = false;
 		ArtGallery artGallery = new ArtGallery();
 		artGallery.setId(1);
-		artGallery.setName(testNonExistantArtGalleryName);
+		artGallery.setName(NonExistant_ArtGalleryName);
 		try {
 			artGallerySaved = artGalleryService.saveArtGallery(artGallery);
 		} catch (Exception e) {
@@ -236,8 +233,8 @@ public class TestArtGalleryService {
 	public void testUpdateArtGallery() {
 		Boolean artGalleryUpdated = false;
 		ArtGallery updatedArtGallery = new ArtGallery();
-		updatedArtGallery.setId(ART_GALLERY_KEY);
-		updatedArtGallery.setName(testArtGalleryName);
+		updatedArtGallery.setId(ArtGalleryID);
+		updatedArtGallery.setName(ArtGalleryName);
 
 		try {
 			artGalleryUpdated = artGalleryService.updateArtGallery(updatedArtGallery);
@@ -254,7 +251,7 @@ public class TestArtGalleryService {
 		Boolean artGalleryUpdated = false;
 		ArtGallery updatedArtGallery = new ArtGallery();
 		updatedArtGallery.setId(1);
-		updatedArtGallery.setName(testNonExistantArtGalleryName);
+		updatedArtGallery.setName(NonExistant_ArtGalleryName);
 
 		try {
 			artGalleryUpdated = artGalleryService.updateArtGallery(updatedArtGallery);
@@ -270,14 +267,14 @@ public class TestArtGalleryService {
 	public void testGetArtGalleryByName() {
 		ArtGallery existingArtGallery = new ArtGallery();
 		try {
-			existingArtGallery = artGalleryService.getArtGalleryByName(testArtGalleryName);
+			existingArtGallery = artGalleryService.getArtGalleryByName(ArtGalleryName);
 		} catch (Exception e) {
 			fail();
 		}
 
 		assertNotNull(existingArtGallery);
-		assertEquals(testArtGalleryName, existingArtGallery.getName());
-		assertEquals(ART_GALLERY_KEY, existingArtGallery.getId());
+		assertEquals(ArtGalleryName, existingArtGallery.getName());
+		assertEquals(ArtGalleryID, existingArtGallery.getId());
 	}
 
 	// public ArtGallery getArtGalleryByName(String name) : non existing art gallery
@@ -285,7 +282,7 @@ public class TestArtGalleryService {
 	public void testGetNonExistantArtGalleryByName() {
 		ArtGallery nonExistingArtGallery = new ArtGallery();
 		try {
-			nonExistingArtGallery = artGalleryService.getArtGalleryByName(testNonExistantArtGalleryName);
+			nonExistingArtGallery = artGalleryService.getArtGalleryByName(NonExistant_ArtGalleryName);
 		} catch (Exception e) {
 			fail();
 		}
@@ -312,7 +309,7 @@ public class TestArtGalleryService {
 	public void testDeleteArtGalleryById() {
 		Boolean deletedArtGallery = false;
 		try {
-			deletedArtGallery = artGalleryService.deleteArtGalleyById(ART_GALLERY_KEY);
+			deletedArtGallery = artGalleryService.deleteArtGalleyById(ArtGalleryID);
 		} catch (Exception e) {
 			fail();
 		}

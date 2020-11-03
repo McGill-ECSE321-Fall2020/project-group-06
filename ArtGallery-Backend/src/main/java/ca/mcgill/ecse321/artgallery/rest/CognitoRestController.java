@@ -17,6 +17,15 @@ import ca.mcgill.ecse321.artgallery.model.AuthRequest;
 import ca.mcgill.ecse321.artgallery.services.CognitoService;
 import ca.mcgill.ecse321.artgallery.util.JwtUtil;
 
+/**
+ * Art Gallery REST controller class
+ * @author Sen Wang
+ * @author Noah Chamberland
+ * @author Justin Legrand
+ * @author Olivier Normandin
+ * @author Andre-Walter Panzini
+ */
+
 @RestController
 @RequestMapping("/api/cognito")
 public class CognitoRestController {
@@ -33,13 +42,12 @@ public class CognitoRestController {
     private CognitoService cognitoService;
 
     /**
-     * Login http requeast endpoint
+     * It shall be possible to authenticate as user.
+     * Login http request endpoint. This allows to authenticate a user while login.
      * 
      * @param AuthRequest
      * @return JWT Token
-     * @author Sen Wang
      */
-
     @PostMapping("/authenticate")
     public String generateToken(@RequestBody AuthRequest authRequest) throws Exception {
 
@@ -54,11 +62,9 @@ public class CognitoRestController {
     }
 
     /**
-     * Change password http requeast endpoint
+     * It shall be possible to change the user password.
      * 
-     * @param AuthRequest
-     * @return
-     * @author Sen Wang
+     * @param AuthRequest The userName and NEW password
      */
 
     @PutMapping("/changePassword")

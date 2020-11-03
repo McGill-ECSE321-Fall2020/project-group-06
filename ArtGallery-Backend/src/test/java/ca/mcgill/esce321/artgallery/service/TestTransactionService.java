@@ -47,21 +47,25 @@ public class TestTransactionService {
 	@InjectMocks
 	private TransactionService transactionService;
 
-	private static final int TRANSACTION_KEY = 9999;
-	private static final int testArtGalleryId = 1;
-	private static final int testArtistId = 2;
-	private static final int testArtworkId = 3;
-	private static final int testCustomerId = 4;
-	private static final int BAD_KEY=10;
-	private static final String NONEXISTING_KEY = "NotATransaction";
-
+	private static final int TransactionID = 9999;
+	
+	private static final int ArtGalleryId = 1;
+	
+	private static final int ArtistId = 2;
+	
+	private static final int ArtworkId = 3;
+	
+	private static final int CustomerId = 4;
+	
+	private static final int NonExistant_MultiPurpose = 10;
+//Hello world
 	@BeforeEach
 	public void setMockOutput() {
 		// transaction invocation on mock
 		lenient().when(transactionRepository.findTransactionById(any())).thenAnswer((InvocationOnMock invocation) -> {
-			if (invocation.getArgument(0).equals(TRANSACTION_KEY)) {
+			if (invocation.getArgument(0).equals(TransactionID)) {
 				Transaction transaction = new Transaction();
-				transaction.setId(TRANSACTION_KEY);
+				transaction.setId(TransactionID);
 				return transaction;
 			} else {
 				return null;
@@ -75,9 +79,9 @@ public class TestTransactionService {
 
 		// art gallery invocation on mock
 		lenient().when(artGalleryRepository.findArtGalleryById(any())).thenAnswer((InvocationOnMock invocation) -> {
-			if (invocation.getArgument(0).equals(testArtGalleryId)) {
+			if (invocation.getArgument(0).equals(ArtGalleryId)) {
 				ArtGallery artGallery = new ArtGallery();
-				artGallery.setId(testArtGalleryId);
+				artGallery.setId(ArtGalleryId);
 				return artGallery;
 			} else {
 				return null;
@@ -86,9 +90,9 @@ public class TestTransactionService {
 
 		// artist invocation on mock
 		lenient().when(artistRepository.findArtistById(any())).thenAnswer((InvocationOnMock invocation) -> {
-			if (invocation.getArgument(0).equals(testArtistId)) {
+			if (invocation.getArgument(0).equals(ArtistId)) {
 				Artist artist = new Artist();
-				artist.setId(testArtistId);
+				artist.setId(ArtistId);
 				return artist;
 			} else {
 				return null;
@@ -97,9 +101,9 @@ public class TestTransactionService {
 
 		// artwork invocation on mock
 		lenient().when(artworkRepository.findArtworkById(any())).thenAnswer((InvocationOnMock invocation) -> {
-			if (invocation.getArgument(0).equals(testArtworkId)) {
+			if (invocation.getArgument(0).equals(ArtworkId)) {
 				Artwork artwork = new Artwork();
-				artwork.setId(testArtworkId);
+				artwork.setId(ArtworkId);
 				return artwork;
 			} else {
 				return null;
@@ -108,9 +112,9 @@ public class TestTransactionService {
 
 		// customer invocation on mock
 		lenient().when(customerRepository.findCustomerById(any())).thenAnswer((InvocationOnMock invocation) -> {
-			if (invocation.getArgument(0).equals(testCustomerId)) {
+			if (invocation.getArgument(0).equals(CustomerId)) {
 				Customer customer = new Customer();
-				customer.setId(testCustomerId);
+				customer.setId(CustomerId);
 				return customer;
 			} else {
 				return null;
@@ -126,8 +130,8 @@ public class TestTransactionService {
 		Boolean transactionSaved = false;
 
 		try {
-			transactionSaved = transactionService.saveTransaction(testCustomerId, testArtistId, testArtworkId,
-					testArtGalleryId);
+			transactionSaved = transactionService.saveTransaction(CustomerId, ArtistId, ArtworkId,
+					ArtGalleryId);
 		} catch (Exception e) {
 			fail();
 		}
@@ -141,8 +145,8 @@ public class TestTransactionService {
 		Boolean transactionSaved = false;
 
 		try {
-			transactionSaved = transactionService.saveTransaction(testCustomerId, testArtistId, testArtworkId,
-					BAD_KEY);
+			transactionSaved = transactionService.saveTransaction(CustomerId, ArtistId, ArtworkId,
+					NonExistant_MultiPurpose);
 		} catch (Exception e) {
 			fail();
 		}
@@ -155,8 +159,8 @@ public class TestTransactionService {
 		Boolean transactionSaved = false;
 
 		try {
-			transactionSaved = transactionService.saveTransaction(BAD_KEY, testArtistId, testArtworkId,
-					testArtGalleryId);
+			transactionSaved = transactionService.saveTransaction(NonExistant_MultiPurpose, ArtistId, ArtworkId,
+					ArtGalleryId);
 		} catch (Exception e) {
 			fail();
 		}
@@ -170,8 +174,8 @@ public class TestTransactionService {
 		Boolean transactionSaved = false;
 
 		try {
-			transactionSaved = transactionService.saveTransaction(testCustomerId, BAD_KEY, testArtworkId,
-					testArtGalleryId);
+			transactionSaved = transactionService.saveTransaction(CustomerId, NonExistant_MultiPurpose, ArtworkId,
+					ArtGalleryId);
 		} catch (Exception e) {
 			fail();
 		}
@@ -185,8 +189,8 @@ public class TestTransactionService {
 		Boolean transactionSaved = false;
 
 		try {
-			transactionSaved = transactionService.saveTransaction(testCustomerId, testArtistId, BAD_KEY,
-					testArtGalleryId);
+			transactionSaved = transactionService.saveTransaction(CustomerId, ArtistId, NonExistant_MultiPurpose,
+					ArtGalleryId);
 		} catch (Exception e) {
 			fail();
 		}
@@ -198,11 +202,11 @@ public class TestTransactionService {
 	public void testUpdateTransaction() {
 		
 		TransactionDto transactionDto = new TransactionDto();
-		transactionDto.setId(TRANSACTION_KEY);
-		transactionDto.setArtGalleryId(testArtGalleryId);
-		transactionDto.setArtistId(testArtistId);
-		transactionDto.setArtworkId(testArtworkId);
-		transactionDto.setCustomerId(testCustomerId);
+		transactionDto.setId(TransactionID);
+		transactionDto.setArtGalleryId(ArtGalleryId);
+		transactionDto.setArtistId(ArtistId);
+		transactionDto.setArtworkId(ArtworkId);
+		transactionDto.setCustomerId(CustomerId);
 
 		Boolean transactionUpdated = false;
 		try {
@@ -218,11 +222,11 @@ public class TestTransactionService {
 	public void testUpdateTransactionBadCustomerId() {
 		
 		TransactionDto transactionDto = new TransactionDto();
-		transactionDto.setId(TRANSACTION_KEY);
-		transactionDto.setArtGalleryId(testArtGalleryId);
-		transactionDto.setArtistId(testArtistId);
-		transactionDto.setArtworkId(testArtworkId);
-		transactionDto.setCustomerId(BAD_KEY);
+		transactionDto.setId(TransactionID);
+		transactionDto.setArtGalleryId(ArtGalleryId);
+		transactionDto.setArtistId(ArtistId);
+		transactionDto.setArtworkId(ArtworkId);
+		transactionDto.setCustomerId(NonExistant_MultiPurpose);
 
 		Boolean transactionUpdated = false;
 		try {
@@ -238,11 +242,11 @@ public class TestTransactionService {
 	public void testUpdateTransactionBadArtworkId() {
 		
 		TransactionDto transactionDto = new TransactionDto();
-		transactionDto.setId(TRANSACTION_KEY);
-		transactionDto.setArtGalleryId(testArtGalleryId);
-		transactionDto.setArtistId(testArtistId);
-		transactionDto.setArtworkId(BAD_KEY);
-		transactionDto.setCustomerId(testCustomerId);
+		transactionDto.setId(TransactionID);
+		transactionDto.setArtGalleryId(ArtGalleryId);
+		transactionDto.setArtistId(ArtistId);
+		transactionDto.setArtworkId(NonExistant_MultiPurpose);
+		transactionDto.setCustomerId(CustomerId);
 
 		Boolean transactionUpdated = false;
 		try {
@@ -258,11 +262,11 @@ public class TestTransactionService {
 	public void testUpdateTransactionBadArtistId() {
 		
 		TransactionDto transactionDto = new TransactionDto();
-		transactionDto.setId(TRANSACTION_KEY);
-		transactionDto.setArtGalleryId(testArtGalleryId);
-		transactionDto.setArtistId(BAD_KEY);
-		transactionDto.setArtworkId(testArtworkId);
-		transactionDto.setCustomerId(testCustomerId);
+		transactionDto.setId(TransactionID);
+		transactionDto.setArtGalleryId(ArtGalleryId);
+		transactionDto.setArtistId(NonExistant_MultiPurpose);
+		transactionDto.setArtworkId(ArtworkId);
+		transactionDto.setCustomerId(CustomerId);
 
 		Boolean transactionUpdated = false;
 		try {
@@ -278,11 +282,11 @@ public class TestTransactionService {
 	public void testUpdateTransactionBadArtGalleryId() {
 		
 		TransactionDto transactionDto = new TransactionDto();
-		transactionDto.setId(TRANSACTION_KEY);
-		transactionDto.setArtGalleryId(BAD_KEY);
-		transactionDto.setArtistId(testArtistId);
-		transactionDto.setArtworkId(testArtworkId);
-		transactionDto.setCustomerId(testCustomerId);
+		transactionDto.setId(TransactionID);
+		transactionDto.setArtGalleryId(NonExistant_MultiPurpose);
+		transactionDto.setArtistId(ArtistId);
+		transactionDto.setArtworkId(ArtworkId);
+		transactionDto.setCustomerId(CustomerId);
 
 		Boolean transactionUpdated = false;
 		try {
@@ -298,11 +302,11 @@ public class TestTransactionService {
 	public void testUpdateTransactionBadTransactionId() {
 		
 		TransactionDto transactionDto = new TransactionDto();
-		transactionDto.setId(BAD_KEY);
-		transactionDto.setArtGalleryId(testArtGalleryId);
-		transactionDto.setArtistId(testArtistId);
-		transactionDto.setArtworkId(testArtworkId);
-		transactionDto.setCustomerId(testCustomerId);
+		transactionDto.setId(NonExistant_MultiPurpose);
+		transactionDto.setArtGalleryId(ArtGalleryId);
+		transactionDto.setArtistId(ArtistId);
+		transactionDto.setArtworkId(ArtworkId);
+		transactionDto.setCustomerId(CustomerId);
 
 		Boolean transactionUpdated = false;
 		try {
@@ -319,7 +323,7 @@ public class TestTransactionService {
 	public void testRemoveTransaction() {
 		Boolean transactionDeleted = false;
 		try {
-			transactionDeleted = transactionService.removeTransaction(TRANSACTION_KEY);
+			transactionDeleted = transactionService.removeTransaction(TransactionID);
 		} catch (Exception e) {
 			fail();
 		}
@@ -331,7 +335,7 @@ public class TestTransactionService {
 	public void testRemoveTransactionBadKey() {
 		Boolean transactionDeleted = false;
 		try {
-			transactionDeleted = transactionService.removeTransaction(BAD_KEY);
+			transactionDeleted = transactionService.removeTransaction(NonExistant_MultiPurpose);
 		} catch (Exception e) {
 			fail();
 		}
@@ -345,26 +349,25 @@ public class TestTransactionService {
 	public void testgetTransaction() {
 		Transaction existingTransaction = new Transaction();
 		try {
-			existingTransaction = transactionService.getTransactionById(TRANSACTION_KEY);
+			existingTransaction = transactionService.getTransactionById(TransactionID);
 		} catch (Exception e) {
 			fail();
 		}
 
 		assertNotNull(existingTransaction);
-		assertEquals(TRANSACTION_KEY, existingTransaction.getId());
+		assertEquals(TransactionID, existingTransaction.getId());
 	}
 	// test public Transaction getTransactionById(int id) with a bad transaction key
 	@Test
 	public void testgetTransactionBadKey() {
 		Transaction existingTransaction = new Transaction();
 		try {
-			existingTransaction = transactionService.getTransactionById(BAD_KEY);
+			existingTransaction = transactionService.getTransactionById(NonExistant_MultiPurpose);
 		} catch (Exception e) {
 			fail();
 		}
 
 		assertNull(existingTransaction);
 	}
-	// TODO ADD MORE TESTS FOR TRANSACTION IF NEEDED
 
 }

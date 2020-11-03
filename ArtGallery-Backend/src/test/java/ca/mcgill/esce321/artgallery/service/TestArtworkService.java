@@ -33,36 +33,46 @@ public class TestArtworkService {
 
     @Mock
     private ArtworkRepository artworkRepository;
+    
     @Mock
     private ArtGalleryRepository artGalleryRepository;
+    
     @Mock
     private ArtistRepository artistRepository;
+    
     @InjectMocks
     private ArtworkService artworkService;
-    private static final String ARTWORK_KEY = "TestArtwork";
-    private static final String NONEXISTING_KEY = "NotAArtwork";
-    private static final int ARTWORK_ID=100;
-    private static final int Non_Existant_Artwork_ID = 50;
-	private static final int ART_GALLERY_KEY = 15;
-	private static final int Non_Existing_ART_GALLERY_KEY = 30;
-    private static final String testArtGalleryName="testArtGalleryName";
-    private static final String NonExistingArtGalleryName="NotArtGalleryName";
-    private static final String ARTIST_USERNAME="artistName";
-    private static final String Non_Existant_ARTIST_USERNAME="NotArtistName";
-    private static final int ARTIST_ID=20;
-    private static final int Non_Existant_ARTIST_ID=10;
-    private Artist artist=new Artist();
-    private ArtGallery artGallery= new ArtGallery();
+    
+    private static final String ArtworkName = "my Artwork name";
+    private static final String NonExistant_ArtworkName = "not my Artwork name";
+    
+    private static final int ArtworkID = 100;
+    private static final int NonExistant_ArtworkID = 50;
+    
+    private static final String ArtGalleryName = "my Art_Gallery name";
+    private static final String NonExistant_ArtGalleryName = "not my Art_Gallery name";
+    
+	private static final int ArtGalleryID = 15;
+	private static final int NonExistant_ArtGalleryID = 30;
+    
+    private static final String ArtistUsername = "my Artist username";
+    private static final String NonExistant_ArtistUsername = "not my Artist username";
+    
+    private static final int ArtistID = 20;
+    private static final int NonExistant_ArtistID = 10;
+    
+    private Artist artist = new Artist();
+    private ArtGallery artGallery = new ArtGallery();
 
 
 
     @BeforeEach
     public void setMockOutput() {
         lenient().when(artworkRepository.findArtworkByName(anyString())).thenAnswer((InvocationOnMock invocation) -> {
-            if (invocation.getArgument(0).equals(ARTWORK_KEY)) {
+            if (invocation.getArgument(0).equals(ArtworkName)) {
                 Artwork artwork = new Artwork();
-                artwork.setId(ARTWORK_ID);
-                artwork.setName(ARTWORK_KEY);
+                artwork.setId(ArtworkID);
+                artwork.setName(ArtworkName);
                 return artwork;
             } else {
                 return null;
@@ -71,10 +81,10 @@ public class TestArtworkService {
         //Art Gallery by name
 		lenient().when(artGalleryRepository.findArtGalleryByName(anyString()))
 		.thenAnswer((InvocationOnMock invocation) -> {
-			if (invocation.getArgument(0).equals(testArtGalleryName)) {
+			if (invocation.getArgument(0).equals(ArtGalleryName)) {
 				ArtGallery artGallery = new ArtGallery();
-				artGallery.setName(testArtGalleryName);
-				artGallery.setId(ART_GALLERY_KEY);
+				artGallery.setName(ArtGalleryName);
+				artGallery.setId(ArtGalleryID);
 				return artGallery;
 			} else {
 				return null;
@@ -82,11 +92,11 @@ public class TestArtworkService {
 		});
         // artist invocation on mock
 		lenient().when(artistRepository.findArtistByUsername(any())).thenAnswer((InvocationOnMock invocation) -> {
-			if (invocation.getArgument(0).equals(ARTIST_USERNAME)) {
+			if (invocation.getArgument(0).equals(ArtistUsername)) {
 				Artist artist = new Artist();
-                artist.setId(ARTIST_ID);
+                artist.setId(ArtistID);
                 artist.setArtwork(new HashSet<Artwork>());
-                artist.setUsername(ARTIST_USERNAME);
+                artist.setUsername(ArtistUsername);
 				return artist;
 			} else {
 				return null;
@@ -94,9 +104,9 @@ public class TestArtworkService {
 		});
 		//artGallery by ID
 		lenient().when(artGalleryRepository.findArtGalleryById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
-			if (invocation.getArgument(0).equals(ART_GALLERY_KEY)) {
+			if (invocation.getArgument(0).equals(ArtGalleryID)) {
 				ArtGallery artGallery = new ArtGallery();
-				artGallery.setId(ART_GALLERY_KEY);
+				artGallery.setId(ArtGalleryID);
 				return artGallery;
 			} else {
 				return null;
@@ -104,11 +114,11 @@ public class TestArtworkService {
 		});
 		//artist by ID
 		lenient().when(artistRepository.findArtistById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
-			if (invocation.getArgument(0).equals(ARTIST_ID)) {
+			if (invocation.getArgument(0).equals(ArtistID)) {
 				Artist artist = new Artist();
-				artist.setId(ARTIST_ID);
+				artist.setId(ArtistID);
 				artist.setArtwork(new HashSet<Artwork>());
-                artist.setUsername(ARTIST_USERNAME);
+                artist.setUsername(ArtistUsername);
 				return artist;
 			} else {
 				return null;
@@ -116,9 +126,9 @@ public class TestArtworkService {
 		});
 		//find Artwork By ID
 		lenient().when(artworkRepository.findArtworkById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
-			if (invocation.getArgument(0).equals(ARTWORK_ID)) {
+			if (invocation.getArgument(0).equals(ArtworkID)) {
 				Artwork artwork = new Artwork();
-				artwork.setId(ARTWORK_ID);
+				artwork.setId(ArtworkID);
 				return artwork;
 			} else {
 				return null;
@@ -135,13 +145,13 @@ public class TestArtworkService {
 	@Test
 	public void testSaveArtwork() {
 		Artwork artwork = new Artwork();
-		artwork.setId(ARTWORK_ID);
-		artwork.setName(NONEXISTING_KEY);
-		artist.setUsername(ARTIST_USERNAME);
-		artist.setId(ARTIST_ID);
+		artwork.setId(ArtworkID);
+		artwork.setName(NonExistant_ArtworkName);
+		artist.setUsername(ArtistUsername);
+		artist.setId(ArtistID);
 		artwork.setArtist(artist);
-		artGallery.setId(ART_GALLERY_KEY);
-		artGallery.setName(testArtGalleryName);
+		artGallery.setId(ArtGalleryID);
+		artGallery.setName(ArtGalleryName);
 		artwork.setArtGallery(artGallery);
 		Artwork newArtwork=new Artwork();
 		try {
@@ -157,13 +167,13 @@ public class TestArtworkService {
 	@Test
 	public void testSaveArtworkWithExistingArtworkName() {
 		Artwork artwork = new Artwork();
-		artwork.setId(ARTWORK_ID);
-		artwork.setName(ARTWORK_KEY);
-		artist.setUsername(ARTIST_USERNAME);
-		artist.setId(ARTIST_ID);
+		artwork.setId(ArtworkID);
+		artwork.setName(ArtworkName);
+		artist.setUsername(ArtistUsername);
+		artist.setId(ArtistID);
 		artwork.setArtist(artist);
-		artGallery.setId(ART_GALLERY_KEY);
-		artGallery.setName(testArtGalleryName);
+		artGallery.setId(ArtGalleryID);
+		artGallery.setName(ArtGalleryName);
 		artwork.setArtGallery(artGallery);
 		Artwork newArtwork=new Artwork();
 		try {
@@ -178,13 +188,13 @@ public class TestArtworkService {
 		@Test
 		public void testSaveArtworkWithNonExistingArtistUsername() {
 			Artwork artwork = new Artwork();
-			artwork.setId(ARTWORK_ID);
-			artwork.setName(NONEXISTING_KEY);
-			artist.setUsername(Non_Existant_ARTIST_USERNAME);
-			artist.setId(ARTIST_ID);
+			artwork.setId(ArtworkID);
+			artwork.setName(NonExistant_ArtworkName);
+			artist.setUsername(NonExistant_ArtistUsername);
+			artist.setId(ArtistID);
 			artwork.setArtist(artist);
-			artGallery.setId(ART_GALLERY_KEY);
-			artGallery.setName(testArtGalleryName);
+			artGallery.setId(ArtGalleryID);
+			artGallery.setName(ArtGalleryName);
 			artwork.setArtGallery(artGallery);
 			Artwork newArtwork=new Artwork();
 			try {
@@ -199,13 +209,13 @@ public class TestArtworkService {
 	@Test
 	public void testSaveArtworkWithNonExistingArtGalleryName() {
 		Artwork artwork = new Artwork();
-		artwork.setId(ARTWORK_ID);
-		artwork.setName(NONEXISTING_KEY);
-		artist.setUsername(ARTIST_USERNAME);
-		artist.setId(ARTIST_ID);
+		artwork.setId(ArtworkID);
+		artwork.setName(NonExistant_ArtworkName);
+		artist.setUsername(ArtistUsername);
+		artist.setId(ArtistID);
 		artwork.setArtist(artist);
-		artGallery.setId(ART_GALLERY_KEY);
-		artGallery.setName(NonExistingArtGalleryName);
+		artGallery.setId(ArtGalleryID);
+		artGallery.setName(NonExistant_ArtGalleryName);
 		artwork.setArtGallery(artGallery);
 		Artwork newArtwork=new Artwork();
 		try {
@@ -221,10 +231,10 @@ public class TestArtworkService {
 	public void testUpdateArtwork() {
 		Boolean artworkSaved=true;
 		Artwork artwork = new Artwork();
-		artwork.setId(ARTWORK_ID);
-		artwork.setName(ARTWORK_KEY);
-		artist.setId(ARTIST_ID);
-		artGallery.setId(ART_GALLERY_KEY);
+		artwork.setId(ArtworkID);
+		artwork.setName(ArtworkName);
+		artist.setId(ArtistID);
+		artGallery.setId(ArtGalleryID);
 		artwork.setArtist(artist);
 		artwork.setArtGallery(artGallery);
 		try {
@@ -240,10 +250,10 @@ public class TestArtworkService {
 	public void testUpdateArtworkWithWrongArtworkID() {
 		Boolean artworkSaved=true;
 		Artwork artwork = new Artwork();
-		artwork.setId(Non_Existant_Artwork_ID);
-		artwork.setName(ARTWORK_KEY);
-		artist.setId(ARTIST_ID);
-		artGallery.setId(ART_GALLERY_KEY);
+		artwork.setId(NonExistant_ArtworkID);
+		artwork.setName(ArtworkName);
+		artist.setId(ArtistID);
+		artGallery.setId(ArtGalleryID);
 		artwork.setArtist(artist);
 		artwork.setArtGallery(artGallery);
 		try {
@@ -259,10 +269,10 @@ public class TestArtworkService {
 	public void testUpdateArtworkWithWrongArtistID() {
 		Boolean artworkSaved=true;
 		Artwork artwork = new Artwork();
-		artwork.setId(ARTWORK_ID);
-		artwork.setName(ARTWORK_KEY);
-		artist.setId(Non_Existant_ARTIST_ID);
-		artGallery.setId(ART_GALLERY_KEY);
+		artwork.setId(ArtworkID);
+		artwork.setName(ArtworkName);
+		artist.setId(NonExistant_ArtistID);
+		artGallery.setId(ArtGalleryID);
 		artwork.setArtist(artist);
 		artwork.setArtGallery(artGallery);
 		try {
@@ -278,10 +288,10 @@ public class TestArtworkService {
 	public void testUpdateArtworkWithWrongGalleryID() {
 		Boolean artworkSaved=true;
 		Artwork artwork = new Artwork();
-		artwork.setId(ARTWORK_ID);
-		artwork.setName(ARTWORK_KEY);
-		artist.setId(ARTIST_ID);
-		artGallery.setId(Non_Existing_ART_GALLERY_KEY);
+		artwork.setId(ArtworkID);
+		artwork.setName(ArtworkName);
+		artist.setId(ArtistID);
+		artGallery.setId(NonExistant_ArtGalleryID);
 		artwork.setArtist(artist);
 		artwork.setArtGallery(artGallery);
 		try {
@@ -296,11 +306,11 @@ public class TestArtworkService {
 	@Test
 	public void testGetArtworkByName() {
 		Artwork artwork = new Artwork();
-		artwork.setId(ARTWORK_ID);
-		artwork.setName(ARTWORK_KEY);
+		artwork.setId(ArtworkID);
+		artwork.setName(ArtworkName);
 		Artwork newArtwork=new Artwork();
 		try {
-			newArtwork=artworkService.getArtworkByName(ARTWORK_KEY);
+			newArtwork=artworkService.getArtworkByName(ArtworkName);
 		} catch (Exception e) {
 			fail();
 		}
@@ -313,11 +323,11 @@ public class TestArtworkService {
 	@Test
 	public void testGetNonExistantArtworkByName() {
 		Artwork artwork = new Artwork();
-		artwork.setId(ARTWORK_ID);
-		artwork.setName(NONEXISTING_KEY);
+		artwork.setId(ArtworkID);
+		artwork.setName(NonExistant_ArtworkName);
 		Artwork newArtwork=new Artwork();
 		try {
-			newArtwork=artworkService.getArtworkByName(NONEXISTING_KEY);
+			newArtwork=artworkService.getArtworkByName(NonExistant_ArtworkName);
 		} catch (Exception e) {
 			fail();
 		}
@@ -329,7 +339,7 @@ public class TestArtworkService {
 	public void testDeleteArtworkByID() {
 		Boolean artworkDeleted=false;
 		try {
-			artworkDeleted=artworkService.deleteArtworkById(ARTWORK_ID);
+			artworkDeleted=artworkService.deleteArtworkById(ArtworkID);
 		} catch (Exception e) {
 			fail();
 		}
@@ -342,7 +352,7 @@ public class TestArtworkService {
 	public void testDeleteNonExistantArtworkByID() {
 		Boolean artworkDeleted=false;
 		try {
-			artworkDeleted=artworkService.deleteArtworkById(Non_Existant_Artwork_ID);
+			artworkDeleted=artworkService.deleteArtworkById(NonExistant_ArtworkID);
 		} catch (Exception e) {
 			fail();
 		}
