@@ -4,6 +4,10 @@ var path = require('path')
 module.exports = {
   build: {
     env: require('./prod.env'),
+    host: 'https://art-gallery-backend.herokuapp.com',
+    port: 443,
+    backendHost: 'https://art-gallery-backend.herokuapp.com',
+    backendPort: 443,
     index: path.resolve(__dirname, '../dist/index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
@@ -15,6 +19,7 @@ module.exports = {
     // npm install --save-dev compression-webpack-plugin
     productionGzip: false,
     productionGzipExtensions: ['js', 'css'],
+    port: 8087,
     // Run the build command with an extra argument to
     // View the bundle analyzer report after build finishes:
     // `npm run build --report`
@@ -23,7 +28,8 @@ module.exports = {
   },
   dev: {
     env: require('./dev.env'),
-    port: 8080,
+    host: '127.0.0.1',
+    port: 8087,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
