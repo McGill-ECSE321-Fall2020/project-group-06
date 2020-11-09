@@ -15,8 +15,8 @@ export default {
   components: {
     Navbar,
     LoginHero,
-    Footer
-  }
+    Footer,
+  },
 };
 </script>
 
