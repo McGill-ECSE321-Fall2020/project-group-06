@@ -1,13 +1,13 @@
 <template>
-  <div>Navbar Component</div>
+  <div>Hero component</div>
 </template>
 
 <script>
 export default {
-  name: "Navbar",
-};
+    name: "Hero"
+}
 </script>
 
 <style>
-</style>
 
+</style>

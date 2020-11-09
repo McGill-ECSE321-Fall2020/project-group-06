@@ -1,13 +1,13 @@
 <template>
-  <div>Navbar Component</div>
+  <div>Footer component</div>
 </template>
 
 <script>
 export default {
-  name: "Navbar",
-};
+    name : "Footer"
+}
 </script>
 
 <style>
-</style>
 
+</style>

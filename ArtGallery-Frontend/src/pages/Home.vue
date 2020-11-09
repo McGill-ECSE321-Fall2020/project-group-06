@@ -1,15 +1,25 @@
 <template>
  <!-- Default Home Page -->
 <div>
-    <div>NavBar</div>
-    <h2>Hero component</h2>
-    <h4>Footer component</h4>
+    <Navbar />
+    <Hero />
+    <Footer />
 </div>
 </template>
 
 <script>
+// components imports
+import Navbar from "../components/Navbar"
+import Hero from "../components/Hero"
+import Footer from "../components/Footer"
+
 export default {
-    name: "Home"
+    name: "Home",
+    components : {
+        Navbar,
+        Hero,
+        Footer
+    }
 }
 </script>
 
