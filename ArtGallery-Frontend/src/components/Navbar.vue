@@ -3,7 +3,7 @@
    add style="background-color: #AB9778;" for custom background color-->
   <nav
     class="navbar navbar-expand-lg navbar-light fixed-top"
-    style="background-color: #DDD8CC;"
+    style="background-color: #DDD8CC; margin-bot:70px;"
   >
     <a class="navbar-brand" href="#">Navbar</a>
     <button
