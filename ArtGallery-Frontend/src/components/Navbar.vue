@@ -36,6 +36,9 @@
         <li class="nav-item">
           <a class="nav-link" href="#">About us</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Profile</a>
+        </li>
       </ul>
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
         Sign up
@@ -50,4 +53,5 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>
