@@ -4,19 +4,12 @@
     <div class="search-artwork">
       <img src="../assets/spooky-af.jpg" alt="spooky image" />
     </div>
+    <div class="filter-area">
+      <br />
+      <br />
+    </div>
     <div id="container">
-      <div><Artwork /></div>
-      <div><Artwork /></div>
-      <div><Artwork /></div>
-      <div><Artwork /></div>
-      <div><Artwork /></div>
-      <div><Artwork /></div>
-      <div><Artwork /></div>
-      <div><Artwork /></div>
-      <div><Artwork /></div>
-      <div><Artwork /></div>
-      <div><Artwork /></div>
-      <div><Artwork /></div>
+      <div v-for="index in 12" :key="index"><Artwork /></div>
     </div>
     <Footer />
   </div>
@@ -43,10 +36,13 @@ export default {
 }
 
 #container > div {
-  background-color: lightgrey;
   margin: 20px;
   padding: 20px;
   width: 420px;
+  transition: transform 0.5s; /* Animation */
+}
+#container > div:hover {
+  transform: scale(1.2);
 }
 img {
   max-width: 100%;
