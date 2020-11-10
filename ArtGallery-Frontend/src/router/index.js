@@ -4,6 +4,8 @@ import Hello from "@/components/Hello";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import Artworks from "@/pages/Artworks"
+import Customer from "@/pages/CustomerPage";
+import Artist from "@/pages/ArtistPage"
 
 Vue.use(Router);
 
@@ -26,6 +28,16 @@ export default new Router({
       path: "/artworks",
       name: "Artworks",
       component: Artworks
+    },
+    {
+      path: "/customer",
+      name: "Customer",
+      component: Customer
+    },
+    {
+      path: "/artist",
+      name: "Artist",
+      component: Artist
     }
   ]
 });
