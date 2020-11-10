@@ -46,7 +46,7 @@
 
           <ul class="list-unstyled">
             <li>
-              <a href="#!" class="link">Link 1</a>
+              <a href="https://www.pornhub.com" class="link">Link 1</a>
             </li>
             <li>
               <a href="#!" class="link">Link 2</a>
@@ -55,7 +55,9 @@
               <a href="#!" class="link"> Link 3</a>
             </li>
             <li>
-              <a href="#!" class="link">Link 4</a>
+              <a href="https://www.youtube.com/watch?v=-lEfBU3ikN4" class="link"
+                >Link 4</a
+              >
             </li>
           </ul>
         </div>
