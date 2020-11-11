@@ -9,7 +9,9 @@
       <br />
     </div>
     <div id="container">
-      <div v-for="index in 12" :key="index"><Artwork /></div>
+      <div v-for="index in 12" :key="index">
+        <Artwork artworkName="Mona Lisa" artistName="DaVinki" />
+      </div>
     </div>
     <Footer />
   </div>
@@ -24,8 +26,8 @@ export default {
   components: {
     Navbar,
     Artwork,
-    Footer
-  }
+    Footer,
+  },
 };
 </script>
 

@@ -4,11 +4,13 @@
       <img
         src="../assets/hero-image.jpg"
         alt="Random Artwork"
-        style="width:100%;"
+        style="width: 100%"
       />
       <div class="container">
-        <h4><b>Mona Lisa</b></h4>
-        <p>Leonarda da Vinki</p>
+        <h4>
+          <b>{{ artworkName }}</b>
+        </h4>
+        <p>{{ artistName }}</p>
       </div>
     </div>
   </div>
@@ -16,7 +18,8 @@
 
 <script>
 export default {
-  name: "Artwork"
+  name: "Artwork",
+  props: ["artworkName", "artistName"],
 };
 </script>
 
