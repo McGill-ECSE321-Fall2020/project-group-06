@@ -3,6 +3,7 @@
     <Navbar />
     <div class="search-artwork">
       <img src="../assets/spooky-af.jpg" alt="spooky image" />
+      <div class="centered">BROWSE ARTWORKS</div>
     </div>
     <div class="filter-area">
       <br />
@@ -47,5 +48,13 @@ export default {
 img {
   max-width: 100%;
   height: auto;
+}
+.centered {
+  color: white;
+  position: absolute;
+  top: 25%;
+  font-size: 40px;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 </style>
