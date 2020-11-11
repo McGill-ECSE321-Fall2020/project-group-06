@@ -9,9 +9,11 @@
       <br />
       <br />
     </div>
-    <div id="container">
-      <div v-for="index in 12" :key="index"><Artwork picture="hero-image.jpg" /></div>
-    </div>
+    <a href="http://127.0.0.1:8087/#/buyArtwork">
+      <div id="container">
+        <div v-for="index in 12" :key="index"><Artwork picture="hero-image.jpg" /></div>
+      </div>
+    </a>  
     <Footer />
   </div>
 </template>
