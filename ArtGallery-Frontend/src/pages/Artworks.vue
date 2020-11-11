@@ -2,7 +2,7 @@
   <div>
     <Navbar />
     <div class="search-artwork">
-      <img src="../assets/spooky-af.jpg" alt="spooky image" />
+      <img src="../assets/artworks-image.jpg" alt="Artworks image" />
     </div>
     <div class="filter-area">
       <br />

@@ -4,6 +4,7 @@ import Hello from "@/components/Hello";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import Artworks from "@/pages/Artworks"
+import Signup from "@/pages/Signup"
 
 Vue.use(Router);
 
@@ -26,6 +27,10 @@ export default new Router({
       path: "/artworks",
       name: "Artworks",
       component: Artworks
+    }, {
+      path: "/signup",
+      name: "Signup",
+      component: Signup
     }
   ]
 });

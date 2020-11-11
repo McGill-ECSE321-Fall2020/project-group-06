@@ -41,7 +41,7 @@
         </li>
       </ul>
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-        Sign up
+        <a class="nav-link" href="http://127.0.0.1:8087/#/signup">SignUp</a>
       </button>
     </div>
   </nav>
