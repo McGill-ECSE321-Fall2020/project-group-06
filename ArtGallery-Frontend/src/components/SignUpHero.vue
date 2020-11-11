@@ -23,18 +23,17 @@
             />
             <label for="customer">Customer</label>
             <br />
-            <!-- <span>Picked: {{ SignUpform.AccountType }}</span> -->
           </div>
           <br />
           <br />
-          <div class="form-group">
+          <!-- <div class="form-group">
             <input
               type="email"
               class="form-control"
               v-model="email"
               placeholder="email"
             />
-          </div>
+          </div> -->
           <div class="form-group">
             <input
               type="text"
@@ -59,11 +58,7 @@
               placeholder="confirm password"
             />
           </div>
-          <!-- <a href="#">forgot password?</a> -->
-          <!-- v-if -->
-          <!-- <button onclick="window.location.href='http://127.0.0.1:8087/#/artistPage';">SignUp</button> -->
           <button>SignUp</button>
-          <!-- <a href="http://127.0.0.1:8087/#/artistPage"><button>SignUp</button></a> -->
         </div>
       </div>
     </form>
@@ -98,7 +93,6 @@ export default {
       });
       if (this.SignUpform.AccountType === "Artist") {
         const response = await AXIOS.post("api/artist/createArtist", {
-          // email: this.email,
           username: this.SignUpform.username,
           password: this.SignUpform.password,
         }).catch((err) => {
@@ -108,7 +102,6 @@ export default {
         window.location.href = 'http://127.0.0.1:8087/#/artist';
       } else if (this.SignUpform.AccountType === "Customer") {
         const response = await AXIOS.post("api/customer/createCustomer", {
-          // email: this.email,
           username: this.SignUpform.username,
           password: this.SignUpform.password,
         }).catch((err) => {
@@ -123,9 +116,6 @@ export default {
 </script>
 
 <style scoped>
-.test {
-  background-color: red;
-}
 * {
   box-sizing: border-box;
 }
@@ -157,7 +147,7 @@ a {
 }
 
 button {
-  left: 25%;
+  left: 22%;
   background-color: #ddd8cc;
   border: none;
   color: black;

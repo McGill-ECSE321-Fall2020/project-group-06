@@ -58,10 +58,11 @@ img {
   height: auto;
 }
 .centered {
-  color: white;
+  White-space: nowrap;
+  color: rgb(12, 12, 12);
   position: absolute;
   top: 25%;
-  font-size: 40px;
+  font-size: 70px;
   left: 50%;
   transform: translate(-50%, -50%);
 }
