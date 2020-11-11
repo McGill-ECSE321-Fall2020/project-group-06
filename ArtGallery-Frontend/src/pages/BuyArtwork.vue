@@ -6,9 +6,17 @@
       <br />
     </div>
     <div id="container">
-      <Artwork />
-      <div class="description">
-         Description:
+      <Artwork picture="hero-image.jpg" />
+      <div id="minicontainer">
+        <div class="price">
+          PRICE$
+        </div>
+        <div>
+          TYPE OF ARTWORK
+        </div>
+        <div class="description">
+          Description:
+        </div>
       </div>
       <div>
         <button type="button" class="button">BUY</button>  
@@ -23,7 +31,7 @@ import Navbar from "../components/Navbar";
 import Artwork from "../components/Artwork";
 import Footer from "../components/Footer";
 export default {
-  name: "Artworks",
+  name: "BuyArtwork",
   components: {
     Navbar,
     Artwork,
@@ -54,4 +62,21 @@ export default {
   text-align: center;
   background-color: #32CD32;
 }
+.button:hover {
+  transform: scale(1.2);
+  transition: transform 0.5s;
+}
+
+.minicontainer {
+  display: grid
+}
+
+#minicontainer > div {
+  margin-top: 10%;
+}
+.price {
+  text-align: center;
+  font-size: 30px;
+}
+
 </style>
