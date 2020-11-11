@@ -1,11 +1,7 @@
 <template>
   <div>
     <div class="artwork-card">
-      <img
-        src="../assets/hero-image.jpg"
-        alt="Random Artwork"
-        style="width: 100%"
-      />
+      <img v-bind:src="url" alt="artwork Image" style="width: 100%" />
       <div class="container">
         <h4>
           <b>{{ artworkName }}</b>
