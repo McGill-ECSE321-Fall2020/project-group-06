@@ -10,16 +10,17 @@
       <div id="minicontainer">
         <div class="price">
           PRICE$
+          <button type="button" class="button">BUY</button> 
+        </div>
+        <div class="availability">
+          available in store
         </div>
         <div>
           TYPE OF ARTWORK
         </div>
         <div class="description">
           Description:
-        </div>
-      </div>
-      <div>
-        <button type="button" class="button">BUY</button>  
+        </div> 
       </div>
     </div>
     <Footer />
@@ -56,27 +57,33 @@ export default {
   transform: scale(1,1);
 }
 .button {
-  border: none;
-  color: white;
-  font-size: 20px;
+  color: #32CD32;
+  font-size: 24px;
   text-align: center;
-  background-color: #32CD32;
+  border-color: #32CD32;
+  margin-left: 10%;
+  border-radius: 8px;
 }
 .button:hover {
   transform: scale(1.2);
-  transition: transform 0.5s;
+  transition: transform 0.25s;
 }
 
 .minicontainer {
   display: grid
 }
 
-#minicontainer > div {
+.price {
+  text-align: left;
+  font-size: 30px;
+}
+.description {
   margin-top: 10%;
 }
-.price {
-  text-align: center;
-  font-size: 30px;
+
+.availability {
+  font-size: 10px;
+  margin-bottom: 10%;
 }
 
 </style>
