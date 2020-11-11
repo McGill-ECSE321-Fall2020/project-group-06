@@ -169,7 +169,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 body {
   padding-top: 5rem;
   background: #f8f8f8;
