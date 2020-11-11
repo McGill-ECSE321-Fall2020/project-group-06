@@ -2,13 +2,13 @@
   <div>
     <div class="artwork-card">
       <img
-        src="../assets/hero-image.jpg"
+        :src="resolve_img_url(picture)"
         alt="Random Artwork"
         style="width:100%;"
       />
       <div class="container">
         <h4><b>Mona Lisa</b></h4>
-        <p>Leonarda da Vinki</p>
+        <p>Leonardo da Vinky</p>
       </div>
     </div>
   </div>
@@ -16,8 +16,19 @@
 
 <script>
 export default {
-  name: "Artwork"
-};
+  name: "Artwork",
+  props: ['picture'],
+  methods: {
+    resolve_img_url: function (path) {
+      if(path.startsWith('http')){
+        return path;
+      }
+      let images = require.context('../assets/', false, /\.png$|\.jpg$/)
+      return images("./" + path);
+    }
+  }
+}
+
 </script>
 
 <style>
