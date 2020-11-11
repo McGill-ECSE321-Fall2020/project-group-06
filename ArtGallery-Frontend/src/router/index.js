@@ -7,8 +7,6 @@ import Login from "@/pages/Login";
 import Artworks from "@/pages/Artworks"
 import Signup from "@/pages/Signup"
 import ArtworkInfo from "@/pages/ArtworkInfo"
-
-
 import Customer from "@/pages/CustomerPage";
 import Artist from "@/pages/ArtistPage";
 
