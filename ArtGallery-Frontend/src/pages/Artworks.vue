@@ -10,7 +10,7 @@
       <br />
     </div>
     <div id="container">
-      <div v-for="index in 12" :key="index"><Artwork /></div>
+      <div v-for="index in 12" :key="index"><Artwork picture="hero-image.jpg" /></div>
     </div>
     <Footer />
   </div>
