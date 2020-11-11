@@ -1,17 +1,18 @@
 <template>
-<div>
+  <div>
     <Navbar />
-    <Profile type="artist"/>
+    <Profile type="artist" />
     <Footer />
-</div>
+  </div>
 </template>
 
 <script>
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Profile from "../components/Profile";
+import axios from "axios";
 export default {
-  name: 'Artist',
+  name: "Artist",
   components: {
     Navbar,
     Profile,
@@ -19,6 +20,8 @@ export default {
   },
 };
 </script>
+
+
 
 <style>
 </style>

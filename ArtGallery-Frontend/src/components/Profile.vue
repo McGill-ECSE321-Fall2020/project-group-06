@@ -13,18 +13,14 @@
           </mdb-view>
           <mdb-card-body class="text-center">
             <mdb-card-title class="font-bold mb-2">
-              <strong>Alice Mayer</strong>
+              <strong>{{ firstName }} + {{ lastName }}</strong>
             </mdb-card-title>
-            <h5 class="indigo-text">
-              <strong>Photographer</strong>
-            </h5>
+
             <h6 class="text-justify">
               <strong>About:</strong>
             </h6>
             <p class="text-justify">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione
-              perferendis quod animi dignissimos consectetur quibusdam numquam
-              laboriosam, minus, provident...
+              {{ description }}
             </p>
             <div class="text-right">
               <mdb-btn outline="primary" rounded size="sm">More...</mdb-btn>
@@ -32,7 +28,7 @@
           </mdb-card-body>
         </mdb-card>
       </mdb-col>
-      <mdb-col md="9" v-if="type=='artist'">
+      <mdb-col md="9" v-if="isArtist">
         <section class="text-center pb-3">
           <mdb-row class="d-flex justify-content-center">
             <mdb-col lg="6" xl="5" class="mb-3">
@@ -80,6 +76,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import {
   mdbRow,
   mdbCol,
@@ -98,8 +95,8 @@ import {
 } from "mdbvue";
 import Artwork from "../components/Artwork";
 export default {
-  name: 'Profile',
-  props: [ 'type' ],
+  name: "Profile",
+  props: ["type"],
   components: {
     mdbRow,
     mdbCol,
@@ -115,10 +112,46 @@ export default {
     mdbPagination,
     mdbPageNav,
     mdbPageItem,
-    Artwork
+    Artwork,
   },
   data() {
-    return {};
+    return {
+      transaction: "",
+      artwork: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      description: "",
+      phoneNumber: "",
+    };
+  },
+  username: this.$route.query.username,
+  isArtist: this.$route.query.isArtist,
+
+  async beforeCreate(username, isArtist) {
+    var loggedIn = true;
+    var frontendUrl = "http://" + config.dev.host + ":" + config.dev.port;
+    // had to add this to solve cors problem
+    var backendUrl =
+      "https://cors-anywhere.herokuapp.com/http://" + config.dev.backendHost;
+    var AXIOS = axios.create({
+      baseURL: backendUrl,
+      headers: { "Access-Control-Allow-Origin": frontendUrl },
+    });
+    if (isArtist) {
+      const response = await AXIOS.post("api/artist/getArtist/" + username, {
+        transaction: this.transaction,
+        artwork: this.artwork,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        email: this.email,
+        description: this.description,
+        phoneNumber: this.phoneNumber,
+      }).catch((err) => {
+        this.status = "Something went wrong";
+        loggedIn = false;
+      });
+    }
   },
 };
 </script>
