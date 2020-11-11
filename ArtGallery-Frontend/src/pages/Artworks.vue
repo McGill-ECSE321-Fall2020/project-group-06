@@ -3,6 +3,7 @@
     <Navbar />
     <div class="search-artwork">
       <img src="../assets/spooky-af.jpg" alt="spooky image" />
+      <div class="centered">Browse Artworks</div>
     </div>
     <div class="filter-area">
       <br />
