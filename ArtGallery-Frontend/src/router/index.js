@@ -3,11 +3,13 @@ import Router from "vue-router";
 import Hello from "@/components/Hello";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
+
 import Artworks from "@/pages/Artworks"
 import Signup from "@/pages/Signup"
 import ArtworkInfo from "@/pages/ArtworkInfo"
 import Artist from "@/pages/ArtistPage"
 import Customer from "@/pages/CustomerPage"
+
 
 Vue.use(Router);
 
@@ -30,6 +32,7 @@ export default new Router({
       path: "/artworks",
       name: "Artworks",
       component: Artworks
+
     }, {
       path: "/signup",
       name: "Signup",
@@ -38,15 +41,16 @@ export default new Router({
       path: "/artworkinfo/:artworkId",
       name: "ArtworkInfo",
       component: ArtworkInfo
-    },{
-      path: "/artistPage",
-      name: "Artist",
-      component: Artist
-    }
-    ,{
-      path: "/customerPage",
+    },
+    {
+      path: "/customer",
       name: "Customer",
       component: Customer
+    },
+    {
+      path: "/artist",
+      name: "Artist",
+      component: Artist
     }
   ]
 });

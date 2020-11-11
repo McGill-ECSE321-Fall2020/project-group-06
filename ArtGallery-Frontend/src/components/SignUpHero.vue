@@ -105,7 +105,7 @@ export default {
           console.log(err);
         });
         console.log(response);
-        window.location.href = 'http://127.0.0.1:8087/#/artistPage';
+        window.location.href = 'http://127.0.0.1:8087/#/artist';
       } else if (this.SignUpform.AccountType === "Customer") {
         const response = await AXIOS.post("api/customer/createCustomer", {
           // email: this.email,
@@ -115,7 +115,7 @@ export default {
           console.log(err);
         });
         console.log(response);
-        window.location.href = 'http://127.0.0.1:8087/#/customerPage';
+        window.location.href = 'http://127.0.0.1:8087/#/customer';
       }
     },
   },
