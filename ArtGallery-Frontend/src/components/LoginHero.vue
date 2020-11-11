@@ -1,35 +1,40 @@
 <template>
   <div>
     <img src="../assets/login-hero.jpg" alt="Login Hero Image" />
-    <div class="container">
-      <div class="centered-text">
-        <b>Login to your account</b>
-        <br />
-        <br />
-        <div class="form-group">
-          <input
-            type="text"
-            class="form-control"
-            v-model="username"
-            placeholder="username"
-          />
+    <form @submit.prevent="handleSubmit">
+      <div class="container">
+        <div class="centered-text">
+          <b>Login to your account</b>
+          <br />
+          <br />
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              v-model="username"
+              placeholder="username"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="password"
+              class="form-control"
+              v-model="password"
+              placeholder="password"
+            />
+            <a href="#">forgot password?</a>
+          </div>
+          <button>Login</button>
         </div>
-        <div class="form-group">
-          <input
-            type="password"
-            class="form-control"
-            v-model="password"
-            placeholder="password"
-          />
-          <a href="#">forgot password?</a>
-        </div>
-        <button>Login</button>
       </div>
-    </div>
+    </form>
   </div>
 </template>
 
 <script>
+import axios from "axios";
+var config = require("../../config");
+
 export default {
   name: "LoginHero",
   data() {
@@ -37,6 +42,26 @@ export default {
       username: "",
       password: ""
     };
+  },
+  methods: {
+    async handleSubmit() {
+      var frontendUrl = "http://" + config.dev.host + ":" + config.dev.port;
+      // had to add this to solve cors problem
+      var backendUrl =
+        "https://cors-anywhere.herokuapp.com/http://" + config.dev.backendHost;
+      var AXIOS = axios.create({
+        baseURL: backendUrl,
+        headers: { "Access-Control-Allow-Origin": frontendUrl }
+      });
+      const response = await AXIOS.post("api/cognito/authenticate", {
+        userName: this.username,
+        password: this.password
+      }).catch(err => {
+        console.log(err);
+      });
+      console.log(response);
+      // localStorage.setItem("token", response.data.token);
+    }
   }
 };
 </script>
@@ -56,7 +81,6 @@ input {
   position: absolute;
   top: 29%;
   font-size: large;
-
   left: 63%;
   transform: translate(-50%, -50%);
 }
