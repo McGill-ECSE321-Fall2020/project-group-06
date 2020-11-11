@@ -30,6 +30,8 @@ module.exports = {
     env: require('./dev.env'),
     host: '127.0.0.1',
     port: 8087,
+    backendHost: 'art-gallery-backend.herokuapp.com',
+    backendPort: 8080,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
