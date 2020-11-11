@@ -42,6 +42,7 @@
               user@email.com
             </p>
             <div class="text-right">
+              <mdb-btn outline="primary" rounded size="sm" @click="editProfile">Edit Profile</mdb-btn>
               <mdb-btn outline="primary" rounded size="sm">More...</mdb-btn>
             </div>
           </mdb-card-body>
@@ -71,6 +72,9 @@
               <Artwork
                 picture="https://mdbootstrap.com/img/Mockups/Horizontal/6-col/pro-landing.jpg"
               />
+            </mdb-col>
+            <mdb-col class="mb-3">
+              <mdb-btn outline="primary" rounded size="sm" @click="addArtwork">Add Artwork</mdb-btn>
             </mdb-col>
             <mdb-col lg="12">
               <div class="text-center">
@@ -207,6 +211,16 @@ export default {
   data() {
     return {};
   },
+  methods: {
+    editProfile(){
+      window.location.href = '#/editProfile';
+      window.scrollTo(0,0); 
+    },
+    addArtwork(){
+      window.location.href = '#/addArtwork';
+      window.scrollTo(0,0); 
+    }
+  }
 };
 </script>
 

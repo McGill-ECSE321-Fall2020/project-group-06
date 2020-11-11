@@ -10,6 +10,8 @@ import ArtworkInfo from "@/pages/ArtworkInfo";
 import Customer from "@/pages/CustomerPage";
 import Artist from "@/pages/ArtistPage";
 import BuyArtwork from "@/pages/BuyArtwork";
+import EditProfile from "@/pages/EditProfilePage";
+import AddArtwork from "@/pages/AddArtworkPage";
 
 Vue.use(Router);
 
@@ -59,6 +61,16 @@ export default new Router({
       path: "/buyArtwork",
       name: "BuyArtwork",
       component: BuyArtwork
+    },
+    {
+      path: "/editProfile",
+      name: "EditProfile",
+      component: EditProfile
+    },
+    {
+      path: "/addArtwork",
+      name: "AddArtwork",
+      component: AddArtwork
     }
   ]
 });
