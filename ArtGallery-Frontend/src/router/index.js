@@ -9,6 +9,7 @@ import Signup from "@/pages/Signup"
 import ArtworkInfo from "@/pages/ArtworkInfo"
 import Customer from "@/pages/CustomerPage";
 import Artist from "@/pages/ArtistPage";
+import BuyArtwork from "@/pages/BuyArtwork";
 
 
 Vue.use(Router);
@@ -52,7 +53,11 @@ export default new Router({
       path: "/artist",
       name: "Artist",
       component: Artist
-
+    },
+    {
+      path: "/buyArtwork",
+      name: "BuyArtwork",
+      component: BuyArtwork
     }
   ]
 });
