@@ -22,6 +22,8 @@
               id="customer"
             />
             <label for="customer">Customer</label>
+            <br />
+            <!-- <span>Picked: {{ SignUpform.AccountType }}</span> -->
           </div>
           <br />
           <br />
@@ -37,7 +39,7 @@
             <input
               type="text"
               class="form-control"
-              v-model="username"
+              v-model="SignUpform.username"
               placeholder="username"
             />
           </div>
@@ -45,7 +47,7 @@
             <input
               type="password"
               class="form-control"
-              v-model="password"
+              v-model="SignUpform.password"
               placeholder="password"
             />
           </div>
@@ -58,7 +60,10 @@
             />
           </div>
           <!-- <a href="#">forgot password?</a> -->
+          <!-- v-if -->
+          <!-- <button onclick="window.location.href='http://127.0.0.1:8087/#/artistPage';">SignUp</button> -->
           <button>SignUp</button>
+          <!-- <a href="http://127.0.0.1:8087/#/artistPage"><button>SignUp</button></a> -->
         </div>
       </div>
     </form>
@@ -84,20 +89,34 @@ export default {
   },
   methods: {
     async handleSubmit() {
+      console.warn("Helloooo!", this.SignUpform);
       var frontendUrl = "http://" + config.dev.host + ":" + config.dev.port;
-      var backendUrl = "https://" + config.dev.backendHost;
+      var backendUrl = "https://cors-anywhere.herokuapp.com/http://" + config.dev.backendHost;
       var AXIOS = axios.create({
         baseURL: backendUrl,
         headers: { "Access-Control-Allow-Origin": frontendUrl },
       });
-      const response = await AXIOS.post("api/user/createUser", {
-        email: this.email,
-        username: this.username,
-        password: this.password,
-      }).catch((err) => {
-        console.log(err);
-      });
-      console.log(response);
+      if (this.SignUpform.AccountType === "Artist") {
+        const response = await AXIOS.post("api/artist/createArtist", {
+          // email: this.email,
+          username: this.SignUpform.username,
+          password: this.SignUpform.password,
+        }).catch((err) => {
+          console.log(err);
+        });
+        console.log(response);
+        window.location.href = 'http://127.0.0.1:8087/#/artistPage';
+      } else if (this.SignUpform.AccountType === "Customer") {
+        const response = await AXIOS.post("api/customer/createCustomer", {
+          // email: this.email,
+          username: this.SignUpform.username,
+          password: this.SignUpform.password,
+        }).catch((err) => {
+          console.log(err);
+        });
+        console.log(response);
+        window.location.href = 'http://127.0.0.1:8087/#/customerPage';
+      }
     },
   },
 };

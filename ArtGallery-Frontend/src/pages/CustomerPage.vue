@@ -1,4 +1,6 @@
-<template></template>
+<template>
+<p>suuup dude</p>
+</template>
 
 <script>
 export default {};
