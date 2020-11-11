@@ -2,16 +2,23 @@
   <div>
     <Navbar />
     <div class="search-artwork">
+
       <img src="../assets/artworks-image.jpg" alt="Artworks image" />
+
+    
+      <div class="centered">BROWSE ARTWORKS</div>
+
     </div>
     <div class="filter-area">
       <br />
       <br />
     </div>
     <div id="container">
+
       <div v-for="index in 12" :key="index">
         <Artwork artworkName="Mona Lisa" artistName="DaVinki" artworkId="1" />
       </div>
+
     </div>
     <Footer />
   </div>
@@ -49,5 +56,13 @@ export default {
 img {
   max-width: 100%;
   height: auto;
+}
+.centered {
+  color: white;
+  position: absolute;
+  top: 25%;
+  font-size: 40px;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 </style>
