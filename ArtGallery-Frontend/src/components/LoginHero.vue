@@ -23,6 +23,7 @@
               placeholder="password"
             />
             <a href="#">forgot password?</a>
+            <p>{{ status }}</p>
           </div>
           <button>Login</button>
         </div>
@@ -41,31 +42,36 @@ export default {
     return {
       username: "",
       password: "",
+      status: ""
     };
   },
   methods: {
     async handleSubmit() {
+      var loggedIn = true;
       var frontendUrl = "http://" + config.dev.host + ":" + config.dev.port;
       // had to add this to solve cors problem
       var backendUrl =
         "https://cors-anywhere.herokuapp.com/http://" + config.dev.backendHost;
       var AXIOS = axios.create({
         baseURL: backendUrl,
-        headers: { "Access-Control-Allow-Origin": frontendUrl },
+        headers: { "Access-Control-Allow-Origin": frontendUrl }
       });
       const response = await AXIOS.post("api/cognito/authenticate", {
         userName: this.username,
-        password: this.password,
-      }).catch((err) => {
-        console.log(err);
+        password: this.password
+      }).catch(err => {
+        this.status = "Something went wrong";
+        loggedIn = false;
       });
+      if (loggedIn) {
+        this.status = "You are logged in!";
+      }
       console.log(response);
-      // localStorage.setItem("token", response.data.token);
-    },
-  },
+      localStorage.setItem("token", response.data);
+    }
+  }
 };
 </script>
-
 
 <style scoped>
 .test {
