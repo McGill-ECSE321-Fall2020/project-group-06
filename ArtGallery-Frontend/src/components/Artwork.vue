@@ -2,13 +2,18 @@
   <div>
     <div class="artwork-card">
       <img
-        :src="resolve_img_url(picture)"
+        src="../assets/hero-image.jpg"
         alt="Random Artwork"
-        style="width:100%;"
+        style="width: 100%"
       />
       <div class="container">
-        <h4><b>Mona Lisa</b></h4>
-        <p>Leonardo da Vinky</p>
+        <h4>
+          <b>{{ artworkName }}</b>
+        </h4>
+        <p>Artist: {{ artistName }}</p>
+        <a v-bind:href="'http://127.0.0.1:8087/#/artworkinfo/' + artworkId"
+          >More Info</a
+        >
       </div>
     </div>
   </div>
@@ -17,18 +22,8 @@
 <script>
 export default {
   name: "Artwork",
-  props: ['picture'],
-  methods: {
-    resolve_img_url: function (path) {
-      if(path.startsWith('http')){
-        return path;
-      }
-      let images = require.context('../assets/', false, /\.png$|\.jpg$/)
-      return images("./" + path);
-    }
-  }
-}
-
+  props: ["artworkName", "artistName", "artworkId", "url"]
+};
 </script>
 
 <style>
