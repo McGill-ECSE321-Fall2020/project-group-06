@@ -4,9 +4,35 @@
     <form @submit.prevent="handleSubmit">
       <div class="container">
         <div class="centered-text">
-          <b>SignUp</b>
+          <h1 class="SignUpTitle"><b>SignUp</b></h1>
           <br />
           <br />
+          <div class="RadioButtons">
+            <input
+              type="radio"
+              value="Artist"
+              v-model="SignUpform.AccountType"
+              id="artist"
+            />
+            <label for="artist">Artist</label>
+            <input
+              type="radio"
+              value="Customer"
+              v-model="SignUpform.AccountType"
+              id="customer"
+            />
+            <label for="customer">Customer</label>
+          </div>
+          <br />
+          <br />
+          <div class="form-group">
+            <input
+              type="email"
+              class="form-control"
+              v-model="email"
+              placeholder="email"
+            />
+          </div>
           <div class="form-group">
             <input
               type="text"
@@ -22,9 +48,17 @@
               v-model="password"
               placeholder="password"
             />
-            <a href="#">forgot password?</a>
           </div>
-          <button>Login</button>
+          <div class="form-group">
+            <input
+              type="password"
+              class="form-control"
+              v-model="passwordConfirmation"
+              placeholder="confirm password"
+            />
+          </div>
+          <!-- <a href="#">forgot password?</a> -->
+          <button>SignUp</button>
         </div>
       </div>
     </form>
@@ -39,21 +73,25 @@ export default {
   name: "SignUpHero",
   data() {
     return {
-      username: "",
-      password: "",
+      SignUpform: {
+        AccountType: null,
+        email: "",
+        username: "",
+        password: "",
+        passwordConfirmation: "",
+      },
     };
   },
   methods: {
     async handleSubmit() {
       var frontendUrl = "http://" + config.dev.host + ":" + config.dev.port;
-      // had to add this to solve cors problem
-      var backendUrl =
-        "https://" + config.dev.backendHost;
+      var backendUrl = "https://" + config.dev.backendHost;
       var AXIOS = axios.create({
         baseURL: backendUrl,
         headers: { "Access-Control-Allow-Origin": frontendUrl },
       });
-      const response=await AXIOS.post("api/user/createUser", {
+      const response = await AXIOS.post("api/user/createUser", {
+        email: this.email,
         username: this.username,
         password: this.password,
       }).catch((err) => {
@@ -79,6 +117,10 @@ img {
 input {
   background-color: white;
 }
+.SignUpTitle {
+  left: 15%;
+  position: absolute;
+}
 .centered-text {
   position: absolute;
   top: 50%;
@@ -86,13 +128,21 @@ input {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+.RadioButtons {
+  left: 10%;
+  position: absolute;
+  direction: columns;
+}
 a {
   font-size: small;
 }
+
 button {
+  left: 25%;
   background-color: #ddd8cc;
   border: none;
   color: black;
+  position: absolute;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
