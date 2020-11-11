@@ -109,7 +109,7 @@ public class Artwork {
 	private ArtGallery artGallery;
 
 	// ManytoOne
-	@OneToOne(optional = false)
+	@OneToOne(optional = true)
 	@JsonIgnoreProperties("artwork")
 	public ArtGallery getArtGallery() {
 		return this.artGallery;
