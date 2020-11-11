@@ -7,7 +7,15 @@
           <b>{{ artworkName }}</b>
         </h4>
         <p>Artist: {{ artistName }}</p>
-        <a v-bind:href="'http://127.0.0.1:8087/#/artworkinfo/' + artworkId"
+        <a
+          v-bind:href="
+            'http://127.0.0.1:8087/#/artworkinfo/' +
+            artworkId +
+            '/' +
+            artworkName +
+            '/' +
+            artistName
+          "
           >More Info</a
         >
       </div>
@@ -18,7 +26,7 @@
 <script>
 export default {
   name: "Artwork",
-  props: ["artworkName", "artistName", "artworkId", "url"]
+  props: ["artworkName", "artistName", "artworkId", "url"],
 };
 </script>
 

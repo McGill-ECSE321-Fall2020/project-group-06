@@ -42,7 +42,7 @@ export default {
     return {
       username: "",
       password: "",
-      status: ""
+      status: "",
     };
   },
   methods: {
@@ -54,12 +54,12 @@ export default {
         "https://cors-anywhere.herokuapp.com/http://" + config.dev.backendHost;
       var AXIOS = axios.create({
         baseURL: backendUrl,
-        headers: { "Access-Control-Allow-Origin": frontendUrl }
+        headers: { "Access-Control-Allow-Origin": frontendUrl },
       });
       const response = await AXIOS.post("api/cognito/authenticate", {
         userName: this.username,
-        password: this.password
-      }).catch(err => {
+        password: this.password,
+      }).catch((err) => {
         this.status = "Something went wrong";
         loggedIn = false;
       });
@@ -68,8 +68,8 @@ export default {
       }
       console.log(response);
       localStorage.setItem("token", response.data);
-    }
-  }
+    },
+  },
 };
 </script>
 
