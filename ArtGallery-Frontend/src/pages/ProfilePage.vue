@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar />
-    <Profile type="artist" />
+    <Profile />
     <Footer />
   </div>
 </template>
@@ -12,7 +12,7 @@ import Footer from "../components/Footer";
 import Profile from "../components/Profile";
 export default {
   async beforeCreate() {
-    console.log("Before Create Artist");
+    console.log("Before Profile");
     const configuration = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -27,8 +27,7 @@ export default {
       headers: { "Access-Control-Allow-Origin": frontendUrl },
     });
   },
-
-  name: "Artist",
+  name: "ProfilePage",
   components: {
     Navbar,
     Profile,
@@ -36,8 +35,6 @@ export default {
   },
 };
 </script>
-
-
 
 <style>
 </style>
