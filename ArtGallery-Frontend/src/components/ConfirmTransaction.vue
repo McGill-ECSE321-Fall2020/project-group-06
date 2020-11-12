@@ -1,7 +1,7 @@
 <template>
   <div class="confirm-card">
     <form @submit.prevent="handleSubmit">
-      <h1 class="title"> Transaction Preview </h1>
+      <h1 class="title"> Order Preview </h1>
       <div class="container">
         Artwork: {{ artwork.name }} <br>
         Artist: {{ artwork.artist.username }} <br>
@@ -20,6 +20,9 @@
         </div>
       </div>
       <input type="submit" value="CONFIRM" class="confirm">
+      <div class="err">
+        {{ status }}
+      </div>
     </form>
   </div>
 </template>
@@ -34,6 +37,7 @@ export default {
   data() {
 	return {
     meanOfDelivery: null,
+    status: ""
   };
   },
   methods: {
@@ -53,11 +57,13 @@ export default {
           "Access-Control-Allow-Origin": frontendUrl
         },
       });
+      const errorMessage = "Oops! Something went wrong";
     /*
       const response = await AXIOS.post(
             "api/customer/buyArtwork/" + this.customer.id + "/" + this.artwork.artist.id + "/" + this.artwork.id + "/" + this.artwork.artGallery.id, {},
             configuration ).catch((err) => {
           console.log(err);
+          this.status = errorMessage;
       });
 
       console.log(response);
@@ -95,7 +101,12 @@ export default {
             "PickedUp",
             configuration ).catch((err) => {
           console.log(err);
+          this.status = errorMessage
       });
+
+      if(this.status != errorMessage) {
+          this.status = "Transaction Completed. Congratulations!"
+      }
     },
   },
 };
@@ -109,7 +120,7 @@ export default {
   background-color: #ddd8cc;
 }
 .title {
-  font-size: 100%;
+  font-size: 24px;
   text-align: center;
   text-decoration: underline;
 }
@@ -154,5 +165,11 @@ button:hover {
   background-color: orangered;
   transform: scale(1.2);
   transition: transform 0.25s;
+}
+
+.err {
+  margin-left: 5%;
+  font-size: 20px;
+  color: orangered;
 }
 </style>
