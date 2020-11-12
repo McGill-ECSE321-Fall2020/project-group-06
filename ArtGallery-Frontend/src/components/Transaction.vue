@@ -3,10 +3,10 @@
     <div class="transaction-card">
       <div class="container">
         <h4><b>Transaction</b></h4>
-        <p>Date:</p>
-        <p>Artwork:</p>
-        <p>Artist:</p>
-        <p>Price:</p>
+        <p>Date: {{ transaction.dateOfTransaction }}</p>
+        <p>Artwork: {{ transaction.artwork.name }}</p>
+        <p>Artist: {{ transaction.artist.username }}</p>
+        <p>Price: {{ transaction.artwork.price }}</p>
       </div>
     </div>
   </div>
@@ -14,8 +14,11 @@
 
 <script>
 export default {
-  name: "Transaction"
+  name: "Transaction",
+  props: ["transaction"]
+
 };
+
 </script>
 
 <style>
