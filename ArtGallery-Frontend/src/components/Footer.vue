@@ -46,7 +46,7 @@
 
           <ul class="list-unstyled">
             <li>
-              <a href="https://www.pornhub.com" class="link">Link 1</a>
+              <a href="https://www.mcgill.ca" class="link">Link 1</a>
             </li>
             <li>
               <a href="#!" class="link">Link 2</a>
