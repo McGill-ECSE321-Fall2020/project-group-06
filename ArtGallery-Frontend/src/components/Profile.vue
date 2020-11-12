@@ -15,10 +15,10 @@
             <mdb-card-title class="font-bold mb-2">
               <strong>{{ firstName }} + {{ lastName }}</strong>
             </mdb-card-title>
-            <h5 class="indigo-text" v-if="type=='artist'">
+            <h5 class="indigo-text" v-if="type == 'artist'">
               <strong>Artist</strong>
             </h5>
-            <h5 class="indigo-text" v-if="type=='customer'">
+            <h5 class="indigo-text" v-if="type == 'customer'">
               <strong>Customer</strong>
             </h5>
             <h6 class="text-justify">
@@ -30,17 +30,15 @@
             <h6 class="text-justify">
               <strong>Phone Number:</strong>
             </h6>
-            <p class="text-justify">
-              514-777-7777
-            </p>
+            <p class="text-justify">{{ phoneNumber }}</p>
             <h6 class="text-justify">
               <strong>Email:</strong>
             </h6>
-            <p class="text-justify">
-              user@email.com
-            </p>
+            <p class="text-justify">{{ email }}</p>
             <div class="text-right">
-              <mdb-btn outline="primary" rounded size="sm" @click="editProfile">Edit Profile</mdb-btn>
+              <mdb-btn outline="primary" rounded size="sm" @click="editProfile"
+                >Edit Profile</mdb-btn
+              >
               <mdb-btn outline="primary" rounded size="sm">More...</mdb-btn>
             </div>
           </mdb-card-body>
@@ -72,7 +70,9 @@
               />
             </mdb-col>
             <mdb-col class="mb-3">
-              <mdb-btn outline="primary" rounded size="sm" @click="addArtwork">Add Artwork</mdb-btn>
+              <mdb-btn outline="primary" rounded size="sm" @click="addArtwork"
+                >Add Artwork</mdb-btn
+              >
             </mdb-col>
             <mdb-col lg="12">
               <div class="text-center">
@@ -188,6 +188,70 @@ import {
 import Artwork from "../components/Artwork";
 import Transaction from "../components/Transaction";
 export default {
+  async beforeCreate() {
+    console.log("Before create profile");
+    const configuration = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    };
+    var frontendUrl = "http://" + config.dev.host + ":" + config.dev.port;
+    // had to add this to solve cors problem
+    var backendUrl =
+      "https://cors-anywhere.herokuapp.com/http://" + config.dev.backendHost;
+    var AXIOS = axios.create({
+      baseURL: backendUrl,
+      headers: { "Access-Control-Allow-Origin": frontendUrl },
+    });
+    console.log("path");
+    var url = this.$route.fullpath.split("/");
+    var username = "";
+    var type = "";
+    for (var i = 0; i < 15; i++) {
+      if (url[i] === "#") {
+        var username = url[i + 2].replace(/"%20"/g, " ");
+        var type = url[i + 3];
+      }
+    }
+    console.log(username);
+    console.log(type);
+
+    if (type === "artist") {
+      const response = await AXIOS.post("api/artist/getArtist/" + username, {
+        transaction: this.transaction,
+        artwork: this.artwork,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        email: this.email,
+        description: this.description,
+        phoneNumber: this.phoneNumber,
+      }).catch((err) => {
+        this.status = "Something went wrong";
+        loggedIn = false;
+      });
+    }
+  },
+  methods: {
+    editProfile() {
+      window.location.href = "#/editProfile";
+      window.scrollTo(0, 0);
+    },
+    addArtwork() {
+      window.location.href = "#/addArtwork";
+      window.scrollTo(0, 0);
+    },
+  },
+  data() {
+    return {
+      transaction: "",
+      artwork: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      description: "",
+      phoneNumber: "",
+    };
+  },
   name: "Profile",
   props: ["type"],
   components: {
@@ -208,72 +272,6 @@ export default {
     Artwork,
     Transaction,
   },
-  data() {
-    return {
-      transaction: "",
-      artwork: "",
-      firstName: "",
-      lastName: "",
-      email: "",
-      description: "",
-      phoneNumber: "",
-    };
-  },
-
-  async beforeCreate() {
-    console.log("path");
-    var url = this.$route.fullpath.split("\\");
-    var username = "";
-    var type = "";
-    for (var i = 0; i < 15; i++) {
-      if (url[i] === "#") {
-        var usernameArray = url[i + 2].split("%20");
-        for (var j = 0; j < usernameArray.length; j++) {
-          if (j > 0) {
-            usernameArray[j] = " " + usernameArray[j];
-          }
-          username = username + usernameArray[j];
-        }
-        var type = url[i + 3];
-      }
-    }
-    console.log(username);
-    console.log(type);
-
-    var loggedIn = true;
-    var frontendUrl = "http://" + config.dev.host + ":" + config.dev.port;
-    // had to add this to solve cors problem
-    var backendUrl =
-      "https://cors-anywhere.herokuapp.com/http://" + config.dev.backendHost;
-    var AXIOS = axios.create({
-      baseURL: backendUrl,
-      headers: { "Access-Control-Allow-Origin": frontendUrl },
-    });
-    if (type) {
-      const response = await AXIOS.post("api/artist/getArtist/" + username, {
-        transaction: this.transaction,
-        artwork: this.artwork,
-        firstName: this.firstName,
-        lastName: this.lastName,
-        email: this.email,
-        description: this.description,
-        phoneNumber: this.phoneNumber,
-      }).catch((err) => {
-        this.status = "Something went wrong";
-        loggedIn = false;
-      });
-    }
-  },
-  methods: {
-    editProfile(){
-      window.location.href = '#/editProfile';
-      window.scrollTo(0,0);
-    },
-    addArtwork(){
-      window.location.href = '#/addArtwork';
-      window.scrollTo(0,0);
-    }
-  }
 };
 </script>
 
