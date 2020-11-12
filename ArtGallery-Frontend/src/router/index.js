@@ -58,7 +58,7 @@ export default new Router({
       component: Artist
     },
     {
-      path: "/buyArtwork/:artworkName",
+      path: "/buyArtwork/:artworkId/:artworkName/:artistName",
       name: "BuyArtwork",
       component: BuyArtwork
     },

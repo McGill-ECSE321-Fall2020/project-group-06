@@ -9,7 +9,7 @@
         <p>Artist: {{ artistName }}</p>
         <a
           v-bind:href="
-            'http://127.0.0.1:8087/#/artworkinfo/' +
+            'http://127.0.0.1:8087/#/buyArtwork/' +
             artworkId +
             '/' +
             artworkName +

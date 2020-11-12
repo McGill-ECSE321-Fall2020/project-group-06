@@ -6,23 +6,28 @@
       <br />
     </div>
     <div id="container">
-      <Artwork artistName="DaVin" artworkName="Mona Lisa2" url="hero-image.jpg" />
+      <Artwork 
+        v-bind:artistName="artwork.artist.username" 
+        v-bind:artworkName="artwork.name" 
+        v-bind:artworkId="artwork.id"
+        v-bind:url="artwork.url"
+      />
       <div id="minicontainer">
         <div class="price">
-          {{ price }}$
+          {{ price }} $
           <button type="button" class="button">BUY</button> 
         </div>
-        <div class="availability" v-if="isAvailable">
+        <div class="availability" v-if="isAvailable" >
           available in store
         </div>
-        <div class="availability" v-else>
+        <div class="availability" v-else >
           not available in store
         </div>
         <div>
-          TYPE OF ARTWORK
+          {{ typeArtwork }}
         </div>
         <div class="description">
-          Description:
+          Description: {{ description }}
         </div> 
       </div>
     </div>
@@ -38,6 +43,38 @@ import Footer from "../components/Footer";
 var config = require("../../config");
 
 export default {
+  async beforeCreate() {
+    console.log("Before Create");
+    const configuration = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    };
+    var frontendUrl = "http://" + config.dev.host + ":" + config.dev.port;
+    // had to add this to solve cors problem
+    var backendUrl =
+      "https://cors-anywhere.herokuapp.com/http://" + config.dev.backendHost;
+    var AXIOS = axios.create({
+      baseURL: backendUrl,
+      headers: { "Access-Control-Allow-Origin": frontendUrl },
+    });
+    
+    var name = this.$route.fullPath.split("/")[3].replace(/%20/g, " ");
+    console.log(name);
+    const promise = await AXIOS.get(
+      "api/artwork/getArtwork/" + name,
+      configuration
+    ).catch((err) => {
+      console.log(err);
+    });
+    // populate the array
+    this.artwork = promise.data;
+    console.log(this.artwork);
+    this.price = this.artwork.price;
+    this.isAvailable = this.artwork.isInStore;
+    this.description = this.artwork.description;
+    this.typeArtwork = this.artwork.typeOfArtwork;
+  },
   name: "BuyArtwork",
   components: {
     Navbar,
@@ -46,41 +83,13 @@ export default {
   },
   data() {
     return {
-      artist: "",
       artwork: "",
-      type: "",
+      price: "",
+      isAvailable: "",
       description: "",
-      price: "80",
-      isAvailable: false,
-      status: ""
+      typeArtwork: ""
     };
   },
-  created: function() {
-    const config = {
-      headers: { Authorization: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaGFnZ3kiLCJleHAiOjE2MDUxNTg2MDIsImlhdCI6MTYwNTEyMjYwMn0.eY3S6JYm5I2vWcdwr3XW9WM_9B5aq7pQQWMj3oeeopo"}
-    }
-    var loggedIn = true;
-    var frontendUrl = "http://" + config.dev.host + ":" + config.dev.port;
-    // had to add this to solve cors problem
-    var backendUrl =
-      "https://cors-anywhere.herokuapp.com/http://" + config.dev.backendHost;
-    var AXIOS = axios.create({
-      baseURL: backendUrl,
-      headers: { "Access-Control-Allow-Origin": frontendUrl }
-    });
-    this.artworkName = "Mona Lisa2"
-    AXIOS.get("api/artwork/getartwork/" + this.artworkName, config ).then(response => {
-      console.log(response)
-      // TODO
-    }).catch(err => {
-      this.status = "Something went wrong";
-    });
-  },
-  methods: {
-     createTransaction: function() {
-       // TODO
-     }
-  }
 };
 </script>
 
@@ -104,7 +113,8 @@ export default {
   font-size: 24px;
   text-align: center;
   border-color: #32CD32;
-  margin-left: 10%;
+  margin-top: 20%;
+  margin-left: 30%;
   border-radius: 8px;
 }
 .button:hover {
