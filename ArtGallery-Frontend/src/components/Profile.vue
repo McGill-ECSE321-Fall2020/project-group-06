@@ -1,5 +1,5 @@
 <template>
-  <section id="profile">
+  <section id="profile" class="body">
     <mdb-row>
       <mdb-col md="3">
         <mdb-card cascade narrow>
@@ -15,10 +15,10 @@
             <mdb-card-title class="font-bold mb-2">
               <strong>Alice Mayer</strong>
             </mdb-card-title>
-            <h5 class="indigo-text" v-if="type=='artist'">
+            <h5 class="indigo-text" v-if="type == 'artist'">
               <strong>Artist</strong>
             </h5>
-            <h5 class="indigo-text" v-if="type=='customer'">
+            <h5 class="indigo-text" v-if="type == 'customer'">
               <strong>Customer</strong>
             </h5>
             <h6 class="text-justify">
@@ -32,17 +32,15 @@
             <h6 class="text-justify">
               <strong>Phone Number:</strong>
             </h6>
-            <p class="text-justify">
-              514-777-7777
-            </p>
+            <p class="text-justify">514-777-7777</p>
             <h6 class="text-justify">
               <strong>Email:</strong>
             </h6>
-            <p class="text-justify">
-              user@email.com
-            </p>
+            <p class="text-justify">user@email.com</p>
             <div class="text-right">
-              <mdb-btn outline="primary" rounded size="sm" @click="editProfile">Edit Profile</mdb-btn>
+              <mdb-btn outline="primary" rounded size="sm" @click="editProfile"
+                >Edit Profile</mdb-btn
+              >
               <mdb-btn outline="primary" rounded size="sm">More...</mdb-btn>
             </div>
           </mdb-card-body>
@@ -74,7 +72,9 @@
               />
             </mdb-col>
             <mdb-col class="mb-3">
-              <mdb-btn outline="primary" rounded size="sm" @click="addArtwork">Add Artwork</mdb-btn>
+              <mdb-btn outline="primary" rounded size="sm" @click="addArtwork"
+                >Add Artwork</mdb-btn
+              >
             </mdb-col>
             <mdb-col lg="12">
               <div class="text-center">
@@ -212,20 +212,20 @@ export default {
     return {};
   },
   methods: {
-    editProfile(){
-      window.location.href = '#/editProfile';
-      window.scrollTo(0,0); 
+    editProfile() {
+      window.location.href = "#/editProfile";
+      window.scrollTo(0, 0);
     },
-    addArtwork(){
-      window.location.href = '#/addArtwork';
-      window.scrollTo(0,0); 
-    }
-  }
+    addArtwork() {
+      window.location.href = "#/addArtwork";
+      window.scrollTo(0, 0);
+    },
+  },
 };
 </script>
 
-<style>
-body {
+<style >
+.body {
   padding-top: 5rem;
 }
 </style>

@@ -9,6 +9,7 @@ import ca.mcgill.ecse321.artgallery.model.User;
 
 /**
  * User Service Class
+ * 
  * @author Sen Wang
  * @author Noah Chamberland
  * @author Justin Legrand
@@ -56,7 +57,7 @@ public class UsersService {
 			updatedUser.setEmail(user.getEmail());
 			updatedUser.setFirstName(user.getFirstName());
 			updatedUser.setLastName(user.getLastName());
-			updatedUser.setPhoneNumber(user.getPassword());
+			updatedUser.setPhoneNumber(user.getPhoneNumber());
 			updatedUser.setPicture(user.getPicture());
 			userRepository.save(updatedUser);
 			return true;
@@ -88,6 +89,11 @@ public class UsersService {
 			userRepository.deleteById(userId);
 			return true;
 		}
+	}
+
+	@Transactional
+	public User getUserByUsername(String username) {
+		return userRepository.findUserByUsername(username);
 	}
 
 }
