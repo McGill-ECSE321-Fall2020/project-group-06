@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="body">
     <link
       href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
       rel="stylesheet"
@@ -302,13 +302,16 @@
 
 <script>
 export default {
-    name: "EditProfile",
+  name: "EditProfile",
+  data() {
+    return {};
+  },
 };
 </script>
 
-<style>
-body{
-    padding-top:5rem;
-    background:#f8f8f8
+<style scoped>
+.body {
+  padding-top: 5rem;
+  background: #f8f8f8;
 }
 </style>

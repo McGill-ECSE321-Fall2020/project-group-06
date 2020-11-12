@@ -65,6 +65,8 @@ export default {
       });
       if (loggedIn) {
         this.status = "You are logged in!";
+        localStorage.setItem("token", response.data);
+        localStorage.setItem("username", this.username);
       }
       console.log(response);
       localStorage.setItem("token", response.data);

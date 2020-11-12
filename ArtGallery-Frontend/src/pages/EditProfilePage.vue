@@ -3,7 +3,7 @@
     <Navbar />
     <EditProfile />
     <Footer />
-</div>
+  </div>
 </template>
 
 <script>
@@ -11,7 +11,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import EditProfile from "../components/EditProfile";
 export default {
-  name: 'EditProfilePage',
+  name: "EditProfilePage",
   components: {
     Navbar,
     EditProfile,
@@ -20,6 +20,5 @@ export default {
 };
 </script>
 
-<style>
-
+<style scoped>
 </style>
