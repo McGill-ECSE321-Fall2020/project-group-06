@@ -57,7 +57,7 @@ public class UsersService {
 			updatedUser.setEmail(user.getEmail());
 			updatedUser.setFirstName(user.getFirstName());
 			updatedUser.setLastName(user.getLastName());
-			updatedUser.setPhoneNumber(user.getPassword());
+			updatedUser.setPhoneNumber(user.getPhoneNumber());
 			updatedUser.setPicture(user.getPicture());
 			userRepository.save(updatedUser);
 			return true;
