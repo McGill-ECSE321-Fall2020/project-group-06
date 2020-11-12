@@ -6,14 +6,17 @@
       <br />
     </div>
     <div id="container">
-      <Artwork picture="hero-image.jpg" />
+      <Artwork artistName="DaVin" artworkName="Mona Lisa2" url="hero-image.jpg" />
       <div id="minicontainer">
         <div class="price">
-          PRICE$
+          {{ price }}$
           <button type="button" class="button">BUY</button> 
         </div>
-        <div class="availability">
+        <div class="availability" v-if="isAvailable">
           available in store
+        </div>
+        <div class="availability" v-else>
+          not available in store
         </div>
         <div>
           TYPE OF ARTWORK
@@ -28,15 +31,55 @@
 </template>
 
 <script>
+import axios from "axios";
 import Navbar from "../components/Navbar";
 import Artwork from "../components/Artwork";
 import Footer from "../components/Footer";
+var config = require("../../config");
+
 export default {
   name: "BuyArtwork",
   components: {
     Navbar,
     Artwork,
     Footer
+  },
+  data() {
+    return {
+      artist: "",
+      artwork: "",
+      type: "",
+      description: "",
+      price: "80",
+      isAvailable: false,
+      status: ""
+    };
+  },
+  created: function() {
+    const config = {
+      headers: { Authorization: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaGFnZ3kiLCJleHAiOjE2MDUxNTg2MDIsImlhdCI6MTYwNTEyMjYwMn0.eY3S6JYm5I2vWcdwr3XW9WM_9B5aq7pQQWMj3oeeopo"}
+    }
+    var loggedIn = true;
+    var frontendUrl = "http://" + config.dev.host + ":" + config.dev.port;
+    // had to add this to solve cors problem
+    var backendUrl =
+      "https://cors-anywhere.herokuapp.com/http://" + config.dev.backendHost;
+    var AXIOS = axios.create({
+      baseURL: backendUrl,
+      headers: { "Access-Control-Allow-Origin": frontendUrl }
+    });
+    this.artworkName = "Mona Lisa2"
+    AXIOS.get("api/artwork/getartwork/" + this.artworkName, config ).then(response => {
+      console.log(response)
+      // TODO
+    }).catch(err => {
+      this.status = "Something went wrong";
+    });
+  },
+  methods: {
+     createTransaction: function() {
+       // TODO
+     }
   }
 };
 </script>
