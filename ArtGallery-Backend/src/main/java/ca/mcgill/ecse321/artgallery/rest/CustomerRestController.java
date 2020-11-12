@@ -126,7 +126,7 @@ public class CustomerRestController {
      */
     @PostMapping("/setMeanOfDelivery/{transactionId}/{deliveryType}")
     public ResponseEntity<Void> setMeanOfDelivery(@PathVariable("transactionId") int transactionId,
-            @Valid @PathVariable String deliveryType) {
+            @Valid @PathVariable("deliveryType") String deliveryType) {
         logger.info("setting mean of delivery");
 
         if (transactionId == 0) {
