@@ -1,17 +1,21 @@
 <template>
   <div>
     <div class="artwork-card">
-      <img
-        src="../assets/hero-image.jpg"
-        alt="Random Artwork"
-        style="width: 100%"
-      />
+      <img v-bind:src="url" alt="artwork Image" style="width: 100%" />
       <div class="container">
         <h4>
           <b>{{ artworkName }}</b>
         </h4>
         <p>Artist: {{ artistName }}</p>
-        <a v-bind:href="'http://127.0.0.1:8087/#/artworkinfo/' + artworkId"
+        <a
+          v-bind:href="
+            'http://127.0.0.1:8087/#/artworkinfo/' +
+            artworkId +
+            '/' +
+            artworkName +
+            '/' +
+            artistName
+          "
           >More Info</a
         >
       </div>
@@ -22,11 +26,11 @@
 <script>
 export default {
   name: "Artwork",
-  props: ["artworkName", "artistName", "artworkId", "url"]
+  props: ["artworkName", "artistName", "artworkId", "url"],
 };
 </script>
 
-<style>
+<style scoped>
 .artwork-card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
