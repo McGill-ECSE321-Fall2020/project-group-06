@@ -98,6 +98,8 @@ export default {
         console.log(err);
       });
       console.log(response);
+      window.location.href = "#/profile";
+      window.scrollTo(0, 0);
     },
   },
 };

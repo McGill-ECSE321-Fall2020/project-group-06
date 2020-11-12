@@ -77,9 +77,9 @@
                           </div>
                         </div>
                         <div class="text-center text-sm-right">
-                          <span class="badge badge-secondary"
-                            >administrator</span
-                          >
+                          <span class="badge badge-secondary">{{
+                            AccountType
+                          }}</span>
                           <div class="text-muted">
                             <small>Joined 09 Dec 2017</small>
                           </div>
@@ -93,19 +93,25 @@
                     </ul>
                     <div class="tab-content pt-3">
                       <div class="tab-pane active">
-                        <form class="form" novalidate="">
+                        <form @submit.prevent="handleSaveChanges">
                           <div class="row">
                             <div class="col">
                               <div class="row">
                                 <div class="col">
                                   <div class="form-group">
-                                    <label>Full Name</label>
+                                    <label>First Name</label>
                                     <input
                                       class="form-control"
                                       type="text"
-                                      name="name"
-                                      placeholder="John Smith"
-                                      value="John Smith"
+                                      v-model="firstName"
+                                    />
+                                  </div>
+                                  <div class="form-group">
+                                    <label>Last Name</label>
+                                    <input
+                                      class="form-control"
+                                      type="text"
+                                      v-model="lastName"
                                     />
                                   </div>
                                 </div>
@@ -115,9 +121,7 @@
                                     <input
                                       class="form-control"
                                       type="text"
-                                      name="username"
-                                      placeholder="johnny.s"
-                                      value="johnny.s"
+                                      v-model="username"
                                     />
                                   </div>
                                 </div>
@@ -128,8 +132,8 @@
                                     <label>Email</label>
                                     <input
                                       class="form-control"
-                                      type="text"
-                                      placeholder="user@example.com"
+                                      type="email"
+                                      v-model="email"
                                     />
                                   </div>
                                 </div>
@@ -137,11 +141,11 @@
                               <div class="row">
                                 <div class="col mb-3">
                                   <div class="form-group">
-                                    <label>About</label>
+                                    <label>Description</label>
                                     <textarea
                                       class="form-control"
                                       rows="5"
-                                      placeholder="My Bio"
+                                      v-model="description"
                                     ></textarea>
                                   </div>
                                 </div>
@@ -153,7 +157,7 @@
                                     <input
                                       class="form-control"
                                       type="text"
-                                      placeholder="514-777-7777"
+                                      v-model="phoneNumber"
                                     />
                                   </div>
                                 </div>
@@ -301,10 +305,99 @@
 </template>
 
 <script>
+import axios from "axios";
+var config = require("../../config");
 export default {
+  async beforeCreate() {
+    console.log("Before edit profile");
+    const configuration = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    };
+    var frontendUrl = "http://" + config.dev.host + ":" + config.dev.port;
+    // had to add this to solve cors problem
+    var backendUrl =
+      "https://cors-anywhere.herokuapp.com/http://" + config.dev.backendHost;
+    var AXIOS = axios.create({
+      baseURL: backendUrl,
+      headers: { "Access-Control-Allow-Origin": frontendUrl },
+    });
+    var username = localStorage.getItem("username");
+    const response = await AXIOS.get(
+      "api/user/getUser/" + username,
+      configuration
+    ).catch((err) => {
+      console.log(err);
+    });
+    console.log(response.data);
+    this.firstName = response.data.firstName;
+    this.lastName = response.data.lastName;
+    this.password = response.data.password;
+    this.username = response.data.username;
+    this.email = response.data.email;
+    this.description = response.data.description;
+    this.phoneNumber = response.data.phoneNumber;
+    this.bankAccountNumber = response.data.bankAccountNumber;
+    this.creditCardNumber = response.data.creditCardNumber;
+    
+    if (!this.creditCardNumber && !this.bankAccountNumber) {
+      this.AccountType = "Administrator"
+    }
+    else if (this.creditCardNumber) {
+      this.AccountType = "Customer"
+    }
+    else if (this.bankAccountNumber) {
+      this.AccountType = "Artist"
+    }
+  },
   name: "EditProfile",
   data() {
-    return {};
+    return {
+      AccountType: "Administrator",
+      firstName: "",
+      lastName: "",
+      password: "",
+      username: "",
+      email: "",
+      description: "",
+      phoneNumber: "",
+      bankAccountNumber: "",
+      creditCardNumber: "",
+      newPassword: "",
+      confirmNewPassword: ""
+    };
+  },
+  methods: {
+    async handleSaveChanges() {
+      const configuration = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    };
+      var frontendUrl = "http://" + config.dev.host + ":" + config.dev.port;
+      var backendUrl =
+      "https://cors-anywhere.herokuapp.com/http://" + config.dev.backendHost;
+      var AXIOS = axios.create({
+        baseURL: backendUrl,
+        headers: { "Access-Control-Allow-Origin": frontendUrl },
+      });
+      const response = await AXIOS.put("api/user/updateUser", {
+        firstName: this.firstName,
+        lastName: this.lastName,
+        password: this.password,
+        username: this.username,
+        email: this.email,
+        description: this.description,
+        phoneNumber: this.phoneNumber,
+        creditCardNumber: this.creditCardNumber
+      }, configuration).catch((err) => {
+        console.log(err);
+      });
+      console.log(response);
+      window.location.href = "#/profile";
+      window.scrollTo(0, 0);
+    },
   },
 };
 </script>
