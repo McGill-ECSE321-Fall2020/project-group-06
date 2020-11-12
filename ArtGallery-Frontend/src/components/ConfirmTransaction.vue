@@ -15,7 +15,9 @@
         Credit Card: {{ customer.creditCardNumber }}
         <br>
         <br>
-        Do yo want to continue with your purchase?
+        <div class="message">
+          Do you want to continue with your purchase?
+        </div>
       </div>
       <input type="submit" value="CONFIRM" class="confirm">
     </form>
@@ -103,7 +105,8 @@ export default {
 .confirm-card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   width: 100%;
-  background-color: #fafad2;
+  margin-top: 10%;
+  background-color: #ddd8cc;
 }
 .title {
   font-size: 100%;
@@ -114,6 +117,11 @@ export default {
   padding: 2px 16px;
   font-size: 16px;
   font-weight: bold;
+}
+.message {
+  font-size: 20px;
+  font-weight: bold;
+  color:orangered;
 }
 button {
   background-color: #ddd8cc;
@@ -134,7 +142,7 @@ button:hover {
   color: red;
   font-size: 24px;
   text-align: center;
-  border-color: red;
+  border-color: orangered;
   margin-top: 10%;
   margin-left: 5%;
   margin-bottom: 5%;
@@ -143,7 +151,7 @@ button:hover {
 
 .confirm:hover {
   color: white;
-  background-color: red;
+  background-color: orangered;
   transform: scale(1.2);
   transition: transform 0.25s;
 }
