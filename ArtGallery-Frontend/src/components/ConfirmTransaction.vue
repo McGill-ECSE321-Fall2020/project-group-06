@@ -1,16 +1,21 @@
 <template>
   <div class="confirm-card">
     <form @submit.prevent="handleSubmit">
+      <h1 class="title"> Transaction Preview </h1>
       <div class="container">
         Artwork: {{ artwork.name }} <br>
         Artist: {{ artwork.artist.username }} <br>
-        Price: {{ artwork.price }} <br>
-        <label for="mean">Choose a mean of delivery:</label>
+        Price: {{ artwork.price }}$ <br>
+        <label for="mean">Mean of delivery:</label>
         <select name="Mean of Delivery" id="mean" v-model="meanOfDelivery" required>
           <option value="pickup">Pick Up</option>
           <option value="deliver">Deliver</option>
         </select> <br>
-        customerid: {{ customer.id }} <br>
+        Buyer: {{ customer.username }} <br>
+        Credit Card: {{ customer.creditCardNumber }}
+        <br>
+        <br>
+        Do yo want to continue with your purchase?
       </div>
       <input type="submit" value="CONFIRM" class="confirm">
     </form>
@@ -42,9 +47,11 @@ export default {
         "https://cors-anywhere.herokuapp.com/http://" + config.dev.backendHost;
       var AXIOS = axios.create({
         baseURL: backendUrl,
-        headers: { "Access-Control-Allow-Origin": frontendUrl },
+        headers: { 
+          "Access-Control-Allow-Origin": frontendUrl
+        },
       });
-      console.log(this.meanOfDelivery);
+    /*
       const response = await AXIOS.post(
             "api/customer/buyArtwork/" + this.customer.id + "/" + this.artwork.artist.id + "/" + this.artwork.id + "/" + this.artwork.artGallery.id, {},
             configuration ).catch((err) => {
@@ -52,19 +59,38 @@ export default {
       });
 
       console.log(response);
+      */
       var DelType;
       if (this.meanOfDelivery == "Pick Up") {
-        DelType:"PickedUp";
+        DelType="PickedUp";
       }
       else {
-        DelType:"Delivered";
+        DelType="Delivered";
       }
       console.log(DelType);
-      var lastTransaction = this.customer.transaction[this.customer.transaction.length - 1]
+  
+      function compare(a,b) {
+        const id1 = a.id;
+        const id2 = b.id;
+
+        let comparison = 0;
+        if(id1 > id2){
+          comparison = 1;
+        } else if(id1 < id2) {
+          comparison = -1;
+        }
+        return comparison;
+      } 
+
+      var transactions = this.customer.transaction.sort(compare);
+      console.log(transactions);
+
+      var lastTransaction = transactions[transactions.length - 1];
       console.log(lastTransaction);
+   
       const response2 = await AXIOS.post(
             "api/customer/setMeanOfDelivery/" + lastTransaction.id, 
-            DelType,
+            "PickedUp",
             configuration ).catch((err) => {
           console.log(err);
       });
@@ -77,12 +103,17 @@ export default {
 .confirm-card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   width: 100%;
-  background-color: #ddd8cc;
+  background-color: #fafad2;
 }
-
+.title {
+  font-size: 100%;
+  text-align: center;
+  text-decoration: underline;
+}
 .container {
   padding: 2px 16px;
   font-size: 16px;
+  font-weight: bold;
 }
 button {
   background-color: #ddd8cc;
@@ -104,8 +135,9 @@ button:hover {
   font-size: 24px;
   text-align: center;
   border-color: red;
-  margin-top: 20%;
-  margin-left: 10%;
+  margin-top: 10%;
+  margin-left: 5%;
+  margin-bottom: 5%;
   border-radius: 8px;
 }
 
