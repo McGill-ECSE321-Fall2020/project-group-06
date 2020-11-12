@@ -100,6 +100,7 @@ public class UserRestController {
         } catch (Exception e) {
             logger.error("Exception when updating user");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
         }
     }
 }
