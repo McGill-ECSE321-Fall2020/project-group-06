@@ -111,20 +111,15 @@ export default {
       } 
 
       var transactions = this.customer.transaction.sort(compare);
-      //console.log(transactions);
+      console.log(transactions);
 
       var lastTransaction = transactions[transactions.length - 1];
-      //console.log(lastTransaction);
-   
+      console.log(lastTransaction);
+      console.log(lastTransaction.id);
       const response3 = await AXIOS.post(
-            "api/customer/setMeanOfDelivery/" + lastTransaction.id, 
-            "PickedUp", 
-            {
-              headers: {
-                "Authorization": `Bearer ${localStorage.getItem("token")}`,
-                "Content-Type":"application/json"
-              }
-            }
+            "api/customer/setMeanOfDelivery/" + lastTransaction.id + "/" + DelType, 
+            {}, 
+            configuration
          ).catch((err) => {
           console.log(err);
           this.status = errorMessage
@@ -133,6 +128,8 @@ export default {
       if(this.status != errorMessage) {
           this.status = "Transaction Completed. Congratulations!"
       }
+      var transactions2 = this.customer.transaction.sort(compare);
+      console.log(transactions2);
     },
   },
 };
