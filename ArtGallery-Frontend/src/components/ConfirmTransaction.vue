@@ -119,7 +119,7 @@ export default {
   font-weight: bold;
 }
 .message {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
   color:orangered;
 }
@@ -139,7 +139,7 @@ button:hover {
   opacity: 1;
 }
 .confirm {
-  color: red;
+  color: orangered;
   font-size: 24px;
   text-align: center;
   border-color: orangered;
