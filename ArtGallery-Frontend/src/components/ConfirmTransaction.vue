@@ -58,16 +58,36 @@ export default {
         },
       });
       const errorMessage = "Oops! Something went wrong";
-    /*
+
       const response = await AXIOS.post(
             "api/customer/buyArtwork/" + this.customer.id + "/" + this.artwork.artist.id + "/" + this.artwork.id + "/" + this.artwork.artGallery.id, {},
             configuration ).catch((err) => {
           console.log(err);
           this.status = errorMessage;
       });
-
       console.log(response);
-      */
+      console.log(this.artwork);
+      // FOR TESTING PURPOSES!! KEEP THE ARTWORK IN THE ARTWORKS FOR SALE
+      const response2 = await AXIOS.put(
+        "api/artwork/updateArtwork",
+        {
+          "name": this.artwork.name,
+          "id": this.artwork.id,
+          "artist": {
+            "username":this.artwork.artist.username,
+            "id":this.artwork.artist.id
+          },
+          "artGallery": {
+            "name":this.artwork.artGallery.name,
+            "id":this.artwork.artGallery.id
+          },
+          "forSale": true
+        },
+            configuration ).catch((err) => {
+          console.log(err);
+          this.status = errorMessage;
+      });
+
       var DelType;
       if (this.meanOfDelivery == "Pick Up") {
         DelType="PickedUp";
@@ -91,15 +111,21 @@ export default {
       } 
 
       var transactions = this.customer.transaction.sort(compare);
-      console.log(transactions);
+      //console.log(transactions);
 
       var lastTransaction = transactions[transactions.length - 1];
-      console.log(lastTransaction);
+      //console.log(lastTransaction);
    
-      const response2 = await AXIOS.post(
+      const response3 = await AXIOS.post(
             "api/customer/setMeanOfDelivery/" + lastTransaction.id, 
-            "PickedUp",
-            configuration ).catch((err) => {
+            "PickedUp", 
+            {
+              headers: {
+                "Authorization": `Bearer ${localStorage.getItem("token")}`,
+                "Content-Type":"application/json"
+              }
+            }
+         ).catch((err) => {
           console.log(err);
           this.status = errorMessage
       });
