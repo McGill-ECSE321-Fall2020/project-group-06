@@ -28,7 +28,7 @@
           </mdb-card-body>
         </mdb-card>
       </mdb-col>
-      <mdb-col md="9" v-if="isArtist">
+      <mdb-col md="9" v-if="(type = 'artist')">
         <section class="text-center pb-3">
           <mdb-row class="d-flex justify-content-center">
             <mdb-col lg="6" xl="5" class="mb-3">
@@ -77,6 +77,7 @@
 
 <script>
 import axios from "axios";
+var config = require("../../config");
 import {
   mdbRow,
   mdbCol,
@@ -125,10 +126,27 @@ export default {
       phoneNumber: "",
     };
   },
-  username: this.$route.query.username,
-  isArtist: this.$route.query.isArtist,
 
-  async beforeCreate(username, isArtist) {
+  async beforeCreate() {
+    console.log("path");
+    var url = this.$route.fullpath.split("\\");
+    var username = "";
+    var type = "";
+    for (var i = 0; i < 15; i++) {
+      if (url[i] === "#") {
+        var usernameArray = url[i + 2].split("%20");
+        for (var j = 0; j < usernameArray.length; j++) {
+          if (j > 0) {
+            usernameArray[j] = " " + usernameArray[j];
+          }
+          username = username + usernameArray[j];
+        }
+        var type = url[i + 3];
+      }
+    }
+    console.log(username);
+    console.log(type);
+
     var loggedIn = true;
     var frontendUrl = "http://" + config.dev.host + ":" + config.dev.port;
     // had to add this to solve cors problem
@@ -138,7 +156,7 @@ export default {
       baseURL: backendUrl,
       headers: { "Access-Control-Allow-Origin": frontendUrl },
     });
-    if (isArtist) {
+    if (type) {
       const response = await AXIOS.post("api/artist/getArtist/" + username, {
         transaction: this.transaction,
         artwork: this.artwork,

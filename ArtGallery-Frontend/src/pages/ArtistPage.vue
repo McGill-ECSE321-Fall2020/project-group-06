@@ -10,7 +10,6 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Profile from "../components/Profile";
-import axios from "axios";
 export default {
   name: "Artist",
   components: {
