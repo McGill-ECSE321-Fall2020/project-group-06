@@ -44,7 +44,7 @@ export default {
     console.log("Before Create");
     const configuration = {
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWaW5jZW50IFZhbiBHb2doIiwiZXhwIjoxNjA1MTU4NzYyLCJpYXQiOjE2MDUxMjI3NjJ9.LIPqM1I_Qb_ZXN-YAZPnUqM3-c81JjLxvIZWE17mkOw`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     };
     var frontendUrl = "http://" + config.dev.host + ":" + config.dev.port;

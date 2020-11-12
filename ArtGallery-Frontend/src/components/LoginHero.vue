@@ -68,6 +68,7 @@ export default {
       }
       console.log(response);
       localStorage.setItem("token", response.data);
+      console.log(localStorage.getItem("token"));
     },
   },
 };
