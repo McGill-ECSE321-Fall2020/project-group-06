@@ -15,7 +15,18 @@
       <div id="minicontainer">
         <div class="price">
           {{ price }} $
-          <button type="button" class="button">BUY</button> 
+          <button type="button" class="button" v-on:click="isBuy=true">BUY</button> 
+          <div v-if="isBuy"> 
+            <div class="error" v-if="status == 'fail'">
+              <p> Error: You must be logged in with a customer account to buy! </p>
+            </div>
+            <div v-else> 
+              <ConfirmTransaction 
+                v-bind:artwork="artwork" 
+                v-bind:customer="customer"
+              />
+            </div>
+          </div>
         </div>
         <div class="availability" v-if="isAvailable" >
           available in store
@@ -27,7 +38,7 @@
           {{ typeArtwork }}
         </div>
         <div class="description">
-          Description: {{ description }}
+          Description: {{ description }} <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
         </div> 
       </div>
     </div>
@@ -40,6 +51,8 @@ import axios from "axios";
 import Navbar from "../components/Navbar";
 import Artwork from "../components/Artwork";
 import Footer from "../components/Footer";
+import ConfirmTransaction from "../components/ConfirmTransaction";
+
 var config = require("../../config");
 
 export default {
@@ -74,12 +87,33 @@ export default {
     this.isAvailable = this.artwork.isInStore;
     this.description = this.artwork.description;
     this.typeArtwork = this.artwork.typeOfArtwork;
+
+//NEED TO LOG IN WITH CUSTOMER ACCOUNT
+    var username = localStorage.getItem("username");
+		console.log(username);
+		var promise2 = await AXIOS.get(
+		  "api/customer/getCustomer/" + username,
+		  configuration
+		).catch((err) => {
+      this.status = "fail";
+		  console.log(err);
+    });
+		console.log("after");	
+    try{
+      this.customer = promise2.data;
+    }
+    catch(err){
+      console.log(err);
+    }
+    console.log(this.customer);	
+    console.log(this.status);
   },
   name: "BuyArtwork",
   components: {
     Navbar,
     Artwork,
-    Footer
+    Footer, 
+    ConfirmTransaction
   },
   data() {
     return {
@@ -87,7 +121,10 @@ export default {
       price: "",
       isAvailable: "",
       description: "",
-      typeArtwork: ""
+      typeArtwork: "",
+      isBuy: false, 
+      customer: "",
+      status: "success"
     };
   },
 };
@@ -108,6 +145,11 @@ export default {
 #container > div:hover {
   transform: scale(1,1);
 }
+
+.error {
+  font-size: 15px;
+  color: red;
+}
 .button {
   color: #32CD32;
   font-size: 24px;
@@ -123,7 +165,7 @@ export default {
 }
 
 .minicontainer {
-  display: grid
+  display: grid;
 }
 
 .price {

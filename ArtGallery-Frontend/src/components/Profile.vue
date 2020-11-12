@@ -1,5 +1,5 @@
 <template>
-  <section id="profile">
+  <section id="profile" class="body">
     <mdb-row>
       <mdb-col md="3">
         <mdb-card cascade narrow>
@@ -260,11 +260,12 @@ export default {
     Artwork,
     Transaction,
   },
+
 };
 </script>
 
-<style>
-body {
+<style >
+.body {
   padding-top: 5rem;
 }
 </style>
