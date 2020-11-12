@@ -13,7 +13,7 @@
           </mdb-view>
           <mdb-card-body class="text-center">
             <mdb-card-title class="font-bold mb-2">
-              <strong>{{ firstName }} + {{ lastName }}</strong>
+              <strong>{{ firstName }} {{ lastName }}</strong>
             </mdb-card-title>
             <h5 class="indigo-text" v-if="type == 'artist'">
               <strong>Artist</strong>
@@ -204,18 +204,25 @@ export default {
       headers: { "Access-Control-Allow-Origin": frontendUrl },
     });
     var username = localStorage.getItem("username");
-    const response = await AXIOS.post("api/user/getUser/" + username, {
-      transaction: this.transaction,
-      artwork: this.artwork,
-      firstName: this.firstName,
-      lastName: this.lastName,
-      email: this.email,
-      description: this.description,
-      phoneNumber: this.phoneNumber,
-    }).catch((err) => {
-      this.status = "Something went wrong";
-      loggedIn = false;
+    const response = await AXIOS.get(
+      "api/user/getUser/" + username,
+      configuration
+    ).catch((err) => {
+      console.log(err);
     });
+    console.log(response.data);
+    this.transaction = response.data.transaction;
+    this.artwork = response.data.artwork;
+    this.bankAccountNumber = this.bankAccountNumber;
+    this.id = response.data.id;
+    this.password = response.data.password;
+    this.username = response.data.username;
+    this.firstName = response.data.firstName;
+    this.lastName = response.data.lastName;
+    this.email = response.data.email;
+    this.description = response.data.description;
+    this.phoneNumber = response.data.phoneNumber;
+    this.creditCardNumber = response.data.creditCardNumber;
   },
   methods: {
     editProfile() {
@@ -229,13 +236,18 @@ export default {
   },
   data() {
     return {
-      transaction: "",
-      artwork: "",
+      transaction: [],
+      artwork: [],
+      bankAccountNumber: "",
+      id: "",
+      password: "",
+      username: "",
       firstName: "",
       lastName: "",
       email: "",
       description: "",
       phoneNumber: "",
+      creditCardNumber: "",
     };
   },
   name: "Profile",
