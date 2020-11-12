@@ -1,13 +1,19 @@
 <template>
   <div class="confirm-card">
-	<div class="container">
-		Artwork: {{ artwork.name }} <br>
-		Artist: {{ artwork.artist.username }} <br>
-		Price: {{ artwork.price }} <br>
-		etc <br>
-		customerid: {{ customer.id }}
-	</div>
-	<button class="confirm">CONFIRM</button>
+    <form @submit.prevent="handleSubmit">
+      <div class="container">
+        Artwork: {{ artwork.name }} <br>
+        Artist: {{ artwork.artist.username }} <br>
+        Price: {{ artwork.price }} <br>
+        <label for="mean">Choose a mean of delivery:</label>
+        <select name="Mean of Delivery" id="mean" v-model="meanOfDelivery" required>
+          <option value="pickup">Pick Up</option>
+          <option value="deliver">Deliver</option>
+        </select> <br>
+        customerid: {{ customer.id }} <br>
+      </div>
+      <input type="submit" value="CONFIRM" class="confirm">
+    </form>
   </div>
 </template>
 
@@ -20,40 +26,49 @@ export default {
   props: ["artwork", "customer"],
   data() {
 	return {
-    };
+    meanOfDelivery: null,
+  };
   },
   methods: {
-	/*async beforeCreate() {
-		console.log("Before Create in Confirm");
-		const configuration = {
-		headers: {
-			Authorization: `Bearer ${localStorage.getItem("token")}`,
-		},
-		};
-		var frontendUrl = "http://" + config.dev.host + ":" + config.dev.port;
-		// had to add this to solve cors problem
-		var backendUrl =
-		"https://cors-anywhere.herokuapp.com/http://" + config.dev.backendHost;
-		var AXIOS = axios.create({
-		baseURL: backendUrl,
-		headers: { "Access-Control-Allow-Origin": frontendUrl },
-		});
-		
-		var username = localStorage.getItem("username");
-		console.log(username);
-		const promise = await AXIOS.get(
-		"api/customer/getCustomer/" + username,
-		configuration
-		).catch((err) => {
-		console.log(err);
-		});
-		console.log("after");
-		console.log(this.customer);		
-		this.customer = promise.data;
-  	},
-    async handleConfirm() {
-      
-    },*/
+	  async handleSubmit() {
+      const configuration = {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      };
+      var frontendUrl = "http://" + config.dev.host + ":" + config.dev.port;
+      // had to add this to solve cors problem
+      var backendUrl =
+        "https://cors-anywhere.herokuapp.com/http://" + config.dev.backendHost;
+      var AXIOS = axios.create({
+        baseURL: backendUrl,
+        headers: { "Access-Control-Allow-Origin": frontendUrl },
+      });
+      console.log(this.meanOfDelivery);
+      const response = await AXIOS.post(
+            "api/customer/buyArtwork/" + this.customer.id + "/" + this.artwork.artist.id + "/" + this.artwork.id + "/" + this.artwork.artGallery.id, {},
+            configuration ).catch((err) => {
+          console.log(err);
+      });
+
+      console.log(response);
+      var DelType;
+      if (this.meanOfDelivery == "Pick Up") {
+        DelType:"PickedUp";
+      }
+      else {
+        DelType:"Delivered";
+      }
+      console.log(DelType);
+      var lastTransaction = this.customer.transaction[this.customer.transaction.length - 1]
+      console.log(lastTransaction);
+      const response2 = await AXIOS.post(
+            "api/customer/setMeanOfDelivery/" + lastTransaction.id, 
+            DelType,
+            configuration ).catch((err) => {
+          console.log(err);
+      });
+    },
   },
 };
 </script>
@@ -67,6 +82,7 @@ export default {
 
 .container {
   padding: 2px 16px;
+  font-size: 16px;
 }
 button {
   background-color: #ddd8cc;
