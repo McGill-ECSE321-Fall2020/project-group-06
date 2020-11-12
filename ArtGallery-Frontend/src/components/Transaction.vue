@@ -14,8 +14,10 @@
 
 <script>
 export default {
-  name: "Transaction"
+  name: "Transaction",
+
 };
+
 </script>
 
 <style>

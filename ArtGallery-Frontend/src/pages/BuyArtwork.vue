@@ -15,7 +15,13 @@
       <div id="minicontainer">
         <div class="price">
           {{ price }} $
-          <button type="button" class="button">BUY</button> 
+          <button type="button" class="button" v-on:click="isBuy=true">BUY</button> 
+          <div v-if="isBuy"> 
+            <ConfirmTransaction 
+              v-bind:artwork="artwork" 
+              v-bind:customer="customer"
+            />
+          </div>
         </div>
         <div class="availability" v-if="isAvailable" >
           available in store
@@ -40,6 +46,8 @@ import axios from "axios";
 import Navbar from "../components/Navbar";
 import Artwork from "../components/Artwork";
 import Footer from "../components/Footer";
+import ConfirmTransaction from "../components/ConfirmTransaction";
+
 var config = require("../../config");
 
 export default {
@@ -74,12 +82,25 @@ export default {
     this.isAvailable = this.artwork.isInStore;
     this.description = this.artwork.description;
     this.typeArtwork = this.artwork.typeOfArtwork;
+
+    var username = localStorage.getItem("username");
+		console.log(username);
+		var promise2 = await AXIOS.get(
+		  "api/customer/getCustomer/" + username,
+		  configuration
+		).catch((err) => {
+		  console.log(err);
+		});
+		console.log("after");	
+    this.customer = promise2.data;
+    console.log(this.customer);	
   },
   name: "BuyArtwork",
   components: {
     Navbar,
     Artwork,
-    Footer
+    Footer, 
+    ConfirmTransaction
   },
   data() {
     return {
@@ -87,7 +108,9 @@ export default {
       price: "",
       isAvailable: "",
       description: "",
-      typeArtwork: ""
+      typeArtwork: "",
+      isBuy: false, 
+      customer: ""
     };
   },
 };
