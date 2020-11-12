@@ -40,9 +40,7 @@
           <a class="nav-link" href="http://127.0.0.1:8087/#/login">Login</a>
         </li>
         <li class="nav-item">
-          <a
-            class="nav-link"
-            v-bind:href="'http://127.0.0.1:8087/#/profile/' + username"
+          <a class="nav-link" v-bind:href="'http://127.0.0.1:8087/#/artist/'"
             >Profile</a
           >
         </li>
@@ -58,7 +56,6 @@
 export default {
   name: "Navbar",
 };
-var username = localStorage.getItem("username");
 </script>
 
 <style scoped>

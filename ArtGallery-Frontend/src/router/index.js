@@ -53,7 +53,7 @@ export default new Router({
       component: Customer
     },
     {
-      path: "/artist/:username/:type",
+      path: "/artist",
       name: "Artist",
       component: Artist
     },

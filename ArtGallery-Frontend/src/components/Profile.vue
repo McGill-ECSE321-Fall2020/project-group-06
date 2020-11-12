@@ -203,33 +203,19 @@ export default {
       baseURL: backendUrl,
       headers: { "Access-Control-Allow-Origin": frontendUrl },
     });
-    console.log("path");
-    var url = this.$route.fullpath.split("/");
-    var username = "";
-    var type = "";
-    for (var i = 0; i < 15; i++) {
-      if (url[i] === "#") {
-        var username = url[i + 2].replace(/"%20"/g, " ");
-        var type = url[i + 3];
-      }
-    }
-    console.log(username);
-    console.log(type);
-
-    if (type === "artist") {
-      const response = await AXIOS.post("api/artist/getArtist/" + username, {
-        transaction: this.transaction,
-        artwork: this.artwork,
-        firstName: this.firstName,
-        lastName: this.lastName,
-        email: this.email,
-        description: this.description,
-        phoneNumber: this.phoneNumber,
-      }).catch((err) => {
-        this.status = "Something went wrong";
-        loggedIn = false;
-      });
-    }
+    var username = localStorage.getItem("username");
+    const response = await AXIOS.post("api/user/getUser/" + username, {
+      transaction: this.transaction,
+      artwork: this.artwork,
+      firstName: this.firstName,
+      lastName: this.lastName,
+      email: this.email,
+      description: this.description,
+      phoneNumber: this.phoneNumber,
+    }).catch((err) => {
+      this.status = "Something went wrong";
+      loggedIn = false;
+    });
   },
   methods: {
     editProfile() {
