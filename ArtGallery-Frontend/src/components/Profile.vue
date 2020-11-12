@@ -44,36 +44,21 @@
           </mdb-card-body>
         </mdb-card>
       </mdb-col>
-      <mdb-col md="5" v-if="type == 'artist'">
+      <mdb-col md="5">
         <section class="text-center pb-3">
-          <mdb-row class="d-flex justify-content-center">
+          <mdb-row
+            class="d-flex justify-content-center"
+            v-for="artw in artwork"
+            :key="artw.id"
+          >
             <mdb-col lg="6" xl="5" class="mb-3">
               <Artwork
-                picture="https://mdbootstrap.com/img/Mockups/Horizontal/6-col/pro-profile-page.jpg"
+                v-bind:artworkName="artw.name"
+                v-bind:artworkId="artw.id"
+                v-bind:url="artw.url"
               />
             </mdb-col>
-            <mdb-col lg="6" xl="5" class="mb-3">
-              <Artwork
-                picture="https://mdbootstrap.com/img/Mockups/Horizontal/6-col/pro-signup.jpg"
-              />
-            </mdb-col>
-          </mdb-row>
-          <mdb-row class="d-flex justify-content-center">
-            <mdb-col lg="6" xl="5" class="mb-3">
-              <Artwork
-                picture="https://mdbootstrap.com/img/Mockups/Horizontal/6-col/pro-pricing.jpg"
-              />
-            </mdb-col>
-            <mdb-col lg="6" xl="5" class="mb-3">
-              <Artwork
-                picture="https://mdbootstrap.com/img/Mockups/Horizontal/6-col/pro-landing.jpg"
-              />
-            </mdb-col>
-            <mdb-col class="mb-3">
-              <mdb-btn outline="primary" rounded size="sm" @click="addArtwork"
-                >Add Artwork</mdb-btn
-              >
-            </mdb-col>
+
             <mdb-col lg="12">
               <div class="text-center">
                 <mdb-pagination circle color="blue">
@@ -90,6 +75,11 @@
               </div>
             </mdb-col>
           </mdb-row>
+          <mdb-col class="mb-3">
+            <mdb-btn outline="primary" rounded size="sm" @click="addArtwork"
+              >Add Artwork</mdb-btn
+            >
+          </mdb-col>
         </section>
       </mdb-col>
       <mdb-col md="4" v-if="type == 'artist'">
