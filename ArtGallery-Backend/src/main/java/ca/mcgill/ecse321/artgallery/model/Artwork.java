@@ -24,6 +24,16 @@ public class Artwork {
 		this.name = value;
 	}
 
+	private String url;
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getUrl() {
+		return this.url;
+	}
+
 	public String getName() {
 		return this.name;
 	}

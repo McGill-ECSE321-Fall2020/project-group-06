@@ -3,7 +3,7 @@
    add style="background-color: #AB9778;" for custom background color-->
   <nav
     class="navbar navbar-expand-lg navbar-light fixed-top"
-    style="background-color: #DDD8CC; margin-bot:70px;"
+    style="background-color: #DDD8CC; margin-bot: 70px"
   >
     <a class="navbar-brand" href="#">Navbar</a>
     <button
@@ -37,11 +37,16 @@
           <a class="nav-link" href="#">About us</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Profile</a>
+          <a class="nav-link" href="http://127.0.0.1:8087/#/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" v-bind:href="'http://127.0.0.1:8087/#/artist/'"
+            >Profile</a
+          >
         </li>
       </ul>
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-        Sign up
+        <a class="nav-link" href="http://127.0.0.1:8087/#/signup">SignUp</a>
       </button>
     </div>
   </nav>
@@ -49,7 +54,7 @@
 
 <script>
 export default {
-  name: "Navbar"
+  name: "Navbar",
 };
 </script>
 
