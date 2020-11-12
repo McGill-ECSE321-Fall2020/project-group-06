@@ -6,12 +6,29 @@
       <br />
     </div>
     <div id="container">
-      <Artwork />
-      <div class="description">
-         Description:
-      </div>
-      <div>
-        <button type="button" class="button">BUY</button>  
+      <Artwork 
+        v-bind:artistName="artwork.artist.username" 
+        v-bind:artworkName="artwork.name" 
+        v-bind:artworkId="artwork.id"
+        v-bind:url="artwork.url"
+      />
+      <div id="minicontainer">
+        <div class="price">
+          {{ price }} $
+          <button type="button" class="button">BUY</button> 
+        </div>
+        <div class="availability" v-if="isAvailable" >
+          available in store
+        </div>
+        <div class="availability" v-else >
+          not available in store
+        </div>
+        <div>
+          {{ typeArtwork }}
+        </div>
+        <div class="description">
+          Description: {{ description }}
+        </div> 
       </div>
     </div>
     <Footer />
@@ -19,16 +36,60 @@
 </template>
 
 <script>
+import axios from "axios";
 import Navbar from "../components/Navbar";
 import Artwork from "../components/Artwork";
 import Footer from "../components/Footer";
+var config = require("../../config");
+
 export default {
-  name: "Artworks",
+  async beforeCreate() {
+    console.log("Before Create");
+    const configuration = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    };
+    var frontendUrl = "http://" + config.dev.host + ":" + config.dev.port;
+    // had to add this to solve cors problem
+    var backendUrl =
+      "https://cors-anywhere.herokuapp.com/http://" + config.dev.backendHost;
+    var AXIOS = axios.create({
+      baseURL: backendUrl,
+      headers: { "Access-Control-Allow-Origin": frontendUrl },
+    });
+    
+    var name = this.$route.fullPath.split("/")[3].replace(/%20/g, " ");
+    console.log(name);
+    const promise = await AXIOS.get(
+      "api/artwork/getArtwork/" + name,
+      configuration
+    ).catch((err) => {
+      console.log(err);
+    });
+    // populate the array
+    this.artwork = promise.data;
+    console.log(this.artwork);
+    this.price = this.artwork.price;
+    this.isAvailable = this.artwork.isInStore;
+    this.description = this.artwork.description;
+    this.typeArtwork = this.artwork.typeOfArtwork;
+  },
+  name: "BuyArtwork",
   components: {
     Navbar,
     Artwork,
     Footer
-  }
+  },
+  data() {
+    return {
+      artwork: "",
+      price: "",
+      isAvailable: "",
+      description: "",
+      typeArtwork: ""
+    };
+  },
 };
 </script>
 
@@ -48,10 +109,34 @@ export default {
   transform: scale(1,1);
 }
 .button {
-  border: none;
-  color: white;
-  font-size: 20px;
+  color: #32CD32;
+  font-size: 24px;
   text-align: center;
-  background-color: #32CD32;
+  border-color: #32CD32;
+  margin-top: 20%;
+  margin-left: 30%;
+  border-radius: 8px;
 }
+.button:hover {
+  transform: scale(1.2);
+  transition: transform 0.25s;
+}
+
+.minicontainer {
+  display: grid
+}
+
+.price {
+  text-align: left;
+  font-size: 30px;
+}
+.description {
+  margin-top: 10%;
+}
+
+.availability {
+  font-size: 10px;
+  margin-bottom: 10%;
+}
+
 </style>
