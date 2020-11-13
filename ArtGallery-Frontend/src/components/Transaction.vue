@@ -3,10 +3,10 @@
     <div class="transaction-card">
       <div class="container">
         <h4><b>Transaction</b></h4>
-        <p>Date: {{ transactionId }}</p>
-        <p>Artwork: {{}}</p>
-        <p>Artist: {{}}</p>
-        <p>Price: {{}}</p>
+        <p>Date: {{ dateOfTransaction }}</p>
+        <p>Artwork: {{ artworkName }}</p>
+        <p>Artist: {{ artistFirstName }} {{ artistLastName }}</p>
+        <p>Price: {{ price }}</p>
       </div>
     </div>
   </div>
@@ -23,8 +23,8 @@ export default {
       default: 10,
     },
   },
-  async beforeCreate() {
-    console.log(this.transactionId);
+  async created() {
+    console.log("TID" + this.transactionId);
     console.log("Before create Transaction");
 
     const configuration = {
@@ -49,9 +49,20 @@ export default {
     });
     console.log("after axios");
     console.log(response.data);
+    this.artworkName = response.data.artwork.name;
+    this.artistFirstName = response.data.artist.firstName;
+    this.artistLastName = response.data.artist.lastName;
+    this.price = response.data.artwork.price;
+    this.dateOfTransaction = response.data.dateOfTransaction;
   },
   data() {
-    return {};
+    return {
+      artworkName: "",
+      artistFirstName: "",
+      artistLastName: "",
+      price: "",
+      dateOfTransaction: "",
+    };
   },
 };
 </script>
