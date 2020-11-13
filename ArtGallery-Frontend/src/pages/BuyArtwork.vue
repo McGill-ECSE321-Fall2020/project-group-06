@@ -93,7 +93,7 @@ export default {
     this.description = this.artwork.description;
     this.typeArtwork = this.artwork.typeOfArtwork;
 
-//NEED TO LOG IN WITH CUSTOMER ACCOUNT
+    //NEED TO LOG IN WITH CUSTOMER ACCOUNT
     var username = localStorage.getItem("username");
 		console.log(username);
 		var promise2 = await AXIOS.get(
@@ -112,7 +112,20 @@ export default {
     }
     console.log(this.customer);	
     console.log(this.status);
+
+    console.log("FAVORITES");
+    console.log(this.customer.artwork);
+    var favorites = this.customer.artwork;
+    for (const artwork of favorites) {
+      if(artwork.id == this.artwork.id) {
+        console.log("Is in favorite list");
+        this.isInFavorites=true;
+        break;
+      }
+    }
+
   },
+
   methods: {
     async handleFavorite() {
       console.log("Handle Favorites");
