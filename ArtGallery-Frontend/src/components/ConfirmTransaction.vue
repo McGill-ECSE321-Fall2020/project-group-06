@@ -89,7 +89,7 @@ export default {
       });
 
       var DelType;
-      if (this.meanOfDelivery == "Pick Up") {
+      if (this.meanOfDelivery === "Pick Up") {
         DelType="PickedUp";
       }
       else {
