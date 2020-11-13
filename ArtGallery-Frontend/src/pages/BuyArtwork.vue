@@ -15,23 +15,12 @@
       <div id="minicontainer">
         <div class="price">
           {{ price }} $
-          <button type="button" class="button" v-on:click="isBuy=true">BUY</button> 
-          <div v-if="isBuy"> 
-            <div class="error" v-if="status == 'fail'">
-              <p> Error: You must be logged in with a customer account to buy! </p>
-            </div>
-            <div v-else> 
-              <ConfirmTransaction 
-                v-bind:artwork="artwork" 
-                v-bind:customer="customer"
-              />
-            </div>
-          </div>
+          <button type="button" class="button" v-if="!isBuy" v-on:click="isBuy=true">BUY</button> 
         </div>
-        <div class="availability" v-if="isAvailable" >
+        <div class="available" v-if="isAvailable">
           available in store
         </div>
-        <div class="availability" v-else >
+        <div class="notavailable" v-else color=red >
           not available in store
         </div>
         <div>
@@ -40,6 +29,17 @@
         <div class="description">
           Description: {{ description }} <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
         </div> 
+      </div>
+      <div v-if="isBuy"> 
+        <div class="error" v-if="status == 'fail'">
+          <p> Error: You must be logged in with a customer account to buy! </p>
+        </div>
+        <div v-else> 
+          <ConfirmTransaction 
+            v-bind:artwork="artwork" 
+            v-bind:customer="customer"
+          />
+        </div>
       </div>
     </div>
     <Footer />
@@ -151,11 +151,10 @@ export default {
   color: red;
 }
 .button {
-  color: #32CD32;
+  color: darkseagreen;
   font-size: 24px;
   text-align: center;
-  border-color: #32CD32;
-  margin-top: 20%;
+  border-color: darkseagreen;
   margin-left: 30%;
   border-radius: 8px;
 }
@@ -169,6 +168,7 @@ export default {
 }
 
 .price {
+  margin-top: 10%;
   text-align: left;
   font-size: 30px;
 }
@@ -176,9 +176,14 @@ export default {
   margin-top: 10%;
 }
 
-.availability {
+.available {
   font-size: 10px;
   margin-bottom: 10%;
+  color: darkseagreen;
 }
-
+.notavailable {
+  font-size: 10px;
+  margin-bottom: 10%;
+  color: orangered;
+}
 </style>
