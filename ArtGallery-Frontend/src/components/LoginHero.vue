@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img src="../assets/login-hero.jpg" alt="Login Hero Image" />
+    <img src="../assets/3164.jpg" alt="Login Hero Image" />
     <form @submit.prevent="handleSubmit">
       <div class="container">
         <div class="centered-text">
@@ -92,9 +92,9 @@ input {
 }
 .centered-text {
   position: absolute;
-  top: 29%;
+  top: 50%;
   font-size: large;
-  left: 63%;
+  left: 50%;
   transform: translate(-50%, -50%);
 }
 a {

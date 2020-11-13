@@ -3,6 +3,7 @@ import Router from "vue-router";
 import Hello from "@/components/Hello";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
+import About from "@/pages/About";
 
 import Artworks from "@/pages/Artworks";
 import Signup from "@/pages/Signup";
@@ -60,6 +61,11 @@ export default new Router({
       path: "/addArtwork",
       name: "AddArtwork",
       component: AddArtwork
+    },
+    {
+      path: "/aboutUs",
+      name: "About",
+      component: About
     },
     {
       path: "/profile",
