@@ -100,7 +100,7 @@ img {
   height: auto;
 }
 .centered {
-  color: white;
+  color: black;
   position: absolute;
   top: 25%;
   font-size: 40px;
