@@ -126,7 +126,8 @@ export default {
       });
 
       if(this.status != errorMessage) {
-          this.status = "Transaction Completed. Congratulations!"
+          this.status = "Transaction Completed. Congratulations! Redirecting to Profile..."
+          setTimeout(() => {  this.$router.push("/profile"); }, 3000);
       }
       var transactions2 = this.customer.transaction.sort(compare);
       console.log(transactions2);
