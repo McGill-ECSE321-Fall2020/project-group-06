@@ -1,10 +1,10 @@
 <template>
   <div>
-    <img src="../assets/artworks-image.jpg" alt="SignUp image" />
+    <img src="../assets/signup-image.jpg" alt="SignUp image" />
     <form @submit.prevent="handleSubmit">
       <div class="container">
         <div class="centered-text">
-          <h1 class="SignUpTitle"><b>SignUp</b></h1>
+          <h1 class="SignUpTitle"><b>Sign Up</b></h1>
           <br />
           <br />
           <div class="RadioButtons">
@@ -152,6 +152,9 @@ button {
   font-size: 16px;
   opacity: 0.5;
   border-radius: 12px;
+  left: 50%;
+  top: 115%;
+  transform: translate(-50%, -50%);
 }
 button:hover {
   opacity: 1;
