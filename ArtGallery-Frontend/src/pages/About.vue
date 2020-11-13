@@ -43,7 +43,7 @@ export default {
 img {
   width: 100%;
   height: auto;
-  align-content: space-around;
+  /* align-content: space-around; */
 }
 .centered {
   text-align: justify;
@@ -58,7 +58,7 @@ img {
 h1 {
   position: absolute;
   text-align: center;
-  top: 75%;
+  top: 80%;
   left: 50%;
   /* bring your own prefixes */
   transform: translate(-50%, -50%);
