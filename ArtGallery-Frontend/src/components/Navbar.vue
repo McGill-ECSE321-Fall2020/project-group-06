@@ -5,7 +5,7 @@
     class="navbar navbar-expand-lg navbar-light fixed-top"
     style="background-color: #DDD8CC; margin-bot: 70px"
   >
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="#">Art Gallery</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -26,6 +26,11 @@
           >
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="http://127.0.0.1:8087/#/aboutUs"
+            >About us</a
+          >
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="http://127.0.0.1:8087/#/artworks"
             >Artworks</a
           >
@@ -34,13 +39,10 @@
           <a class="nav-link" href="#">Contacts</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">About us</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="http://127.0.0.1:8087/#/login">Login</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" v-bind:href="'http://127.0.0.1:8087/#/artist/'"
+          <a class="nav-link" v-bind:href="'http://127.0.0.1:8087/#/profile'"
             >Profile</a
           >
         </li>
