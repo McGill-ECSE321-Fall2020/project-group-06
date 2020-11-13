@@ -175,7 +175,6 @@ export default {
 .description {
   margin-top: 10%;
 }
-
 .available {
   font-size: 10px;
   margin-bottom: 10%;
