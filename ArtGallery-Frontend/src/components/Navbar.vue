@@ -26,15 +26,17 @@
           >
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="http://127.0.0.1:8087/#/aboutUs"
+            >About us</a
+          >
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="http://127.0.0.1:8087/#/artworks"
             >Artworks</a
           >
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Contacts</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="http://127.0.0.1:8087/#/aboutUs">About us</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="http://127.0.0.1:8087/#/login">Login</a>

@@ -113,7 +113,7 @@ export default {
   box-sizing: border-box;
 }
 img {
-  max-width: 100%;
+  width: 100%;
   height: auto;
 }
 input {

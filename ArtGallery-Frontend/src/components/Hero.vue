@@ -23,6 +23,7 @@ img {
   font-size: large;
   left: 50%;
   transform: translate(-50%, -50%);
-  text-indent: 12px
+  text-indent: 7%;
+  font-family: "Times New Roman", Times, serif;
 }
 </style>
