@@ -3,7 +3,7 @@
     <Navbar />
     <div class="search-artwork">
       <img src="../assets/artworks-image.jpg" alt="Artworks image" />
-      <div class="centered">BROWSE ARTWORKS</div>
+      <h1>BROWSE ARTWORKS</h1>
     </div>
     <div class="filter-area">
       <br />
@@ -99,12 +99,18 @@ img {
   max-width: 100%;
   height: auto;
 }
-.centered {
-  color: black;
+h1 {
+  /* color: black;
   position: absolute;
-  top: 25%;
-  font-size: 40px;
+  top: 75%;
+  /* font-size: 40px;
   left: 50%;
   transform: translate(-50%, -50%);
+  font-family: "Times New Roman", Times, serif; */
+  position: absolute;
+  text-align: center;
+  top: 75%;
+  left: 35%;
+  font-family: "Times New Roman", Times, serif;
 }
 </style>
