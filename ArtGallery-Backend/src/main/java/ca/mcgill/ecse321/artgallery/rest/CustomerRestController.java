@@ -29,6 +29,7 @@ import ca.mcgill.ecse321.artgallery.services.CustomerService;
 
 /**
  * Art Gallery REST controller class
+ * 
  * @author Sen Wang
  * @author Noah Chamberland
  * @author Justin Legrand
@@ -90,8 +91,8 @@ public class CustomerRestController {
     }
 
     /**
-     * REQ3.2(B): The art gallery system shall allow a customer to remove artwork into
-     * their own favorite list.
+     * REQ3.2(B): The art gallery system shall allow a customer to remove artwork
+     * into their own favorite list.
      * 
      * @param int customerId The customer id
      */
@@ -123,9 +124,9 @@ public class CustomerRestController {
      * 
      * @param int transactionId The transaction id
      */
-    @PostMapping("/setMeanOfDelivery/{transactionId}")
+    @PostMapping("/setMeanOfDelivery/{transactionId}/{deliveryType}")
     public ResponseEntity<Void> setMeanOfDelivery(@PathVariable("transactionId") int transactionId,
-            @Valid @RequestBody DeliveryType deliveryType) {
+            @Valid @PathVariable("deliveryType") String deliveryType) {
         logger.info("setting mean of delivery");
 
         if (transactionId == 0) {
@@ -134,8 +135,15 @@ public class CustomerRestController {
         if (deliveryType == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
+
+        DeliveryType type;
+        if (deliveryType.equals("PickedUp")) {
+            type = DeliveryType.PickedUp;
+        } else {
+            type = DeliveryType.Delivered;
+        }
         try {
-            if (customerService.setMeanOfDelivery(transactionId, deliveryType))
+            if (customerService.setMeanOfDelivery(transactionId, type))
                 return ResponseEntity.status(HttpStatus.OK).build();
             else
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -263,7 +271,8 @@ public class CustomerRestController {
     /**
      * It shall be possible to update a customer profile.
      * 
-     * @param CustomerDto customerDto The data transfer object relating to the customer
+     * @param CustomerDto customerDto The data transfer object relating to the
+     *                    customer
      */
     @PutMapping("/updateCustomer")
     public ResponseEntity<Void> updateCustomer(@Valid @RequestBody CustomerDto customerDto) {

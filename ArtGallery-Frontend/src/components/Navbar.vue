@@ -40,7 +40,7 @@
           <a class="nav-link" href="http://127.0.0.1:8087/#/login">Login</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" v-bind:href="'http://127.0.0.1:8087/#/artist/'"
+          <a class="nav-link" v-bind:href="'http://127.0.0.1:8087/#/profile'"
             >Profile</a
           >
         </li>
