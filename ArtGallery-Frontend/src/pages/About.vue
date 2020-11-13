@@ -2,9 +2,9 @@
   <!-- Default Home Page -->
   <div>
     <Navbar />
-    <img src="../assets/hero-image.jpg" alt="Hero Image" />
+    <!-- <img src="../assets/hero-image.jpg" alt="Hero Image" /> -->
     <div>
-      <p>
+      <p centered>
         The art gallery in your neighbourhood has always done business the
         old-fashioned way: connecting local artists with potential customers by
         showcasing their work at the gallery. The current pandemic is forcing
