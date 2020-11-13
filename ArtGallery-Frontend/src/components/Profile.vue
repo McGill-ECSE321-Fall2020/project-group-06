@@ -90,7 +90,7 @@
             :key="transac.id"
           >
             <mdb-col lg="6" xl="5" class="mb-3">
-              <Transaction v-bind:transation="transac" />
+              <Transaction v-bind:transactionId="transac.id" />
             </mdb-col>
           </mdb-row>
           <mdb-col lg="12">

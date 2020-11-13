@@ -3,22 +3,57 @@
     <div class="transaction-card">
       <div class="container">
         <h4><b>Transaction</b></h4>
-        <p>Date: {{ transaction.dateOfTransaction }}</p>
-        <p>Artwork: {{ transaction.artwork.name }}</p>
-        <p>Artist: {{ transaction.artist.username }}</p>
-        <p>Price: {{ transaction.artwork.price }}</p>
+        <p>Date: {{ transactionId }}</p>
+        <p>Artwork: {{}}</p>
+        <p>Artist: {{}}</p>
+        <p>Price: {{}}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
+var config = require("../../config");
 export default {
   name: "Transaction",
-  props: ["transaction"]
+  props: {
+    transactionId: {
+      type: Number,
+      default: 10,
+    },
+  },
+  async beforeCreate() {
+    console.log(this.transactionId);
+    console.log("Before create Transaction");
 
+    const configuration = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    };
+    var frontendUrl = "http://" + config.dev.host + ":" + config.dev.port;
+    // had to add this to solve cors problem
+    var backendUrl =
+      "https://cors-anywhere.herokuapp.com/http://" + config.dev.backendHost;
+    var AXIOS = axios.create({
+      baseURL: backendUrl,
+      headers: { "Access-Control-Allow-Origin": frontendUrl },
+    });
+    console.log("before axios");
+    const response = await AXIOS.get(
+      "api/transaction/getTransaction/" + this.transactionId,
+      configuration
+    ).catch((err) => {
+      console.log(err);
+    });
+    console.log("after axios");
+    console.log(response.data);
+  },
+  data() {
+    return {};
+  },
 };
-
 </script>
 
 <style>
