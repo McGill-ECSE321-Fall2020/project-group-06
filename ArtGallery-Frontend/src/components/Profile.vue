@@ -82,7 +82,7 @@
           </mdb-col>
         </section>
       </mdb-col>
-      <mdb-col md="4" v-if="type == 'artist'">
+      <mdb-col md="4">
         <section class="text-center pb-3">
           <mdb-row
             class="d-flex justify-content-center"
@@ -108,41 +108,6 @@
               </mdb-pagination>
             </div>
           </mdb-col>
-        </section>
-      </mdb-col>
-      <mdb-col md="9" v-if="type == 'customer'">
-        <section class="text-center pb-3">
-          <mdb-row class="d-flex justify-content-center">
-            <mdb-col lg="6" xl="5" class="mb-3">
-              <Transaction />
-            </mdb-col>
-            <mdb-col lg="6" xl="5" class="mb-3">
-              <Transaction />
-            </mdb-col>
-          </mdb-row>
-          <mdb-row class="d-flex justify-content-center">
-            <mdb-col lg="6" xl="5" class="mb-3">
-              <Transaction />
-            </mdb-col>
-            <mdb-col lg="6" xl="5" class="mb-3">
-              <Transaction />
-            </mdb-col>
-            <mdb-col lg="12">
-              <div class="text-center">
-                <mdb-pagination circle color="blue">
-                  <mdb-page-item disabled>First</mdb-page-item>
-                  <mdb-page-nav prev></mdb-page-nav>
-                  <mdb-page-item active>1</mdb-page-item>
-                  <mdb-page-item>2</mdb-page-item>
-                  <mdb-page-item>3</mdb-page-item>
-                  <mdb-page-item>4</mdb-page-item>
-                  <mdb-page-item>5</mdb-page-item>
-                  <mdb-page-nav next></mdb-page-nav>
-                  <mdb-page-item disabled>Last</mdb-page-item>
-                </mdb-pagination>
-              </div>
-            </mdb-col>
-          </mdb-row>
         </section>
       </mdb-col>
     </mdb-row>
