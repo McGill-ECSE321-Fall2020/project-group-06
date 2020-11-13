@@ -8,11 +8,11 @@
       <p class="centered">
         Your neighbourhood art gallery has always done business the
         old-fashioned way: connecting local artists with potential customers by
-        showcasing their work at the physical gallery. The current pandemic is forcing
-        us to change our business model and focus our business online. The
-        gallery wants to focus on local artists and encourage them to use our
-        website and app to promote and sell their work. Artists register, create
-        a profile, and present any pieces they have to sell. Interested
+        showcasing their work at the physical gallery. The current pandemic is
+        forcing us to change our business model and focus our business online.
+        The gallery wants to focus on local artists and encourage them to use
+        our website and app to promote and sell their work. Artists register,
+        create a profile, and present any pieces they have to sell. Interested
         customers can browse and buy what they like. The gallery can also
         promote artwork available on their premises. Artists can deliver their
         art to customers by mail or can leave it at the store for pickup. The
@@ -59,7 +59,9 @@ h1 {
   position: absolute;
   text-align: center;
   top: 75%;
-  left: 42%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
   font-family: "Times New Roman", Times, serif;
 }
 </style>
