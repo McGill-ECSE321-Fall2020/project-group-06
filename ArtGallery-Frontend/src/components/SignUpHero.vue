@@ -153,6 +153,7 @@ export default {
         window.location.href = "#/login";
         window.scrollTo(0, 0);
       } else {
+        console.log("Creating customer");
         const customerResponse = await AXIOS.post(
           "api/customer/createCustomer",
           {

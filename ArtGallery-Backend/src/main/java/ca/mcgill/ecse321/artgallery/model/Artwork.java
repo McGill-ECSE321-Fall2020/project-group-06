@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -84,7 +85,7 @@ public class Artwork {
 	private Artist artist;
 
 	// ManyToOne
-	@OneToOne(optional = false)
+	@ManyToOne(optional = false)
 	@JsonIgnoreProperties("artwork")
 	public Artist getArtist() {
 		return this.artist;
@@ -109,7 +110,7 @@ public class Artwork {
 	private ArtGallery artGallery;
 
 	// ManytoOne
-	@OneToOne(optional = false)
+	@ManyToOne(optional = false)
 	@JsonIgnoreProperties("artwork")
 	public ArtGallery getArtGallery() {
 		return this.artGallery;
