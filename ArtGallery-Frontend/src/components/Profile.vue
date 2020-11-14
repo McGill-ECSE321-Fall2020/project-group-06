@@ -83,7 +83,7 @@
                 </mdb-pagination>
               </div>
             </mdb-col>
-          </mdb-row>
+
           <mdb-col class="mb-3">
             <mdb-btn outline="primary" rounded size="sm" @click="addArtwork"
               >Add Artwork</mdb-btn
