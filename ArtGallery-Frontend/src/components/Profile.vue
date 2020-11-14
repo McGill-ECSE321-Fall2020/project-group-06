@@ -2,10 +2,10 @@
   <section id="profile" class="body">
     <mdb-row>
       <mdb-col md="3">
-        <mdb-card cascade narrow>
+        <mdb-card cascade narrow class="text-center pb-3">
           <mdb-view>
             <img
-              src="https://mdbootstrap.com/img/Photos/Horizontal/People/6-col/img%20%283%29.jpg"
+              src="../assets/default_avatar.png"
               alt="Project"
               class="img-fluid"
             />
@@ -15,10 +15,10 @@
             <mdb-card-title class="font-bold mb-2">
               <strong>{{ firstName }} {{ lastName }}</strong>
             </mdb-card-title>
-            <h5 class="indigo-text" v-if="type == 'artist'">
+            <h5 class="indigo-text" v-if="isArtist">
               <strong>Artist</strong>
             </h5>
-            <h5 class="indigo-text" v-if="type == 'customer'">
+            <h5 class="indigo-text" v-if="!isArtist">
               <strong>Customer</strong>
             </h5>
             <h6 class="text-justify">
@@ -59,37 +59,20 @@
                 v-bind:artistName="lastName"
               />
             </mdb-col>
-            <mdb-col2 lg="6" xl="5" class="mb-3" v-if="!isArtist">
+            <mdb-col lg="6" xl="5" class="mb-3" v-if="!isArtist">
               <Artwork
                 v-bind:artworkName="artw.name"
                 v-bind:artworkId="artw.id"
                 v-bind:url="artw.url"
                 v-bind:artistName="artw.artist.LastName"
               />
-            </mdb-col2>
-
-            <mdb-col lg="12">
-              <div class="text-center">
-                <!-- <mdb-pagination circle color="blue">
-                  <mdb-page-item disabled>First</mdb-page-item>
-                  <mdb-page-nav prev></mdb-page-nav>
-                  <mdb-page-item active>1</mdb-page-item>
-                  <mdb-page-item>2</mdb-page-item>
-                  <mdb-page-item>3</mdb-page-item>
-                  <mdb-page-item>4</mdb-page-item>
-                  <mdb-page-item>5</mdb-page-item>
-                  <mdb-page-nav next></mdb-page-nav>
-                  <mdb-page-item disabled>Last</mdb-page-item>
-                </mdb-pagination> -->
-              </div>
-            </mdb-col>
-
-            <mdb-col class="mb-3">
-              <mdb-btn outline="primary" rounded size="sm" @click="addArtwork"
-                >Add Artwork</mdb-btn
-              >
             </mdb-col>
           </mdb-row>
+          <mdb-col class="mb-3">
+            <mdb-btn outline="primary" rounded size="sm" @click="addArtwork"
+              >Add Artwork</mdb-btn
+            >
+          </mdb-col>
         </section>
       </mdb-col>
       <mdb-col md="4">
@@ -103,21 +86,6 @@
               <Transaction v-bind:transactionId="transac.id" />
             </mdb-col>
           </mdb-row>
-          <mdb-col lg="12">
-            <div class="text-center">
-              <!-- <mdb-pagination circle color="blue">
-                <mdb-page-item disabled>First</mdb-page-item>
-                <mdb-page-nav prev></mdb-page-nav>
-                <mdb-page-item active>1</mdb-page-item>
-                <mdb-page-item>2</mdb-page-item>
-                <mdb-page-item>3</mdb-page-item>
-                <mdb-page-item>4</mdb-page-item>
-                <mdb-page-item>5</mdb-page-item>
-                <mdb-page-nav next></mdb-page-nav>
-                <mdb-page-item disabled>Last</mdb-page-item>
-              </mdb-pagination> -->
-            </div>
-          </mdb-col>
         </section>
       </mdb-col>
     </mdb-row>
@@ -141,7 +109,7 @@ import {
   mdbBtn,
   mdbPagination,
   mdbPageNav,
-  mdbPageItem
+  mdbPageItem,
 } from "mdbvue";
 import Artwork from "../components/Artwork";
 import Transaction from "../components/Transaction";
@@ -150,8 +118,8 @@ export default {
     console.log("Before create profile");
     const configuration = {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`
-      }
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
     };
     var frontendUrl = "http://" + config.dev.host + ":" + config.dev.port;
     // had to add this to solve cors problem
@@ -159,13 +127,13 @@ export default {
       "https://cors-anywhere.herokuapp.com/http://" + config.dev.backendHost;
     var AXIOS = axios.create({
       baseURL: backendUrl,
-      headers: { "Access-Control-Allow-Origin": frontendUrl }
+      headers: { "Access-Control-Allow-Origin": frontendUrl },
     });
     var username = localStorage.getItem("username");
     const response = await AXIOS.get(
       "api/user/getUser/" + username,
       configuration
-    ).catch(err => {
+    ).catch((err) => {
       console.log(err);
     });
     console.log(response.data);
@@ -182,7 +150,7 @@ export default {
     this.phoneNumber = response.data.phoneNumber;
     this.creditCardNumber = response.data.creditCardNumber;
     this.isArtist = false;
-    if (!this.creditCardNumber) {
+    if (!this.creditCardNumber == 0) {
       this.isArtist = true;
     }
     console.log(this.isArtist + "isArtist");
@@ -193,9 +161,15 @@ export default {
       window.scrollTo(0, 0);
     },
     addArtwork() {
-      window.location.href = "#/addArtwork";
-      window.scrollTo(0, 0);
-    }
+      if(this.isArtist){
+        window.location.href = "#/addArtwork";
+        window.scrollTo(0, 0);
+      }
+      else{
+        window.location.href = "#/artworks";
+        window.scrollTo(0, 0);
+      }
+    },
   },
   data() {
     return {
@@ -211,7 +185,7 @@ export default {
       description: "",
       phoneNumber: "",
       creditCardNumber: "",
-      isArtist: ""
+      isArtist: "",
     };
   },
   name: "Profile",
@@ -232,8 +206,8 @@ export default {
     mdbPageNav,
     mdbPageItem,
     Artwork,
-    Transaction
-  }
+    Transaction,
+  },
 };
 </script>
 
