@@ -24,9 +24,6 @@ export default {
     },
   },
   async created() {
-    console.log("TID" + this.transactionId);
-    console.log("Before create Transaction");
-
     const configuration = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -40,15 +37,12 @@ export default {
       baseURL: backendUrl,
       headers: { "Access-Control-Allow-Origin": frontendUrl },
     });
-    console.log("before axios");
     const response = await AXIOS.get(
       "api/transaction/getTransaction/" + this.transactionId,
       configuration
     ).catch((err) => {
       console.log(err);
     });
-    console.log("after axios");
-    console.log(response.data);
     this.artworkName = response.data.artwork.name;
     this.artistFirstName = response.data.artist.firstName;
     this.artistLastName = response.data.artist.lastName;

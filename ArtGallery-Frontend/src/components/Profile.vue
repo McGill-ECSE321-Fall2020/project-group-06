@@ -51,13 +51,22 @@
             v-for="artw in artwork"
             :key="artw.id"
           >
-            <mdb-col lg="6" xl="5" class="mb-3">
+            <mdb-col lg="6" xl="5" class="mb-3" v-if="isArtist">
               <Artwork
                 v-bind:artworkName="artw.name"
                 v-bind:artworkId="artw.id"
                 v-bind:url="artw.url"
+                v-bind:artistName="lastName"
               />
             </mdb-col>
+            <mdb-col2 lg="6" xl="5" class="mb-3" v-if="!isArtist">
+              <Artwork
+                v-bind:artworkName="artw.name"
+                v-bind:artworkId="artw.id"
+                v-bind:url="artw.url"
+                v-bind:artistName="artw.artist.LastName"
+              />
+            </mdb-col2>
 
             <mdb-col lg="12">
               <div class="text-center">
@@ -171,6 +180,11 @@ export default {
     this.description = response.data.description;
     this.phoneNumber = response.data.phoneNumber;
     this.creditCardNumber = response.data.creditCardNumber;
+    this.isArtist = false;
+    if (!this.creditCardNumber) {
+      this.isArtist = true;
+    }
+    console.log(this.isArtist + "isArtist");
   },
   methods: {
     editProfile() {
@@ -196,6 +210,7 @@ export default {
       description: "",
       phoneNumber: "",
       creditCardNumber: "",
+      isArtist: "",
     };
   },
   name: "Profile",
