@@ -70,7 +70,7 @@
 
             <mdb-col lg="12">
               <div class="text-center">
-                <mdb-pagination circle color="blue">
+                <!-- <mdb-pagination circle color="blue">
                   <mdb-page-item disabled>First</mdb-page-item>
                   <mdb-page-nav prev></mdb-page-nav>
                   <mdb-page-item active>1</mdb-page-item>
@@ -80,7 +80,7 @@
                   <mdb-page-item>5</mdb-page-item>
                   <mdb-page-nav next></mdb-page-nav>
                   <mdb-page-item disabled>Last</mdb-page-item>
-                </mdb-pagination>
+                </mdb-pagination> -->
               </div>
             </mdb-col>
 
@@ -105,7 +105,7 @@
           </mdb-row>
           <mdb-col lg="12">
             <div class="text-center">
-              <mdb-pagination circle color="blue">
+              <!-- <mdb-pagination circle color="blue">
                 <mdb-page-item disabled>First</mdb-page-item>
                 <mdb-page-nav prev></mdb-page-nav>
                 <mdb-page-item active>1</mdb-page-item>
@@ -115,7 +115,7 @@
                 <mdb-page-item>5</mdb-page-item>
                 <mdb-page-nav next></mdb-page-nav>
                 <mdb-page-item disabled>Last</mdb-page-item>
-              </mdb-pagination>
+              </mdb-pagination> -->
             </div>
           </mdb-col>
         </section>
@@ -141,7 +141,7 @@ import {
   mdbBtn,
   mdbPagination,
   mdbPageNav,
-  mdbPageItem,
+  mdbPageItem
 } from "mdbvue";
 import Artwork from "../components/Artwork";
 import Transaction from "../components/Transaction";
@@ -150,8 +150,8 @@ export default {
     console.log("Before create profile");
     const configuration = {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
     };
     var frontendUrl = "http://" + config.dev.host + ":" + config.dev.port;
     // had to add this to solve cors problem
@@ -159,13 +159,13 @@ export default {
       "https://cors-anywhere.herokuapp.com/http://" + config.dev.backendHost;
     var AXIOS = axios.create({
       baseURL: backendUrl,
-      headers: { "Access-Control-Allow-Origin": frontendUrl },
+      headers: { "Access-Control-Allow-Origin": frontendUrl }
     });
     var username = localStorage.getItem("username");
     const response = await AXIOS.get(
       "api/user/getUser/" + username,
       configuration
-    ).catch((err) => {
+    ).catch(err => {
       console.log(err);
     });
     console.log(response.data);
@@ -195,7 +195,7 @@ export default {
     addArtwork() {
       window.location.href = "#/addArtwork";
       window.scrollTo(0, 0);
-    },
+    }
   },
   data() {
     return {
@@ -211,7 +211,7 @@ export default {
       description: "",
       phoneNumber: "",
       creditCardNumber: "",
-      isArtist: "",
+      isArtist: ""
     };
   },
   name: "Profile",
@@ -232,12 +232,12 @@ export default {
     mdbPageNav,
     mdbPageItem,
     Artwork,
-    Transaction,
-  },
+    Transaction
+  }
 };
 </script>
 
-<style >
+<style>
 .body {
   padding-top: 5rem;
 }

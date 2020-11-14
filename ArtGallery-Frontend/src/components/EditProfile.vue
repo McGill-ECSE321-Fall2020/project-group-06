@@ -63,9 +63,9 @@
                       >
                         <div class="text-center text-sm-left mb-2 mb-sm-0">
                           <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">
-                            John Smith
+                            {{ firstName }} {{ lastName }}
                           </h4>
-                          <p class="mb-0">@johnny.s</p>
+                          <p class="mb-0">{{ email }}</p>
                           <div class="text-muted">
                             <small>Last seen 2 hours ago</small>
                           </div>
@@ -312,8 +312,8 @@ export default {
     console.log("Before edit profile");
     const configuration = {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
     };
     var frontendUrl = "http://" + config.dev.host + ":" + config.dev.port;
     // had to add this to solve cors problem
@@ -321,13 +321,13 @@ export default {
       "https://cors-anywhere.herokuapp.com/http://" + config.dev.backendHost;
     var AXIOS = axios.create({
       baseURL: backendUrl,
-      headers: { "Access-Control-Allow-Origin": frontendUrl },
+      headers: { "Access-Control-Allow-Origin": frontendUrl }
     });
     var username = localStorage.getItem("username");
     const response = await AXIOS.get(
       "api/user/getUser/" + username,
       configuration
-    ).catch((err) => {
+    ).catch(err => {
       console.log(err);
     });
     console.log(response.data);
@@ -340,15 +340,13 @@ export default {
     this.phoneNumber = response.data.phoneNumber;
     this.bankAccountNumber = response.data.bankAccountNumber;
     this.creditCardNumber = response.data.creditCardNumber;
-    
+
     if (!this.creditCardNumber && !this.bankAccountNumber) {
-      this.AccountType = "Administrator"
-    }
-    else if (this.creditCardNumber) {
-      this.AccountType = "Customer"
-    }
-    else if (this.bankAccountNumber) {
-      this.AccountType = "Artist"
+      this.AccountType = "Administrator";
+    } else if (this.creditCardNumber) {
+      this.AccountType = "Customer";
+    } else if (this.bankAccountNumber) {
+      this.AccountType = "Artist";
     }
   },
   name: "EditProfile",
@@ -371,34 +369,38 @@ export default {
   methods: {
     async handleSaveChanges() {
       const configuration = {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    };
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+      };
       var frontendUrl = "http://" + config.dev.host + ":" + config.dev.port;
       var backendUrl =
-      "https://cors-anywhere.herokuapp.com/http://" + config.dev.backendHost;
+        "https://cors-anywhere.herokuapp.com/http://" + config.dev.backendHost;
       var AXIOS = axios.create({
         baseURL: backendUrl,
-        headers: { "Access-Control-Allow-Origin": frontendUrl },
+        headers: { "Access-Control-Allow-Origin": frontendUrl }
       });
-      const response = await AXIOS.put("api/user/updateUser", {
-        firstName: this.firstName,
-        lastName: this.lastName,
-        password: this.password,
-        username: this.username,
-        email: this.email,
-        description: this.description,
-        phoneNumber: this.phoneNumber,
-        creditCardNumber: this.creditCardNumber
-      }, configuration).catch((err) => {
+      const response = await AXIOS.put(
+        "api/user/updateUser",
+        {
+          firstName: this.firstName,
+          lastName: this.lastName,
+          password: this.password,
+          username: this.username,
+          email: this.email,
+          description: this.description,
+          phoneNumber: this.phoneNumber,
+          creditCardNumber: this.creditCardNumber
+        },
+        configuration
+      ).catch(err => {
         console.log(err);
       });
       console.log(response);
       window.location.href = "#/profile";
       window.scrollTo(0, 0);
-    },
-  },
+    }
+  }
 };
 </script>
 
