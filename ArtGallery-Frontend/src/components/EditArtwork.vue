@@ -38,7 +38,7 @@
                         <div class="mt-2">
                           <button class="btn btn-primary" type="button">
                             <i class="fa fa-fw fa-camera"></i>
-                            <span>Upload Picture</span>
+                            <span>Modify Picture</span>
                           </button>
                         </div>
                       </div>
@@ -121,6 +121,11 @@
                           </div>
                         </div>
                         <div class="row">
+                          <div class="col d-flex">
+                            <b-button type="submit" variant="danger">
+                              Remove
+                            </b-button>
+                          </div>
                           <div class="col d-flex justify-content-end">
                             <button class="btn btn-primary" type="submit">
                               Submit
@@ -165,7 +170,7 @@
 
 <script>
 export default {
-  name: "AddArtwork",
+  name: "EditArtwork",
 };
 </script>
 

@@ -9,6 +9,7 @@ import ArtworkInfo from "@/pages/ArtworkInfo";
 import BuyArtwork from "@/pages/BuyArtwork";
 import EditProfile from "@/pages/EditProfilePage";
 import AddArtwork from "@/pages/AddArtworkPage";
+import EditArtwork from "@/pages/EditArtworkPage";
 import Profile from "@/pages/ProfilePage";
 
 Vue.use(Router);
@@ -64,6 +65,11 @@ export default new Router({
       path: "/profile",
       name: "Profile",
       component: Profile
-    }
+    },
+    {
+      path: "/editArtwork/:artworkId",
+      name: "editArtwork",
+      component: EditArtwork
+    },
   ]
 });
