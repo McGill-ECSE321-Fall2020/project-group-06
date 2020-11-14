@@ -84,11 +84,12 @@
               </div>
             </mdb-col>
 
-          <mdb-col class="mb-3">
-            <mdb-btn outline="primary" rounded size="sm" @click="addArtwork"
-              >Add Artwork</mdb-btn
-            >
-          </mdb-col>
+            <mdb-col class="mb-3">
+              <mdb-btn outline="primary" rounded size="sm" @click="addArtwork"
+                >Add Artwork</mdb-btn
+              >
+            </mdb-col>
+          </mdb-row>
         </section>
       </mdb-col>
       <mdb-col md="4">
