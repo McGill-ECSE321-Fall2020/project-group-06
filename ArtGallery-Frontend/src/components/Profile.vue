@@ -2,10 +2,10 @@
   <section id="profile" class="body">
     <mdb-row>
       <mdb-col md="3">
-        <mdb-card cascade narrow>
+        <mdb-card cascade narrow class="text-center pb-3">
           <mdb-view>
             <img
-              src="https://mdbootstrap.com/img/Photos/Horizontal/People/6-col/img%20%283%29.jpg"
+              src="../assets/default_avatar.png"
               alt="Project"
               class="img-fluid"
             />
@@ -15,10 +15,10 @@
             <mdb-card-title class="font-bold mb-2">
               <strong>{{ firstName }} {{ lastName }}</strong>
             </mdb-card-title>
-            <h5 class="indigo-text" v-if="type == 'artist'">
+            <h5 class="indigo-text" v-if="isArtist">
               <strong>Artist</strong>
             </h5>
-            <h5 class="indigo-text" v-if="type == 'customer'">
+            <h5 class="indigo-text" v-if="!isArtist">
               <strong>Customer</strong>
             </h5>
             <h6 class="text-justify">
@@ -51,28 +51,21 @@
             v-for="artw in artwork"
             :key="artw.id"
           >
-            <mdb-col lg="6" xl="5" class="mb-3">
+            <mdb-col lg="6" xl="5" class="mb-3" v-if="isArtist">
               <Artwork
                 v-bind:artworkName="artw.name"
                 v-bind:artworkId="artw.id"
                 v-bind:url="artw.url"
+                v-bind:artistName="lastName"
               />
             </mdb-col>
-
-            <mdb-col lg="12">
-              <div class="text-center">
-                <mdb-pagination circle color="blue">
-                  <mdb-page-item disabled>First</mdb-page-item>
-                  <mdb-page-nav prev></mdb-page-nav>
-                  <mdb-page-item active>1</mdb-page-item>
-                  <mdb-page-item>2</mdb-page-item>
-                  <mdb-page-item>3</mdb-page-item>
-                  <mdb-page-item>4</mdb-page-item>
-                  <mdb-page-item>5</mdb-page-item>
-                  <mdb-page-nav next></mdb-page-nav>
-                  <mdb-page-item disabled>Last</mdb-page-item>
-                </mdb-pagination>
-              </div>
+            <mdb-col lg="6" xl="5" class="mb-3" v-if="!isArtist">
+              <Artwork
+                v-bind:artworkName="artw.name"
+                v-bind:artworkId="artw.id"
+                v-bind:url="artw.url"
+                v-bind:artistName="artw.artist.LastName"
+              />
             </mdb-col>
           </mdb-row>
           <mdb-col class="mb-3">
@@ -82,72 +75,15 @@
           </mdb-col>
         </section>
       </mdb-col>
-      <mdb-col md="4" v-if="type == 'artist'">
+      <mdb-col md="4">
         <section class="text-center pb-3">
-          <mdb-row class="d-flex justify-content-center">
+          <mdb-row
+            class="d-flex justify-content-center"
+            v-for="transac in transaction"
+            :key="transac.id"
+          >
             <mdb-col lg="6" xl="5" class="mb-3">
-              <Transaction />
-            </mdb-col>
-            <mdb-col lg="6" xl="5" class="mb-3">
-              <Transaction />
-            </mdb-col>
-          </mdb-row>
-          <mdb-row class="d-flex justify-content-center">
-            <mdb-col lg="6" xl="5" class="mb-3">
-              <Transaction />
-            </mdb-col>
-            <mdb-col lg="6" xl="5" class="mb-3">
-              <Transaction />
-            </mdb-col>
-            <mdb-col lg="12">
-              <div class="text-center">
-                <mdb-pagination circle color="blue">
-                  <mdb-page-item disabled>First</mdb-page-item>
-                  <mdb-page-nav prev></mdb-page-nav>
-                  <mdb-page-item active>1</mdb-page-item>
-                  <mdb-page-item>2</mdb-page-item>
-                  <mdb-page-item>3</mdb-page-item>
-                  <mdb-page-item>4</mdb-page-item>
-                  <mdb-page-item>5</mdb-page-item>
-                  <mdb-page-nav next></mdb-page-nav>
-                  <mdb-page-item disabled>Last</mdb-page-item>
-                </mdb-pagination>
-              </div>
-            </mdb-col>
-          </mdb-row>
-        </section>
-      </mdb-col>
-      <mdb-col md="9" v-if="type == 'customer'">
-        <section class="text-center pb-3">
-          <mdb-row class="d-flex justify-content-center">
-            <mdb-col lg="6" xl="5" class="mb-3">
-              <Transaction />
-            </mdb-col>
-            <mdb-col lg="6" xl="5" class="mb-3">
-              <Transaction />
-            </mdb-col>
-          </mdb-row>
-          <mdb-row class="d-flex justify-content-center">
-            <mdb-col lg="6" xl="5" class="mb-3">
-              <Transaction />
-            </mdb-col>
-            <mdb-col lg="6" xl="5" class="mb-3">
-              <Transaction />
-            </mdb-col>
-            <mdb-col lg="12">
-              <div class="text-center">
-                <mdb-pagination circle color="blue">
-                  <mdb-page-item disabled>First</mdb-page-item>
-                  <mdb-page-nav prev></mdb-page-nav>
-                  <mdb-page-item active>1</mdb-page-item>
-                  <mdb-page-item>2</mdb-page-item>
-                  <mdb-page-item>3</mdb-page-item>
-                  <mdb-page-item>4</mdb-page-item>
-                  <mdb-page-item>5</mdb-page-item>
-                  <mdb-page-nav next></mdb-page-nav>
-                  <mdb-page-item disabled>Last</mdb-page-item>
-                </mdb-pagination>
-              </div>
+              <Transaction v-bind:transactionId="transac.id" />
             </mdb-col>
           </mdb-row>
         </section>
@@ -213,6 +149,11 @@ export default {
     this.description = response.data.description;
     this.phoneNumber = response.data.phoneNumber;
     this.creditCardNumber = response.data.creditCardNumber;
+    this.isArtist = false;
+    if (!this.creditCardNumber == 0) {
+      this.isArtist = true;
+    }
+    console.log(this.isArtist + "isArtist");
   },
   methods: {
     editProfile() {
@@ -220,8 +161,14 @@ export default {
       window.scrollTo(0, 0);
     },
     addArtwork() {
-      window.location.href = "#/addArtwork";
-      window.scrollTo(0, 0);
+      if(this.isArtist){
+        window.location.href = "#/addArtwork";
+        window.scrollTo(0, 0);
+      }
+      else{
+        window.location.href = "#/artworks";
+        window.scrollTo(0, 0);
+      }
     },
   },
   data() {
@@ -238,6 +185,7 @@ export default {
       description: "",
       phoneNumber: "",
       creditCardNumber: "",
+      isArtist: "",
     };
   },
   name: "Profile",
@@ -260,11 +208,10 @@ export default {
     Artwork,
     Transaction,
   },
-
 };
 </script>
 
-<style >
+<style>
 .body {
   padding-top: 5rem;
 }
