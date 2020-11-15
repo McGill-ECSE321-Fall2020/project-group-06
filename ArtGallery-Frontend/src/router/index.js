@@ -12,6 +12,7 @@ import AddArtwork from "@/pages/AddArtworkPage";
 import EditArtwork from "@/pages/EditArtworkPage";
 import Profile from "@/pages/ProfilePage";
 import ArtGalleryCommission from "@/pages/ArtGalleryCommission";
+import Error from "@/pages/Error";
 
 Vue.use(Router);
 
@@ -76,6 +77,11 @@ export default new Router({
       path: "/commission",
       name: "ArtGalleryCommission",
       component: ArtGalleryCommission
+    },
+    {
+      path: "/error",
+      name: "Error",
+      component: Error
     }
   ]
 });
