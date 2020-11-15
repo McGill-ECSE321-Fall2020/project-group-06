@@ -15,10 +15,10 @@
             <mdb-card-title class="font-bold mb-2">
               <strong>{{ firstName }} {{ lastName }}</strong>
             </mdb-card-title>
-            <h5 class="indigo-text" v-if="isArtist && !isAdmin">
+            <h5 class="indigo-text" v-if="isArtist">
               <strong>Artist</strong>
             </h5>
-            <h5 class="indigo-text" v-if="!isArtist && !isAdmin">
+            <h5 class="indigo-text" v-if="!isArtist">
               <strong>Customer</strong>
             </h5>
             <h5 class="indigo-text" v-if="isAdmin">
@@ -50,15 +50,15 @@
       <div class="text-center pb-3">
         <h1>Your artworks</h1>
         <div class="myContainer">
-          <div v-for="artw in artwork" :key="artw.id">
-            <!-- <mdb-col lg="6" xl="5" class="mb-3"> -->
-            <Artwork
+          <!-- <div v-for="artw in artwork" :key="artw.id"> -->
+          <!-- <mdb-col lg="6" xl="5" class="mb-3"> -->
+          <!-- <Artwork
               v-bind:artworkName="artw.name"
               v-bind:artworkId="artw.id"
               v-bind:url="artw.url"
-              v-bind:artistName="lastName"
-            />
-          </div>
+              v-bind:artistName="artw.artist.username"
+            /> -->
+          <!-- </div> -->
         </div>
         <h1>Your Transactions History</h1>
         <div class="myContainer">
@@ -135,7 +135,7 @@ export default {
     if (this.creditCardNumber == null) {
       this.isArtist = true;
     }
-    if (this.username == "admin") {
+    if (this.username === "admin") {
       this.isAdmin = true;
     }
     console.log(this.isArtist + "isArtist");
