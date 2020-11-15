@@ -5,9 +5,9 @@
         <h4><b>Transaction</b></h4>
         <p>Date: {{ dateOfTransaction }}</p>
         <p>Artwork: {{ artworkName }}</p>
-        <p>Artist: {{ artistFirstName }} {{ artistLastName }}</p>
+        <p>Artist: {{ artistUsername }}</p>
         <p>Price: {{ price }}$</p>
-        <p>Commission: {{ price*0.15 }}$</p>
+        <p>Commission: {{ price * 0.15 }}$</p>
       </div>
     </div>
   </div>
@@ -49,6 +49,7 @@ export default {
     this.artistLastName = response.data.artist.lastName;
     this.price = response.data.artwork.price;
     this.dateOfTransaction = response.data.dateOfTransaction;
+    this.artistUsername = response.data.artist.username;
   },
   data() {
     return {
@@ -57,6 +58,7 @@ export default {
       artistLastName: "",
       price: "",
       dateOfTransaction: "",
+      artistUsername: "",
     };
   },
 };
