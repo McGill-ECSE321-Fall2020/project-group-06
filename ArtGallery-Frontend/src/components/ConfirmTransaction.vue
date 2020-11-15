@@ -1,25 +1,29 @@
 <template>
   <div class="confirm-card">
     <form @submit.prevent="handleSubmit">
-      <h1 class="title"> Order Preview </h1>
+      <h1 class="title">Order Preview</h1>
       <div class="container">
-        Artwork: {{ artwork.name }} <br>
-        Artist: {{ artwork.artist.username }} <br>
-        Price: {{ artwork.price }}$ <br>
+        Artwork: {{ artwork.name }} <br />
+        Artist: {{ artwork.artist.username }} <br />
+        Price: {{ artwork.price }}$ <br />
         <label for="mean">Mean of delivery:</label>
-        <select name="Mean of Delivery" id="mean" v-model="meanOfDelivery" required>
+        <select
+          name="Mean of Delivery"
+          id="mean"
+          v-model="meanOfDelivery"
+          required
+        >
           <option value="pickup">Pick Up</option>
           <option value="deliver">Deliver</option>
-        </select> <br>
-        Buyer: {{ customer.username }} <br>
+        </select>
+        <br />
+        Buyer: {{ customer.username }} <br />
         Credit Card: {{ customer.creditCardNumber }}
-        <br>
-        <br>
-        <div class="message">
-          Do you want to continue with your purchase?
-        </div>
+        <br />
+        <br />
+        <div class="message">Do you want to continue with your purchase?</div>
       </div>
-      <input type="submit" value="CONFIRM" class="confirm">
+      <input type="submit" value="CONFIRM" class="confirm" />
       <div class="err">
         {{ status }}
       </div>
@@ -35,13 +39,13 @@ export default {
   name: "ConfirmTransaction",
   props: ["artwork", "customer"],
   data() {
-	return {
-    meanOfDelivery: null,
-    status: ""
-  };
+    return {
+      meanOfDelivery: null,
+      status: "",
+    };
   },
   methods: {
-	  async handleSubmit() {
+    async handleSubmit() {
       const configuration = {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -53,62 +57,70 @@ export default {
         "https://cors-anywhere.herokuapp.com/http://" + config.dev.backendHost;
       var AXIOS = axios.create({
         baseURL: backendUrl,
-        headers: { 
-          "Access-Control-Allow-Origin": frontendUrl
+        headers: {
+          "Access-Control-Allow-Origin": frontendUrl,
         },
       });
       const errorMessage = "Oops! Something went wrong";
 
       const response = await AXIOS.post(
-            "api/customer/buyArtwork/" + this.customer.id + "/" + this.artwork.artist.id + "/" + this.artwork.id + "/" + this.artwork.artGallery.id, {},
-            configuration ).catch((err) => {
-          console.log(err);
-          this.status = errorMessage;
+        "api/customer/buyArtwork/" +
+          this.customer.id +
+          "/" +
+          this.artwork.artist.id +
+          "/" +
+          this.artwork.id +
+          "/" +
+          this.artwork.artGallery.id,
+        {},
+        configuration
+      ).catch((err) => {
+        console.log(err);
+        this.status = errorMessage;
       });
       console.log(response);
       console.log(this.artwork);
       // FOR TESTING PURPOSES!! KEEP THE ARTWORK IN THE ARTWORKS FOR SALE
-      const response2 = await AXIOS.put(
-        "api/artwork/updateArtwork",
-        {
-          "name": this.artwork.name,
-          "id": this.artwork.id,
-          "artist": {
-            "username":this.artwork.artist.username,
-            "id":this.artwork.artist.id
-          },
-          "artGallery": {
-            "name":this.artwork.artGallery.name,
-            "id":this.artwork.artGallery.id
-          },
-          "forSale": true
-        },
-            configuration ).catch((err) => {
-          console.log(err);
-          this.status = errorMessage;
-      });
+      // const response2 = await AXIOS.put(
+      //   "api/artwork/updateArtwork",
+      //   {
+      //     "name": this.artwork.name,
+      //     "id": this.artwork.id,
+      //     "artist": {
+      //       "username":this.artwork.artist.username,
+      //       "id":this.artwork.artist.id
+      //     },
+      //     "artGallery": {
+      //       "name":this.artwork.artGallery.name,
+      //       "id":this.artwork.artGallery.id
+      //     },
+      //     "forSale": true
+      //   },
+      //       configuration ).catch((err) => {
+      //     console.log(err);
+      //     this.status = errorMessage;
+      // });
 
       var DelType;
       if (this.meanOfDelivery === "Pick Up") {
-        DelType="PickedUp";
-      }
-      else {
-        DelType="Delivered";
+        DelType = "PickedUp";
+      } else {
+        DelType = "Delivered";
       }
       console.log(DelType);
-  
-      function compare(a,b) {
+
+      function compare(a, b) {
         const id1 = a.id;
         const id2 = b.id;
 
         let comparison = 0;
-        if(id1 > id2){
+        if (id1 > id2) {
           comparison = 1;
-        } else if(id1 < id2) {
+        } else if (id1 < id2) {
           comparison = -1;
         }
         return comparison;
-      } 
+      }
 
       var transactions = this.customer.transaction.sort(compare);
       console.log(transactions);
@@ -117,17 +129,20 @@ export default {
       console.log(lastTransaction);
       console.log(lastTransaction.id);
       const response3 = await AXIOS.post(
-            "api/customer/setMeanOfDelivery/" + lastTransaction.id + "/" + DelType, 
-            {}, 
-            configuration
-         ).catch((err) => {
-          console.log(err);
-          this.status = errorMessage
+        "api/customer/setMeanOfDelivery/" + lastTransaction.id + "/" + DelType,
+        {},
+        configuration
+      ).catch((err) => {
+        console.log(err);
+        this.status = errorMessage;
       });
 
-      if(this.status != errorMessage) {
-          this.status = "Transaction Completed. Congratulations! Redirecting to Profile..."
-          setTimeout(() => {  this.$router.push("/profile"); }, 3000);
+      if (this.status != errorMessage) {
+        this.status =
+          "Transaction Completed. Congratulations! Redirecting to Profile...";
+        setTimeout(() => {
+          this.$router.push("/profile");
+        }, 3000);
       }
       var transactions2 = this.customer.transaction.sort(compare);
       console.log(transactions2);
@@ -156,7 +171,7 @@ export default {
 .message {
   font-size: 16px;
   font-weight: bold;
-  color:orangered;
+  color: orangered;
 }
 button {
   background-color: #ddd8cc;

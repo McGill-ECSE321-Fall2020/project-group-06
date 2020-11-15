@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img src="../assets/artworks-image.jpg" alt="SignUp image" />
+    <img src="../assets/signup-image.jpg" alt="SignUp image" />
     <form @submit.prevent="handleSubmit">
       <div class="container">
         <div class="centered-text">
