@@ -2,6 +2,11 @@
   <div>
     <Navbar />
     <Profile />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
     <Footer />
   </div>
 </template>

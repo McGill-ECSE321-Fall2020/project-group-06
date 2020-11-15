@@ -12,25 +12,6 @@
               <div class="card-body">
                 <div class="e-profile">
                   <div class="row">
-                    <div class="col-12 col-sm-auto mb-3">
-                      <div class="mx-auto" style="width: 500px">
-                        <div
-                          class="d-flex justify-content-center align-items-center rounded"
-                          style="
-                            height: 500px;
-                            background-color: rgb(233, 236, 239);
-                          "
-                        >
-                          <span
-                            style="
-                              color: rgb(166, 168, 170);
-                              font: bold 8pt Arial;
-                            "
-                            >500x500</span
-                          >
-                        </div>
-                      </div>
-                    </div>
                     <div
                       class="col d-flex flex-column flex-sm-row justify-content-between mb-3"
                     >
@@ -38,7 +19,13 @@
                         <div class="mt-2">
                           <button class="btn btn-primary" type="button">
                             <i class="fa fa-fw fa-camera"></i>
-                            <span>Upload Picture</span>
+                            <span
+                              ><input
+                                id="fileUpload"
+                                class="btn btn-primary"
+                                type="file"
+                                name="upload"
+                            /></span>
                           </button>
                         </div>
                       </div>
@@ -61,8 +48,7 @@
                                   <input
                                     class="form-control"
                                     type="text"
-                                    name="name"
-                                    placeholder="Mona Lisa"
+                                    v-model="artworkName"
                                   />
                                 </div>
                               </div>
@@ -90,6 +76,7 @@
                                   <input
                                     class="form-control"
                                     type="text"
+                                    v-model="price"
                                     placeholder="$100.00"
                                   />
                                 </div>
@@ -102,7 +89,7 @@
                                   <textarea
                                     class="form-control"
                                     rows="5"
-                                    placeholder="Description"
+                                    v-model="artworkDescription"
                                   ></textarea>
                                 </div>
                               </div>
@@ -118,13 +105,26 @@
                                 </div>
                               </div>
                             </div>
+                            <div v-if="hasError">
+                              <div style="color: red">
+                                {{ errorMessage }}
+                              </div>
+                            </div>
+                            <div v-if="!hasError">
+                              <div style="color: green">
+                                {{ errorMessage }}
+                              </div>
+                            </div>
                           </div>
                         </div>
                         <div class="row">
                           <div class="col d-flex justify-content-end">
-                            <button class="btn btn-primary" type="submit">
-                              Submit
-                            </button>
+                            <input
+                              class="btn btn-primary"
+                              type="button"
+                              @click="uploadArtwork"
+                              value="Submit"
+                            />
                           </div>
                         </div>
                       </form>
@@ -164,14 +164,110 @@
 </template>
 
 <script>
+import axios from "axios";
+var config = require("../../config");
 export default {
-  name: "EditProfile",
+  name: "AddArtwork",
+  data() {
+    return {
+      artistUsername: "",
+      artworkName: "",
+      artworkDescription: "",
+      forSale: true,
+      isInStore: false,
+      price: "",
+      hasError: false,
+      errorMessage: "",
+      url: "",
+      artworkId: "",
+    };
+  },
+
+  methods: {
+    async uploadArtwork() {
+      console.log("uploading artwork");
+      const configuration = {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      };
+      var frontendUrl = "http://" + config.dev.host + ":" + config.dev.port;
+      var backendUrl =
+        "https://cors-anywhere.herokuapp.com/http://" + config.dev.backendHost;
+      var AXIOS = axios.create({
+        baseURL: backendUrl,
+        headers: { "Access-Control-Allow-Origin": frontendUrl },
+      });
+
+      const response = await AXIOS.post(
+        "api/artist/uploadArtwork",
+        {
+          name: this.artworkName,
+          description: this.artworkDescription,
+          forSale: this.forSale,
+          isInStore: this.isInStore,
+          price: this.price,
+          artist: {
+            username: localStorage.getItem("username"),
+          },
+          artGallery: {
+            name: "Online Art Gallery",
+          },
+        },
+        configuration
+      ).catch((err) => {
+        this.hasError = true;
+        this.errorMessage = "Something Went Wrong";
+        console.log(err);
+      });
+
+      const artworkResponse = await AXIOS.get(
+        `api/artwork/getArtwork/${this.artworkName}`,
+        configuration
+      ).catch((err) => {
+        this.hasError = true;
+        this.errorMessage = "Something Went Wrong";
+      });
+
+      console.log(artworkResponse);
+
+      // get artwork id
+      this.artworkId = artworkResponse.data.id;
+
+      var formData = new FormData();
+      var imagefile = document.querySelector("#fileUpload");
+      console.log("Storing in S3");
+      const configurationForFileUpload = {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "multipart/form-data",
+        },
+      };
+      formData.append("file", imagefile.files[0]);
+      const uploadImageResponse = await AXIOS.post(
+        `api/storage/uploadFile/${this.artworkId}`,
+        formData,
+        configurationForFileUpload
+      ).catch((err) => {
+        console.log(err);
+      });
+
+      console.log(uploadImageResponse);
+
+      if (!this.hasError) {
+        this.errorMessage = "Uploaded successfully!";
+      }
+    },
+  },
 };
 </script>
 
-<style scoped>
+<style>
 body {
   padding-top: 5rem;
   background: #f8f8f8;
+}
+input {
+  -webkit-appearance: none;
 }
 </style>

@@ -341,18 +341,18 @@ export default {
     this.bankAccountNumber = response.data.bankAccountNumber;
     this.creditCardNumber = response.data.creditCardNumber;
 
-    if (!this.creditCardNumber && !this.bankAccountNumber) {
+    if (this.username == "admin") {
       this.AccountType = "Administrator";
-    } else if (this.creditCardNumber) {
-      this.AccountType = "Customer";
-    } else if (this.bankAccountNumber) {
+    } else if (this.creditCardNumber == null) {
       this.AccountType = "Artist";
+    } else {
+      this.AccountType = "Customer";
     }
   },
   name: "EditProfile",
   data() {
     return {
-      AccountType: "Administrator",
+      AccountType: "",
       firstName: "",
       lastName: "",
       password: "",

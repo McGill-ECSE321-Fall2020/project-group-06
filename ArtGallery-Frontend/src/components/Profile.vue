@@ -1,7 +1,7 @@
 <template>
   <section id="profile" class="body">
     <mdb-row>
-      <mdb-col md="3">
+      <mdb-col>
         <mdb-card cascade narrow class="text-center pb-3">
           <mdb-view>
             <img
@@ -20,6 +20,9 @@
             </h5>
             <h5 class="indigo-text" v-if="!isArtist">
               <strong>Customer</strong>
+            </h5>
+            <h5 class="indigo-text" v-if="isAdmin">
+              <strong>Administrator</strong>
             </h5>
             <h6 class="text-justify">
               <strong>About:</strong>
@@ -44,50 +47,28 @@
           </mdb-card-body>
         </mdb-card>
       </mdb-col>
-      <mdb-col md="5">
-        <section class="text-center pb-3">
-          <mdb-row
-            class="d-flex justify-content-center"
-            v-for="artw in artwork"
-            :key="artw.id"
-          >
-            <mdb-col lg="6" xl="5" class="mb-3" v-if="isArtist">
-              <Artwork
-                v-bind:artworkName="artw.name"
-                v-bind:artworkId="artw.id"
-                v-bind:url="artw.url"
-                v-bind:artistName="lastName"
-              />
-            </mdb-col>
-            <mdb-col lg="6" xl="5" class="mb-3" v-if="!isArtist">
-              <Artwork
-                v-bind:artworkName="artw.name"
-                v-bind:artworkId="artw.id"
-                v-bind:url="artw.url"
-                v-bind:artistName="artw.artist.LastName"
-              />
-            </mdb-col>
-          </mdb-row>
-          <mdb-col class="mb-3">
-            <mdb-btn outline="primary" rounded size="sm" @click="addArtwork"
-              >Add Artwork</mdb-btn
-            >
-          </mdb-col>
-        </section>
-      </mdb-col>
-      <mdb-col md="4">
-        <section class="text-center pb-3">
-          <mdb-row
-            class="d-flex justify-content-center"
-            v-for="transac in transaction"
-            :key="transac.id"
-          >
-            <mdb-col lg="6" xl="5" class="mb-3">
-              <Transaction v-bind:transactionId="transac.id" />
-            </mdb-col>
-          </mdb-row>
-        </section>
-      </mdb-col>
+      <div class="text-center pb-3">
+        <h1>Your artworks</h1>
+        <div class="myContainer">
+          <!-- <div v-for="artw in artwork" :key="artw.id"> -->
+          <!-- <mdb-col lg="6" xl="5" class="mb-3"> -->
+          <!-- <Artwork
+              v-bind:artworkName="artw.name"
+              v-bind:artworkId="artw.id"
+              v-bind:url="artw.url"
+              v-bind:artistName="artw.artist.username"
+            /> -->
+          <!-- </div> -->
+        </div>
+        <h1>Your Transactions History</h1>
+        <div class="myContainer">
+          <div v-for="transac in transaction" :key="transac.id">
+            <Transaction v-bind:transactionId="transac.id" />
+          </div>
+        </div>
+
+        <button @click="addArtwork">Add Artwork</button>
+      </div>
     </mdb-row>
   </section>
 </template>
@@ -150,8 +131,12 @@ export default {
     this.phoneNumber = response.data.phoneNumber;
     this.creditCardNumber = response.data.creditCardNumber;
     this.isArtist = false;
-    if (!this.creditCardNumber == 0) {
+    this.isAdmin = false;
+    if (this.creditCardNumber == null) {
       this.isArtist = true;
+    }
+    if (this.username === "admin") {
+      this.isAdmin = true;
     }
     console.log(this.isArtist + "isArtist");
   },
@@ -161,11 +146,10 @@ export default {
       window.scrollTo(0, 0);
     },
     addArtwork() {
-      if(this.isArtist){
+      if (this.isArtist) {
         window.location.href = "#/addArtwork";
         window.scrollTo(0, 0);
-      }
-      else{
+      } else {
         window.location.href = "#/artworks";
         window.scrollTo(0, 0);
       }
@@ -211,8 +195,23 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .body {
   padding-top: 5rem;
+}
+.myContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.myContainer > div {
+  margin: 20px;
+  padding: 20px;
+  width: 420px;
+  transition: transform 0.5s; /* Animation */
+}
+
+.myContainer > div:hover {
+  transform: scale(1.2);
 }
 </style>

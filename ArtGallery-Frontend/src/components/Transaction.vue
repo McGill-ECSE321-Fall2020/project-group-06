@@ -7,6 +7,7 @@
         <p>Artwork: {{ artworkName }}</p>
         <p>Artist: {{ artistFirstName }} {{ artistLastName }}</p>
         <p>Price: {{ price }}</p>
+        <p>Commission: {{ price*0.15 }}</p>
       </div>
     </div>
   </div>

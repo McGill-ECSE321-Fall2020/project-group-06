@@ -9,7 +9,10 @@ import ArtworkInfo from "@/pages/ArtworkInfo";
 import BuyArtwork from "@/pages/BuyArtwork";
 import EditProfile from "@/pages/EditProfilePage";
 import AddArtwork from "@/pages/AddArtworkPage";
+import EditArtwork from "@/pages/EditArtworkPage";
 import Profile from "@/pages/ProfilePage";
+import ArtGalleryCommission from "@/pages/ArtGalleryCommission";
+import Error from "@/pages/Error";
 
 Vue.use(Router);
 
@@ -64,6 +67,21 @@ export default new Router({
       path: "/profile",
       name: "Profile",
       component: Profile
+    },
+    {
+      path: "/editArtwork/:artworkName",
+      name: "editArtwork",
+      component: EditArtwork
+    },
+    {
+      path: "/commission",
+      name: "ArtGalleryCommission",
+      component: ArtGalleryCommission
+    },
+    {
+      path: "/*",
+      name: "Error",
+      component: Error
     }
   ]
 });
