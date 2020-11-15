@@ -1,6 +1,6 @@
 <template>
   <!-- Footer -->
-  <footer class="page-footer font-small pt-4" style="background-color:#DDD8CC;">
+  <footer class="page-footer font-small pt-4" style="background-color: #DDD8CC">
     <!-- Footer Links -->
     <div class="container-fluid text-center text-md-left">
       <!-- Grid row -->
@@ -8,10 +8,8 @@
         <!-- Grid column -->
         <div class="col-md-6 mt-md-0 mt-3">
           <!-- Content -->
-          <h5 class="text-uppercase">Footer Content</h5>
-          <p>
-            yoyoyoyooyoyoyoyoyoyooyooyoyoyoyo.
-          </p>
+          <h5 class="text-uppercase">ArtGallerySystem</h5>
+          <p>Thanks for visiting our website!</p>
         </div>
         <!-- Grid column -->
 
@@ -24,16 +22,20 @@
 
           <ul class="list-unstyled">
             <li>
-              <a href="#!" class="link">Link 1</a>
+              <a href="http://127.0.0.1:8087/#/" class="link">Home</a>
             </li>
             <li>
-              <a href="#!" class="link">Link 2</a>
+              <a href="http://127.0.0.1:8087/#/aboutUs" class="link"
+                >About us</a
+              >
             </li>
             <li>
-              <a href="#!" class="link">Link 3</a>
+              <a href="http://127.0.0.1:8087/#/artworks" class="link"
+                >Artwork</a
+              >
             </li>
             <li>
-              <a href="#!" class="link">Link 4</a>
+              <a href="http://127.0.0.1:8087/#/login" class="link">Login</a>
             </li>
           </ul>
         </div>
@@ -46,21 +48,15 @@
 
           <ul class="list-unstyled">
             <li>
-              <a href="https://www.mcgill.ca" class="link">Link 1</a>
+              <a href="https://www.mcgill.ca" class="link">Mcgill Website</a>
             </li>
             <li>
-              <a href="#!" class="link">Link 2</a>
+              <a href="http://127.0.0.1:8087/#/profile" class="link">Profile</a>
             </li>
             <li>
-              <a href="#!" class="link">Link 3</a>
-            </li>
-            <li>
-              <a href="https://www.youtube.com/watch?v=-lEfBU3ikN4" class="link"
-                >Link 4</a
+              <a href="http://127.0.0.1:8087/#/commission" class="link"
+                >Commission</a
               >
-            </li>
-            <li>
-              <a href="https://www.youtube.com/watch?v=lGiIex3mOFU&ab_channel=TheMemeBorrower" class="link">Who painted the Mona Lisa?</a>
             </li>
           </ul>
         </div>
@@ -82,7 +78,7 @@
 
 <script>
 export default {
-  name: "Footer"
+  name: "Footer",
 };
 </script>
 
