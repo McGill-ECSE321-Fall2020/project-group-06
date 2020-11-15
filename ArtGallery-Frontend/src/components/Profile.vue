@@ -15,11 +15,14 @@
             <mdb-card-title class="font-bold mb-2">
               <strong>{{ firstName }} {{ lastName }}</strong>
             </mdb-card-title>
-            <h5 class="indigo-text" v-if="isArtist">
+            <h5 class="indigo-text" v-if="isArtist && !isAdmin">
               <strong>Artist</strong>
             </h5>
-            <h5 class="indigo-text" v-if="!isArtist">
+            <h5 class="indigo-text" v-if="!isArtist && !isAdmin">
               <strong>Customer</strong>
+            </h5>
+            <h5 class="indigo-text" v-if="isAdmin">
+              <strong>Administrator</strong>
             </h5>
             <h6 class="text-justify">
               <strong>About:</strong>
@@ -128,8 +131,12 @@ export default {
     this.phoneNumber = response.data.phoneNumber;
     this.creditCardNumber = response.data.creditCardNumber;
     this.isArtist = false;
+    this.isAdmin = false;
     if (this.creditCardNumber == null) {
       this.isArtist = true;
+    }
+    if (this.username == "admin") {
+      this.isAdmin = true;
     }
     console.log(this.isArtist + "isArtist");
   },
@@ -139,13 +146,12 @@ export default {
       window.scrollTo(0, 0);
     },
     addArtwork() {
-      if(this.isArtist){
-      window.location.href = "#/addArtwork";
-      window.scrollTo(0, 0);
-      }
-      else{
-      window.location.href = "#/artworks";
-      window.scrollTo(0, 0);
+      if (this.isArtist) {
+        window.location.href = "#/addArtwork";
+        window.scrollTo(0, 0);
+      } else {
+        window.location.href = "#/artworks";
+        window.scrollTo(0, 0);
       }
     },
   },

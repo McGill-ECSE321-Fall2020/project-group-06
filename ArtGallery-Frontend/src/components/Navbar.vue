@@ -21,39 +21,31 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="http://127.0.0.1:8087/#/"
+          <a class="nav-link" href="#/"
             >Home <span class="sr-only">(current)</span></a
           >
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="http://127.0.0.1:8087/#/aboutUs"
-            >About us</a
-          >
+          <a class="nav-link" href="#/aboutUs">About us</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="http://127.0.0.1:8087/#/artworks"
-            >Artworks</a
-          >
+          <a class="nav-link" href="#/artworks">Artworks</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Contacts</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="http://127.0.0.1:8087/#/login">Login</a>
+          <a class="nav-link" href="#/login">Login</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" v-bind:href="'http://127.0.0.1:8087/#/profile'"
-            >Profile</a
-          >
+          <a class="nav-link" href="#/profile">Profile</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" v-bind:href="'http://127.0.0.1:8087/#/commission'"
-            >Commission</a
-          >
+          <a class="nav-link" href="#/commission">Commission</a>
         </li>
       </ul>
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-        <a class="nav-link" href="http://127.0.0.1:8087/#/signup">SignUp</a>
+        <a class="nav-link" href="#/signup">SignUp</a>
       </button>
     </div>
   </nav>
