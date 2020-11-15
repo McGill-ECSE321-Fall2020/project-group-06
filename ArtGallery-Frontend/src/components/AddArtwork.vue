@@ -128,13 +128,12 @@
                         </div>
                         <div class="row">
                           <div class="col d-flex justify-content-end">
-                            <button
+                            <input
                               class="btn btn-primary"
                               type="submit"
                               @click="uploadArtwork"
-                            >
-                              Submit
-                            </button>
+                              value="Submit"
+                            />
                           </div>
                         </div>
                       </form>
@@ -216,6 +215,7 @@ export default {
           description: this.artworkDescription,
           forSale: this.forSale,
           isInStore: this.isInStore,
+          price: this.price,
           artist: {
             username: localStorage.getItem("username")
           },

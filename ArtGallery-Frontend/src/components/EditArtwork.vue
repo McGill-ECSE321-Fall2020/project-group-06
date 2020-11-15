@@ -92,26 +92,34 @@
                                 </div>
                               </div>
                             </div>
+                            <div v-if="hasError">
+                              <div style="color: red">
+                                {{ errorMessage }}
+                              </div>
+                            </div>
+                            <div v-if="!hasError">
+                              <div style="color: green">
+                                {{ errorMessage }}
+                              </div>
+                            </div>
                           </div>
                         </div>
                         <div class="row">
                           <div class="col d-flex">
-                            <b-button
-                              type="submit"
-                              variant="danger"
+                            <input
+                              type="button"
+                              class="btn btn-danger"
                               @click="removeArtwork"
-                            >
-                              Remove
-                            </b-button>
+                              value="Remove"
+                            />
                           </div>
                           <div class="col d-flex justify-content-end">
-                            <button
+                            <input
                               class="btn btn-primary"
-                              type="submit"
+                              type="button"
                               @click="editArtwork"
-                            >
-                              Submit
-                            </button>
+                              value="Submit"
+                            />
                           </div>
                         </div>
                       </form>
@@ -193,7 +201,6 @@ export default {
     });
     // populate the array
     this.artwork = promise.data;
-    console.log("displaying artwork");
     console.log(this.artwork);
     this.price = this.artwork.price;
     this.isInStore = this.artwork.isInStore;
@@ -225,11 +232,15 @@ export default {
           description: this.artworkDescription,
           forSale: this.forSale,
           isInStore: this.isInStore,
+          id: this.artwork.id,
+          price: this.price,
           artist: {
             username: localStorage.getItem("username"),
+            id: this.artwork.artist.id,
           },
           artGallery: {
             name: "Online Art Gallery",
+            id: 8988,
           },
         },
         configuration
@@ -258,6 +269,7 @@ export default {
       });
       const response = await AXIOS.post(
         "api/artist/removeArtwork/" + this.artwork.id,
+        {},
         configuration
       ).catch((err) => {
         this.hasError = true;
