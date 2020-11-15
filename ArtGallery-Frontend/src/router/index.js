@@ -68,7 +68,7 @@ export default new Router({
       component: Profile
     },
     {
-      path: "/editArtwork/:artworkId",
+      path: "/editArtwork/:artworkName",
       name: "editArtwork",
       component: EditArtwork
     },

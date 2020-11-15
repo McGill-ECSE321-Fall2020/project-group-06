@@ -18,6 +18,7 @@
           "
           >More Info</a
         >
+        <a class="float-right" @click="editArtwork">Edit Artwork</a>
       </div>
     </div>
   </div>
@@ -27,6 +28,12 @@
 export default {
   name: "Artwork",
   props: ["artworkName", "artistName", "artworkId", "url"],
+  methods: {
+    editArtwork() {
+      window.location.href = "/#/editArtwork/" + this.artworkName;
+      window.scrollTo(0, 0);
+    },
+  },
 };
 </script>
 
