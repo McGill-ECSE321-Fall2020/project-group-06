@@ -12,25 +12,6 @@
               <div class="card-body">
                 <div class="e-profile">
                   <div class="row">
-                    <div class="col-12 col-sm-auto mb-3">
-                      <div class="mx-auto" style="width: 500px">
-                        <div
-                          class="d-flex justify-content-center align-items-center rounded"
-                          style="
-                            height: 500px;
-                            background-color: rgb(233, 236, 239);
-                          "
-                        >
-                          <span
-                            style="
-                              color: rgb(166, 168, 170);
-                              font: bold 8pt Arial;
-                            "
-                            >500x500</span
-                          >
-                        </div>
-                      </div>
-                    </div>
                     <div
                       class="col d-flex flex-column flex-sm-row justify-content-between mb-3"
                     >
@@ -124,13 +105,23 @@
                                 </div>
                               </div>
                             </div>
+                            <div v-if="hasError">
+                              <div style="color: red">
+                                {{ errorMessage }}
+                              </div>
+                            </div>
+                            <div v-if="!hasError">
+                              <div style="color: green">
+                                {{ errorMessage }}
+                              </div>
+                            </div>
                           </div>
                         </div>
                         <div class="row">
                           <div class="col d-flex justify-content-end">
                             <input
                               class="btn btn-primary"
-                              type="submit"
+                              type="button"
                               @click="uploadArtwork"
                               value="Submit"
                             />
@@ -188,7 +179,7 @@ export default {
       hasError: false,
       errorMessage: "",
       url: "",
-      artworkId: ""
+      artworkId: "",
     };
   },
 
@@ -197,15 +188,15 @@ export default {
       console.log("uploading artwork");
       const configuration = {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`
-        }
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       };
       var frontendUrl = "http://" + config.dev.host + ":" + config.dev.port;
       var backendUrl =
         "https://cors-anywhere.herokuapp.com/http://" + config.dev.backendHost;
       var AXIOS = axios.create({
         baseURL: backendUrl,
-        headers: { "Access-Control-Allow-Origin": frontendUrl }
+        headers: { "Access-Control-Allow-Origin": frontendUrl },
       });
 
       const response = await AXIOS.post(
@@ -217,14 +208,14 @@ export default {
           isInStore: this.isInStore,
           price: this.price,
           artist: {
-            username: localStorage.getItem("username")
+            username: localStorage.getItem("username"),
           },
           artGallery: {
-            name: "Online Art Gallery"
-          }
+            name: "Online Art Gallery",
+          },
         },
         configuration
-      ).catch(err => {
+      ).catch((err) => {
         this.hasError = true;
         this.errorMessage = "Something Went Wrong";
         console.log(err);
@@ -233,7 +224,7 @@ export default {
       const artworkResponse = await AXIOS.get(
         `api/artwork/getArtwork/${this.artworkName}`,
         configuration
-      ).catch(err => {
+      ).catch((err) => {
         this.hasError = true;
         this.errorMessage = "Something Went Wrong";
       });
@@ -249,21 +240,25 @@ export default {
       const configurationForFileUpload = {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "multipart/form-data"
-        }
+          "Content-Type": "multipart/form-data",
+        },
       };
       formData.append("file", imagefile.files[0]);
       const uploadImageResponse = await AXIOS.post(
         `api/storage/uploadFile/${this.artworkId}`,
         formData,
         configurationForFileUpload
-      ).catch(err => {
+      ).catch((err) => {
         console.log(err);
       });
 
       console.log(uploadImageResponse);
-    }
-  }
+
+      if (!this.hasError) {
+        this.errorMessage = "Uploaded successfully!";
+      }
+    },
+  },
 };
 </script>
 

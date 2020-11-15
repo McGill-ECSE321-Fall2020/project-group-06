@@ -1,7 +1,7 @@
 <template>
   <section id="profile" class="body">
     <mdb-row>
-      <mdb-col md="3">
+      <mdb-col>
         <mdb-card cascade narrow class="text-center pb-3">
           <mdb-view>
             <img
@@ -44,7 +44,7 @@
           </mdb-card-body>
         </mdb-card>
       </mdb-col>
-      <div>
+      <div class="text-center pb-3">
         <h1>Your artworks</h1>
         <div class="myContainer">
           <div v-for="artw in artwork" :key="artw.id">
@@ -55,15 +55,6 @@
               v-bind:url="artw.url"
               v-bind:artistName="lastName"
             />
-            <!-- </mdb-col> -->
-            <!-- <mdb-col lg="6" xl="5" class="mb-3" v-if="!isArtist">
-              <Artwork
-                v-bind:artworkName="artw.name"
-                v-bind:artworkId="artw.id"
-                v-bind:url="artw.url"
-                v-bind:artistName="artw.artist.lastName"
-              />
-            </mdb-col> -->
           </div>
         </div>
         <h1>Your Transactions History</h1>
@@ -137,7 +128,7 @@ export default {
     this.phoneNumber = response.data.phoneNumber;
     this.creditCardNumber = response.data.creditCardNumber;
     this.isArtist = false;
-    if (!this.creditCardNumber == 0) {
+    if (this.creditCardNumber == null) {
       this.isArtist = true;
     }
     console.log(this.isArtist + "isArtist");
@@ -148,14 +139,14 @@ export default {
       window.scrollTo(0, 0);
     },
     addArtwork() {
-      // if(this.isArtist){
+      if(this.isArtist){
       window.location.href = "#/addArtwork";
       window.scrollTo(0, 0);
-      // }
-      // else{
-      //   window.location.href = "#/artworks";
-      //   window.scrollTo(0, 0);
-      // }
+      }
+      else{
+      window.location.href = "#/artworks";
+      window.scrollTo(0, 0);
+      }
     },
   },
   data() {
