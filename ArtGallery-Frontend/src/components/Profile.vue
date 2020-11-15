@@ -1,6 +1,9 @@
 <template>
   <section id="profile" class="body">
-    <mdb-row>
+    <div v-if="username == ''">
+      You need to login to view your profile!
+    </div>
+    <mdb-row v-if="username != ''">
       <mdb-col>
         <mdb-card cascade narrow class="text-center pb-3">
           <mdb-view>

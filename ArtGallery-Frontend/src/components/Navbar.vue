@@ -44,6 +44,9 @@
           <a class="nav-link" href="#/commission">Commission</a>
         </li>
       </ul>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="margin-right: 1%">
+        <a class="nav-link" @click="logout">Logout</a>
+      </button>
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
         <a class="nav-link" href="#/signup">SignUp</a>
       </button>
@@ -54,6 +57,13 @@
 <script>
 export default {
   name: "Navbar",
+  methods:
+  {
+    async logout(){
+      localStorage.clear();
+      window.location.href = "#/";
+    }
+  }
 };
 </script>
 
