@@ -3,10 +3,13 @@
     <Navbar />
     <img src="../assets/commission.jpg" alt="" />
     <h3>Online Art Gallery Transaction History</h3>
-    <div id="container">
+    <div id="container" v-if="isAdmin">
       <div v-for="transaction in transactionArray" :key="transaction.id">
         <Transaction v-bind:transactionId="transaction.id" />
       </div>
+    </div>
+    <div id="ForbiddenMessage" v-if="!isAdmin">
+      <p>Forbidden: You are not the administrator</p>
     </div>
     <Footer />
   </div>
@@ -35,7 +38,7 @@ export default {
       baseURL: backendUrl,
       headers: { "Access-Control-Allow-Origin": frontendUrl },
     });
-
+    var username = localStorage.getItem("username");
     const transactionPromise = await AXIOS.get(
       "/api/artgallery/allTransactions",
       configuration
@@ -44,6 +47,12 @@ export default {
     });
     console.log(transactionPromise.data);
     this.transactionArray = transactionPromise.data;
+    this.isAdmin = false;
+    if (username === "admin") {
+      this.isAdmin = true;
+    }
+
+    console.log(this.isAdmin);
   },
   name: "ArtGalleryCommission",
   components: {
@@ -54,7 +63,8 @@ export default {
   data() {
     return {
       transactionArray: [],
-      isAdmin: false,
+      isAdmin: "",
+      username: "",
     };
   },
 };
