@@ -2,6 +2,7 @@
   <div>
     <Navbar />
     <img src="../assets/commission.jpg" alt="" />
+    <h3>Online Art Gallery Transaction History</h3>
     <div id="container">
       <div v-for="transaction in transactionArray" :key="transaction.id">
         <Transaction v-bind:transactionId="transaction.id" />
@@ -53,6 +54,7 @@ export default {
   data() {
     return {
       transactionArray: [],
+      isAdmin: false,
     };
   },
 };
