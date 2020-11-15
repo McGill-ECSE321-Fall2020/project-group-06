@@ -46,6 +46,11 @@
             >Profile</a
           >
         </li>
+        <li class="nav-item">
+          <a class="nav-link" v-bind:href="'http://127.0.0.1:8087/#/commission'"
+            >Commission</a
+          >
+        </li>
       </ul>
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
         <a class="nav-link" href="http://127.0.0.1:8087/#/signup">SignUp</a>

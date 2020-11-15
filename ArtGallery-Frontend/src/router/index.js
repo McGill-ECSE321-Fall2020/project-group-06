@@ -11,6 +11,7 @@ import EditProfile from "@/pages/EditProfilePage";
 import AddArtwork from "@/pages/AddArtworkPage";
 import EditArtwork from "@/pages/EditArtworkPage";
 import Profile from "@/pages/ProfilePage";
+import ArtGalleryCommission from "@/pages/ArtGalleryCommission";
 
 Vue.use(Router);
 
@@ -71,5 +72,10 @@ export default new Router({
       name: "editArtwork",
       component: EditArtwork
     },
+    {
+      path: "/commission",
+      name: "ArtGalleryCommission",
+      component: ArtGalleryCommission
+    }
   ]
 });
