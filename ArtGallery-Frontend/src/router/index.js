@@ -79,7 +79,7 @@ export default new Router({
       component: ArtGalleryCommission
     },
     {
-      path: "/error",
+      path: "/*",
       name: "Error",
       component: Error
     }
