@@ -22,20 +22,16 @@
 
           <ul class="list-unstyled">
             <li>
-              <a href="http://127.0.0.1:8087/#/" class="link">Home</a>
+              <a href="#/" class="link">Home</a>
             </li>
             <li>
-              <a href="http://127.0.0.1:8087/#/aboutUs" class="link"
-                >About us</a
-              >
+              <a href="#/aboutUs" class="link">About us</a>
             </li>
             <li>
-              <a href="http://127.0.0.1:8087/#/artworks" class="link"
-                >Artwork</a
-              >
+              <a href="#/artworks" class="link">Artwork</a>
             </li>
             <li>
-              <a href="http://127.0.0.1:8087/#/login" class="link">Login</a>
+              <a href="#/login" class="link">Login</a>
             </li>
           </ul>
         </div>
@@ -51,12 +47,10 @@
               <a href="https://www.mcgill.ca" class="link">Mcgill Website</a>
             </li>
             <li>
-              <a href="http://127.0.0.1:8087/#/profile" class="link">Profile</a>
+              <a href="#/profile" class="link">Profile</a>
             </li>
             <li>
-              <a href="http://127.0.0.1:8087/#/commission" class="link"
-                >Commission</a
-              >
+              <a href="#/commission" class="link">Commission</a>
             </li>
           </ul>
         </div>
