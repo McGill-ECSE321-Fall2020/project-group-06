@@ -44,21 +44,18 @@
           </mdb-card-body>
         </mdb-card>
       </mdb-col>
-      <mdb-col md="5">
-        <section class="text-center pb-3">
-          <mdb-row
-            class="d-flex justify-content-center"
-            v-for="artw in artwork"
-            :key="artw.id"
-          >
-            <mdb-col lg="6" xl="5" class="mb-3">
-              <Artwork
-                v-bind:artworkName="artw.name"
-                v-bind:artworkId="artw.id"
-                v-bind:url="artw.url"
-                v-bind:artistName="lastName"
-              />
-            </mdb-col>
+      <div>
+        <h1>Your artworks</h1>
+        <div class="myContainer">
+          <div v-for="artw in artwork" :key="artw.id">
+            <!-- <mdb-col lg="6" xl="5" class="mb-3"> -->
+            <Artwork
+              v-bind:artworkName="artw.name"
+              v-bind:artworkId="artw.id"
+              v-bind:url="artw.url"
+              v-bind:artistName="lastName"
+            />
+            <!-- </mdb-col> -->
             <!-- <mdb-col lg="6" xl="5" class="mb-3" v-if="!isArtist">
               <Artwork
                 v-bind:artworkName="artw.name"
@@ -67,27 +64,17 @@
                 v-bind:artistName="artw.artist.lastName"
               />
             </mdb-col> -->
-          </mdb-row>
-          <mdb-col class="mb-3">
-            <mdb-btn outline="primary" rounded size="sm" @click="addArtwork"
-              >Add Artwork</mdb-btn
-            >
-          </mdb-col>
-        </section>
-      </mdb-col>
-      <mdb-col md="4">
-        <section class="text-center pb-3">
-          <mdb-row
-            class="d-flex justify-content-center"
-            v-for="transac in transaction"
-            :key="transac.id"
-          >
-            <mdb-col lg="6" xl="5" class="mb-3">
-              <Transaction v-bind:transactionId="transac.id" />
-            </mdb-col>
-          </mdb-row>
-        </section>
-      </mdb-col>
+          </div>
+        </div>
+        <h1>Your Transactions History</h1>
+        <div class="myContainer">
+          <div v-for="transac in transaction" :key="transac.id">
+            <Transaction v-bind:transactionId="transac.id" />
+          </div>
+        </div>
+
+        <button @click="addArtwork">Add Artwork</button>
+      </div>
     </mdb-row>
   </section>
 </template>
@@ -211,8 +198,23 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .body {
   padding-top: 5rem;
+}
+.myContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.myContainer > div {
+  margin: 20px;
+  padding: 20px;
+  width: 420px;
+  transition: transform 0.5s; /* Animation */
+}
+
+.myContainer > div:hover {
+  transform: scale(1.2);
 }
 </style>
