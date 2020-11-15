@@ -9,7 +9,7 @@
         <p>Artist: {{ artistName }}</p>
         <a
           v-bind:href="
-            'http://127.0.0.1:8087/#/buyArtwork/' +
+            '#/buyArtwork/' +
             artworkId +
             '/' +
             artworkName +
@@ -30,7 +30,7 @@ export default {
   props: ["artworkName", "artistName", "artworkId", "url"],
   methods: {
     editArtwork() {
-      window.location.href = "/#/editArtwork/" + this.artworkName;
+      window.location.href = "#/editArtwork/" + this.artworkName;
       window.scrollTo(0, 0);
     },
   },
