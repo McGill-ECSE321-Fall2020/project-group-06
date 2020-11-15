@@ -4,7 +4,10 @@
       href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
       rel="stylesheet"
     />
-    <div class="container">
+    <div v-if="username == ''">
+      You need to login to edit your profile!
+    </div>
+    <div class="container" v-if="username != ''">
       <div class="row flex-lg-nowrap">
         <div class="col-12 col-lg-auto mb-3" style="width: 200px">
           <div class="card p-3">
@@ -278,7 +281,7 @@
               <div class="card mb-3">
                 <div class="card-body">
                   <div class="px-xl-3">
-                    <button class="btn btn-block btn-secondary">
+                    <button class="btn btn-block btn-secondary" @click="logout">
                       <i class="fa fa-sign-out"></i>
                       <span>Logout</span>
                     </button>
@@ -399,6 +402,10 @@ export default {
       console.log(response);
       window.location.href = "#/profile";
       window.scrollTo(0, 0);
+    },
+    async logout(){
+      localStorage.clear();
+      window.location.href = "#/";
     }
   }
 };
