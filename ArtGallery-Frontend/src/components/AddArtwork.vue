@@ -189,23 +189,24 @@ export default {
       hasError: false,
       errorMessage: "",
       url: "",
-      artworkId: "",
+      artworkId: ""
     };
   },
 
   methods: {
     async uploadArtwork() {
+      console.log("uploading artwork");
       const configuration = {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
       };
       var frontendUrl = "http://" + config.dev.host + ":" + config.dev.port;
       var backendUrl =
         "https://cors-anywhere.herokuapp.com/http://" + config.dev.backendHost;
       var AXIOS = axios.create({
         baseURL: backendUrl,
-        headers: { "Access-Control-Allow-Origin": frontendUrl },
+        headers: { "Access-Control-Allow-Origin": frontendUrl }
       });
 
       const response = await AXIOS.post(
@@ -216,14 +217,14 @@ export default {
           forSale: this.forSale,
           isInStore: this.isInStore,
           artist: {
-            username: localStorage.getItem("username"),
+            username: localStorage.getItem("username")
           },
           artGallery: {
-            name: "Online Art Gallery",
-          },
+            name: "Online Art Gallery"
+          }
         },
         configuration
-      ).catch((err) => {
+      ).catch(err => {
         this.hasError = true;
         this.errorMessage = "Something Went Wrong";
         console.log(err);
@@ -232,7 +233,7 @@ export default {
       const artworkResponse = await AXIOS.get(
         `api/artwork/getArtwork/${this.artworkName}`,
         configuration
-      ).catch((err) => {
+      ).catch(err => {
         this.hasError = true;
         this.errorMessage = "Something Went Wrong";
       });
@@ -244,25 +245,25 @@ export default {
 
       var formData = new FormData();
       var imagefile = document.querySelector("#fileUpload");
-
+      console.log("Storing in S3");
       const configurationForFileUpload = {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "multiplart/form-data",
-        },
+          "Content-Type": "multipart/form-data"
+        }
       };
       formData.append("file", imagefile.files[0]);
       const uploadImageResponse = await AXIOS.post(
         `api/storage/uploadFile/${this.artworkId}`,
         formData,
         configurationForFileUpload
-      ).catch((err) => {
+      ).catch(err => {
         console.log(err);
       });
 
       console.log(uploadImageResponse);
-    },
-  },
+    }
+  }
 };
 </script>
 
