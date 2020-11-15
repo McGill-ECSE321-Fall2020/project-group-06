@@ -14,33 +14,7 @@
                   <div class="row">
                     <div class="col-12 col-sm-auto mb-3">
                       <div class="mx-auto" style="width: 500px">
-                        <div
-                          class="d-flex justify-content-center align-items-center rounded"
-                          style="
-                            height: 500px;
-                            background-color: rgb(233, 236, 239);
-                          "
-                        >
-                          <span
-                            style="
-                              color: rgb(166, 168, 170);
-                              font: bold 8pt Arial;
-                            "
-                            >500x500</span
-                          >
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="col d-flex flex-column flex-sm-row justify-content-between mb-3"
-                    >
-                      <div class="text-center text-sm-left mb-2 mb-sm-0">
-                        <div class="mt-2">
-                          <button class="btn btn-primary" type="button">
-                            <i class="fa fa-fw fa-camera"></i>
-                            <span>Modify Picture</span>
-                          </button>
-                        </div>
+                        <img v-bind:src="url" alt="artwork image" />
                       </div>
                     </div>
                   </div>
@@ -61,8 +35,7 @@
                                   <input
                                     class="form-control"
                                     type="text"
-                                    name="name"
-                                    placeholder="Mona Lisa"
+                                    v-model="artworkName"
                                   />
                                 </div>
                               </div>
@@ -90,6 +63,7 @@
                                   <input
                                     class="form-control"
                                     type="text"
+                                    v-model="price"
                                     placeholder="$100.00"
                                   />
                                 </div>
@@ -102,7 +76,7 @@
                                   <textarea
                                     class="form-control"
                                     rows="5"
-                                    placeholder="Description"
+                                    v-model="artworkDescription"
                                   ></textarea>
                                 </div>
                               </div>
@@ -122,12 +96,20 @@
                         </div>
                         <div class="row">
                           <div class="col d-flex">
-                            <b-button type="submit" variant="danger">
+                            <b-button
+                              type="submit"
+                              variant="danger"
+                              @click="removeArtwork"
+                            >
                               Remove
                             </b-button>
                           </div>
                           <div class="col d-flex justify-content-end">
-                            <button class="btn btn-primary" type="submit">
+                            <button
+                              class="btn btn-primary"
+                              type="submit"
+                              @click="editArtwork"
+                            >
                               Submit
                             </button>
                           </div>
@@ -169,8 +151,124 @@
 </template>
 
 <script>
+import axios from "axios";
+var config = require("../../config");
 export default {
   name: "EditArtwork",
+  data() {
+    return {
+      artistUsername: "",
+      artworkName: "",
+      artworkDescription: "",
+      forSale: true,
+      isInStore: false,
+      price: "",
+      hasError: false,
+      errorMessage: "",
+      url: "",
+      artworkId: "",
+    };
+  },
+  async beforeCreate() {
+    const configuration = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    };
+    var frontendUrl = "http://" + config.dev.host + ":" + config.dev.port;
+    var backendUrl =
+      "https://cors-anywhere.herokuapp.com/http://" + config.dev.backendHost;
+    var AXIOS = axios.create({
+      baseURL: backendUrl,
+      headers: { "Access-Control-Allow-Origin": frontendUrl },
+    });
+
+    var name = this.$route.fullPath.split("/")[2].replace(/%20/g, " ");
+    console.log(name);
+    const promise = await AXIOS.get(
+      "api/artwork/getArtwork/" + name,
+      configuration
+    ).catch((err) => {
+      console.log(err);
+    });
+    // populate the array
+    this.artwork = promise.data;
+    console.log("displaying artwork");
+    console.log(this.artwork);
+    this.price = this.artwork.price;
+    this.isInStore = this.artwork.isInStore;
+    this.artworkDescription = this.artwork.description;
+    this.typeArtwork = this.artwork.typeOfArtwork;
+    this.artworkName = this.artwork.name;
+    this.url = this.artwork.url;
+  },
+  methods: {
+    async editArtwork() {
+      console.log("editing artwork");
+      const configuration = {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      };
+      var frontendUrl = "http://" + config.dev.host + ":" + config.dev.port;
+      var backendUrl =
+        "https://cors-anywhere.herokuapp.com/http://" + config.dev.backendHost;
+      var AXIOS = axios.create({
+        baseURL: backendUrl,
+        headers: { "Access-Control-Allow-Origin": frontendUrl },
+      });
+
+      const response = await AXIOS.put(
+        "api/artwork/updateArtwork",
+        {
+          name: this.artworkName,
+          description: this.artworkDescription,
+          forSale: this.forSale,
+          isInStore: this.isInStore,
+          artist: {
+            username: localStorage.getItem("username"),
+          },
+          artGallery: {
+            name: "Online Art Gallery",
+          },
+        },
+        configuration
+      ).catch((err) => {
+        this.hasError = true;
+        this.errorMessage = "Something Went Wrong";
+        console.log(err);
+      });
+      if (!this.hasError) {
+        this.errorMessage = "Successfully edited!";
+      }
+    },
+    async removeArtwork() {
+      console.log("removing artwork");
+      const configuration = {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      };
+      var frontendUrl = "http://" + config.dev.host + ":" + config.dev.port;
+      var backendUrl =
+        "https://cors-anywhere.herokuapp.com/http://" + config.dev.backendHost;
+      var AXIOS = axios.create({
+        baseURL: backendUrl,
+        headers: { "Access-Control-Allow-Origin": frontendUrl },
+      });
+      const response = await AXIOS.post(
+        "api/artist/removeArtwork/" + this.artwork.id,
+        configuration
+      ).catch((err) => {
+        this.hasError = true;
+        this.errorMessage = "Something Went Wrong";
+        console.log(err);
+      });
+      if (!this.hasError) {
+        this.errorMessage = "Successfully removed!";
+      }
+    },
+  },
 };
 </script>
 
