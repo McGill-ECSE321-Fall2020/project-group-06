@@ -51,7 +51,7 @@
             v-for="artw in artwork"
             :key="artw.id"
           >
-            <mdb-col lg="6" xl="5" class="mb-3" v-if="isArtist">
+            <mdb-col lg="6" xl="5" class="mb-3">
               <Artwork
                 v-bind:artworkName="artw.name"
                 v-bind:artworkId="artw.id"
@@ -59,14 +59,14 @@
                 v-bind:artistName="lastName"
               />
             </mdb-col>
-            <mdb-col lg="6" xl="5" class="mb-3" v-if="!isArtist">
+            <!-- <mdb-col lg="6" xl="5" class="mb-3" v-if="!isArtist">
               <Artwork
                 v-bind:artworkName="artw.name"
                 v-bind:artworkId="artw.id"
                 v-bind:url="artw.url"
-                v-bind:artistName="artw.artist.LastName"
+                v-bind:artistName="artw.artist.lastName"
               />
-            </mdb-col>
+            </mdb-col> -->
           </mdb-row>
           <mdb-col class="mb-3">
             <mdb-btn outline="primary" rounded size="sm" @click="addArtwork"
