@@ -38,10 +38,10 @@
           <a class="nav-link" href="#/login">Login</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="'#/profile">Profile</a>
+          <a class="nav-link" href="#/profile">Profile</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="'#/commission">Commission</a>
+          <a class="nav-link" href="#/commission">Commission</a>
         </li>
       </ul>
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
