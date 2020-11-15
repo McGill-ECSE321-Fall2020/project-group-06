@@ -50,24 +50,32 @@
       <div class="text-center pb-3">
         <h1>Your artworks</h1>
         <div class="myContainer">
-          <!-- <div v-for="artw in artwork" :key="artw.id"> -->
-          <!-- <mdb-col lg="6" xl="5" class="mb-3"> -->
-          <!-- <Artwork
-              v-bind:artworkName="artw.name"
-              v-bind:artworkId="artw.id"
-              v-bind:url="artw.url"
-              v-bind:artistName="artw.artist.username"
-            /> -->
-          <!-- </div> -->
-        </div>
-        <h1>Your Transactions History</h1>
-        <div class="myContainer">
-          <div v-for="transac in transaction" :key="transac.id">
-            <Transaction v-bind:transactionId="transac.id" />
+          <div v-for="artw in artwork" :key="artw.id">
+            <mdb-col lg="6" xl="5" class="mb-3" v-if="isArtist">
+              <Artwork
+                v-bind:artworkName="artw.name"
+                v-bind:artworkId="artw.id"
+                v-bind:url="artw.url"
+                v-bind:artistName="username"
+              />
+            </mdb-col>
+            <mdb-col2 lg="6" xl="5" class="mb-3" v-if="!isArtist">
+              <Artwork
+                v-bind:artworkName="artw.name"
+                v-bind:artworkId="artw.id"
+                v-bind:url="artw.url"
+                v-bind:artistName="artw.artist.LastName"
+              />
+            </mdb-col2>
           </div>
+          <h1>Your Transactions History</h1>
+          <div class="myContainer">
+            <div v-for="transac in transaction" :key="transac.id">
+              <Transaction v-bind:transactionId="transac.id" />
+            </div>
+          </div>
+          <button @click="addArtwork">Add Artwork</button>
         </div>
-
-        <button @click="addArtwork">Add Artwork</button>
       </div>
     </mdb-row>
   </section>
