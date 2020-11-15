@@ -58,7 +58,7 @@ img {
 h1 {
   position: absolute;
   text-align: center;
-  top: 80%;
+  top: 75%;
   left: 50%;
   /* bring your own prefixes */
   transform: translate(-50%, -50%);

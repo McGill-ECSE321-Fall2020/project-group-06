@@ -161,14 +161,14 @@ export default {
       window.scrollTo(0, 0);
     },
     addArtwork() {
-      if(this.isArtist){
-        window.location.href = "#/addArtwork";
-        window.scrollTo(0, 0);
-      }
-      else{
-        window.location.href = "#/artworks";
-        window.scrollTo(0, 0);
-      }
+      // if(this.isArtist){
+      window.location.href = "#/addArtwork";
+      window.scrollTo(0, 0);
+      // }
+      // else{
+      //   window.location.href = "#/artworks";
+      //   window.scrollTo(0, 0);
+      // }
     },
   },
   data() {
