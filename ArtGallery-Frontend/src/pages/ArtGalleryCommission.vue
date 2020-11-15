@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar />
-    <img src="../assets/commission.jpg" alt="" />
+    <img src="../assets/stonks.jpg" alt="" />
     <h3>Online Art Gallery Transaction History</h3>
     <div id="container" v-if="isAdmin">
       <div v-for="transaction in transactionArray" :key="transaction.id">

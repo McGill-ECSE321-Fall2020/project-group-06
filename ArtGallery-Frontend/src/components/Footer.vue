@@ -52,6 +52,13 @@
             <li>
               <a href="#/commission" class="link">Commission</a>
             </li>
+            <li>
+              <a
+                href="https://www.youtube.com/watch?v=-lEfBU3ikN4&ab_channel=10HoursMovies"
+                class="link"
+                >Business</a
+              >
+            </li>
           </ul>
         </div>
         <!-- Grid column -->
