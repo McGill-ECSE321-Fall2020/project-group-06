@@ -26,7 +26,7 @@ import ca.mcgill.ecse321.artgallery.dto.ArtistDto;
  * @author Olivier Normandin
  * @author Andre-Walter Panzini
  * @author Sen Wang
- * </p>
+ *         </p>
  */
 @Service
 public class ArtistService {
@@ -53,9 +53,9 @@ public class ArtistService {
 	@Transactional
 	public ArrayList<Transaction> viewTransactionHistory(int artistID) {
 		ArrayList<Transaction> transactionHistory = new ArrayList<>();
-		
+
 		Artist artist = artistRepository.findArtistById(artistID);
-		
+
 		if (artist == null) {
 			return transactionHistory;
 		} else {
@@ -63,7 +63,7 @@ public class ArtistService {
 				transactionHistory.add(transaction);
 			});
 		}
-		
+
 		return transactionHistory;
 	}
 
@@ -91,6 +91,9 @@ public class ArtistService {
 		newArtwork.setArtist(artistRepository.findArtistByUsername(artwork.getArtist().getUsername()));
 		newArtwork.setArtGallery(artGalleryRepository.findArtGalleryByName(artwork.getArtGallery().getName()));
 		newArtwork.setForSale(true);
+		newArtwork.setPrice(artwork.getPrice());
+		newArtwork.setDescription(artwork.getDescription());
+		newArtwork.setIsInStore(artwork.isIsInStore());
 		artworkRepository.save(newArtwork);
 
 		return true;
