@@ -124,18 +124,21 @@ Sen Wang | 18 | x | x | x |  | x | x | x |
 
 ## Deliverable 3
 ### Main Tasks
-(Web Frontend and Architecture)
+- Architecture Modeling
+- Web Frontend
+- Integration of Web Frontend with Backend Services
+
 ### Documents
 
 ### Table
 #### Overview Table
-**Name** | **Total Working Hours** | Meetings | Requirements Model | Domain Model | Persistence Layer | Testing of Persistence Layer | Build System and Continuous Integration | Documentation
--------- | ----------------------- | -------- | ------------------ | ------------ | ----------------- | ---------------------------- | ---------------------------------------- | -------------
-Noah Chamberland | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 
-Justin Legrand | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 
-Olivier Normandin | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 
-André - Walter Panzini | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 
-Sen Wang | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 
+**Name** | **Total Working Hours** | Architecture Modeling | Web Frontend Components | Web Frontend Pages | Integration of Web Frontend with Backend | Project Management
+-------- | ----------------------- | --------------------- | ----------------------- | ------------------ | ---------------------------------------- | ------------------
+Noah Chamberland | 27 | x | x | x | x | x 
+Justin Legrand | 27 | x | x | x | x | x 
+Olivier Normandin | 27 | x | x | x | x | x 
+André - Walter Panzini | 27 | x | x | x | x | x 
+Sen Wang | 27 | x | x | x | x | x 
 
 ## Deliverable 4
 ### Main Tasks
