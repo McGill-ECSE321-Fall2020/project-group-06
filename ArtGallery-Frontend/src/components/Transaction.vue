@@ -8,6 +8,7 @@
         <p>Artist: {{ artistUsername }}</p>
         <p>Price: {{ price }}$</p>
         <p>Commission: {{ price * 0.15 }}$</p>
+        <p>Delivery: {{ delivery }} </p>
       </div>
     </div>
   </div>
@@ -50,6 +51,13 @@ export default {
     this.price = response.data.artwork.price;
     this.dateOfTransaction = response.data.dateOfTransaction;
     this.artistUsername = response.data.artist.username;
+    var del = response.data.deliveryType;
+    if(del === "Delivered") {
+      this.delivery = del;
+    }
+    else {
+      this.delivery = "Picked Up";
+    }
   },
   data() {
     return {
@@ -59,6 +67,7 @@ export default {
       price: "",
       dateOfTransaction: "",
       artistUsername: "",
+      delivery: ""
     };
   },
 };
