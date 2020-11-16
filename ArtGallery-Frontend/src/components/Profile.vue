@@ -18,7 +18,7 @@
             <h5 class="indigo-text" v-if="isArtist">
               <strong>Artist</strong>
             </h5>
-            <h5 class="indigo-text" v-if="!isArtist">
+            <h5 class="indigo-text" v-if="isCustomer">
               <strong>Customer</strong>
             </h5>
             <h5 class="indigo-text" v-if="isAdmin">
@@ -140,11 +140,15 @@ export default {
     this.creditCardNumber = response.data.creditCardNumber;
     this.isArtist = false;
     this.isAdmin = false;
-    if (this.creditCardNumber == null) {
-      this.isArtist = true;
-    }
+    this.isCustomer = false;
     if (this.username === "admin") {
       this.isAdmin = true;
+    }
+    else if (this.creditCardNumber == null) {
+      this.isArtist = true;
+    }
+    else{
+      this.isCustomer = true;
     }
     console.log(this.isArtist + "isArtist");
   },

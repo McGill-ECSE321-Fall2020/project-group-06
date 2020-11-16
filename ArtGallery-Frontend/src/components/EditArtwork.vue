@@ -4,7 +4,10 @@
       href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
       rel="stylesheet"
     />
-    <div class="container">
+    <div v-if="username != artwork.artist.username && username != 'admin'">
+      You cannot edit this artwork as you are not its owner
+    </div>
+    <div class="container" v-if="artwork.artist.username == username || username == 'admin'">
       <div class="col">
         <div class="row">
           <div class="col mb-3">
@@ -165,7 +168,7 @@ export default {
   name: "EditArtwork",
   data() {
     return {
-      artistUsername: "",
+      username: "",
       artworkName: "",
       artworkDescription: "",
       forSale: true,
@@ -208,6 +211,7 @@ export default {
     this.typeArtwork = this.artwork.typeOfArtwork;
     this.artworkName = this.artwork.name;
     this.url = this.artwork.url;
+    this.username = localStorage.getItem("username");
   },
   methods: {
     async editArtwork() {
