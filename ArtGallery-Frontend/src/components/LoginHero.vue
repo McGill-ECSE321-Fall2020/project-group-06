@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img src="../assets/login-hero.jpg" alt="Login Hero Image" />
+    <img src="../assets/3164.jpg" alt="Login Hero Image" />
     <form @submit.prevent="handleSubmit">
       <div class="container">
         <div class="centered-text">
@@ -42,7 +42,7 @@ export default {
     return {
       username: "",
       password: "",
-      status: "",
+      status: ""
     };
   },
   methods: {
@@ -54,12 +54,12 @@ export default {
         "https://cors-anywhere.herokuapp.com/http://" + config.dev.backendHost;
       var AXIOS = axios.create({
         baseURL: backendUrl,
-        headers: { "Access-Control-Allow-Origin": frontendUrl },
+        headers: { "Access-Control-Allow-Origin": frontendUrl }
       });
       const response = await AXIOS.post("api/cognito/authenticate", {
         userName: this.username,
-        password: this.password,
-      }).catch((err) => {
+        password: this.password
+      }).catch(err => {
         this.status = "Something went wrong";
         loggedIn = false;
       });
@@ -67,12 +67,14 @@ export default {
         this.status = "You are logged in!";
         localStorage.setItem("token", response.data);
         localStorage.setItem("username", this.username);
+        window.location.href = "#/profile";
+        window.scrollTo(0, 0);
       }
       console.log(response);
       localStorage.setItem("token", response.data);
       console.log(localStorage.getItem("token"));
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -84,7 +86,7 @@ export default {
   box-sizing: border-box;
 }
 img {
-  max-width: 100%;
+  width: 100%;
   height: auto;
 }
 input {
@@ -92,9 +94,9 @@ input {
 }
 .centered-text {
   position: absolute;
-  top: 29%;
+  top: 50%;
   font-size: large;
-  left: 63%;
+  left: 50%;
   transform: translate(-50%, -50%);
 }
 a {

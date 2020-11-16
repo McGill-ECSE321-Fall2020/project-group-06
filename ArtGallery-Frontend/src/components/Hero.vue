@@ -1,7 +1,7 @@
 <template>
   <div>
     <img src="../assets/hero-image.jpg" alt="Hero Image" />
-    <div class="centered">WELCOME TO ART GALLERY</div>
+    <div class="centered"><strong>WELCOME TO THE <br> ONLINE ART GALLERY</strong></div>
   </div>
 </template>
 
@@ -13,14 +13,17 @@ export default {
 
 <style scoped>
 img {
-  max-width: 100%;
+  width: 100%;
   height: auto;
 }
 .centered {
+  color: black;
   position: absolute;
   top: 35%;
   font-size: large;
   left: 50%;
   transform: translate(-50%, -50%);
+  text-indent: 7%;
+  font-family: "Times New Roman", Times, serif;
 }
 </style>

@@ -1,9 +1,9 @@
 <template>
   <div>
     <Navbar />
+    <img src="../assets/artworks-image.jpg" alt="Artworks image" />
     <div class="search-artwork">
-      <img src="../assets/artworks-image.jpg" alt="Artworks image" />
-      <div class="centered">BROWSE ARTWORKS</div>
+      <h1>BROWSE ARTWORKS</h1>
     </div>
     <div class="filter-area">
       <br />
@@ -96,15 +96,20 @@ export default {
   transform: scale(1.2);
 }
 img {
-  max-width: 100%;
+  width: 100%;
   height: auto;
 }
-.centered {
-  color: white;
+h1 {
   position: absolute;
-  top: 25%;
-  font-size: 40px;
+  text-align: center;
+  top: 75%;
   left: 50%;
+  /* bring your own prefixes */
   transform: translate(-50%, -50%);
+  /* left: 35%; */
+  font-family: "Times New Roman", Times, serif;
+}
+.search-artwork {
+  display: inline-block;
 }
 </style>

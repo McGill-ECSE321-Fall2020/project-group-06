@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img src="../assets/artworks-image.jpg" alt="SignUp image" />
+    <img src="../assets/signup-image.jpg" alt="SignUp image" />
     <form @submit.prevent="handleSubmit">
       <div class="container">
         <div class="centered-text">
@@ -11,20 +11,21 @@
             <input
               type="radio"
               value="Artist"
-              v-model="SignUpform.AccountType"
+              v-model="artistChecked"
               id="artist"
             />
             <label for="artist">Artist</label>
             <input
               type="radio"
               value="Customer"
-              v-model="SignUpform.AccountType"
+              v-model="customerChecked"
               id="customer"
             />
             <label for="customer">Customer</label>
           </div>
           <br />
-          <br />
+          <p>{{ message }}</p>
+          <p class="error">{{ errorMessage }}</p>
           <div class="form-group">
             <input
               type="email"
@@ -70,36 +71,105 @@ import axios from "axios";
 var config = require("../../config");
 
 export default {
+  updated() {
+    // check radio buttons
+    if (this.artistChecked === "" && this.customerChecked === "") {
+      this.message = "Creating a default user account";
+      this.accountType = "USER";
+    } else if (
+      this.artistChecked === "Artist" &&
+      this.customerChecked === "Customer"
+    ) {
+      this.message = "Warning: Cannot select two accounts types!";
+    } else if (this.artistChecked === "Artist") {
+      this.message = "Creating an artist account";
+      this.accountType = "ARTIST";
+    } else {
+      this.message = "Creating a customer account";
+      this.accountType = "CUSTOMER";
+    }
+
+    // check for confirm passwords
+    if (this.password !== this.passwordConfirmation) {
+      this.errorMessage = "Warning: Passwords are not identical!";
+    } else {
+      this.errorMessage = "";
+    }
+  },
   name: "SignUpHero",
   data() {
     return {
-      SignUpform: {
-        AccountType: null,
-        email: "",
-        username: "",
-        password: "",
-        passwordConfirmation: "",
-      },
+      accountType: "",
+      artistChecked: "",
+      customerChecked: "",
+      email: "",
+      username: "",
+      password: "",
+      passwordConfirmation: "",
+      message: "Creating a default user account",
+      errorMessage: ""
     };
   },
   methods: {
     async handleSubmit() {
       var frontendUrl = "http://" + config.dev.host + ":" + config.dev.port;
-      var backendUrl = "https://" + config.dev.backendHost;
+      var backendUrl =
+        "https://cors-anywhere.herokuapp.com/http://" + config.dev.backendHost;
       var AXIOS = axios.create({
         baseURL: backendUrl,
-        headers: { "Access-Control-Allow-Origin": frontendUrl },
+        headers: { "Access-Control-Allow-Origin": frontendUrl }
       });
-      const response = await AXIOS.post("api/user/createUser", {
-        email: this.email,
-        username: this.username,
-        password: this.password,
-      }).catch((err) => {
-        console.log(err);
-      });
-      console.log(response);
-    },
-  },
+
+      if (
+        this.username === "" ||
+        this.password === "" ||
+        this.passwordConfirmation === ""
+      ) {
+        this.errorMessage = "Fields can't be empty!";
+        return;
+      }
+
+      // check accountType and create account according to corresponding accountYpe
+      if (this.accountType === "USER" || this.accountType === "") {
+        const userResponse = await AXIOS.post("api/user/createUser", {
+          username: this.username,
+          password: this.password
+        }).catch(err => {
+          console.log(err);
+          this.errorMessage = "Something went wrong";
+        });
+        console.log(userResponse);
+        window.location.href = "#/login";
+        window.scrollTo(0, 0);
+      } else if (this.accountType === "ARTIST") {
+        const artistResponse = await AXIOS.post("api/artist/createArtist", {
+          username: this.username,
+          password: this.password
+        }).catch(err => {
+          console.log(err);
+          this.errorMessage = "Something went wrong";
+        });
+        console.log(artistResponse);
+        window.location.href = "#/login";
+        window.scrollTo(0, 0);
+      } else {
+        console.log("Creating customer");
+        const customerResponse = await AXIOS.post(
+          "api/customer/createCustomer",
+          {
+            username: this.username,
+            password: this.password
+          }
+        ).catch(err => {
+          console.log(err);
+          this.errorMessage = "Something went wrong";
+        });
+        console.log(customerResponse);
+        window.location.href = "#/login";
+        window.scrollTo(0, 0);
+      }
+    }
+  }
 };
 </script>
 
@@ -111,7 +181,7 @@ export default {
   box-sizing: border-box;
 }
 img {
-  max-width: 100%;
+  width: 100%;
   height: auto;
 }
 input {
@@ -153,5 +223,8 @@ button {
 }
 button:hover {
   opacity: 1;
+}
+.error {
+  color: palevioletred;
 }
 </style>

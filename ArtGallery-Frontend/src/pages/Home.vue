@@ -18,11 +18,11 @@ export default {
     components : {
         Navbar,
         Hero,
-        Footer
+        Footer,
     }
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>
