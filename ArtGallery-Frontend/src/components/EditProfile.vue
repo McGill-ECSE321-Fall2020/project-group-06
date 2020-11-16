@@ -9,7 +9,7 @@
     </div>
     <div class="container" v-if="username != ''">
       <div class="row flex-lg-nowrap">
-        <div class="col-12 col-lg-auto mb-3" style="width: 200px">
+        <!-- <div class="col-12 col-lg-auto mb-3" style="width: 200px">
           <div class="card p-3">
             <div class="e-navlist e-navlist--active-bg">
               <ul class="nav">
@@ -33,7 +33,7 @@
               </ul>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <div class="col">
           <div class="row">
@@ -295,7 +295,8 @@
                     Get fast, free help from our friendly assistants.
                   </p>
                   <button type="button" class="btn btn-primary">
-                    Contact Us
+                    <a href="https://www.mcgill.ca" class="link" style="text-decoration: none;
+  color: white;">Contact Us</a>
                   </button>
                 </div>
               </div>
