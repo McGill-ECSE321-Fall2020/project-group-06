@@ -51,7 +51,7 @@ Heroku is a cloud service platform that is easy to use for many development proj
 The redirect link to the heroku backend will display a 403 error since a user account must be created by the client in order to access application functionalities. In order to do so, follow the create user instructions in the [endpoint manual](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Endpoint-Wiki). 
 
 #### Web Frontend
-- (To be added in later deliverables...)
+- http://art-gallery-frontend-06.herokuapp.com
 
 ## Deliverable 1
 ### Main tasks
