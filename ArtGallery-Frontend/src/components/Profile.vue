@@ -50,35 +50,25 @@
           </mdb-card-body>
         </mdb-card>
       </mdb-col>
-      <div class="text-center pb-3">
+      <div>
         <h1>Your artworks</h1>
         <div class="myContainer">
           <div v-for="artw in artwork" :key="artw.id">
-            <mdb-col lg="6" xl="5" class="mb-3" v-if="isArtist">
-              <Artwork
-                v-bind:artworkName="artw.name"
-                v-bind:artworkId="artw.id"
-                v-bind:url="artw.url"
-                v-bind:artistName="username"
-              />
-            </mdb-col>
-            <mdb-col2 lg="6" xl="5" class="mb-3" v-if="!isArtist">
-              <Artwork
-                v-bind:artworkName="artw.name"
-                v-bind:artworkId="artw.id"
-                v-bind:url="artw.url"
-                v-bind:artistName="artw.artist.LastName"
-              />
-            </mdb-col2>
+            <Artwork
+              v-bind:artworkName="artw.name"
+              v-bind:artworkId="artw.id"
+              v-bind:url="artw.url"
+              v-bind:artistName="artw.artist.username"
+            />
           </div>
-          <h1>Your Transactions History</h1>
-          <div class="myContainer">
-            <div v-for="transac in transaction" :key="transac.id">
-              <Transaction v-bind:transactionId="transac.id" />
-            </div>
-          </div>
-          <button @click="addArtwork">Add Artwork</button>
         </div>
+        <h1>Your Transactions History</h1>
+        <div class="myContainer">
+          <div v-for="transac in transaction" :key="transac.id">
+            <Transaction v-bind:transactionId="transac.id" />
+          </div>
+        </div>
+        <button @click="addArtwork">Add Artwork</button>
       </div>
     </mdb-row>
   </section>
@@ -101,7 +91,7 @@ import {
   mdbBtn,
   mdbPagination,
   mdbPageNav,
-  mdbPageItem,
+  mdbPageItem
 } from "mdbvue";
 import Artwork from "../components/Artwork";
 import Transaction from "../components/Transaction";
@@ -110,8 +100,8 @@ export default {
     console.log("Before create profile");
     const configuration = {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
     };
     var frontendUrl = "http://" + config.dev.host + ":" + config.dev.port;
     // had to add this to solve cors problem
@@ -119,13 +109,13 @@ export default {
       "https://cors-anywhere.herokuapp.com/http://" + config.dev.backendHost;
     var AXIOS = axios.create({
       baseURL: backendUrl,
-      headers: { "Access-Control-Allow-Origin": frontendUrl },
+      headers: { "Access-Control-Allow-Origin": frontendUrl }
     });
     var username = localStorage.getItem("username");
     const response = await AXIOS.get(
       "api/user/getUser/" + username,
       configuration
-    ).catch((err) => {
+    ).catch(err => {
       console.log(err);
     });
     console.log(response.data);
@@ -164,7 +154,7 @@ export default {
         window.location.href = "#/artworks";
         window.scrollTo(0, 0);
       }
-    },
+    }
   },
   data() {
     return {
@@ -180,7 +170,7 @@ export default {
       description: "",
       phoneNumber: "",
       creditCardNumber: "",
-      isArtist: "",
+      isArtist: ""
     };
   },
   name: "Profile",
@@ -201,8 +191,8 @@ export default {
     mdbPageNav,
     mdbPageItem,
     Artwork,
-    Transaction,
-  },
+    Transaction
+  }
 };
 </script>
 
@@ -224,5 +214,8 @@ export default {
 
 .myContainer > div:hover {
   transform: scale(1.2);
+}
+h1 {
+  text-align: center;
 }
 </style>
