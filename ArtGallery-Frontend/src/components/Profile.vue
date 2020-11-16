@@ -49,22 +49,12 @@
         <h1>Your artworks</h1>
         <div class="myContainer">
           <div v-for="artw in artwork" :key="artw.id">
-            <!-- <mdb-col lg="6" xl="5" class="mb-3"> -->
             <Artwork
               v-bind:artworkName="artw.name"
               v-bind:artworkId="artw.id"
               v-bind:url="artw.url"
               v-bind:artistName="lastName"
             />
-            <!-- </mdb-col> -->
-            <!-- <mdb-col lg="6" xl="5" class="mb-3" v-if="!isArtist">
-              <Artwork
-                v-bind:artworkName="artw.name"
-                v-bind:artworkId="artw.id"
-                v-bind:url="artw.url"
-                v-bind:artistName="artw.artist.lastName"
-              />
-            </mdb-col> -->
           </div>
         </div>
         <h1>Your Transactions History</h1>
@@ -143,11 +133,9 @@ export default {
     this.isCustomer = false;
     if (this.username === "admin") {
       this.isAdmin = true;
-    }
-    else if (this.creditCardNumber == null) {
+    } else if (this.creditCardNumber == null) {
       this.isArtist = true;
-    }
-    else{
+    } else {
       this.isCustomer = true;
     }
     console.log(this.isArtist + "isArtist");
