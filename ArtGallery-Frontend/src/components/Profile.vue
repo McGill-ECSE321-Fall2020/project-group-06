@@ -63,8 +63,9 @@
             <Transaction v-bind:transactionId="transac.id" />
           </div>
         </div>
-
-        <button @click="addArtwork">Add Artwork</button>
+        <div class="center">
+          <button @click="addArtwork">Add Artwork</button>
+        </div>
       </div>
     </mdb-row>
   </section>
@@ -214,5 +215,10 @@ export default {
 }
 h1 {
   text-align: center;
+}
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.artgallery.services;
 
 import java.util.ArrayList;
+import java.sql.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -161,11 +162,16 @@ public class CustomerService {
 		if (customerRepository.findCustomerById(customerId) == null) {
 			return false;
 		}
-		Transaction transaction = new Transaction();
+		
+		long millis=System.currentTimeMillis();  
+        Date date=new java.sql.Date(millis); 
+		
+        Transaction transaction = new Transaction();
 		transaction.setArtGallery(artGalleryRepository.findArtGalleryById(artGalleryId));
 		transaction.setArtist(artistRepository.findArtistById(artistId));
 		transaction.setArtwork(artworkRepository.findArtworkById(artworkId));
 		transaction.setCustomer(customerRepository.findCustomerById(customerId));
+		transaction.setDateOfTransaction(date);
 		artworkRepository.findArtworkById(artworkId).setForSale(false);
 		artworkRepository.save(artworkRepository.findArtworkById(artworkId));
 		transactionRepository.save(transaction);
