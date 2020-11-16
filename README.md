@@ -130,18 +130,18 @@ Sen Wang | 18 | x | x | x |  | x | x | x |
 
 ### Documents
 - Architecture Modeling
- - [Architecture Model](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Architecture-Model)
+   - [Architecture Model](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Architecture-Model)
 
 - Web Frontend
- - [URL Link](http://art-gallery-frontend-06.herokuapp.com)
+   - [URL Link](http://art-gallery-frontend-06.herokuapp.com)
 
 - Report
- - [Deliverable 3 Project Report](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Deliverable-3-Report)
+   - [Deliverable 3 Project Report](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Deliverable-3-Report)
  
  - Minutes
-  - [Meeting Minutes 3.1](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Meeting-Minutes-3.1)
-  - [Meeting Minutes 3.2](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Meeting-Minutes-3.2)
-  - [Meeting Minutes 3.3](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Meeting-Minutes-3.3)
+   - [Meeting Minutes 3.1](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Meeting-Minutes-3.1)
+   - [Meeting Minutes 3.2](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Meeting-Minutes-3.2)
+   - [Meeting Minutes 3.3](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Meeting-Minutes-3.3)
 
 ### Table
 #### Overview Table
