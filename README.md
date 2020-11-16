@@ -148,7 +148,7 @@ Sen Wang | 18 | x | x | x |  | x | x | x |
 **Name** | **Total Working Hours** | Architecture Modeling | Web Frontend Components | Web Frontend Pages | Integration of Web Frontend with Backend | Project Management
 -------- | ----------------------- | --------------------- | ----------------------- | ------------------ | ---------------------------------------- | ------------------
 Noah Chamberland | 27 | x | x | x | x | x 
-Justin Legrand | 27 | x | x | x | x | x 
+Justin Legrand | 24 | x | x | x | x | x 
 Olivier Normandin | 27 | x | x | x | x | x 
 André - Walter Panzini | 27 | x | x | x | x | x 
 Sen Wang | 27 | x | x | x | x | x 
