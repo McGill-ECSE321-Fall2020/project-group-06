@@ -152,8 +152,9 @@
                   Get fast, free help from our friendly assistants.
                 </p>
                 <button type="button" class="btn btn-primary">
-                  Contact Us
-                </button>
+                    <a href="https://www.mcgill.ca" class="link" style="text-decoration: none;
+  color: white;">Contact Us</a>
+                  </button>
               </div>
             </div>
           </div>
