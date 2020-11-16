@@ -8,7 +8,7 @@
         <!-- Grid column -->
         <div class="col-md-6 mt-md-0 mt-3">
           <!-- Content -->
-          <h5 class="text-uppercase">ArtGallerySystem</h5>
+          <h5 class="text-uppercase">Art Gallery System</h5>
           <p>Thanks for visiting our website!</p>
         </div>
         <!-- Grid column -->
@@ -28,7 +28,7 @@
               <a href="#/aboutUs" class="link">About us</a>
             </li>
             <li>
-              <a href="#/artworks" class="link">Artwork</a>
+              <a href="#/artworks" class="link">Artworks</a>
             </li>
             <li>
               <a href="#/login" class="link">Login</a>
@@ -43,14 +43,15 @@
           <h5 class="text-uppercase">Links</h5>
 
           <ul class="list-unstyled">
-            <li>
-              <a href="https://www.mcgill.ca" class="link">Mcgill Website</a>
-            </li>
+            
             <li>
               <a href="#/profile" class="link">Profile</a>
             </li>
             <li>
               <a href="#/commission" class="link">Commission</a>
+            </li>
+            <li>
+              <a href="https://www.mcgill.ca" class="link">Mcgill Website</a>
             </li>
             <li>
               <a

@@ -31,9 +31,9 @@
         <li class="nav-item">
           <a class="nav-link" href="#/artworks">Artworks</a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link" href="#">Contacts</a>
-        </li>
+        </li> -->
         <li class="nav-item">
           <a class="nav-link" href="#/login">Login</a>
         </li>
@@ -44,11 +44,11 @@
           <a class="nav-link" href="#/commission">Commission</a>
         </li>
       </ul>
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="margin-right: 1%">
-        <a class="nav-link" @click="logout">Logout</a>
+      <button class="btn btn-light my-2 my-sm-0" type="submit" style="margin-right: 1%">
+        <a style="color:black; text-decoration:none;" @click="logout">Logout</a>
       </button>
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-        <a class="nav-link" href="#/signup">SignUp</a>
+      <button class="btn btn-dark my-2 my-sm-0" type="submit">
+        <a style="color:white; text-decoration:none;" class="nav-link" href="#/signup">SignUp</a>
       </button>
     </div>
   </nav>
