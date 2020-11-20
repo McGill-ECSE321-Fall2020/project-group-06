@@ -1,0 +1,918 @@
+{
+	"info": {
+		"_postman_id": "d0bb8edb-e61e-4eec-a069-fa23a387c10e",
+		"name": "CustomerCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "65139c0b-cfb1-48d0-a376-9e586f98d47a",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"customerNoah\",\r\n    \"password\":\"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/customer/createCustomer",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"customer",
+						"createCustomer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9c815821-72d6-4da7-aca2-371462a6d109",
+						"exec": [
+							"var body = responseBody.toString();\r",
+							"pm.environment.set('AccessToken', body);\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\":\"customerNoah\",\r\n    \"password\":\"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/cognito/authenticate",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"cognito",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "23655f5b-0cbf-453a-9f09-b8030963a9e0",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
+							"});\r",
+							"var customerId = pm.response.json().id;\r",
+							"pm.environment.set(\"customerId\", customerId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{AccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/customer/getCustomer/customerNoah",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"customer",
+						"getCustomer",
+						"customerNoah"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create art gallery",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "55d5b2fe-cf79-4931-9310-53dc40adf7a3",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{AccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"galleryNoah\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/artgallery/createArtGallery",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"artgallery",
+						"createArtGallery"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create artist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fdb95aae-d78f-46ce-937f-a2c58edbe5d6",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"artistNoah\",\r\n    \"password\":\"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/artist/createArtist",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"artist",
+						"createArtist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create artwork",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6a81dc04-ad0c-44cd-8ca8-0509f7fb5fac",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{AccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"artworkNoah\",\r\n    \"artGallery\":{\r\n        \"name\":\"galleryNoah\"\r\n    },\r\n    \"artist\":{\r\n        \"username\":\"artistNoah\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/artwork/createArtwork",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"artwork",
+						"createArtwork"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get artworks for sale",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8c5f17d2-8df2-4722-ba90-08678527ebf6",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{AccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/customer/artworksForSale",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"customer",
+						"artworksForSale"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get artwork",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1fff30af-34db-4028-8ffb-eba4f2a8119e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
+							"});\r",
+							"var artworkId = pm.response.json().id;\r",
+							"pm.environment.set(\"artworkId\", artworkId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{AccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/artwork/getArtwork/artworkNoah",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"artwork",
+						"getArtwork",
+						"artworkNoah"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add artwork",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8491a820-5386-413f-a64f-34c2f6f2179e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{AccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/customer/addArtwork/{{customerId}}/{{artworkId}}",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"customer",
+						"addArtwork",
+						"{{customerId}}",
+						"{{artworkId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove artwork",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8bc34dc3-aa04-4ada-8d83-78c246079436",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{AccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/customer/removeArtwork/{{customerId}}/{{artworkId}}",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"customer",
+						"removeArtwork",
+						"{{customerId}}",
+						"{{artworkId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get art gallery",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "831179d9-c5ea-4adb-bd2f-d050dfd14215",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
+							"});\r",
+							"var artGalleryId = pm.response.json().id;\r",
+							"pm.environment.set(\"artGalleryId\", artGalleryId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{AccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/artgallery/getArtGallery/galleryNoah",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"artgallery",
+						"getArtGallery",
+						"galleryNoah"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get artist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5c906253-083a-4e78-a50a-59f966491df1",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
+							"});\r",
+							"var artistId = pm.response.json().id;\r",
+							"pm.environment.set(\"artistId\", artistId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{AccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/artist/getArtist/artistNoah",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"artist",
+						"getArtist",
+						"artistNoah"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buy artwork",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "47faef52-f759-4f92-ae41-856a09a4caa5",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{AccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/customer/buyArtwork/{{customerId}}/{{artistId}}/{{artworkId}}/{{artGalleryId}}",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"customer",
+						"buyArtwork",
+						"{{customerId}}",
+						"{{artistId}}",
+						"{{artworkId}}",
+						"{{artGalleryId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get art gallery for transaction id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4507307b-1428-4c87-a311-c6a5b9bc21d5",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
+							"});\r",
+							"var transactionId = pm.response.json().transaction[0].id;\r",
+							"pm.environment.set(\"transactionId\", transactionId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{AccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/artgallery/getArtGallery/galleryNoah",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"artgallery",
+						"getArtGallery",
+						"galleryNoah"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Set mean of delivery",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3ddc139c-b021-41bd-b1c2-069557b1a2d0",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{AccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\"Delivered\"",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/customer/setMeanOfDelivery/{{transactionId}}",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"customer",
+						"setMeanOfDelivery",
+						"{{transactionId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get transaction receipt",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7cf402a0-914d-4517-b970-e054637ac469",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 20000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{AccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/customer/getTransactionReceipt/{{transactionId}}",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"customer",
+						"getTransactionReceipt",
+						"{{transactionId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d895c527-effc-4ca2-ad2a-f17ed2e995b4",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{AccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"customerNoah\",\r\n    \"creditCardNumber\": 1111222233334444\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/customer/updateCustomer",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"customer",
+						"updateCustomer"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

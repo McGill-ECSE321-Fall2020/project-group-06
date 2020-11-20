@@ -1,0 +1,668 @@
+{
+	"info": {
+		"_postman_id": "1df9678f-1cd7-4761-838a-8e18dfb553d1",
+		"name": "ArtistCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CreateUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b97b5ec8-5aaa-48c3-bd87-9b05fb034fec",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"awpanzUser\",\r\n    \"password\":\"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/user/createUser",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"user",
+						"createUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UserLogin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "20ac84a9-b5cb-4d1b-a74e-36591ae867b3",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
+							"});\r",
+							"var jsonData = responseBody.toString();\r",
+							"pm.environment.set(\"BearerToken\", jsonData);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\":\"awpanzUser\",\r\n    \"password\":\"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/cognito/authenticate",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"cognito",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateArtGallery",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c27e34ec-0d3b-4d92-985d-451ddc1494a5",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"awpanzArtGallery\",\r\n    \"adress\" : \"123 Test Street\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/artgallery/createArtGallery",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"artgallery",
+						"createArtGallery"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateArtist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9cbcf56b-51ab-46be-bc28-f0f43509590f",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"awpanzArtist\",\r\n    \"password\":\"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/artist/createArtist",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"artist",
+						"createArtist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateArtist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0123d1be-d0ec-4f48-85d3-6ff0111ebb52",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"awpanzArtist\",\r\n    \"email\":\"awpanz@artist.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/artist/updateArtist",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"artist",
+						"updateArtist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetArtistByUsername",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "60fd25ca-492b-4504-99d0-31f1a2fc4f15",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Get the right updated artist username\", function () {\r",
+							"    pm.expect(jsonData.username).to.eql(\"awpanzArtist\");\r",
+							"});\r",
+							"pm.test(\"Get the right updated artist password\", function () {\r",
+							"    pm.expect(jsonData.email).to.eql(\"awpanz@artist.com\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/artist/getArtist/awpanzArtist",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"artist",
+						"getArtist",
+						"awpanzArtist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UploadArtwork",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f6da9c2a-fc75-4c16-a469-9ca27b34817f",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"awpanzArtwork\",\r\n    \"artist\":{\"username\":\"awpanzArtist\"},\r\n    \"artGallery\":{\"name\":\"awpanzArtGallery\"}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/artist/uploadArtwork",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"artist",
+						"uploadArtwork"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetArtworkUploadedByArtist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "354e1461-d445-46e1-831a-9f16e0371724",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
+							"});\r",
+							"\r",
+							"var artworkArr = JSON.parse(responseBody);\r",
+							"pm.test(\"Get the right artwork for artist\", function () {\r",
+							"    pm.expect(artworkArr[0].name).to.eql(\"awpanzArtwork\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/artist/getArtworkUploadedByArtist/awpanzArtist",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"artist",
+						"getArtworkUploadedByArtist",
+						"awpanzArtist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetArtwork",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d43290eb-2542-438a-86f3-44c7e4089b52",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
+							"});\r",
+							"var artworkId = pm.response.json().id;\r",
+							"pm.environment.set(\"artworkId\", artworkId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/artwork/getArtwork/awpanzArtwork",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"artwork",
+						"getArtwork",
+						"awpanzArtwork"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RemoveArtwork",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7777763a-5352-4f00-a681-2363788b6b79",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/artist/removeArtwork/{{artworkId}}",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"artist",
+						"removeArtwork",
+						"{{artworkId}}"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TrackTransaction",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "38cdfcd1-a983-438f-a456-2d4c23f722ea",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200000);\r",
+							"});\r",
+							"\r",
+							"var transactionArr = JSON.parse(responseBody);\r",
+							"pm.test(\"Get the right artwork for artist\", function () {\r",
+							"    pm.expect(transactionArr.length).to.eql(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/artist/trackTransactionHistory/awpanzArtist",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"artist",
+						"trackTransactionHistory",
+						"awpanzArtist"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "cfb1a413-7d23-4c47-a74c-0b783899d87e",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "bf66a858-8780-43b9-8ac7-d38690524883",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

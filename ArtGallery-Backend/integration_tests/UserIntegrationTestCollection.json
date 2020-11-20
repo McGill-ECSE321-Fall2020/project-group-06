@@ -1,0 +1,173 @@
+{
+	"info": {
+		"_postman_id": "5459e473-56ef-4c28-af4d-8ef68447fe21",
+		"name": "UserCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CreateUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c730cf0c-6dbc-49c1-b678-d547bb206681",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 100000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(100000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\" : \"chaggyUser\",\r\n    \"password\" : \"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/user/createUser",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"user",
+						"createUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UserLogin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fce30138-42d8-442d-a6fe-9c513561a700",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202, 200]);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 100000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(100000);\r",
+							"});\r",
+							"var jsonData = responseBody.toString();\r",
+							"pm.environment.set(\"BearerToken\", jsonData);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\" : \"chaggyUser\",\r\n    \"password\" : \"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/api/cognito/authenticate",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"cognito",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GoToHome",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "6c0cc0d5-de0f-4488-b333-02582bf2f346",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "d876dbd2-348f-4247-88fb-baccd4d8d881",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 100000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(100000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://art-gallery-backend.herokuapp.com/",
+					"protocol": "https",
+					"host": [
+						"art-gallery-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						""
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
