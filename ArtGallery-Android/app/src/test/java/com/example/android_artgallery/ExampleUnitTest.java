@@ -1,4 +1,4 @@
-package com.example.artgallery_android;
+package com.example.android_artgallery;
 
 import org.junit.Test;
 
