@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Android-ArtGallery</string>
+
+    <string name="login_hintA">Username</string>
+    <string name="login_hintB">Password</string>
+    <string name="login_button">Login</string>
+
 </resources>
