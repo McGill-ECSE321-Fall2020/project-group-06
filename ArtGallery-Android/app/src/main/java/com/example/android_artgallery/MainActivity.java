@@ -15,6 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.entity.StringEntity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,9 +43,18 @@ public class MainActivity extends AppCompatActivity {
         final TextView tv_username = (TextView) findViewById(R.id.username);
         final TextView tv_password = (TextView) findViewById(R.id.password);
         System.out.println("username" + tv_username.getText().toString());
-        RequestParams loginParams = new RequestParams();
-        loginParams.put("userName", tv_username.getText().toString());
-        loginParams.put("password", tv_password.getText().toString());
+//        RequestParams loginParams = new RequestParams();
+//        loginParams.put("userName", tv_username.getText().toString());
+//        loginParams.put("password", tv_password.getText().toString());
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("userName", tv_username.getText().toString());
+            jsonParams.put("password", tv_password.getText().toString());
+            StringEntity entity = new StringEntity(jsonParams.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        StringEntity entity = new StringEntity(jsonParams.toString());
         System.out.println("Params done");
         HttpUtils.post("api/cognito/authenticate/", loginParams, new JsonHttpResponseHandler() {
             @Override
