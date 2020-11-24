@@ -22,6 +22,7 @@ import cz.msebera.android.httpclient.entity.StringEntity;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 public class MainActivity extends AppCompatActivity {
@@ -69,45 +70,13 @@ public class MainActivity extends AppCompatActivity {
         }
         System.out.println("Params done");
         //Context myContext = new Context();
-        HttpUtils.post(getApplicationContext(), "api/cognito/authenticate", entity, "application/json", new JsonHttpResponseHandler() {
-        //HttpUtils.post("api/cognito/authenticate", loginParams, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, String response /*JSONObject response*/) {
-                //System.out.println("===================================================");
-                //System.out.println(response.toString());
-                //System.out.println(response.toString());
-                System.out.println("===================================================");
-                refreshErrorMessage();
-//                tv.setText("");
-            }
 
-
-//            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-//                System.out.println("Failure" + statusCode);
-//                try {
-//                    error += errorResponse.get("message").toString();
-//                } catch (JSONException e) {
-//                    error += e.getMessage();
-//                }
-//                refreshErrorMessage();
-//            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String string, Throwable throwable) {
-                System.out.println("Failure" + statusCode);
-                System.out.println("Headers" + headers);
-                System.out.println("string" + string);
-                //System.out.println("throwable" + throwable.toString());
-                refreshErrorMessage();
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject response) {
-                System.out.println("Failure" + statusCode);
-                System.out.println("Headers" + headers);
-                System.out.println("jsonObject" + response.toString());
-                //System.out.println("throwable" + throwable.toString());
-                refreshErrorMessage();
-            }
-        });
+        try {
+            okHttpAttempt.postRequest("/api/cognito/authenticate", jsonParams);
+        }
+        catch (IOException x ){
+            System.out.println(x);
+        }
 
     }
 
