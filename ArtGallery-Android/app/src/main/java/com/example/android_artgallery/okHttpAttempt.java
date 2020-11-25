@@ -48,7 +48,8 @@ public class okHttpAttempt {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 Gson gson = new Gson();
-                gson.fromJson(response.body().string(),artist.class);
+                User user=gson.fromJson(response.body().string(),User.class);
+                System.out.println(user.firstName);
 
             }
         });
