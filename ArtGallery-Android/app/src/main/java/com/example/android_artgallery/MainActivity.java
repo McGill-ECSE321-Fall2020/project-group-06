@@ -57,23 +57,14 @@ public class MainActivity extends AppCompatActivity {
 
         System.out.println("password" + tv_password.getText().toString());
 
-//        RequestParams loginParams = new RequestParams();
-//        loginParams.put("userName", tv_username.getText().toString());
-//        loginParams.put("password", tv_password.getText().toString());
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("userName", tv_username.getText().toString());
             jsonParams.put("password", tv_password.getText().toString());
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        StringEntity entity = null;
-        try {
-            entity = new StringEntity(jsonParams.toString());
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+
         System.out.println("Params done");
         //Context myContext = new Context();
 
@@ -84,9 +75,8 @@ public class MainActivity extends AppCompatActivity {
         catch (IOException x ){
             System.out.println(x);
         }
-
-
-
+        Intent profile = new Intent(getApplicationContext(), profileActivity.class);
+        startActivity(profile);
     }
 
     public void signup(View v) {
