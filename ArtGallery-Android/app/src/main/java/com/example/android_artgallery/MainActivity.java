@@ -78,10 +78,18 @@ public class MainActivity extends AppCompatActivity {
             System.out.println(x);
         }
 
+
+
     }
 
     public void signup(View v) {
         System.out.println("Start of signup method");
+        try {
+            okHttpAttempt.getHttpResponse("/api/artist/getArtist/Raphael");
+        }
+        catch (IOException x ){
+            System.out.println(x);
+        }
 
     }
 

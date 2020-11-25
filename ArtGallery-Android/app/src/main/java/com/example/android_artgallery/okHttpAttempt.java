@@ -18,6 +18,7 @@ import okhttp3.Response;
 import static android.content.ContentValues.TAG;
 
 public class okHttpAttempt {
+    public static String bearerToken;
     public static void getHttpResponse(String urlExtension) throws IOException {
 
         String url = "https://art-gallery-backend.herokuapp.com"+urlExtension;
@@ -26,8 +27,7 @@ public class okHttpAttempt {
 
         Request request = new Request.Builder()
                 .url(url)
-                .header("Accept", "application/json")
-                .header("Content-Type", "application/json")
+                .header("Bearer",bearerToken)
                 .build();
 
 //        Response response = client.newCall(request).execute();
@@ -45,6 +45,7 @@ public class okHttpAttempt {
             public void onResponse(Call call, Response response) throws IOException {
 
                 String mMessage = response.body().string();
+                System.out.println(mMessage);
                 Log.e(TAG, mMessage);
             }
         });
@@ -78,8 +79,8 @@ public class okHttpAttempt {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 System.out.println("Success");
-                String mMessage = response.body().string();
-                Log.e(TAG, mMessage);
+                bearerToken = response.body().string();
+                Log.e(TAG, bearerToken);
             }
         });
     }
