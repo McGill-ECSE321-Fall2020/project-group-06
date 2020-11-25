@@ -54,10 +54,10 @@ public class okHttpAttempt {
             }
         });
     }
-    public static void postRequest(String urlExtension,JSONObject postdata) throws IOException {
+    public static void postRequest(String urlExtension, JSONObject postdata) throws IOException {
 
         MediaType MEDIA_TYPE = MediaType.parse("application/json");
-        String url = "https://art-gallery-backend.herokuapp.com"+urlExtension;
+        String url = "https://art-gallery-backend.herokuapp.com"+ urlExtension;
 
         OkHttpClient client = new OkHttpClient();
 
