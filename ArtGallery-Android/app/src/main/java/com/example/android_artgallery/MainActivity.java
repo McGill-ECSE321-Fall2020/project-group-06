@@ -3,6 +3,7 @@ package com.example.android_artgallery;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -84,12 +85,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void signup(View v) {
         System.out.println("Start of signup method");
+
         try {
             okHttpAttempt.getHttpResponse("/api/artist/getArtist/Raphael");
         }
         catch (IOException x ){
             System.out.println(x);
         }
+
+
+        Intent signup = new Intent(getApplicationContext(), SignupActivity.class);
+        startActivity(signup);
 
     }
 
