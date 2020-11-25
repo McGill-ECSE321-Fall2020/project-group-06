@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             okHttpAttempt.postRequest("/api/cognito/authenticate", jsonParams);
+            Ressources.setUsername(tv_username.getText().toString());
         }
         catch (IOException x ){
             System.out.println(x);

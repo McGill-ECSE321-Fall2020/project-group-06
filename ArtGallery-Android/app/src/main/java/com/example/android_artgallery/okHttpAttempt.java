@@ -83,6 +83,7 @@ public class okHttpAttempt {
             public void onResponse(Call call, Response response) throws IOException {
                 System.out.println("Success");
                 bearerToken = response.body().string();
+                Ressources.setBearerToken(bearerToken);
                 Log.e(TAG, bearerToken);
             }
         });
