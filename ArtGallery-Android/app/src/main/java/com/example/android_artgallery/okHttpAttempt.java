@@ -2,6 +2,8 @@ package com.example.android_artgallery;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,15 +21,17 @@ import static android.content.ContentValues.TAG;
 
 public class okHttpAttempt {
     public static String bearerToken;
+    public static String username;
+
     public static void getHttpResponse(String urlExtension) throws IOException {
 
         String url = "https://art-gallery-backend.herokuapp.com"+urlExtension;
 
         OkHttpClient client = new OkHttpClient();
-
         Request request = new Request.Builder()
                 .url(url)
-                .header("Bearer",bearerToken)
+                .addHeader("cache-control", "no-cache")
+                .addHeader("Authorization","Bearer "+bearerToken)
                 .build();
 
 //        Response response = client.newCall(request).execute();
@@ -43,10 +47,9 @@ public class okHttpAttempt {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                Gson gson = new Gson();
+                gson.fromJson(response.body().string(),artist.class);
 
-                String mMessage = response.body().string();
-                System.out.println(mMessage);
-                Log.e(TAG, mMessage);
             }
         });
     }
@@ -84,4 +87,7 @@ public class okHttpAttempt {
             }
         });
     }
+}
+class artist{
+
 }
