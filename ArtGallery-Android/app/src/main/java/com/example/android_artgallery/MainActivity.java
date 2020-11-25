@@ -2,30 +2,16 @@ package com.example.android_artgallery;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.entity.StringEntity;
-
-
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -81,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("Start of signup method");
 
         try {
-            okHttpAttempt.getHttpResponse("/api/artist/getArtist/Raphael");
+            okHttpAttempt.getHttpResponseUser("/api/artist/getArtist/Raphael");
         }
         catch (IOException x ){
             System.out.println(x);

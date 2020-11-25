@@ -23,7 +23,7 @@ public class okHttpAttempt {
     public static String bearerToken;
     public static String username;
 
-    public static void getHttpResponse(String urlExtension) throws IOException {
+    public static void getHttpResponseUser(String urlExtension) throws IOException {
 
         String url = "https://art-gallery-backend.herokuapp.com"+urlExtension;
 
@@ -48,8 +48,8 @@ public class okHttpAttempt {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 Gson gson = new Gson();
-                User user=gson.fromJson(response.body().string(),User.class);
-                System.out.println(user.firstName);
+                Ressources.setUser(gson.fromJson(response.body().string(),User.class));
+
 
             }
         });

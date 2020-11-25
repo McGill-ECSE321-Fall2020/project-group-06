@@ -38,7 +38,7 @@ public class profileActivity extends AppCompatActivity {
         JSONObject jsonParams = new JSONObject();
 
         try{
-            okHttpAttempt.getHttpResponse("/api/user/getUser/" + Ressources.getUsername());
+            okHttpAttempt.getHttpResponseUser("/api/user/getUser/" + Ressources.getUsername());
         } catch (IOException x){
             System.out.println(x);
         }
