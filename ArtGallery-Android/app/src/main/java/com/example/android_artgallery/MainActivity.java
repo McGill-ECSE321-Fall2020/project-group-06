@@ -75,8 +75,6 @@ public class MainActivity extends AppCompatActivity {
         catch (IOException x ){
             System.out.println(x);
         }
-        Intent profile = new Intent(getApplicationContext(), profileActivity.class);
-        startActivity(profile);
     }
 
     public void signup(View v) {
