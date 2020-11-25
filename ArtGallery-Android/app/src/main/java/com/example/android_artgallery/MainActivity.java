@@ -2,6 +2,8 @@ package com.example.android_artgallery;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -11,11 +13,19 @@ import com.google.android.material.snackbar.Snackbar;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
+
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         refreshErrorMessage();
+
 
 //        FloatingActionButton fab = findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -43,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
         final TextView tv_username = (TextView) findViewById(R.id.username);
         final TextView tv_password = (TextView) findViewById(R.id.password);
         System.out.println("username" + tv_username.getText().toString());
+
+        System.out.println("password" + tv_password.getText().toString());
+
 //        RequestParams loginParams = new RequestParams();
 //        loginParams.put("userName", tv_username.getText().toString());
 //        loginParams.put("password", tv_password.getText().toString());
@@ -50,37 +64,45 @@ public class MainActivity extends AppCompatActivity {
         try {
             jsonParams.put("userName", tv_username.getText().toString());
             jsonParams.put("password", tv_password.getText().toString());
-            StringEntity entity = new StringEntity(jsonParams.toString());
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        StringEntity entity = new StringEntity(jsonParams.toString());
+        StringEntity entity = null;
+        try {
+            entity = new StringEntity(jsonParams.toString());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         System.out.println("Params done");
-        HttpUtils.post("api/cognito/authenticate/", loginParams, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                System.out.println("===================================================");
-                System.out.println(response);
-                System.out.println("===================================================");
-//                refreshErrorMessage();
-//                tv.setText("");
-            }
+        //Context myContext = new Context();
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                System.out.println("Failure" + statusCode);
-                try {
-                    error += errorResponse.get("message").toString();
-                } catch (JSONException e) {
-                    error += e.getMessage();
-                }
-                refreshErrorMessage();
-            }
-        });
+        try {
+            okHttpAttempt.postRequest("/api/cognito/authenticate", jsonParams);
+        }
+        catch (IOException x ){
+            System.out.println(x);
+        }
+
+
 
     }
 
-    public void signup(View v) {}
+    public void signup(View v) {
+        System.out.println("Start of signup method");
+
+        try {
+            okHttpAttempt.getHttpResponse("/api/artist/getArtist/Raphael");
+        }
+        catch (IOException x ){
+            System.out.println(x);
+        }
+
+
+        Intent signup = new Intent(getApplicationContext(), SignupActivity.class);
+        startActivity(signup);
+
+    }
 
     private void refreshErrorMessage() {
         // set the error message
