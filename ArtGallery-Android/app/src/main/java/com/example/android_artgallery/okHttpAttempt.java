@@ -48,15 +48,16 @@ public class okHttpAttempt {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 Gson gson = new Gson();
-                gson.fromJson(response.body().string(),artist.class);
-
+                String myResponse = response.body().string();
+                System.out.println(myResponse);
+                gson.fromJson(myResponse, artist.class);
             }
         });
     }
-    public static void postRequest(String urlExtension,JSONObject postdata) throws IOException {
+    public static void postRequest(String urlExtension, JSONObject postdata) throws IOException {
 
         MediaType MEDIA_TYPE = MediaType.parse("application/json");
-        String url = "https://art-gallery-backend.herokuapp.com"+urlExtension;
+        String url = "https://art-gallery-backend.herokuapp.com"+ urlExtension;
 
         OkHttpClient client = new OkHttpClient();
 
