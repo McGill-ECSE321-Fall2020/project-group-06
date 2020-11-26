@@ -13,6 +13,7 @@
         android:theme="@style/Theme.AndroidArtGallery">
         <activity android:name=".Browse"></activity>
         <activity android:name=".ViewArtworkActivity"></activity>
+        <activity android:name=".BuyArtworkActivity"></activity>
         <activity android:name=".SignupActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
