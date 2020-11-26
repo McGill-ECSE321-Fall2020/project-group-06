@@ -7,11 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.android_artgallery.model.User;
+
 import org.json.JSONException;
 import org.json.JSONObject;
-
-
-import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -64,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                     User user = (User) okHttpAttempt.getHttpResponse("/api/artist/getArtist/" + Ressources.getUsername(), User.class);
 
                     Ressources.setUser(user);
-                    System.out.println("Out of get, user first name is"+user.firstName);
+                    System.out.println("Out of get, user first name is"+user.getFirstName());
 
                     Intent profile = new Intent(getApplicationContext(), profileActivity.class);
                     startActivity(profile);

@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.android_artgallery.model.User;
+
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -22,10 +24,10 @@ public class profileActivity extends AppCompatActivity {
         final TextView tv_description = (TextView) findViewById(R.id.descriptionText);
         final TextView tv_phoneNumber = (TextView) findViewById(R.id.phoneNumberText);
         final TextView tv_email = (TextView) findViewById(R.id.emailText);
-        tv_name.setText(Ressources.getUser().firstName+Ressources.getUser().lastName);
-        tv_description.setText(Ressources.getUser().description);
-        tv_phoneNumber.setText(Ressources.getUser().phoneNumber);
-        tv_email.setText(Ressources.getUser().email);
+        tv_name.setText(Ressources.getUser().getFirstName()+Ressources.getUser().getLastName());
+        tv_description.setText(Ressources.getUser().getDescription());
+        tv_phoneNumber.setText(Ressources.getUser().getPhoneNumber());
+        tv_email.setText(Ressources.getUser().getEmail());
     }
 
     public void getProfileInfo(View v){
@@ -46,7 +48,7 @@ public class profileActivity extends AppCompatActivity {
         JSONObject jsonParams = new JSONObject();
 
         try{
-            okHttpAttempt.getHttpResponse("/api/user/getUser/" + Ressources.getUsername(),User.class);
+            okHttpAttempt.getHttpResponse("/api/user/getUser/" + Ressources.getUsername(), User.class);
         } catch (IOException x){
             System.out.println(x);
         }
