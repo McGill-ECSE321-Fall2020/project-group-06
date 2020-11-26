@@ -5,7 +5,7 @@
     <string name="login_button">Login</string>
     <string name="signup_button">Sign Up</string>
     <string name="title">Welcome to the Online Art Gallery!</string>
-    <string name="test_button">Test</string>
+    <string name="test_button">HOME</string>
     <string name="browse_artworks">Browse Artworks</string>
-
+    <string name="home">Home</string>
 </resources>

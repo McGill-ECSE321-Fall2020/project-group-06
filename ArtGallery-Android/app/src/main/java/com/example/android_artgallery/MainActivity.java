@@ -111,4 +111,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(browse);
     }
 
+    public void home( View v) {
+        Intent home = new Intent(getApplicationContext(), HomeActivity.class);
+        startActivity(home);
+    }
+
 }
