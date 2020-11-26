@@ -41,7 +41,6 @@ public class okHttpAttempt {
         String responseBody=response.body().string();
         System.out.println(responseBody);
         object =gson.fromJson(responseBody,responseClass);
-        System.out.println((((User) object)).getFirstName());
         System.out.println(object.getClass());
         System.out.println("Printed Object 0");
         return object;

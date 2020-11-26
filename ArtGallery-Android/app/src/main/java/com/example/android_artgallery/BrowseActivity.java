@@ -12,6 +12,7 @@ import com.example.android_artgallery.model.Artwork;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class BrowseActivity extends AppCompatActivity {
 
@@ -20,32 +21,9 @@ public class BrowseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse);
 
-        Artwork[] myArray = null;
-        try {
-            myArray = (Artwork[]) okHttpAttempt.getHttpResponse("/api/artgallery/allArtworks", Artwork[].class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println(myArray[0].getName());
-        // Create an ArrayList of Artwork objects
-        ArrayList<Artwork> artworks = new ArrayList<Artwork>();
 
-        artworks.add(new Artwork("Donut", 0, R.drawable.mona_lisa));
-        artworks.add(new Artwork("Cookie", 0, R.drawable.mona_lisa));
-        artworks.add(new Artwork("PieceOfCake", 0, R.drawable.mona_lisa));
-        artworks.add(new Artwork("Pastry", 0, R.drawable.mona_lisa));
-        artworks.add(new Artwork("Donut", 0, R.drawable.mona_lisa));
-        artworks.add(new Artwork("Cookie", 0, R.drawable.mona_lisa));
-        artworks.add(new Artwork("PieceOfCake", 0, R.drawable.mona_lisa));
-        artworks.add(new Artwork("Pastry", 0, R.drawable.mona_lisa));
-        artworks.add(new Artwork("Donut", 0, R.drawable.mona_lisa));
-        artworks.add(new Artwork("Cookie", 0, R.drawable.mona_lisa));
-        artworks.add(new Artwork("PieceOfCake", 0, R.drawable.mona_lisa));
-        artworks.add(new Artwork("Pastry", 0, R.drawable.mona_lisa));
-        artworks.add(new Artwork("Donut", 0, R.drawable.mona_lisa));
-        artworks.add(new Artwork("Cookie", 0, R.drawable.mona_lisa));
-        artworks.add(new Artwork("PieceOfCake", 0, R.drawable.mona_lisa));
-        artworks.add(new Artwork("Pastry", 0, R.drawable.mona_lisa));
+        // Create an ArrayList of Artwork objects
+        ArrayList<Artwork> artworks = new ArrayList(Arrays.asList(Ressources.allArtworks));
 
         // Create an {@link ArtworkAdapter}, whose data source is a list of
         // {@link Artwork}s. The adapter knows how to create list item views for each item

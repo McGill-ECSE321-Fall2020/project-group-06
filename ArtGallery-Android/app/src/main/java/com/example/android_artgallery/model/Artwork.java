@@ -148,14 +148,14 @@ public class Artwork {
      * Get the name of the artwork
      */
     public String getArtworkName() {
-        return mArtworkName;
+        return name;
     }
 
     /**
      * Get the  number of artworks
      */
-    public int getArtworkNumber() {
-        return mArtworkNumber;
+    public double getArtworkNumber() {
+        return price;
     }
 
     /**
