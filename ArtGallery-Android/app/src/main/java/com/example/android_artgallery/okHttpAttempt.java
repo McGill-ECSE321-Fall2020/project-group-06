@@ -35,26 +35,19 @@ public class okHttpAttempt {
 
 //        Response response = client.newCall(request).execute();
 //        Log.e(TAG, response.body().string());
-        final Object[] object = new Object[1];
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                String mMessage = e.getMessage().toString();
-                Log.w("failure Response", mMessage);
-                //call.cancel();
-            }
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                Gson gson = new Gson();
-                object[0] =gson.fromJson(response.body().string(),responseClass);
-
-
-            }
-        });
-        return object[0];
+        Gson gson = new Gson();
+        Object object;
+        Response response=client.newCall(request).execute();
+        String responseBody=response.body().string();
+        System.out.println(responseBody);
+        object =gson.fromJson(responseBody,responseClass);
+        System.out.println((((User) object)).firstName);
+        System.out.println(object.getClass());
+        System.out.println("Printed Object 0");
+        return object;
     }
-    public static void postRequest(String urlExtension, JSONObject postdata) throws IOException {
+    public static void postRequest(String urlExtension, JSONObject postdata,boolean putBearerToken) throws IOException {
 
         MediaType MEDIA_TYPE = MediaType.parse("application/json");
         String url = "https://art-gallery-backend.herokuapp.com"+ urlExtension;
@@ -64,31 +57,31 @@ public class okHttpAttempt {
 
 
         RequestBody body = RequestBody.create( postdata.toString(),MEDIA_TYPE);
-
-        Request request = new Request.Builder()
-                .url(url)
-                .addHeader("Authorization", "Bearer " + bearerToken)
-                .post(body)
-                .header("Accept", "application/json")
-                .header("Content-Type", "application/json")
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                String mMessage = e.getMessage().toString();
-                Log.w("failure Response", mMessage);
-                //call.cancel();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                System.out.println("Success");
-                bearerToken = response.body().string();
-                Ressources.setBearerToken(bearerToken);
-                Log.e(TAG, bearerToken);
-            }
-        });
+        Request request;
+        if(!putBearerToken) {
+            request = new Request.Builder()
+                    .url(url)
+                    .post(body)
+                    .header("Accept", "application/json")
+                    .header("Content-Type", "application/json")
+                    .build();
+        }
+        else{
+            request = new Request.Builder()
+                    .url(url)
+                    .post(body)
+                    .addHeader("cache-control", "no-cache")
+                    .addHeader("Authorization","Bearer "+bearerToken)
+                    .header("Accept", "application/json")
+                    .header("Content-Type", "application/json")
+                    .build();
+        }
+        Response response=client.newCall(request).execute();
+        System.out.println("Success");
+        bearerToken = response.body().string();
+        System.out.println("Bearer Token"+bearerToken);
+        Ressources.setBearerToken(bearerToken);
+        Log.e(TAG, bearerToken);
     }
 }
 class artist{
