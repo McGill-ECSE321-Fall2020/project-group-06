@@ -59,14 +59,9 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     okHttpAttempt.postRequest("/api/cognito/authenticate", jsonParams,false);
                     Ressources.setUsername(tv_username.getText().toString());
-                    System.out.println("Before get");
-                    User user = (User) okHttpAttempt.getHttpResponse("/api/artist/getArtist/" + Ressources.getUsername(), User.class);
 
-                    Ressources.setUser(user);
-                    System.out.println("Out of get, user first name is"+user.getFirstName());
-
-                    Intent profile = new Intent(getApplicationContext(), ProfileActivity.class);
-                    startActivity(profile);
+                    Intent home = new Intent(getApplicationContext(), HomeActivity.class);
+                    startActivity(home);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

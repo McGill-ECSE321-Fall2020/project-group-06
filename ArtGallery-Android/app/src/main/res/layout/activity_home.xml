@@ -68,7 +68,8 @@
             android:text="Profile"
             android:textAllCaps="true"
             android:textColor="@color/black"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:onClick="profile"/>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
