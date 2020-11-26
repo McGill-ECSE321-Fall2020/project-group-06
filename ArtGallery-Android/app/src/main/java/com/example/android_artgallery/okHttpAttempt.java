@@ -81,4 +81,40 @@ public class okHttpAttempt {
         Ressources.setBearerToken(bearerToken);
         Log.e(TAG, bearerToken);
     }
+
+
+    public static void putRequest(String urlExtension, JSONObject postdata,boolean putBearerToken) throws IOException {
+
+        MediaType MEDIA_TYPE = MediaType.parse("application/json");
+        String url = "https://art-gallery-backend.herokuapp.com"+ urlExtension;
+
+        OkHttpClient client = new OkHttpClient();
+
+        RequestBody body = RequestBody.create(postdata.toString(),MEDIA_TYPE);
+        Request request;
+        if(!putBearerToken) {
+            request = new Request.Builder()
+                    .url(url)
+                    .put(body)
+                    .header("Accept", "application/json")
+                    .header("Content-Type", "application/json")
+                    .build();
+        }
+        else{
+            request = new Request.Builder()
+                    .url(url)
+                    .put(body)
+                    .addHeader("cache-control", "no-cache")
+                    .addHeader("Authorization","Bearer "+bearerToken)
+                    .header("Accept", "application/json")
+                    .header("Content-Type", "application/json")
+                    .build();
+        }
+        Response response=client.newCall(request).execute();
+        System.out.println("Success");
+        bearerToken = response.body().string();
+        System.out.println("Bearer Token"+bearerToken);
+        Ressources.setBearerToken(bearerToken);
+        Log.e(TAG, bearerToken);
+    }
 }
