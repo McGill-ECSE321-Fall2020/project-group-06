@@ -106,6 +106,9 @@ public class MainActivity extends AppCompatActivity {
             tvError.setVisibility(View.VISIBLE);
         }
     }
-
+    public void browse (View V) {
+        Intent browse = new Intent(getApplicationContext(), Browse.class);
+        startActivity(browse);
+    }
 
 }
