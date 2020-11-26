@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     public void browse (View V) {
         Thread thread = new Thread(new Runnable() {
 
@@ -126,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
         });
         thread.start();
     }
+
 
 
     public void home( View v) {

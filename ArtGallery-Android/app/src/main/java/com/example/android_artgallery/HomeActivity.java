@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.android_artgallery.model.Artwork;
 import com.example.android_artgallery.model.User;
 
 import org.json.JSONException;
@@ -47,7 +48,22 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void browse (View V) {
-        Intent browse = new Intent(getApplicationContext(), BrowseActivity.class);
-        startActivity(browse);
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    Artwork[] myArray = null;
+                    myArray = (Artwork[]) okHttpAttempt.getHttpResponse("/api/artgallery/allArtworks", Artwork[].class);
+                    Ressources.allArtworks=myArray;
+                    System.out.println(myArray[0].getName());
+                    Intent browse = new Intent(getApplicationContext(), BrowseActivity.class);
+                    startActivity(browse);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
     }
 }
