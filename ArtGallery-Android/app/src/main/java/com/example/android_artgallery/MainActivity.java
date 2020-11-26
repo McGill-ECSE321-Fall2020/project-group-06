@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                     Ressources.setUser(user);
                     System.out.println("Out of get, user first name is"+user.getFirstName());
 
-                    Intent profile = new Intent(getApplicationContext(), profileActivity.class);
+                    Intent profile = new Intent(getApplicationContext(), ProfileActivity.class);
                     startActivity(profile);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -111,18 +111,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void browse (View V) {
-        Intent browse = new Intent(getApplicationContext(), Browse.class);
+        Intent browse = new Intent(getApplicationContext(), BrowseActivity.class);
         startActivity(browse);
-    }
-    
-
-
-}
-
-class getBearerToken implements Runnable {
-
-    @Override
-    public void run() {
-
     }
 }

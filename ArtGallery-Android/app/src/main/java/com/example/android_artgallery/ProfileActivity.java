@@ -12,7 +12,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-public class profileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
 
     private String error = null;
 

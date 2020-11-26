@@ -51,7 +51,7 @@ public class ArtworkAdapter extends ArrayAdapter<Artwork> {
         View listItemView = convertView;
         if(listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.list_item, parent, false);
+                    R.layout.activity_list_item, parent, false);
         }
 
         // Get the {@link Artwork} object located at this position in the list
