@@ -82,7 +82,6 @@ public class okHttpAttempt {
         Log.e(TAG, bearerToken);
     }
 
-
     public static void putRequest(String urlExtension, JSONObject postdata,boolean putBearerToken) throws IOException {
 
         MediaType MEDIA_TYPE = MediaType.parse("application/json");
@@ -91,6 +90,7 @@ public class okHttpAttempt {
         OkHttpClient client = new OkHttpClient();
 
         RequestBody body = RequestBody.create(postdata.toString(),MEDIA_TYPE);
+
         Request request;
         if(!putBearerToken) {
             request = new Request.Builder()
