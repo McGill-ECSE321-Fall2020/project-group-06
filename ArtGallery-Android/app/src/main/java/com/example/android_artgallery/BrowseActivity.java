@@ -10,6 +10,7 @@ import android.widget.ListView;
 
 import com.example.android_artgallery.model.Artwork;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class BrowseActivity extends AppCompatActivity {
@@ -19,6 +20,13 @@ public class BrowseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse);
 
+        Artwork[] myArray = null;
+        try {
+            myArray = (Artwork[]) okHttpAttempt.getHttpResponse("/api/artgallery/allArtworks", Artwork[].class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(myArray[0].getName());
         // Create an ArrayList of Artwork objects
         ArrayList<Artwork> artworks = new ArrayList<Artwork>();
 

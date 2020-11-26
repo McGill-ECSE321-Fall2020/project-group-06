@@ -110,8 +110,20 @@ public class MainActivity extends AppCompatActivity {
             tvError.setVisibility(View.VISIBLE);
         }
     }
+
     public void browse (View V) {
-        Intent browse = new Intent(getApplicationContext(), BrowseActivity.class);
-        startActivity(browse);
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    Intent browse = new Intent(getApplicationContext(), BrowseActivity.class);
+                    startActivity(browse);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
     }
 }
