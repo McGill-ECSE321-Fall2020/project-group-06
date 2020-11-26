@@ -107,26 +107,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void browse (View V) {
-        Thread thread = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    Artwork[] myArray = null;
-                    myArray = (Artwork[]) okHttpAttempt.getHttpResponse("/api/artgallery/allArtworks", Artwork[].class);
-                    Ressources.allArtworks=myArray;
-                    System.out.println(myArray[0].getName());
-                    Intent browse = new Intent(getApplicationContext(), BrowseActivity.class);
-                    startActivity(browse);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        thread.start();
-    }
-
     public void home( View v) {
         Intent home = new Intent(getApplicationContext(), HomeActivity.class);
         startActivity(home);
