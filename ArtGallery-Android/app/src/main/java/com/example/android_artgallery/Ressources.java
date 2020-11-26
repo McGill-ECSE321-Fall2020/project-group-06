@@ -1,5 +1,6 @@
 package com.example.android_artgallery;
 
+import com.example.android_artgallery.model.Artwork;
 import com.example.android_artgallery.model.User;
 
 public class Ressources {
@@ -25,5 +26,6 @@ public class Ressources {
     public static User user;
     public static User getUser(){return user;}
     public static void setUser(User user){Ressources.user=user;}
+    public static Artwork[] allArtworks;
 
 }
