@@ -12,7 +12,7 @@ import com.example.android_artgallery.model.Artwork;
 
 import java.util.ArrayList;
 
-public class Browse extends AppCompatActivity {
+public class BrowseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,22 +56,22 @@ public class Browse extends AppCompatActivity {
                 switch(i) {
                     case 0:
                         System.out.println("Looking up an artwork");
-                        Intent donut = new Intent(Browse.this, ViewArtworkActivity.class);  //different intents?
+                        Intent donut = new Intent(BrowseActivity.this, ViewArtworkActivity.class);  //different intents?
                         startActivity(donut);
                         break;
                     case 1:
                         System.out.println("Looking up an artwork");
-                        Intent cookie = new Intent(Browse.this, ViewArtworkActivity.class);
+                        Intent cookie = new Intent(BrowseActivity.this, ViewArtworkActivity.class);
                         startActivity(cookie);
                         break;
                     case 2:
                         System.out.println("Looking up an artwork");
-                        Intent pieceOfCake = new Intent(Browse.this, ViewArtworkActivity.class);
+                        Intent pieceOfCake = new Intent(BrowseActivity.this, ViewArtworkActivity.class);
                         startActivity(pieceOfCake);
                         break;
                     case 3:
                         System.out.println("Looking up an artwork");
-                        Intent pastry = new Intent(Browse.this, ViewArtworkActivity.class);
+                        Intent pastry = new Intent(BrowseActivity.this, ViewArtworkActivity.class);
                         startActivity(pastry);
                         break;
                 }

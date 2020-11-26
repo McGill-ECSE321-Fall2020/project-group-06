@@ -16,7 +16,7 @@ public class ViewArtworkActivity extends AppCompatActivity {
     }
 
     public void browse (View V) {
-        Intent browse = new Intent(getApplicationContext(), Browse.class);
+        Intent browse = new Intent(getApplicationContext(), BrowseActivity.class);
         startActivity(browse);
     }
     public void buy (View V) {
