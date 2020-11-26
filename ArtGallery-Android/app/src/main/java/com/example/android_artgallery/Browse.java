@@ -23,6 +23,18 @@ public class Browse extends AppCompatActivity {
         desserts.add(new Dessert("Cookie", 0, R.drawable.mona_lisa));
         desserts.add(new Dessert("PieceOfCake", 0, R.drawable.mona_lisa));
         desserts.add(new Dessert("Pastry", 0, R.drawable.mona_lisa));
+        desserts.add(new Dessert("Donut", 0, R.drawable.mona_lisa));
+        desserts.add(new Dessert("Cookie", 0, R.drawable.mona_lisa));
+        desserts.add(new Dessert("PieceOfCake", 0, R.drawable.mona_lisa));
+        desserts.add(new Dessert("Pastry", 0, R.drawable.mona_lisa));
+        desserts.add(new Dessert("Donut", 0, R.drawable.mona_lisa));
+        desserts.add(new Dessert("Cookie", 0, R.drawable.mona_lisa));
+        desserts.add(new Dessert("PieceOfCake", 0, R.drawable.mona_lisa));
+        desserts.add(new Dessert("Pastry", 0, R.drawable.mona_lisa));
+        desserts.add(new Dessert("Donut", 0, R.drawable.mona_lisa));
+        desserts.add(new Dessert("Cookie", 0, R.drawable.mona_lisa));
+        desserts.add(new Dessert("PieceOfCake", 0, R.drawable.mona_lisa));
+        desserts.add(new Dessert("Pastry", 0, R.drawable.mona_lisa));
 
         // Create an {@link DessertAdapter}, whose data source is a list of
         // {@link Dessert}s. The adapter knows how to create list item views for each item

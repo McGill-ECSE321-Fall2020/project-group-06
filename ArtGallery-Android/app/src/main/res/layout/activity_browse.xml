@@ -7,65 +7,91 @@
     android:layout_height="match_parent"
     tools:context=".Browse">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:id="@+id/layout"
-        android:layout_height="match_parent">
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_height="match_parent">
+<!--    <LinearLayout-->
+<!--        android:id="@+id/layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
 
-                <RelativeLayout
-                    android:id="@+id/relativelayout"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
+<!--        <ScrollView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
 
-                    <ImageView
-                        android:id="@+id/myImageView"
-                        android:layout_width="match_parent"
-                        android:layout_height="186dp"
-                        app:srcCompat="@drawable/artworks_image" />
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical">-->
 
-                    <TextView
-                        android:id="@+id/myImageViewText"
-                        android:layout_width="410dp"
-                        android:layout_height="51dp"
-                        android:layout_alignLeft="@id/myImageView"
-                        android:layout_alignTop="@id/myImageView"
-                        android:layout_alignRight="@id/myImageView"
-                        android:layout_alignBottom="@id/myImageView"
-                        android:layout_marginStart="1dp"
-                        android:layout_marginLeft="1dp"
-                        android:layout_marginTop="137dp"
-                        android:layout_marginEnd="1dp"
-                        android:layout_marginRight="1dp"
-                        android:layout_marginBottom="-2dp"
-                        android:gravity="center"
-                        android:text="@string/browse_artworks"
-                        android:textColor="#000000"
-                        android:textSize="18sp" />
+    <RelativeLayout
+        android:id="@+id/relativelayout"
+        android:layout_width="420dp"
+        android:layout_height="324dp"
+        app:layout_constraintBottom_toTopOf="@id/listview_dessert"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-                </RelativeLayout>
+        <ImageView
+            android:id="@+id/myImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="188dp"
+            android:layout_alignBottom="@+id/myImageViewText"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="45dp"
+            android:layout_marginEnd="3dp"
+            android:layout_marginBottom="82dp"
+            app:srcCompat="@drawable/artworks_image" />
 
-                <ListView xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/listview_dessert"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingBottom="50dp"
-                    android:paddingLeft="50dp"
-                    android:paddingRight="50dp"
-                    android:paddingTop="50dp"/>
-<!--                    android:paddingBottom="@dimen/activity_vertical_margin"-->
-<!--                    android:paddingLeft="@dimen/activity_horizontal_margin"-->
-<!--                    android:paddingRight="@dimen/activity_horizontal_margin"-->
-<!--                    android:paddingTop="@dimen/activity_vertical_margin" />-->
+        <TextView
+            android:id="@+id/myImageViewText"
+            android:layout_width="wrap_content"
+            android:layout_height="83dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="-2dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginTop="232dp"
+            android:layout_marginEnd="9dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginBottom="0dp"
+            android:gravity="center"
+            android:text="@string/browse_artworks"
+            android:textColor="#000000"
+            android:textSize="24sp" />
 
-            </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/listview_dessert"
+        android:layout_width="413dp"
+        android:layout_height="422dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativelayout">
+
+    </ListView>
+
+    <!--                    android:paddingLeft="50dp"-->
+            <!--                    android:paddingTop="50dp"-->
+            <!--                    android:paddingRight="50dp"-->
+            <!--                    android:paddingBottom="50dp" />-->
+            <!--                    android:paddingBottom="@dimen/activity_vertical_margin"-->
+            <!--                    android:paddingLeft="@dimen/activity_horizontal_margin"-->
+            <!--                    android:paddingRight="@dimen/activity_horizontal_margin"-->
+            <!--                    android:paddingTop="@dimen/activity_vertical_margin" />-->
+
+<!--        </LinearLayout>-->
+<!--        </ScrollView>-->
+<!--    </LinearLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
