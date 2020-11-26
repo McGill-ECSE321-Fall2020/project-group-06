@@ -68,8 +68,6 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             User user=(User)okHttpAttempt.getHttpResponse("/api/artist/getArtist/Raphael",User.class);
-            System.out.println(user.firstName);
-            System.out.println("Printed First Name");
         }
         catch (IOException x ){
             System.out.println(x);
