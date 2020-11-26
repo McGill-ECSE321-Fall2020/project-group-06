@@ -54,7 +54,7 @@ public class okHttpAttempt {
         });
         return object[0];
     }
-    public static void postRequest(String urlExtension, JSONObject postdata,boolean isTokenIncluded) throws IOException {
+    public static void postRequest(String urlExtension, JSONObject postdata) throws IOException {
 
         MediaType MEDIA_TYPE = MediaType.parse("application/json");
         String url = "https://art-gallery-backend.herokuapp.com"+ urlExtension;
@@ -67,7 +67,7 @@ public class okHttpAttempt {
 
         Request request = new Request.Builder()
                 .url(url)
-                .addHeader("Authorization","Bearer "+bearerToken)
+                .addHeader("Authorization", "Bearer " + bearerToken)
                 .post(body)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")

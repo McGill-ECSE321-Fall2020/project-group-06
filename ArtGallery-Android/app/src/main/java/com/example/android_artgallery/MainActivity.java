@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         //Context myContext = new Context();
 
         try {
-            okHttpAttempt.postRequest("/api/cognito/authenticate", jsonParams,false);
+            okHttpAttempt.postRequest("/api/cognito/authenticate", jsonParams);
             Ressources.setUsername(tv_username.getText().toString());
         }
         catch (IOException x ){
@@ -67,7 +67,9 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("Start of signup method");
 
         try {
-            okHttpAttempt.getHttpResponseUser("/api/artist/getArtist/Raphael",User.a);
+            User user=(User)okHttpAttempt.getHttpResponse("/api/artist/getArtist/Raphael",User.class);
+            System.out.println(user.firstName);
+            System.out.println("Printed First Name");
         }
         catch (IOException x ){
             System.out.println(x);
