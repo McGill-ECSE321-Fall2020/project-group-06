@@ -1,4 +1,4 @@
-package com.example.android_artgallery;
+package com.example.android_artgallery;;
 
 import android.os.Bundle;
 
@@ -48,6 +48,7 @@ public class artwork extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        System.out.println("Looking up an artwork");
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -58,6 +59,7 @@ public class artwork extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        System.out.println("Looking up an artwork");
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_artwork, container, false);
     }
