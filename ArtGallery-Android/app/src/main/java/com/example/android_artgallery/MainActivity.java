@@ -2,30 +2,16 @@ package com.example.android_artgallery;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.entity.StringEntity;
-
-
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 //                        .setAction("Action", null).show();
 //            }
 //        });
-        }
+    }
 
     public void login(View v) {
         System.out.println("Start of login method");
@@ -56,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("username" + tv_username.getText().toString());
 
         System.out.println("password" + tv_password.getText().toString());
-
+        Ressources.setUsername(tv_username.getText().toString());
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("userName", tv_username.getText().toString());
@@ -67,28 +53,47 @@ public class MainActivity extends AppCompatActivity {
 
         System.out.println("Params done");
         //Context myContext = new Context();
+        Thread thread = new Thread(new Runnable() {
 
-        try {
-            okHttpAttempt.postRequest("/api/cognito/authenticate", jsonParams);
-            Ressources.setUsername(tv_username.getText().toString());
-        }
-        catch (IOException x ){
-            System.out.println(x);
-        }
-        Intent profile = new Intent(getApplicationContext(), profileActivity.class);
-        startActivity(profile);
+            @Override
+            public void run() {
+                try {
+                    okHttpAttempt.postRequest("/api/cognito/authenticate", jsonParams,false);
+                    Ressources.setUsername(tv_username.getText().toString());
+                    System.out.println("Before get");
+                    User user = (User) okHttpAttempt.getHttpResponse("/api/artist/getArtist/" + Ressources.getUsername(), User.class);
+
+                    Ressources.setUser(user);
+                    System.out.println("Out of get, user first name is"+user.firstName);
+
+                    Intent profile = new Intent(getApplicationContext(), profileActivity.class);
+                    startActivity(profile);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
+
     }
 
     public void signup(View v) {
         System.out.println("Start of signup method");
 
-        try {
-            okHttpAttempt.getHttpResponse("/api/artist/getArtist/Raphael");
-        }
-        catch (IOException x ){
-            System.out.println(x);
-        }
 
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
 
         Intent signup = new Intent(getApplicationContext(), SignupActivity.class);
         startActivity(signup);
@@ -110,5 +115,15 @@ public class MainActivity extends AppCompatActivity {
         Intent browse = new Intent(getApplicationContext(), Browse.class);
         startActivity(browse);
     }
+    
 
+
+}
+
+class getBearerToken implements Runnable {
+
+    @Override
+    public void run() {
+
+    }
 }

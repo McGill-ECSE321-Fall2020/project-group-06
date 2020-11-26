@@ -14,6 +14,8 @@
         <activity android:name=".Browse"></activity>
         <activity android:name=".ViewArtworkActivity"></activity>
         <activity android:name=".BuyArtworkActivity"></activity>
+        <activity android:name=".HomeActivity"></activity>
+        <activity android:name=".profileActivity"></activity>
         <activity android:name=".SignupActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

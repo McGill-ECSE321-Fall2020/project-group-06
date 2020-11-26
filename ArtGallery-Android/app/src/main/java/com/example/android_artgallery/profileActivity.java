@@ -18,6 +18,14 @@ public class profileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        final TextView tv_name = (TextView) findViewById(R.id.nameText);
+        final TextView tv_description = (TextView) findViewById(R.id.descriptionText);
+        final TextView tv_phoneNumber = (TextView) findViewById(R.id.phoneNumberText);
+        final TextView tv_email = (TextView) findViewById(R.id.emailText);
+        tv_name.setText(Ressources.getUser().firstName+Ressources.getUser().lastName);
+        tv_description.setText(Ressources.getUser().description);
+        tv_phoneNumber.setText(Ressources.getUser().phoneNumber);
+        tv_email.setText(Ressources.getUser().email);
     }
 
     public void getProfileInfo(View v){
@@ -38,7 +46,7 @@ public class profileActivity extends AppCompatActivity {
         JSONObject jsonParams = new JSONObject();
 
         try{
-            okHttpAttempt.getHttpResponse("/api/user/getUser/" + Ressources.getUsername());
+            okHttpAttempt.getHttpResponse("/api/user/getUser/" + Ressources.getUsername(),User.class);
         } catch (IOException x){
             System.out.println(x);
         }
