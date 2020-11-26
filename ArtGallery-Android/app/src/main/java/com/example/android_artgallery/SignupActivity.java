@@ -70,7 +70,7 @@ public class SignupActivity extends AppCompatActivity {
         if (artistButton.isChecked()) {
             try {
                 tv_error.setText("Creating artist account");
-                okHttpAttempt.postRequest("/api/artist/createArtist", jsonParams);
+                okHttpAttempt.postRequest("/api/artist/createArtist", jsonParams,true);
             } catch (IOException x) {
                 System.out.println(x);
                 tv_error.setText("Something went wrong");
@@ -78,7 +78,7 @@ public class SignupActivity extends AppCompatActivity {
         } else if (customerButton.isChecked()) {
             try {
                 tv_error.setText("Creating customer account");
-                okHttpAttempt.postRequest("/api/customer/createCustomer", jsonParams);
+                okHttpAttempt.postRequest("/api/customer/createCustomer", jsonParams,true);
             } catch (IOException x) {
                 System.out.println(x);
                 tv_error.setText("Something went wrong");
@@ -86,7 +86,7 @@ public class SignupActivity extends AppCompatActivity {
         } else {
             try {
                 tv_error.setText("Creating user account");
-                okHttpAttempt.postRequest("/api/user/createUser", jsonParams);
+                okHttpAttempt.postRequest("/api/user/createUser", jsonParams,true);
             } catch (IOException x) {
                 System.out.println(x);
                 tv_error.setText("Something went wrong");
