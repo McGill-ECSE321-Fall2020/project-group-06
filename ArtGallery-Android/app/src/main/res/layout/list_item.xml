@@ -16,14 +16,14 @@
             android:layout_height="100dp" />
 
         <TextView
-            android:id="@+id/dessert_name"
+            android:id="@+id/artwork_name"
             android:layout_marginLeft="25dp"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:id="@+id/dessert_number"
+            android:id="@+id/artwork_number"
             android:layout_marginLeft="10dp"
             android:layout_width="0dp"
             android:layout_weight="1"

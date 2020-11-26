@@ -18,70 +18,62 @@ public class Browse extends AppCompatActivity {
         setContentView(R.layout.activity_browse);
 
         // Create an ArrayList of Artwork objects
-        ArrayList<Dessert> desserts = new ArrayList<Dessert>();
+        ArrayList<Artwork> artworks = new ArrayList<Artwork>();
 
-        desserts.add(new Dessert("Donut", 0, R.drawable.mona_lisa));
-        desserts.add(new Dessert("Cookie", 0, R.drawable.mona_lisa));
-        desserts.add(new Dessert("PieceOfCake", 0, R.drawable.mona_lisa));
-        desserts.add(new Dessert("Pastry", 0, R.drawable.mona_lisa));
-        desserts.add(new Dessert("Donut", 0, R.drawable.mona_lisa));
-        desserts.add(new Dessert("Cookie", 0, R.drawable.mona_lisa));
-        desserts.add(new Dessert("PieceOfCake", 0, R.drawable.mona_lisa));
-        desserts.add(new Dessert("Pastry", 0, R.drawable.mona_lisa));
-        desserts.add(new Dessert("Donut", 0, R.drawable.mona_lisa));
-        desserts.add(new Dessert("Cookie", 0, R.drawable.mona_lisa));
-        desserts.add(new Dessert("PieceOfCake", 0, R.drawable.mona_lisa));
-        desserts.add(new Dessert("Pastry", 0, R.drawable.mona_lisa));
-        desserts.add(new Dessert("Donut", 0, R.drawable.mona_lisa));
-        desserts.add(new Dessert("Cookie", 0, R.drawable.mona_lisa));
-        desserts.add(new Dessert("PieceOfCake", 0, R.drawable.mona_lisa));
-        desserts.add(new Dessert("Pastry", 0, R.drawable.mona_lisa));
+        artworks.add(new Artwork("Donut", 0, R.drawable.mona_lisa));
+        artworks.add(new Artwork("Cookie", 0, R.drawable.mona_lisa));
+        artworks.add(new Artwork("PieceOfCake", 0, R.drawable.mona_lisa));
+        artworks.add(new Artwork("Pastry", 0, R.drawable.mona_lisa));
+        artworks.add(new Artwork("Donut", 0, R.drawable.mona_lisa));
+        artworks.add(new Artwork("Cookie", 0, R.drawable.mona_lisa));
+        artworks.add(new Artwork("PieceOfCake", 0, R.drawable.mona_lisa));
+        artworks.add(new Artwork("Pastry", 0, R.drawable.mona_lisa));
+        artworks.add(new Artwork("Donut", 0, R.drawable.mona_lisa));
+        artworks.add(new Artwork("Cookie", 0, R.drawable.mona_lisa));
+        artworks.add(new Artwork("PieceOfCake", 0, R.drawable.mona_lisa));
+        artworks.add(new Artwork("Pastry", 0, R.drawable.mona_lisa));
+        artworks.add(new Artwork("Donut", 0, R.drawable.mona_lisa));
+        artworks.add(new Artwork("Cookie", 0, R.drawable.mona_lisa));
+        artworks.add(new Artwork("PieceOfCake", 0, R.drawable.mona_lisa));
+        artworks.add(new Artwork("Pastry", 0, R.drawable.mona_lisa));
 
-        // Create an {@link DessertAdapter}, whose data source is a list of
-        // {@link Dessert}s. The adapter knows how to create list item views for each item
+        // Create an {@link ArtworkAdapter}, whose data source is a list of
+        // {@link Artwork}s. The adapter knows how to create list item views for each item
         // in the list.
-        DessertAdapter flavorAdapter = new DessertAdapter(this, desserts);
+        ArtworkAdapter myAdapter = new ArtworkAdapter(this, artworks);
 
         // Get a reference to the ListView, and attach the adapter to the listView.
-        ListView listView = (ListView) findViewById(R.id.listview_dessert);
-        listView.setAdapter(flavorAdapter);
+        ListView listView = (ListView) findViewById(R.id.listview_artwork);
+        listView.setAdapter(myAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                //Dessert dessert = desserts.get(i);
+                //Artwork artwork = artworks.get(i);
                 switch(i) {
                     case 0:
                         System.out.println("Looking up an artwork");
-                        Intent donut = new Intent(Browse.this, artwork.class);  //different intents?
+                        Intent donut = new Intent(Browse.this, ViewArtworkActivity.class);  //different intents?
                         startActivity(donut);
                         break;
                     case 1:
                         System.out.println("Looking up an artwork");
-                        Intent cookie = new Intent(Browse.this, artwork.class);
+                        Intent cookie = new Intent(Browse.this, ViewArtworkActivity.class);
                         startActivity(cookie);
                         break;
                     case 2:
                         System.out.println("Looking up an artwork");
-                        Intent pieceOfCake = new Intent(Browse.this, artwork.class);
+                        Intent pieceOfCake = new Intent(Browse.this, ViewArtworkActivity.class);
                         startActivity(pieceOfCake);
                         break;
                     case 3:
                         System.out.println("Looking up an artwork");
-                        Intent pastry = new Intent(Browse.this, artwork.class);
+                        Intent pastry = new Intent(Browse.this, ViewArtworkActivity.class);
                         startActivity(pastry);
                         break;
                 }
             }
         });
-    }
-    public void browse (View V) {
-        System.out.println("Started empty browse");
-    }
-    public void lookupArtwork (View V) {
-        System.out.println("Looking up an artwork");
-//        Intent lookupArtwork = new Intent(getApplicationContext(), artwork.class);
-//        startActivity(lookupArtwork);
     }
 }

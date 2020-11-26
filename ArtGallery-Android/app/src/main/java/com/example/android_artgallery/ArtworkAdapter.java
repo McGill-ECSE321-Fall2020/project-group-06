@@ -11,27 +11,27 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /*
- * {@link DessertAdapter} is an {@link ArrayAdapter} that can provide the layout for each list
- * based on a data source, which is a list of {@link Dessert} objects.
+ * {@link ArtworkAdapter} is an {@link ArrayAdapter} that can provide the layout for each list
+ * based on a data source, which is a list of {@link Artwork} objects.
  * */
-public class DessertAdapter extends ArrayAdapter<Dessert> {
+public class ArtworkAdapter extends ArrayAdapter<Artwork> {
 
-    private static final String LOG_TAG = DessertAdapter.class.getSimpleName();
+    private static final String LOG_TAG = ArtworkAdapter.class.getSimpleName();
 
     /**
      * This is our own custom constructor (it doesn't mirror a superclass constructor).
      * The context is used to inflate the layout file, and the list is the data we want
      * to populate into the lists.
      *
-     * @param context        The current context. Used to inflate the layout file.
-     * @param desserts A List of Dessert objects to display in a list
+     * @param context       The current context. Used to inflate the layout file.
+     * @param artworks      A List of Artwork objects to display in a list
      */
-    public DessertAdapter(Activity context, ArrayList<Dessert> desserts) {
+    public ArtworkAdapter(Activity context, ArrayList<Artwork> artworks) {
         // Here, we initialize the ArrayAdapter's internal storage for the context and the list.
         // the second argument is used when the ArrayAdapter is populating a single TextView.
         // Because this is a custom adapter for two TextViews and an ImageView, the adapter is not
         // going to use this second argument, so it can be any value. Here, we used 0.
-        super(context, 0, desserts);
+        super(context, 0, artworks);
     }
 
     /**
@@ -52,26 +52,26 @@ public class DessertAdapter extends ArrayAdapter<Dessert> {
                     R.layout.list_item, parent, false);
         }
 
-        // Get the {@link Dessert} object located at this position in the list
-        Dessert currentDesert = getItem(position);
+        // Get the {@link Artwork} object located at this position in the list
+        Artwork currentArtwork = getItem(position);
 
         // Find the TextView in the list_item.xml layout with the ID version_name
-        TextView nameTextView = (TextView) listItemView.findViewById(R.id.dessert_name);
-        // Get the version name from the current Dessert object and
+        TextView nameTextView = (TextView) listItemView.findViewById(R.id.artwork_name);
+        // Get the version name from the current Artwork object and
         // set this text on the name TextView
-        nameTextView.setText(currentDesert.getDessertName());
+        nameTextView.setText(currentArtwork.getArtworkName());
 
         // Find the TextView in the list_item.xml layout with the ID version_number
-        TextView numberTextView = (TextView) listItemView.findViewById(R.id.dessert_number);
-        // Get the version number from the current Dessert object and
+        TextView numberTextView = (TextView) listItemView.findViewById(R.id.artwork_number);
+        // Get the version number from the current Artwork object and
         // set this text on the number TextView
-        numberTextView.setText(String.valueOf(currentDesert.getDessertNumber()));
+        numberTextView.setText(String.valueOf(currentArtwork.getArtworkNumber()));
 
         // Find the ImageView in the list_item.xml layout with the ID list_item_icon
         ImageView iconView = (ImageView) listItemView.findViewById(R.id.list_item_icon);
-        // Get the image resource ID from the current Dessert object and
+        // Get the image resource ID from the current Artwork object and
         // set the image to iconView
-        iconView.setImageResource(currentDesert.getImageResourceId());
+        iconView.setImageResource(currentArtwork.getImageResourceId());
 
         // Return the whole list item layout (containing 2 TextViews and an ImageView)
         // so that it can be shown in the ListView
