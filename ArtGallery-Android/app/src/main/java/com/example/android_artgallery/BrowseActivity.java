@@ -37,30 +37,10 @@ public class BrowseActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                //Artwork artwork = artworks.get(i);
-                switch(i) {
-                    case 0:
-                        System.out.println("Looking up an artwork");
-                        Intent donut = new Intent(BrowseActivity.this, ViewArtworkActivity.class);  //different intents?
-                        startActivity(donut);
-                        break;
-                    case 1:
-                        System.out.println("Looking up an artwork");
-                        Intent cookie = new Intent(BrowseActivity.this, ViewArtworkActivity.class);
-                        startActivity(cookie);
-                        break;
-                    case 2:
-                        System.out.println("Looking up an artwork");
-                        Intent pieceOfCake = new Intent(BrowseActivity.this, ViewArtworkActivity.class);
-                        startActivity(pieceOfCake);
-                        break;
-                    case 3:
-                        System.out.println("Looking up an artwork");
-                        Intent pastry = new Intent(BrowseActivity.this, ViewArtworkActivity.class);
-                        startActivity(pastry);
-                        break;
-                }
+                System.out.println("Looking up an artwork");
+                Intent donut = new Intent(BrowseActivity.this, ViewArtworkActivity.class);
+                donut.putExtra("index", i);
+                startActivity(donut);
             }
         });
     }

@@ -3,8 +3,13 @@ package com.example.android_artgallery;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.android_artgallery.model.Artwork;
 
 public class ViewArtworkActivity extends AppCompatActivity {
 
@@ -13,6 +18,27 @@ public class ViewArtworkActivity extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_artwork);
+
+        int index = getIntent().getIntExtra("index", 0);
+        Artwork currentArtwork = Ressources.allArtworks[index];
+
+        // Find the TextView in the list_item.xml layout with the ID version_name
+        TextView nameTextView = (TextView) findViewById(R.id.artwork_name);
+        // Get the version name from the current Artwork object and
+        // set this text on the name TextView
+        nameTextView.setText(currentArtwork.getArtworkName());
+
+        // Find the TextView in the list_item.xml layout with the ID version_number
+        TextView numberTextView = (TextView) findViewById(R.id.artwork_number);
+        // Get the version number from the current Artwork object and
+        // set this text on the number TextView
+        numberTextView.setText(String.valueOf(currentArtwork.getArtworkNumber()));
+
+        // Find the ImageView in the list_item.xml layout with the ID list_item_icon
+        ImageView iconView = (ImageView) findViewById(R.id.list_item_icon);
+        // Get the image resource ID from the current Artwork object and
+        // set the image to iconView
+        iconView.setImageResource(currentArtwork.getImageResourceId());
     }
 
     public void browse (View V) {
@@ -20,7 +46,7 @@ public class ViewArtworkActivity extends AppCompatActivity {
         startActivity(browse);
     }
     public void buy (View V) {
-        Intent buyArtwork = new Intent(getApplicationContext(), BuyArtworkActivity.class);
-        startActivity(buyArtwork);
+        Button deliveryButton = (Button) findViewById(R.id.delivery);
+        deliveryButton.setVisibility(View.VISIBLE);
     }
 }
