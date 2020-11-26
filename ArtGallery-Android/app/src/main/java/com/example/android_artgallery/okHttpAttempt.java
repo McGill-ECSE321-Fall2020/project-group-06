@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -23,7 +22,7 @@ public class okHttpAttempt {
     public static String bearerToken;
     public static String username;
 
-    public static void getHttpResponseUser(String urlExtension) throws IOException {
+    public static Object getHttpResponse(String urlExtension, Class responseClass) throws IOException {
 
         String url = "https://art-gallery-backend.herokuapp.com"+urlExtension;
 
@@ -36,7 +35,7 @@ public class okHttpAttempt {
 
 //        Response response = client.newCall(request).execute();
 //        Log.e(TAG, response.body().string());
-
+        final Object[] object = new Object[1];
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -48,13 +47,14 @@ public class okHttpAttempt {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 Gson gson = new Gson();
-                Ressources.setUser(gson.fromJson(response.body().string(),User.class));
+                object[0] =gson.fromJson(response.body().string(),responseClass);
 
 
             }
         });
+        return object[0];
     }
-    public static void postRequest(String urlExtension, JSONObject postdata) throws IOException {
+    public static void postRequest(String urlExtension, JSONObject postdata,boolean isTokenIncluded) throws IOException {
 
         MediaType MEDIA_TYPE = MediaType.parse("application/json");
         String url = "https://art-gallery-backend.herokuapp.com"+ urlExtension;
@@ -67,6 +67,7 @@ public class okHttpAttempt {
 
         Request request = new Request.Builder()
                 .url(url)
+                .addHeader("Authorization","Bearer "+bearerToken)
                 .post(body)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
