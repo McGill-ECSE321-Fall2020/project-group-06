@@ -89,9 +89,8 @@ public class okHttpAttempt {
 
         OkHttpClient client = new OkHttpClient();
 
+        RequestBody body = RequestBody.create(postdata.toString(),MEDIA_TYPE);
 
-
-        RequestBody body = RequestBody.create( postdata.toString(),MEDIA_TYPE);
         Request request;
         if(!putBearerToken) {
             request = new Request.Builder()
