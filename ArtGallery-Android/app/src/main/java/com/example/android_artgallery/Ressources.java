@@ -1,5 +1,7 @@
 package com.example.android_artgallery;
 
+import com.example.android_artgallery.model.User;
+
 public class Ressources {
     public static String getBearerToken() {
         return bearerToken;

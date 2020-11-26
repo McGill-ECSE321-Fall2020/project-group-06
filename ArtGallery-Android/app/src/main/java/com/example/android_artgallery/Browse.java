@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.android_artgallery.model.Artwork;
+
 import java.util.ArrayList;
 
 public class Browse extends AppCompatActivity {

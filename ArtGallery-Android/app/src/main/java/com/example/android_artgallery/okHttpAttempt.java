@@ -2,14 +2,13 @@ package com.example.android_artgallery;
 
 import android.util.Log;
 
+import com.example.android_artgallery.model.User;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
 import java.io.IOException;
 
-import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -42,7 +41,7 @@ public class okHttpAttempt {
         String responseBody=response.body().string();
         System.out.println(responseBody);
         object =gson.fromJson(responseBody,responseClass);
-        System.out.println((((User) object)).firstName);
+        System.out.println((((User) object)).getFirstName());
         System.out.println(object.getClass());
         System.out.println("Printed Object 0");
         return object;
