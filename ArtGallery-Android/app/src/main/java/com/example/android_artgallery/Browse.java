@@ -48,4 +48,9 @@ public class Browse extends AppCompatActivity {
     public void browse (View V) {
         System.out.println("Started empty browse");
     }
+    public void lookupArtwork (View V) {
+        System.out.println("Looking up an artwork");
+//        Intent lookupArtwork = new Intent(getApplicationContext(), artwork.class);
+//        startActivity(lookupArtwork);
+    }
 }
