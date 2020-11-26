@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidArtGallery">
         <activity android:name=".Browse"></activity>
+        <activity android:name=".profileActivity"></activity>
         <activity android:name=".SignupActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

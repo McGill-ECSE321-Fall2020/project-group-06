@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 //                        .setAction("Action", null).show();
 //            }
 //        });
-        }
+    }
 
     public void login(View v) {
         System.out.println("Start of login method");
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("username" + tv_username.getText().toString());
 
         System.out.println("password" + tv_password.getText().toString());
-
+        Ressources.setUsername(tv_username.getText().toString());
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("userName", tv_username.getText().toString());
@@ -53,29 +53,48 @@ public class MainActivity extends AppCompatActivity {
 
         System.out.println("Params done");
         //Context myContext = new Context();
+        Thread thread = new Thread(new Runnable() {
 
-        try {
-            okHttpAttempt.postRequest("/api/cognito/authenticate", jsonParams);
-            Ressources.setUsername(tv_username.getText().toString());
-        }
-        catch (IOException x ){
-            System.out.println(x);
-        }
+            @Override
+            public void run() {
+                try {
+                    okHttpAttempt.postRequest("/api/cognito/authenticate", jsonParams,false);
+                    Ressources.setUsername(tv_username.getText().toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
+
     }
 
     public void signup(View v) {
         System.out.println("Start of signup method");
 
-        try {
-            User user=(User)okHttpAttempt.getHttpResponse("/api/artist/getArtist/Raphael",User.class);
-        }
-        catch (IOException x ){
-            System.out.println(x);
-        }
+
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    System.out.println("Before get");
+                    User user = (User) okHttpAttempt.getHttpResponse("/api/artist/getArtist/" + Ressources.getUsername(), User.class);
+
+                    Ressources.setUser(user);
+                    System.out.println("Out of get, user first name is"+user.firstName);
+
+                    Intent signup = new Intent(getApplicationContext(), profileActivity.class);
+                    startActivity(signup);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
 
 
-        Intent signup = new Intent(getApplicationContext(), SignupActivity.class);
-        startActivity(signup);
 
     }
 
@@ -95,4 +114,18 @@ public class MainActivity extends AppCompatActivity {
         startActivity(browse);
     }
 
+    public void browse(View V) {
+        Intent browse = new Intent(getApplicationContext(), Browse.class);
+        startActivity(browse);
+    }
+
+
+}
+
+class getBearerToken implements Runnable {
+
+    @Override
+    public void run() {
+
+    }
 }
