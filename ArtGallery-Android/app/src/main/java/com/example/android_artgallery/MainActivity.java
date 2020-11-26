@@ -60,6 +60,14 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     okHttpAttempt.postRequest("/api/cognito/authenticate", jsonParams,false);
                     Ressources.setUsername(tv_username.getText().toString());
+                    System.out.println("Before get");
+                    User user = (User) okHttpAttempt.getHttpResponse("/api/artist/getArtist/" + Ressources.getUsername(), User.class);
+
+                    Ressources.setUser(user);
+                    System.out.println("Out of get, user first name is"+user.firstName);
+
+                    Intent profile = new Intent(getApplicationContext(), profileActivity.class);
+                    startActivity(profile);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -79,14 +87,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    System.out.println("Before get");
-                    User user = (User) okHttpAttempt.getHttpResponse("/api/artist/getArtist/" + Ressources.getUsername(), User.class);
 
-                    Ressources.setUser(user);
-                    System.out.println("Out of get, user first name is"+user.firstName);
-
-                    Intent signup = new Intent(getApplicationContext(), profileActivity.class);
-                    startActivity(signup);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -94,7 +95,8 @@ public class MainActivity extends AppCompatActivity {
         });
         thread.start();
 
-
+        Intent signup = new Intent(getApplicationContext(), SignupActivity.class);
+        startActivity(signup);
 
     }
 
@@ -113,11 +115,7 @@ public class MainActivity extends AppCompatActivity {
         Intent browse = new Intent(getApplicationContext(), Browse.class);
         startActivity(browse);
     }
-
-    public void browse(View V) {
-        Intent browse = new Intent(getApplicationContext(), Browse.class);
-        startActivity(browse);
-    }
+    
 
 
 }
