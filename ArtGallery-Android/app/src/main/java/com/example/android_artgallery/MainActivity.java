@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     okHttpAttempt.postRequest("/api/cognito/authenticate", jsonParams,false);
                     Ressources.setUsername(tv_username.getText().toString());
-
                     Intent home = new Intent(getApplicationContext(), HomeActivity.class);
                     startActivity(home);
                 } catch (Exception e) {

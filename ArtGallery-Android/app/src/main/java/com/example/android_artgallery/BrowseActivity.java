@@ -34,7 +34,7 @@ public class BrowseActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.listview_artwork);
         listView.setAdapter(myAdapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 System.out.println("Looking up an artwork");
