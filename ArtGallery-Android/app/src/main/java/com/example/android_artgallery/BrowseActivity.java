@@ -9,34 +9,30 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.android_artgallery.model.Artwork;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class BrowseActivity extends AppCompatActivity {
+    public static ArrayList<Artwork> artworks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse);
-
+        Gson gson = new Gson();
+        Artwork[] artworksArray = gson.fromJson(getIntent().getStringExtra("artworks"), Artwork[].class);
+        artworks = new ArrayList<Artwork>(Arrays.asList(artworksArray));
 
         // Create an ArrayList of Artwork objects
-        ArrayList<Artwork> artworks = Ressources.allArtworks;
-        ArrayList<Artwork> forSaleArtworks = new ArrayList<Artwork>();
-        Ressources.forSaleArtworks = new ArrayList<Artwork>();
-        for (int i = 0; i < artworks.size(); i++) {
-            if (artworks.get(i).getForSale()) {
-                forSaleArtworks.add(artworks.get(i));
-                Ressources.forSaleArtworks.add(artworks.get(i));
-            }
-        }
+
 
         // Create an {@link ArtworkAdapter}, whose data source is a list of
         // {@link Artwork}s. The adapter knows how to create list item views for each item
         // in the list.
-        ArtworkAdapter myAdapter = new ArtworkAdapter(this, forSaleArtworks);
+        ArtworkAdapter myAdapter = new ArtworkAdapter(this, artworks);
 
         // Get a reference to the ListView, and attach the adapter to the listView.
         ListView listView = (ListView) findViewById(R.id.listview_artwork);

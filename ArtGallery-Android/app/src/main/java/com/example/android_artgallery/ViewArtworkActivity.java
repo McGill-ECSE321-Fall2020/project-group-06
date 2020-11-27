@@ -23,7 +23,7 @@ public class ViewArtworkActivity extends AppCompatActivity {
         setContentView(R.layout.activity_artwork);
 
         int index = getIntent().getIntExtra("index", 0);
-        currentArtwork = Ressources.allArtworks.get(index);
+        currentArtwork = BrowseActivity.artworks.get(index);
 
         // Find the TextView in the list_item.xml layout with the ID version_name
         TextView nameTextView = (TextView) findViewById(R.id.artwork_name);

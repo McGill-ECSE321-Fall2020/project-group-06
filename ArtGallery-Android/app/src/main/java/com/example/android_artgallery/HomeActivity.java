@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.android_artgallery.model.Artwork;
 import com.example.android_artgallery.model.User;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -58,9 +59,20 @@ public class HomeActivity extends AppCompatActivity {
                 try {
                     Artwork[] myArray = null;
                     myArray = (Artwork[]) okHttpAttempt.getHttpResponse("/api/artgallery/allArtworks", Artwork[].class);
-                    ArrayList<Artwork> myNewArray = new ArrayList<Artwork>(Arrays.asList(myArray));
-                    Ressources.allArtworks = myNewArray;
+                    ArrayList<Artwork> artworks =new ArrayList<Artwork>(Arrays.asList(myArray));
+                    ArrayList<Artwork> forSaleArtworks = new ArrayList<Artwork>();
+                    for (int i = 0; i < artworks.size(); i++) {
+                        if (artworks.get(i).getForSale()) {
+                            forSaleArtworks.add(artworks.get(i));
+                        }
+                    }
+                    myArray = new Artwork[forSaleArtworks.size()];
+                    myArray = forSaleArtworks.toArray(myArray);
+                    Gson gson = new Gson();
+                    String myJson = gson.toJson(myArray);
+
                     Intent browse = new Intent(getApplicationContext(), BrowseActivity.class);
+                    browse.putExtra("artworks", myJson);
                     startActivity(browse);
                 } catch (Exception e) {
                     e.printStackTrace();
