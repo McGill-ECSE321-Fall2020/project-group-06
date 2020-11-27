@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.android_artgallery.model.Artwork;
 import com.example.android_artgallery.model.User;
 
 import org.json.JSONException;
@@ -97,6 +98,22 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        thread.start();
+    }
+    public void goToArtwork(){
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+
+                    Intent browse = new Intent(getApplicationContext(), BrowseActivity.class);
+                    startActivity(browse);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         thread.start();
     }
 
