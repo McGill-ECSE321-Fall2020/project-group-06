@@ -34,8 +34,11 @@ public class HomeActivity extends AppCompatActivity {
             public void run() {
                 try {
                     System.out.println("Before get");
-                    User user = (User) okHttpAttempt.getHttpResponse("/api/user/getUser/" + Ressources.getUsername(), User.class);
-
+                    okHttpAttempt.getHttpResponse("/api/user/getUser/" + Ressources.getUsername(), User.class);
+                    System.out.println("BEARER TOKEN: " + Ressources.getBearerToken());
+                    System.out.println("Response Inside Profile: " + Ressources.response);
+                    Gson gson = new Gson();
+                    User user = (User) gson.fromJson(Ressources.response.body().string(), User.class);
                     Ressources.setUser(user);
                     System.out.println("Out of get, user first name is"+user.getFirstName());
 
@@ -58,7 +61,10 @@ public class HomeActivity extends AppCompatActivity {
             public void run() {
                 try {
                     Artwork[] myArray = null;
-                    myArray = (Artwork[]) okHttpAttempt.getHttpResponse("/api/artgallery/allArtworks", Artwork[].class);
+
+                    okHttpAttempt.getHttpResponse("/api/artgallery/allArtworks", Artwork[].class);
+                    Gson gson = new Gson();
+                    myArray = (Artwork [])gson.fromJson(Ressources.response.body().string(), Artwork[].class);
                     ArrayList<Artwork> artworks =new ArrayList<Artwork>(Arrays.asList(myArray));
                     ArrayList<Artwork> forSaleArtworks = new ArrayList<Artwork>();
                     for (int i = 0; i < artworks.size(); i++) {
@@ -68,8 +74,8 @@ public class HomeActivity extends AppCompatActivity {
                     }
                     myArray = new Artwork[forSaleArtworks.size()];
                     myArray = forSaleArtworks.toArray(myArray);
-                    Gson gson = new Gson();
-                    String myJson = gson.toJson(myArray);
+                    Gson gson2 = new Gson();
+                    String myJson = gson2.toJson(myArray);
 
                     Intent browse = new Intent(getApplicationContext(), BrowseActivity.class);
                     browse.putExtra("artworks", myJson);

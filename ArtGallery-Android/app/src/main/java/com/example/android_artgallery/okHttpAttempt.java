@@ -26,7 +26,7 @@ public class okHttpAttempt {
     public static String bearerToken;
     public static String username;
 
-    public static Object getHttpResponse(String urlExtension, Class responseClass) throws IOException {
+    public static void getHttpResponse(String urlExtension, Class responseClass) throws IOException {
 
         String url = "https://art-gallery-backend.herokuapp.com"+urlExtension;
 
@@ -34,21 +34,25 @@ public class okHttpAttempt {
         Request request = new Request.Builder()
                 .url(url)
                 .addHeader("cache-control", "no-cache")
-                .addHeader("Authorization","Bearer "+bearerToken)
+                .addHeader("Authorization","Bearer "+Ressources.getBearerToken())
                 .build();
 
 //        Response response = client.newCall(request).execute();
 //        Log.e(TAG, response.body().string());
 
-        Gson gson = new Gson();
-        Object object;
+//        Gson gson = new Gson();
+//        Object object;
+//        Response response = client.newCall(request).execute();
+//        Ressources.response = response;
+//        String responseBody = response.body().string();
+//        System.out.println(responseBody);
+//        object = gson.fromJson(Ressources.response.body().toString(), responseClass);
+//        System.out.println(object.getClass());
+//        System.out.println("Printed Object 0");
+
         Response response=client.newCall(request).execute();
-        String responseBody=response.body().string();
-        System.out.println(responseBody);
-        object =gson.fromJson(responseBody, responseClass);
-        System.out.println(object.getClass());
-        System.out.println("Printed Object 0");
-        return object;
+        Ressources.response = response;
+
     }
     public static void postRequest(String urlExtension, JSONObject postdata,boolean putBearerToken) throws IOException {
 
@@ -74,19 +78,19 @@ public class okHttpAttempt {
                     .url(url)
                     .post(body)
                     .addHeader("cache-control", "no-cache")
-                    .addHeader("Authorization","Bearer "+bearerToken)
+                    .addHeader("Authorization","Bearer "+Ressources.getBearerToken())
                     .header("Accept", "application/json")
                     .header("Content-Type", "application/json")
                     .build();
         }
         Response response=client.newCall(request).execute();
         Ressources.response = response;
-        System.out.println("RESPONSE: " + Ressources.response.toString());
-        System.out.println("Success");
-        bearerToken = response.body().string();
-        System.out.println("Bearer Token"+bearerToken);
-        Ressources.setBearerToken(bearerToken);
-        Log.e(TAG, bearerToken);
+//        System.out.println("RESPONSE: " + Ressources.response.toString());
+//        System.out.println("Success");
+//        bearerToken = response.body().string();
+//        System.out.println("Bearer Token"+bearerToken);
+//        Ressources.setBearerToken(bearerToken);
+//        Log.e(TAG, bearerToken);
     }
 
     public static void putRequest(String urlExtension, JSONObject postdata,boolean putBearerToken) throws IOException {
@@ -112,17 +116,13 @@ public class okHttpAttempt {
                     .url(url)
                     .put(body)
                     .addHeader("cache-control", "no-cache")
-                    .addHeader("Authorization","Bearer "+bearerToken)
+                    .addHeader("Authorization","Bearer "+Ressources.getBearerToken())
                     .header("Accept", "application/json")
                     .header("Content-Type", "application/json")
                     .build();
         }
         Response response=client.newCall(request).execute();
-        System.out.println("Success");
-        bearerToken = response.body().string();
-        System.out.println("Bearer Token"+bearerToken);
-        Ressources.setBearerToken(bearerToken);
-        Log.e(TAG, bearerToken);
+        Ressources.response = response;
     }
     public static void getImageBitmap(Artwork artwork){
         final Request request = new Request.Builder().url(artwork.getUrl()).build();
