@@ -10,7 +10,7 @@ import java.util.Set;
  */
 
 public class Artwork {
-    private enum TypeOfArtwork
+    public enum TypeOfArtwork
     {
         Sculpture, Painting, Photography, Other
     }

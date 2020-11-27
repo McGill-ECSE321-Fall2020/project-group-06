@@ -48,7 +48,7 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/artwork_number"
+                android:id="@+id/artwork_artist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
@@ -62,7 +62,7 @@
 
                 <EditText
                     android:paddingRight="10dp"
-                    android:id="@+id/price"
+                    android:id="@+id/artwork_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Price"
@@ -70,27 +70,17 @@
                     android:textSize="18sp"
                     android:gravity="center"/>
 
-                <EditText
-                    android:paddingLeft="10dp"
-                    android:id="@+id/availability"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Availability"
-                    android:textAlignment="center"
-                    android:textSize="18sp"
-                    android:gravity="center"/>
-
             </LinearLayout>
 
             <EditText
-                android:id="@+id/descriptionText"
+                android:id="@+id/artwork_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Wanderer above the Sea of Fog, also known as Wanderer above the Mist or Mountaineer in a Misty Landscape, is an oil painting c. 1818 by the German Romantic artist Caspar David Friedrich. It has been considered one of the masterpieces of Romanticism."
+                android:text="Artwork description"
                 android:textAlignment="viewStart"
                 android:textSize="12sp" />
             <TextView
-                android:id="@+id/typeofartwork"
+                android:id="@+id/type_of_artwork"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Type of artwork"
@@ -101,14 +91,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <TextView
-                android:id="@+id/isinstore"
+                android:id="@+id/is_in_store"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Is in store?"
                 android:textAlignment="center"
                 android:textSize="18sp" />
             <Spinner
-                android:id="@+id/is_in_store"
+                android:id="@+id/store"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <Button
