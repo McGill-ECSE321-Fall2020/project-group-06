@@ -41,38 +41,7 @@ public class Ressources {
     public static void setUser(User user){Ressources.user=user;}
     public static Artwork[] allArtworks;
     public static int id;
-    private boolean isDone=false;
-    public Bitmap bm=null;
-    public void Resources(){
-        isDone=false;
-        bm=null;
-    }
-    public Bitmap getImageBitmap(String url) {
-        Thread thread = new Thread(new Runnable() {
 
-            @Override
-            public void run() {
-                try {
-                    URL aURL = new URL(url);
-                    URLConnection conn = aURL.openConnection();
-                    conn.connect();
-                    InputStream is = conn.getInputStream();
-                    BufferedInputStream bis = new BufferedInputStream(is);
-                    bm = BitmapFactory.decodeStream(bis);
-                    bis.close();
-                    is.close();
-                    isDone=true;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
 
-        thread.start();
-        while(!isDone){
-
-        }
-        return bm;
-    }
 
 }
