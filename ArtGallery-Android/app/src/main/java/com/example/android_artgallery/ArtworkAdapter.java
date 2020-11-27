@@ -1,6 +1,9 @@
 package com.example.android_artgallery;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +13,14 @@ import android.widget.TextView;
 
 import com.example.android_artgallery.model.Artwork;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
+
+import static android.content.ContentValues.TAG;
 
 /*
  * {@link ArtworkAdapter} is an {@link ArrayAdapter} that can provide the layout for each list
@@ -73,7 +83,7 @@ public class ArtworkAdapter extends ArrayAdapter<Artwork> {
         ImageView iconView = (ImageView) listItemView.findViewById(R.id.artwork_picture);
         // Get the image resource ID from the current Artwork object and
         // set the image to iconView
-        iconView.setImageResource(currentArtwork.getArtworkPicture());
+        iconView.setImageBitmap(currentArtwork.getBitmap());
 
         // Return the whole list item layout (containing 2 TextViews and an ImageView)
         // so that it can be shown in the ListView

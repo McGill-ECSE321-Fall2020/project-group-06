@@ -1,9 +1,7 @@
 package com.example.android_artgallery.model;
 
 import android.graphics.Bitmap;
-
 import com.example.android_artgallery.okHttpAttempt;
-
 import java.util.Set;
 
 /**
@@ -216,6 +214,10 @@ public class Artwork {
      */
     public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
+    }
+  
+    public String getImageResourceId() {
+        return url;
     }
 
 //    /*
