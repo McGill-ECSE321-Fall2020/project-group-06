@@ -14,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.sql.SQLOutput;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -27,53 +28,33 @@ public class ProfileActivity extends AppCompatActivity {
         final TextView tv_description = (TextView) findViewById(R.id.descriptionText);
         final TextView tv_phoneNumber = (TextView) findViewById(R.id.phoneNumberText);
         final TextView tv_email = (TextView) findViewById(R.id.emailText);
-        tv_name.setText(Ressources.getUser().getFirstName()+Ressources.getUser().getLastName());
+        tv_name.setText(Ressources.getUser().getFirstName());
         tv_description.setText(Ressources.getUser().getDescription());
         tv_phoneNumber.setText(Ressources.getUser().getPhoneNumber());
         tv_email.setText(Ressources.getUser().getEmail());
     }
 
-    public void getProfileInfo(View v){
-        // get values from activity
-        System.out.println("Getting profile info");
-        error = "";
-        final TextView tv_name = (TextView) findViewById(R.id.nameText);
-        final TextView tv_description = (TextView) findViewById(R.id.descriptionText);
-        final TextView tv_phoneNumber = (TextView) findViewById(R.id.phoneNumberText);
-        final TextView tv_email = (TextView) findViewById(R.id.emailText);
-
-        // print values for debugging
-        System.out.println("name: " + tv_name.getText().toString());
-        System.out.println("description: " + tv_description.getText().toString());
-        System.out.println("phoneNumber: " + tv_phoneNumber.getText().toString());
-        System.out.println("email: " + tv_email.getText().toString());
-
-        JSONObject jsonParams = new JSONObject();
-
-        try{
-            okHttpAttempt.getHttpResponse("/api/user/getUser/" + Ressources.getUsername(), User.class);
-        } catch (IOException x){
-            System.out.println(x);
-        }
-    }
-
     public void updateProfile(View v){
         System.out.println("Start of update profile method");
         error = "";
-        final TextView tv_name = (TextView) findViewById(R.id.nameText);
+        final TextView tv_firstName = (TextView) findViewById(R.id.nameText);
         final TextView tv_description = (TextView) findViewById(R.id.descriptionText);
         final TextView tv_phoneNumber = (TextView) findViewById(R.id.phoneNumberText);
         final TextView tv_email = (TextView) findViewById(R.id.emailText);
 
         // print values for debugging
-        System.out.println("username: " + tv_name.getText().toString());
+        System.out.println("username: " + Ressources.getUsername());
+        System.out.println("password: " + Ressources.getUser().getPassword());
+        System.out.println("Name: " + tv_firstName.getText().toString());
         System.out.println("description: " + tv_description.getText().toString());
         System.out.println("phoneNumber: " + tv_phoneNumber.getText().toString());
         System.out.println("email: " + tv_email.getText().toString());
 
         JSONObject jsonParams = new JSONObject();
         try {
-            jsonParams.put("username", tv_name.getText().toString());
+            jsonParams.put("username", Ressources.getUsername());
+            jsonParams.put("password", Ressources.getUser().getPassword());
+            jsonParams.put("firstName" , tv_firstName.getText().toString());
             jsonParams.put("description", tv_description.getText().toString());
             jsonParams.put("phoneNumber", tv_phoneNumber.getText().toString());
             jsonParams.put("email", tv_email.getText().toString());
@@ -90,8 +71,8 @@ public class ProfileActivity extends AppCompatActivity {
                 try {
                     System.out.println("Updating the profile......");
                     okHttpAttempt.putRequest("/api/user/updateUser", jsonParams,true);;
-                    Intent profile = new Intent(getApplicationContext(), ProfileActivity.class);
-                    startActivity(profile);
+                    Intent home = new Intent(getApplicationContext(), HomeActivity.class);
+                    startActivity(home);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

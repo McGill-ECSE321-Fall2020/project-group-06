@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.sql.SQLOutput;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -79,6 +80,8 @@ public class okHttpAttempt {
                     .build();
         }
         Response response=client.newCall(request).execute();
+        Ressources.response = response;
+        System.out.println("RESPONSE: " + Ressources.response.toString());
         System.out.println("Success");
         bearerToken = response.body().string();
         System.out.println("Bearer Token"+bearerToken);
