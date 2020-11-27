@@ -23,11 +23,19 @@ import java.io.UnsupportedEncodingException;
 
 import cz.msebera.android.httpclient.entity.StringEntity;
 
+/**
+ * Edit artwork activity. Enables an artist or admin to edit a specific artwork
+ */
 public class EditArtworkActivity extends AppCompatActivity {
 
+    //Class attributes
     private String error = null;
     private Artwork currentArtwork;
 
+    /**
+     * Called on the creation of the activity. Sets the artwork parameters
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,10 +111,19 @@ public class EditArtworkActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Return to browse activity
+     * @param V
+     */
     public void browse (View V) {
         Intent browse = new Intent(getApplicationContext(), BrowseActivity.class);
         startActivity(browse);
     }
+
+    /**
+     * Called when the edit artwork button is pressed. Creates the request to edit the artwork with the new parameters. Returns to main activity when done
+     * @param V
+     */
     public void edit (View V) {
         System.out.println("Editing");
         error = "";

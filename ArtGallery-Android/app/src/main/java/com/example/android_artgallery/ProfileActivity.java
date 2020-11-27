@@ -14,10 +14,18 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+/**
+ * Profile activity class
+ */
 public class ProfileActivity extends AppCompatActivity {
 
+    //Class attributes
     private String error = null;
 
+    /**
+     * Called on the creation of the activity. Sets the view
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +40,10 @@ public class ProfileActivity extends AppCompatActivity {
         tv_email.setText(Ressources.getUser().getEmail());
     }
 
+    /**
+     * Gets the profile info by creating a request
+     * @param v
+     */
     public void getProfileInfo(View v){
         // get values from activity
         System.out.println("Getting profile info");
@@ -56,6 +68,10 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Called when the update button is pressed. Create the request to update the profile with the new parameters. Goes to profile activity when done
+     * @param v
+     */
     public void updateProfile(View v){
         System.out.println("Start of update profile method");
         error = "";

@@ -11,8 +11,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.android_artgallery.model.Artwork;
 
+/**
+ * View artwork activity class
+ */
 public class ViewArtworkActivity extends AppCompatActivity {
 
+    /**
+     * Called on the creation of the activity. Sets the view
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -65,10 +72,19 @@ public class ViewArtworkActivity extends AppCompatActivity {
         descriptionView.setText(currentArtwork.getDescription());
     }
 
+    /**
+     * Called when the browse button is pressed. Goes to browse activity
+     * @param V
+     */
     public void browse (View V) {
         Intent browse = new Intent(getApplicationContext(), BrowseActivity.class);
         startActivity(browse);
     }
+
+    /**
+     * Called when the buy button is pressed.
+     * @param V
+     */
     public void buy (View V) {
         Button deliveryButton = (Button) findViewById(R.id.delivery);
         deliveryButton.setVisibility(View.VISIBLE);

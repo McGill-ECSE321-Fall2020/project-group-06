@@ -16,30 +16,61 @@ import java.net.URLConnection;
 
 import static android.content.ContentValues.TAG;
 
+/**
+ * Ressources class
+ */
 public class Ressources {
+
+    //Class attributes
+    public static String bearerToken = "";
+    public static String username = "";
+    public static User user;
+    public static Artwork[] allArtworks;
+
+    /**
+     * Get the bearer token
+     * @return
+     */
     public static String getBearerToken() {
         return bearerToken;
     }
 
+    /**
+     * Set the bearer token
+     * @param bearerToken
+     */
     public static void setBearerToken(String bearerToken) {
         Ressources.bearerToken = bearerToken;
     }
 
-    public static String bearerToken = "";
-
+    /**
+     * Get the username
+     * @return
+     */
     public static String getUsername() {
         return username;
     }
 
+    /**
+     * Set the username
+     * @param username
+     */
     public static void setUsername(String username) {
         Ressources.username = username;
     }
 
-    public static String username = "";
-    public static User user;
+    /**
+     * Get the user
+     * @return
+     */
     public static User getUser(){return user;}
+
+    /**
+     * Set the user
+     * @param user
+     */
     public static void setUser(User user){Ressources.user=user;}
-    public static Artwork[] allArtworks;
+
 
 
 

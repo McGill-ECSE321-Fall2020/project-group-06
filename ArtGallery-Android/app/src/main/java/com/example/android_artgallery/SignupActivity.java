@@ -19,16 +19,28 @@ import java.io.UnsupportedEncodingException;
 
 import cz.msebera.android.httpclient.entity.StringEntity;
 
+/**
+ * Signup activity class
+ */
 public class SignupActivity extends AppCompatActivity {
 
+    //Class attributes
     private String error = null;
 
+    /**
+     * Called on the creation of the activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
     }
 
+    /**
+     * Called when the signup button is pressed. Creates the request to signup the user with the parameters. Goes to main activity when done
+     * @param v
+     */
     public void signupUser(View v) {
         Thread thread = new Thread(new Runnable() {
             @Override
