@@ -13,6 +13,9 @@ import com.example.android_artgallery.model.User;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class HomeActivity extends AppCompatActivity {
 
     @Override
@@ -55,7 +58,8 @@ public class HomeActivity extends AppCompatActivity {
                 try {
                     Artwork[] myArray = null;
                     myArray = (Artwork[]) okHttpAttempt.getHttpResponse("/api/artgallery/allArtworks", Artwork[].class);
-                    Ressources.allArtworks=myArray;
+                    ArrayList<Artwork> myNewArray = new ArrayList<Artwork>(Arrays.asList(myArray));
+                    Ressources.allArtworks = myNewArray;
                     Intent browse = new Intent(getApplicationContext(), BrowseActivity.class);
                     startActivity(browse);
                 } catch (Exception e) {

@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 
 import okhttp3.Response;
 
@@ -42,7 +43,8 @@ public class Ressources {
     public static User user;
     public static User getUser(){return user;}
     public static void setUser(User user){Ressources.user=user;}
-    public static Artwork[] allArtworks;
+    public static ArrayList<Artwork> allArtworks;
+    public static ArrayList<Artwork> forSaleArtworks;
     public static int id;
 
 

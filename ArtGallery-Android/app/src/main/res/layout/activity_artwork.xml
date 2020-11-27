@@ -54,24 +54,24 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:paddingRight="10dp"
                     android:id="@+id/artwork_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingRight="10dp"
                     android:text="Price"
                     android:textAlignment="center"
-                    android:textSize="18sp"
-                    android:gravity="center"/>
+                    android:textSize="18sp" />
 
                 <TextView
-                    android:paddingLeft="10dp"
                     android:id="@+id/artwork_availability"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
                     android:text="Availability"
                     android:textAlignment="center"
-                    android:textSize="18sp"
-                    android:gravity="center"/>
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -84,24 +84,49 @@
                 android:textSize="12sp" />
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/favouriteButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/favourites_image_jpg" />
+
+            <RadioGroup
+                android:id="@+id/deliveryMethod_radioButtons"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Select means of delivery"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <RadioButton
+                    android:id="@+id/radioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Pickup artwork" />
+
+                <RadioButton
+                    android:id="@+id/radioButton3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Deliver artwork" />
+            </RadioGroup>
 
             <ImageButton
                 android:id="@+id/imageButton2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/buy_image_jpg"
-                android:onClick="buy" />
+                android:onClick="buy"
+                app:srcCompat="@drawable/buy_image_jpg" />
 
-            <Button
-                android:id="@+id/delivery"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Button"
-                android:visibility="gone" />
         </LinearLayout>
     </ScrollView>
 

@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.android_artgallery.model.Artwork;
 
 public class ViewArtworkActivity extends AppCompatActivity {
+    Artwork currentArtwork = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -20,7 +23,7 @@ public class ViewArtworkActivity extends AppCompatActivity {
         setContentView(R.layout.activity_artwork);
 
         int index = getIntent().getIntExtra("index", 0);
-        Artwork currentArtwork = Ressources.allArtworks[index];
+        currentArtwork = Ressources.allArtworks.get(index);
 
         // Find the TextView in the list_item.xml layout with the ID version_name
         TextView nameTextView = (TextView) findViewById(R.id.artwork_name);
@@ -46,17 +49,17 @@ public class ViewArtworkActivity extends AppCompatActivity {
         // set the image to iconView
         priceView.setText(String.valueOf(currentArtwork.getPrice()));
 
-        // Find the ImageView in the list_item.xml layout with the ID list_item_icon
-        TextView availabilityView = (TextView) findViewById(R.id.artwork_availability);
-        // Get the image resource ID from the current Artwork object and
-        // set the image to iconView
-        if (currentArtwork.getInStore()) {
-            availabilityView.setText("Available in store");
-        }
-        else
-        {
-            availabilityView.setText("Not available in store");
-        }
+//        // Find the ImageView in the list_item.xml layout with the ID list_item_icon
+//        TextView availabilityView = (TextView) findViewById(R.id.artwork_availability);
+//        // Get the image resource ID from the current Artwork object and
+//        // set the image to iconView
+//        if (currentArtwork.getInStore()) {
+//            availabilityView.setText("Available in store");
+//        }
+//        else
+//        {
+//            availabilityView.setText("Not available in store");
+//        }
 
         // Find the ImageView in the list_item.xml layout with the ID list_item_icon
         TextView descriptionView = (TextView) findViewById(R.id.artwork_description);
@@ -70,7 +73,15 @@ public class ViewArtworkActivity extends AppCompatActivity {
         startActivity(browse);
     }
     public void buy (View V) {
-        Button deliveryButton = (Button) findViewById(R.id.delivery);
-        deliveryButton.setVisibility(View.VISIBLE);
+        if (currentArtwork.getForSale()) {
+            ImageButton favouriteButton = findViewById(R.id.favouriteButton);
+            favouriteButton.setVisibility(View.GONE);
+            RadioGroup deliveryMethodRadioGroup = findViewById(R.id.deliveryMethod_radioButtons);
+            deliveryMethodRadioGroup.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+        }
+
     }
 }
