@@ -38,7 +38,7 @@ public class ViewArtworkActivity extends AppCompatActivity {
         ImageView iconView = (ImageView) findViewById(R.id.list_item_icon);
         // Get the image resource ID from the current Artwork object and
         // set the image to iconView
-        iconView.setImageResource(currentArtwork.getImageResourceId());
+        iconView.setImageBitmap(currentArtwork.getBitmap(currentArtwork));
     }
 
     public void browse (View V) {

@@ -53,7 +53,7 @@ public class EditArtworkActivity extends AppCompatActivity {
         ImageView iconView = (ImageView) findViewById(R.id.list_item_icon);
         // Get the image resource ID from the current Artwork object and
         // set the image to iconView
-        iconView.setImageResource(currentArtwork.getImageResourceId());
+        iconView.setImageBitmap(currentArtwork.getBitmap(currentArtwork));
 
         Spinner spinner = (Spinner) findViewById(R.id.type);
         // Create an ArrayAdapter using the string array and a default spinner layout

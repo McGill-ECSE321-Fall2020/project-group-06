@@ -1,5 +1,9 @@
 package com.example.android_artgallery.model;
 
+import android.graphics.Bitmap;
+
+import com.example.android_artgallery.Ressources;
+
 import java.util.Set;
 
 /**
@@ -23,6 +27,21 @@ public class Artwork {
     private boolean isInStore;
     private boolean forSale;
     private TypeOfArtwork typeOfArtwork;
+
+    public Bitmap getBitmap(Artwork currentArtwork) {
+        if(bitmap==null){
+            bitmap= Ressources.getImageBitmap(currentArtwork.getUrl());
+
+        }
+        return bitmap;
+
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
+
+    private Bitmap bitmap;
 
     public String getName() {
         return name;
@@ -161,8 +180,8 @@ public class Artwork {
     /**
      * Get the image resource ID
      */
-    public int getImageResourceId() {
-        return mImageResourceId;
+    public String getImageResourceId() {
+        return url;
     }
 
 }
