@@ -63,11 +63,13 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     okHttpAttempt.postRequest("/api/cognito/authenticate", jsonParams,false);
                     Ressources.setUsername(tv_username.getText().toString());
-                    System.out.println("REPONSE IN LOGIN:" + Ressources.response);
+                    System.out.println("REPONSE IN LOGIN 1:" + Ressources.response);
+                    System.out.println("REPONSE IN LOGIN 2:" + Ressources.response);
                     if (Ressources.response.code() == 500){
                         Intent main = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(main);
                     } else {
+                        Ressources.setBearerToken(Ressources.response.body().string());
                         Intent home = new Intent(getApplicationContext(), HomeActivity.class);
                         startActivity(home);
                     }
