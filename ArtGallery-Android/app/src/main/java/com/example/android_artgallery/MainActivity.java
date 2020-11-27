@@ -13,6 +13,8 @@ import com.example.android_artgallery.model.User;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     private String error = null;
@@ -108,24 +110,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void browse (View V) {
-        Thread thread = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    Artwork[] myArray = null;
-                    myArray = (Artwork[]) okHttpAttempt.getHttpResponse("/api/artgallery/allArtworks", Artwork[].class);
-                    Ressources.allArtworks = myArray;
-                    Intent browse = new Intent(getApplicationContext(), BrowseActivity.class);
-                    startActivity(browse);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        thread.start();
-    }
+//    public void browse (View V) {
+//        Thread thread = new Thread(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                try {
+//                    ArrayList<Artwork> myArray = null;
+//                    myArray = (ArrayList<Artwork>) okHttpAttempt.getHttpResponse("/api/artgallery/allArtworks", Artwork[].class);
+//                    Ressources.allArtworks = myArray;
+//                    Intent browse = new Intent(getApplicationContext(), BrowseActivity.class);
+//                    startActivity(browse);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//        thread.start();
+//    }
 
 
 

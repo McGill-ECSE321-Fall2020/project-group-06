@@ -23,12 +23,20 @@ public class BrowseActivity extends AppCompatActivity {
 
 
         // Create an ArrayList of Artwork objects
-        ArrayList<Artwork> artworks = new ArrayList(Arrays.asList(Ressources.allArtworks));
+        ArrayList<Artwork> artworks = Ressources.allArtworks;
+        ArrayList<Artwork> forSaleArtworks = new ArrayList<Artwork>();
+        Ressources.forSaleArtworks = new ArrayList<Artwork>();
+        for (int i = 0; i < artworks.size(); i++) {
+            if (artworks.get(i).getForSale()) {
+                forSaleArtworks.add(artworks.get(i));
+                Ressources.forSaleArtworks.add(artworks.get(i));
+            }
+        }
 
         // Create an {@link ArtworkAdapter}, whose data source is a list of
         // {@link Artwork}s. The adapter knows how to create list item views for each item
         // in the list.
-        ArtworkAdapter myAdapter = new ArtworkAdapter(this, artworks);
+        ArtworkAdapter myAdapter = new ArtworkAdapter(this, forSaleArtworks);
 
         // Get a reference to the ListView, and attach the adapter to the listView.
         ListView listView = (ListView) findViewById(R.id.listview_artwork);
