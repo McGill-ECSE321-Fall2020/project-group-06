@@ -26,19 +26,43 @@ public class ViewArtworkActivity extends AppCompatActivity {
         TextView nameTextView = (TextView) findViewById(R.id.artwork_name);
         // Get the version name from the current Artwork object and
         // set this text on the name TextView
-        nameTextView.setText(currentArtwork.getArtworkName());
+        nameTextView.setText(currentArtwork.getName());
 
         // Find the TextView in the list_item.xml layout with the ID version_number
-        TextView numberTextView = (TextView) findViewById(R.id.artwork_artist);
+        TextView artistTextView = (TextView) findViewById(R.id.artwork_artist);
         // Get the version number from the current Artwork object and
         // set this text on the number TextView
-        numberTextView.setText((int) currentArtwork.getArtworkPrice());
+        artistTextView.setText(currentArtwork.getArtist().getLastName());
 
         // Find the ImageView in the list_item.xml layout with the ID list_item_icon
         ImageView iconView = (ImageView) findViewById(R.id.artwork_picture);
         // Get the image resource ID from the current Artwork object and
         // set the image to iconView
         iconView.setImageBitmap(currentArtwork.getBitmap());
+
+        // Find the ImageView in the list_item.xml layout with the ID list_item_icon
+        TextView priceView = (TextView) findViewById(R.id.artwork_price);
+        // Get the image resource ID from the current Artwork object and
+        // set the image to iconView
+        priceView.setText(String.valueOf(currentArtwork.getPrice()));
+
+        // Find the ImageView in the list_item.xml layout with the ID list_item_icon
+        TextView availabilityView = (TextView) findViewById(R.id.artwork_availability);
+        // Get the image resource ID from the current Artwork object and
+        // set the image to iconView
+        if (currentArtwork.getInStore()) {
+            availabilityView.setText("Available in store");
+        }
+        else
+        {
+            availabilityView.setText("Not available in store");
+        }
+
+        // Find the ImageView in the list_item.xml layout with the ID list_item_icon
+        TextView descriptionView = (TextView) findViewById(R.id.artwork_description);
+        // Get the image resource ID from the current Artwork object and
+        // set the image to iconView
+        descriptionView.setText(currentArtwork.getDescription());
     }
 
     public void browse (View V) {

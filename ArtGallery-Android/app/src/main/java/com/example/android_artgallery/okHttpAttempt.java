@@ -5,7 +5,6 @@ import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import com.example.android_artgallery.model.Artwork;
-import com.example.android_artgallery.model.User;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
@@ -45,7 +44,7 @@ public class okHttpAttempt {
         Response response=client.newCall(request).execute();
         String responseBody=response.body().string();
         System.out.println(responseBody);
-        object =gson.fromJson(responseBody,responseClass);
+        object =gson.fromJson(responseBody, responseClass);
         System.out.println(object.getClass());
         System.out.println("Printed Object 0");
         return object;
@@ -123,7 +122,7 @@ public class okHttpAttempt {
         Log.e(TAG, bearerToken);
     }
     public static void getImageBitmap(Artwork artwork){
-        final Request request = new Request.Builder().url(artwork.getArtworkURL()).build();
+        final Request request = new Request.Builder().url(artwork.getUrl()).build();
         OkHttpClient client = new OkHttpClient();
         client.newCall(request).enqueue(new Callback() {
             @Override

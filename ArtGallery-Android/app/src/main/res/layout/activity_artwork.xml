@@ -28,7 +28,7 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/list_item_icon"
+                android:id="@+id/artwork_picture"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
@@ -41,7 +41,7 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/artwork_number"
+                android:id="@+id/artwork_artist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
@@ -55,7 +55,7 @@
 
                 <TextView
                     android:paddingRight="10dp"
-                    android:id="@+id/textView3"
+                    android:id="@+id/artwork_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Price"
@@ -65,7 +65,7 @@
 
                 <TextView
                     android:paddingLeft="10dp"
-                    android:id="@+id/textView4"
+                    android:id="@+id/artwork_availability"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Availability"
@@ -76,10 +76,10 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/artwork_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Wanderer above the Sea of Fog, also known as Wanderer above the Mist or Mountaineer in a Misty Landscape, is an oil painting c. 1818 by the German Romantic artist Caspar David Friedrich. It has been considered one of the masterpieces of Romanticism."
+                android:text="Artwork description"
                 android:textAlignment="viewStart"
                 android:textSize="12sp" />
 

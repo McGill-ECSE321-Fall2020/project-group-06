@@ -6,10 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -41,13 +38,13 @@ public class EditArtworkActivity extends AppCompatActivity {
         TextView nameTextView = (TextView) findViewById(R.id.artwork_name);
         // Get the version name from the current Artwork object and
         // set this text on the name TextView
-        nameTextView.setText(currentArtwork.getArtworkName());
+        nameTextView.setText(currentArtwork.getName());
 
         // Find the TextView in the list_item.xml layout with the ID version_number
         TextView numberTextView = (TextView) findViewById(R.id.artwork_artist);
         // Get the version number from the current Artwork object and
         // set this text on the number TextView
-        numberTextView.setText(currentArtwork.getArtworkArtist().getLastName());
+        numberTextView.setText(currentArtwork.getArtist().getLastName());
 
         // Find the ImageView in the list_item.xml layout with the ID list_item_icon
         ImageView iconView = (ImageView) findViewById(R.id.artwork_picture);

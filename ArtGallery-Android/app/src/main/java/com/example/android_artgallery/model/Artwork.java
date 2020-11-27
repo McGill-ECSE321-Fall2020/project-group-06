@@ -16,17 +16,17 @@ public class Artwork {
     }
 
     //Artwork attributes
-    private String artworkName;
-    private String artworkURL;
-    private int artworkID;
-    private double artworkPrice;
-    private String artworkDescription;
-    private Set<Picture> artworkPicture;
-    private User artworkArtist;
-    private Set<Transaction> artworkTransactions;
-    private ArtGallery artworkArtGallery;
-    private boolean artworkIsInStore;
-    private boolean artworkIsForSale;
+    private String name;
+    private String url;
+    private int id;
+    private double price;
+    private String description;
+    private Set<Picture> picture;
+    private User artist;
+    private Set<Transaction> transaction;
+    private ArtGallery artGallery;
+    private boolean isInStore;
+    private boolean forSale;
     private TypeOfArtwork typeOfArtwork;
     private Bitmap bitmap;
 
@@ -35,151 +35,151 @@ public class Artwork {
     /**
      * Get the name of the artwork
      */
-    public String getArtworkName() {
-        return artworkName;
+    public String getName() {
+        return name;
     }
     /**
      * Set the name of the artwork
      */
-    public void setArtworkName(String name)
+    public void setName(String name)
     {
-        this.artworkName = name;
+        this.name = name;
     }
 
     /**
      * Get the URL of the artwork
      */
-    public String getArtworkURL() { return artworkURL; }
+    public String getUrl() { return url; }
     /**
      * Set the URL of the artwork
      */
-    public void setArtworkURL(String url)
+    public void setUrl(String url)
     {
-        this.artworkURL = url;
+        this.url = url;
     }
 
     /**
      * Get the ID of the artwork
      */
-    public int getArtworkID() {
-        return artworkID;
+    public int getId() {
+        return id;
     }
     /**
      * Set the ID of the artwork
      */
-    public void setArtworkID(int id)
+    public void setId(int id)
     {
-        this.artworkID = id;
+        this.id = id;
     }
 
     /**
      * Get the price of the artwork
      */
-    public double getArtworkPrice() {
-        return artworkPrice;
+    public double getPrice() {
+        return price;
     }
     /**
      * Set the price of the artwork
      */
-    public void setArtworkPrice(double price)
+    public void setPrice(double price)
     {
-        this.artworkPrice = price;
+        this.price = price;
     }
 
     /**
      * Get the description of the artwork
      */
-    public String getArtworkDescription() {
-        return artworkDescription;
+    public String getDescription() {
+        return description;
     }
     /**
      * Set the description of the artwork
      */
-    public void setArtworkDescription(String description)
+    public void setDescription(String description)
     {
-        this.artworkDescription = description;
+        this.description = description;
     }
 
     /**
      * Get the picture of the artwork
      */
-    public Set<Picture> getArtworkPicture() {
-        return artworkPicture;
+    public Set<Picture> getPicture() {
+        return picture;
     }
     /**
      * Set the picture of the artwork
      */
-    public void setArtworkPicture(Set<Picture> picture)
+    public void setPicture(Set<Picture> picture)
     {
-        this.artworkPicture = picture;
+        this.picture = picture;
     }
 
     /**
      * Get the artist of the artwork
      */
-    public User getArtworkArtist() {
-        return artworkArtist;
+    public User getArtist() {
+        return artist;
     }
     /**
      * Set the artist of the artwork
      */
-    public void setArtworkArtist(User artist)
+    public void setArtist(User artist)
     {
-        this.artworkArtist = artist;
+        this.artist = artist;
     }
 
     /**
      * Get the transactions of the artwork
      */
-    public Set<Transaction> getArtworkTransactions() {
-        return artworkTransactions;
+    public Set<Transaction> getTransaction() {
+        return transaction;
     }
     /**
      * Set the transactions of the artwork
      */
-    public void setArtworkTransactions(Set<Transaction> transactions)
+    public void setTransaction(Set<Transaction> transactions)
     {
-        this.artworkTransactions = transactions;
+        this.transaction = transactions;
     }
 
     /**
      * Get the art gallery of the artwork
      */
-    public ArtGallery getArtworkArtGallery() {
-        return artworkArtGallery;
+    public ArtGallery getArtGallery() {
+        return artGallery;
     }
     /**
      * Set the art gallery of the artwork
      */
-    public void setArtworkArtGallery(ArtGallery artGallery)
+    public void setArtGallery(ArtGallery artGallery)
     {
-        this.artworkArtGallery = artGallery;
+        this.artGallery = artGallery;
     }
 
     /**
      * Get the in store boolean of the artwork
      */
-    public boolean getArtworkIsInStore() { return artworkIsInStore; }
+    public boolean getInStore() { return isInStore; }
     /**
      * Set the in store boolean of the artwork
      */
-    public void setArtworkIsInStore(boolean inStore)
+    public void setInStore(boolean inStore)
     {
-        this.artworkIsInStore = inStore;
+        this.isInStore = inStore;
     }
 
     /**
      * Get the for sale boolean of the artwork
      */
-    public boolean getArtworkIsForSale() {
-        return artworkIsForSale;
+    public boolean getForSale() {
+        return forSale;
     }
     /**
      * Set the for sale boolean of the artwork
      */
-    public void setArtworkIsForSale(boolean forSale)
+    public void setForSale(boolean forSale)
     {
-        this.artworkIsForSale = forSale;
+        this.forSale = forSale;
     }
 
     /**
@@ -200,7 +200,7 @@ public class Artwork {
      * Get the bit map of the artwork picture
      */
     public Bitmap getBitmap() {
-        if(this.artworkURL==null){
+        if(this.url ==null){
             return null;
         }
         if(bitmap==null){
@@ -227,12 +227,11 @@ public class Artwork {
 //     * @param vNumber is the corresponding number of artworks
 //     * @param image is drawable reference ID that corresponds to the artwork
 //     * */
-//    public Artwork(String vName, int vNumber, int imageResourceId)
-//
+//    public Artwork(String vName, User vArtist)
 //    {
 //        artworkName = vName;
-//        mArtworkNumber = vNumber;
-//        mImageResourceId = imageResourceId;
+//        artworkArtist = vArtist;
+//        //artworkPicture = imageResourceId;
 //    }
 }
 

@@ -1,9 +1,6 @@
 package com.example.android_artgallery;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +10,7 @@ import android.widget.TextView;
 
 import com.example.android_artgallery.model.Artwork;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
-
-import static android.content.ContentValues.TAG;
 
 /*
  * {@link ArtworkAdapter} is an {@link ArrayAdapter} that can provide the layout for each list
@@ -71,13 +61,13 @@ public class ArtworkAdapter extends ArrayAdapter<Artwork> {
         TextView nameTextView = (TextView) listItemView.findViewById(R.id.artwork_name);
         // Get the version name from the current Artwork object and
         // set this text on the name TextView
-        nameTextView.setText(currentArtwork.getArtworkName());
+        nameTextView.setText(currentArtwork.getName());
 
         // Find the TextView in the list_item.xml layout with the ID version_number
         TextView artistTextView = (TextView) listItemView.findViewById(R.id.artwork_artist);
         // Get the version number from the current Artwork object and
         // set this text on the number TextView
-            artistTextView.setText((int) currentArtwork.getArtworkPrice());
+        artistTextView.setText(currentArtwork.getArtist().getLastName());
 
         // Find the ImageView in the list_item.xml layout with the ID list_item_icon
         ImageView iconView = (ImageView) listItemView.findViewById(R.id.artwork_picture);
