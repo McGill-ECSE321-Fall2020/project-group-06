@@ -93,6 +93,7 @@ public class ProfileActivity extends AppCompatActivity {
                     Gson gson = new Gson();
                     String myJson = gson.toJson(myArray);
                     Intent browse = new Intent(getApplicationContext(), BrowseActivity.class);
+                    browse.putExtra("artworks", myJson);
                     startActivity(browse);
                 } catch (Exception e) {
                     e.printStackTrace();
