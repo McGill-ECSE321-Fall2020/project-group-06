@@ -14,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.sql.SQLOutput;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -62,9 +63,14 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     okHttpAttempt.postRequest("/api/cognito/authenticate", jsonParams,false);
                     Ressources.setUsername(tv_username.getText().toString());
-
-                    Intent home = new Intent(getApplicationContext(), HomeActivity.class);
-                    startActivity(home);
+                    System.out.println("REPONSE IN LOGIN:" + Ressources.response);
+                    if (Ressources.response.code() == 500){
+                        Intent main = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(main);
+                    } else {
+                        Intent home = new Intent(getApplicationContext(), HomeActivity.class);
+                        startActivity(home);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
