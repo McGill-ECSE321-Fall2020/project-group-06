@@ -41,9 +41,13 @@ public class Ressources {
     public static void setUser(User user){Ressources.user=user;}
     public static Artwork[] allArtworks;
     public static int id;
-    private static boolean isDone=false;
-    public static Bitmap bm=null;
-    public static Bitmap getImageBitmap(String url) {
+    private boolean isDone=false;
+    public Bitmap bm=null;
+    public void Resources(){
+        isDone=false;
+        bm=null;
+    }
+    public Bitmap getImageBitmap(String url) {
         Thread thread = new Thread(new Runnable() {
 
             @Override

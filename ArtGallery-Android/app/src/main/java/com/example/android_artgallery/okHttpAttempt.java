@@ -1,7 +1,10 @@
 package com.example.android_artgallery;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import com.example.android_artgallery.model.Artwork;
 import com.example.android_artgallery.model.User;
 import com.google.gson.Gson;
 
@@ -9,6 +12,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -116,5 +121,26 @@ public class okHttpAttempt {
         System.out.println("Bearer Token"+bearerToken);
         Ressources.setBearerToken(bearerToken);
         Log.e(TAG, bearerToken);
+    }
+    public static void getImageBitmap(Artwork artwork){
+        final Request request = new Request.Builder().url(artwork.getUrl()).build();
+        OkHttpClient client = new OkHttpClient();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                System.out.println(e);
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()){
+                    final Bitmap bitmap = BitmapFactory.decodeStream(response.body().byteStream());
+                    artwork.setBitmap(bitmap);
+                }else {
+
+                }
+            }
+        });
     }
 }

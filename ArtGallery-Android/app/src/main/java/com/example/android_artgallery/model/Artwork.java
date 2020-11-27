@@ -3,6 +3,7 @@ package com.example.android_artgallery.model;
 import android.graphics.Bitmap;
 
 import com.example.android_artgallery.Ressources;
+import com.example.android_artgallery.okHttpAttempt;
 
 import java.util.Set;
 
@@ -28,9 +29,14 @@ public class Artwork {
     private boolean forSale;
     private TypeOfArtwork typeOfArtwork;
 
-    public Bitmap getBitmap(Artwork currentArtwork) {
+    public Bitmap getBitmap() {
+        if(this.url==null){
+            return null;
+        }
         if(bitmap==null){
-            bitmap= Ressources.getImageBitmap(currentArtwork.getUrl());
+            Ressources rs=new Ressources();
+            okHttpAttempt.getImageBitmap(this);
+            return bitmap;
 
         }
         return bitmap;
