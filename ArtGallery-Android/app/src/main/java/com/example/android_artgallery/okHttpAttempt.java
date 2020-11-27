@@ -59,7 +59,7 @@ public class okHttpAttempt {
 
 
 
-        RequestBody body = RequestBody.create( postdata.toString(),MEDIA_TYPE);
+        RequestBody body = RequestBody.create(postdata.toString(),MEDIA_TYPE);
         Request request;
         if(!putBearerToken) {
             request = new Request.Builder()
@@ -123,7 +123,7 @@ public class okHttpAttempt {
         Log.e(TAG, bearerToken);
     }
     public static void getImageBitmap(Artwork artwork){
-        final Request request = new Request.Builder().url(artwork.getUrl()).build();
+        final Request request = new Request.Builder().url(artwork.getArtworkURL()).build();
         OkHttpClient client = new OkHttpClient();
         client.newCall(request).enqueue(new Callback() {
             @Override

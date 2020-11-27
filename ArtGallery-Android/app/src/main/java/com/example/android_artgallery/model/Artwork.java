@@ -216,9 +216,9 @@ public class Artwork {
         this.bitmap = bitmap;
     }
   
-    public String getImageResourceId() {
-        return url;
-    }
+//    public String getImageResourceId() {
+//        return artworkURL;
+//    }
 
 //    /*
 //     * Create a new artwork object.
