@@ -14,9 +14,12 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
+import okhttp3.Response;
+
 import static android.content.ContentValues.TAG;
 
 public class Ressources {
+    public static Response response;
     public static String getBearerToken() {
         return bearerToken;
     }
