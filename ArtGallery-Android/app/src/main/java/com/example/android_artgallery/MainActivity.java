@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     Artwork[] myArray = null;
                     myArray = (Artwork[]) okHttpAttempt.getHttpResponse("/api/artgallery/allArtworks", Artwork[].class);
-                    Ressources.allArtworks=myArray;
+                    Ressources.allArtworks = myArray;
                     System.out.println(myArray[0].getName());
                     Intent browse = new Intent(getApplicationContext(), BrowseActivity.class);
                     startActivity(browse);
