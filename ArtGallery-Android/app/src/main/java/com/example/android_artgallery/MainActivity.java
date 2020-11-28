@@ -14,30 +14,32 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Main activity. Displays the login page with login and signup button
+ */
 import java.util.ArrayList;
 import java.sql.SQLOutput;
 
 public class MainActivity extends AppCompatActivity {
 
+    //Class attributes
     private String error = null;
 
+    /**
+     * Called on the creation of the activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         refreshErrorMessage();
-
-
-//        FloatingActionButton fab = findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
     }
 
+    /**
+     * Called when the login button is pressed. Goes to home activity when done
+     * @param v
+     */
     public void login(View v) {
         System.out.println("Start of login method");
         error = "";
@@ -96,6 +98,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Called when signup button is pressed. Goes to signup activity when done
+     * @param v
+     */
     public void signup(View v) {
         System.out.println("Start of signup method");
 
@@ -118,6 +124,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Refreshes the error message
+     */
     private void refreshErrorMessage() {
         // set the error message
         TextView tvError = (TextView) findViewById(R.id.error);
@@ -129,32 +138,4 @@ public class MainActivity extends AppCompatActivity {
 //            tvError.setVisibility(View.VISIBLE);
 //        }
     }
-
-
-//    public void browse (View V) {
-//        Thread thread = new Thread(new Runnable() {
-//
-//            @Override
-//            public void run() {
-//                try {
-//                    ArrayList<Artwork> myArray = null;
-//                    myArray = (ArrayList<Artwork>) okHttpAttempt.getHttpResponse("/api/artgallery/allArtworks", Artwork[].class);
-//                    Ressources.allArtworks = myArray;
-//                    Intent browse = new Intent(getApplicationContext(), BrowseActivity.class);
-//                    startActivity(browse);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//        thread.start();
-//    }
-
-
-
-    public void home( View v) {
-        Intent home = new Intent(getApplicationContext(), HomeActivity.class);
-        startActivity(home);
-    }
-
 }

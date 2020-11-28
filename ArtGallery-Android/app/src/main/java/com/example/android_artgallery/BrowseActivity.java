@@ -15,9 +15,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Browse activity. Displays all the artworks
+ */
 public class BrowseActivity extends AppCompatActivity {
     public static ArrayList<Artwork> artworks;
 
+    /**
+     * Called on the creation of the activity. Sets the view
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +45,15 @@ public class BrowseActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.listview_artwork);
         listView.setAdapter(myAdapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            /**
+             * Called when an artwork is pressed. Goes to the view artwork activity when done
+             * @param adapterView
+             * @param view
+             * @param i
+             * @param l
+             */
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 System.out.println("Looking up an artwork");

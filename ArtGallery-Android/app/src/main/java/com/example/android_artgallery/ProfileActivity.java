@@ -18,10 +18,18 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.sql.SQLOutput;
 
+/**
+ * Profile activity class
+ */
 public class ProfileActivity extends AppCompatActivity {
 
+    //Class attributes
     private String error = null;
 
+    /**
+     * Called on the creation of the activity. Sets the view
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

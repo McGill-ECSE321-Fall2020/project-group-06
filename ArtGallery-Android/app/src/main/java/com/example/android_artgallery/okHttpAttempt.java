@@ -22,10 +22,20 @@ import okhttp3.Response;
 
 import static android.content.ContentValues.TAG;
 
+/**
+ * Handles http calls
+ */
 public class okHttpAttempt {
-    public static String bearerToken;
-    public static String username;
 
+    //Class attributes
+    public static String bearerToken;
+
+    /**
+     * Calls a get request on a url extension with a response class
+     * @param urlExtension
+     * @param responseClass
+     * @throws IOException
+     */
     public static void getHttpResponse(String urlExtension, Class responseClass) throws IOException {
 
         String url = "https://art-gallery-backend.herokuapp.com"+urlExtension;
@@ -37,23 +47,19 @@ public class okHttpAttempt {
                 .addHeader("Authorization","Bearer "+Ressources.getBearerToken())
                 .build();
 
-//        Response response = client.newCall(request).execute();
-//        Log.e(TAG, response.body().string());
-
-//        Gson gson = new Gson();
-//        Object object;
-//        Response response = client.newCall(request).execute();
-//        Ressources.response = response;
-//        String responseBody = response.body().string();
-//        System.out.println(responseBody);
-//        object = gson.fromJson(Ressources.response.body().toString(), responseClass);
-//        System.out.println(object.getClass());
-//        System.out.println("Printed Object 0");
-
         Response response=client.newCall(request).execute();
         Ressources.response = response;
 
     }
+
+    /**
+     *
+     * Calls a post request on a url extension with some data. The bearer token field specifies if it is needed
+     * @param urlExtension
+     * @param postdata
+     * @param putBearerToken
+     * @throws IOException
+     */
     public static void postRequest(String urlExtension, JSONObject postdata,boolean putBearerToken) throws IOException {
 
         MediaType MEDIA_TYPE = MediaType.parse("application/json");
@@ -85,14 +91,16 @@ public class okHttpAttempt {
         }
         Response response=client.newCall(request).execute();
         Ressources.response = response;
-//        System.out.println("RESPONSE: " + Ressources.response.toString());
-//        System.out.println("Success");
-//        bearerToken = response.body().string();
-//        System.out.println("Bearer Token"+bearerToken);
-//        Ressources.setBearerToken(bearerToken);
-//        Log.e(TAG, bearerToken);
     }
 
+    /**
+     *
+     * Calls a put request on a url extension with some data. The bearer token field specifies if it is needed
+     * @param urlExtension
+     * @param postdata
+     * @param putBearerToken
+     * @throws IOException
+     */
     public static void putRequest(String urlExtension, JSONObject postdata,boolean putBearerToken) throws IOException {
 
         MediaType MEDIA_TYPE = MediaType.parse("application/json");
@@ -124,6 +132,11 @@ public class okHttpAttempt {
         Response response=client.newCall(request).execute();
         Ressources.response = response;
     }
+
+    /**
+     * Gets the image bitmap of an artwork
+     * @param artwork
+     */
     public static void getImageBitmap(Artwork artwork){
         final Request request = new Request.Builder().url(artwork.getUrl()).build();
         OkHttpClient client = new OkHttpClient();

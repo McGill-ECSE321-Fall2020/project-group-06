@@ -15,7 +15,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/signup_image" />
@@ -73,8 +72,8 @@
 
     <EditText
         android:id="@+id/signupUsername"
-        android:layout_width="213dp"
-        android:layout_height="33dp"
+        android:layout_width="214dp"
+        android:layout_height="28dp"
         android:background="@color/white"
         android:hint="username"
         app:layout_constraintBottom_toBottomOf="parent"
