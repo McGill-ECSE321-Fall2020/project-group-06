@@ -20,10 +20,17 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+/**
+ * View artwork activity class
+ */
 public class ViewArtworkActivity extends AppCompatActivity {
     Artwork currentArtwork = null;
     int index;
 
+    /**
+     * Called on the creation of the activity. Sets the view
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -43,7 +50,12 @@ public class ViewArtworkActivity extends AppCompatActivity {
         TextView artistTextView = (TextView) findViewById(R.id.artwork_artist);
         // Get the version number from the current Artwork object and
         // set this text on the number TextView
-        artistTextView.setText(currentArtwork.getArtist().getLastName());
+        if(Ressources.isArtist){
+            artistTextView.setText(Ressources.getUser().getLastName());
+        }
+        else {
+            artistTextView.setText(currentArtwork.getArtist().getLastName());
+        }
 
         // Find the ImageView in the list_item.xml layout with the ID list_item_icon
         ImageView iconView = (ImageView) findViewById(R.id.artwork_picture);
@@ -56,18 +68,6 @@ public class ViewArtworkActivity extends AppCompatActivity {
         // Get the image resource ID from the current Artwork object and
         // set the image to iconView
         priceView.setText(String.valueOf(currentArtwork.getPrice()));
-
-//        // Find the ImageView in the list_item.xml layout with the ID list_item_icon
-//        TextView availabilityView = (TextView) findViewById(R.id.artwork_availability);
-//        // Get the image resource ID from the current Artwork object and
-//        // set the image to iconView
-//        if (currentArtwork.getInStore()) {
-//            availabilityView.setText("Available in store");
-//        }
-//        else
-//        {
-//            availabilityView.setText("Not available in store");
-//        }
 
         // Find the ImageView in the list_item.xml layout with the ID list_item_icon
         TextView descriptionView = (TextView) findViewById(R.id.artwork_description);
@@ -100,21 +100,13 @@ public class ViewArtworkActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Called when the browse button is pressed. Goes to browse activity
+     * @param V
+     */
     public void browse (View V) {
         finish();
     }
-
-//    public void buy (View V) {
-//        if (currentArtwork.getForSale()) {
-//            ImageButton favouriteButton = findViewById(R.id.favouriteButton);
-//            favouriteButton.setVisibility(View.GONE);
-//            RadioGroup deliveryMethodRadioGroup = findViewById(R.id.deliveryMethod_radioButtons);
-//            deliveryMethodRadioGroup.setVisibility(View.VISIBLE);
-//        }
-//        else
-//        {
-//        }
-//    }
 
     public void favorite(View V) throws IOException {
 
@@ -142,7 +134,7 @@ public class ViewArtworkActivity extends AppCompatActivity {
                             okHttpAttempt.postRequest("/api/customer/removeArtwork/" + Ressources.user.getId() + "/" + currentArtwork.getId(), js, true);
                         }
                         Artwork currentArtwork = BrowseActivity.artworks.get(index);
-                        okHttpAttempt.getHttpResponse("/api/user/getUser/" + Ressources.getUsername(), User.class);
+                        okHttpAttempt.getHttpResponse("/api/user/getUser/" + Ressources.getUsername());
                         Gson gson = new Gson();
                         User user = (User) gson.fromJson(Ressources.response.body().string(), User.class);
                         Ressources.setUser(user);

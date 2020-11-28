@@ -14,11 +14,19 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Home activity. Displays profile and browse options
+ */
 public class HomeActivity extends AppCompatActivity {
 
+    /**
+     * Called on the creation of the activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,10 +34,13 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void returnToLogin(View v) {
-        Intent returnToLogin = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(returnToLogin);
+        finish();
     }
 
+    /**
+     * Called when the profile button is pressed the creation of the activity. Creates the request to get the user. Goes to profile activity when done
+     * @param v
+     */
     public void profile(View v) {
         System.out.println("Start of profile method");
 
@@ -39,7 +50,7 @@ public class HomeActivity extends AppCompatActivity {
             public void run() {
                 try {
                     System.out.println("Before get");
-                    okHttpAttempt.getHttpResponse("/api/user/getUser/" + Ressources.getUsername(), User.class);
+                    okHttpAttempt.getHttpResponse("/api/user/getUser/" + Ressources.getUsername());
                     System.out.println("BEARER TOKEN: " + Ressources.getBearerToken());
                     System.out.println("Response Inside Profile: " + Ressources.response);
                     Gson gson = new Gson();
@@ -59,6 +70,10 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Called when the browse button is pressed. Creates the request to get the artworks. Goes to browse activity when done
+     * @param V
+     */
     public void browse (View V) {
         Thread thread = new Thread(new Runnable() {
 
@@ -67,7 +82,7 @@ public class HomeActivity extends AppCompatActivity {
                 try {
                     Artwork[] myArray = null;
 
-                    okHttpAttempt.getHttpResponse("/api/artgallery/allArtworks", Artwork[].class);
+                    okHttpAttempt.getHttpResponse("/api/artgallery/allArtworks");
                     Gson gson = new Gson();
                     myArray = (Artwork [])gson.fromJson(Ressources.response.body().string(), Artwork[].class);
                     ArrayList<Artwork> artworks =new ArrayList<Artwork>(Arrays.asList(myArray));
