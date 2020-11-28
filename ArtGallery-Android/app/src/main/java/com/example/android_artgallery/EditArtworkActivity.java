@@ -131,7 +131,7 @@ public class EditArtworkActivity extends AppCompatActivity {
         error = "";
         final TextView tv_name = (TextView) findViewById(R.id.artwork_name);
         final TextView tv_price = (TextView) findViewById(R.id.artwork_price);
-        final TextView tv_availability = (TextView) findViewById(R.id.artwork_availability);
+//        final TextView tv_availability = (TextView) findViewById(R.id.artwork_availability);
         final TextView tv_description = (TextView) findViewById(R.id.artwork_description);
         final TextView tv_error = (TextView) findViewById(R.id.editError);
         Spinner isInStore = (Spinner) findViewById(R.id.store);
