@@ -9,8 +9,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.example.android_artgallery.model.Artwork;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -46,7 +44,6 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    System.out.println("Signing up");
                     error = "";
                     final TextView tv_email = (TextView) findViewById(R.id.signupEmail);
                     final TextView tv_username = (TextView) findViewById(R.id.signupUsername);
@@ -65,8 +62,6 @@ public class SignupActivity extends AppCompatActivity {
                         tv_error.setText("Email needs to contain @!");
                         return;
                     }
-                    System.out.println("username" + tv_username.getText().toString());
-                    System.out.println("password" + tv_password.getText().toString());
                     JSONObject jsonParams = new JSONObject();
                     try {
                         jsonParams.put("username", tv_username.getText().toString());
@@ -80,7 +75,6 @@ public class SignupActivity extends AppCompatActivity {
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
-                    System.out.println("Params done");
 
                     RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
                     RadioButton artistButton = radioGroup.findViewById(R.id.artistButton);

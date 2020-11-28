@@ -11,7 +11,6 @@ import android.widget.ListView;
 import com.example.android_artgallery.model.Artwork;
 import com.google.gson.Gson;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -33,9 +32,6 @@ public class BrowseActivity extends AppCompatActivity {
         Artwork[] artworksArray = gson.fromJson(getIntent().getStringExtra("artworks"), Artwork[].class);
         artworks = new ArrayList<Artwork>(Arrays.asList(artworksArray));
 
-        // Create an ArrayList of Artwork objects
-
-
         // Create an {@link ArtworkAdapter}, whose data source is a list of
         // {@link Artwork}s. The adapter knows how to create list item views for each item
         // in the list.
@@ -48,7 +44,7 @@ public class BrowseActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             /**
-             * Called when an artwork is pressed. Goes to the view artwork activity when done
+             * Called when an artwork is pressed. Goes to the view artwork activity/edit artwork activity when done
              * @param adapterView
              * @param view
              * @param i
@@ -56,7 +52,6 @@ public class BrowseActivity extends AppCompatActivity {
              */
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                System.out.println("Looking up an artwork");
                 Artwork artwork = artworks.get(i);
                 boolean isSame = false;
                 for (Artwork art : Ressources.getUser().getArtwork()) {
@@ -77,6 +72,10 @@ public class BrowseActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Returns to previous activity
+     * @param v
+     */
     public void returnToHome(View v) {
         finish();
     }

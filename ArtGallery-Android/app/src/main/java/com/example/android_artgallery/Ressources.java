@@ -1,23 +1,8 @@
 package com.example.android_artgallery;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Log;
-
-import com.example.android_artgallery.model.Artwork;
 import com.example.android_artgallery.model.User;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
-
 import okhttp3.Response;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Ressources class

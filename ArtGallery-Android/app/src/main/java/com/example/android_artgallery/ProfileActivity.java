@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
 /**
  * Profile activity class
  */
@@ -54,7 +55,6 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void updateProfile(View v){
-        System.out.println("Start of update profile method");
         error = "";
         final TextView tv_firstName = (TextView) findViewById(R.id.fNameText);
         final TextView tv_description = (TextView) findViewById(R.id.descriptionText);
@@ -80,14 +80,12 @@ public class ProfileActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        System.out.println("Params done");
 
         Thread thread = new Thread(new Runnable() {
 
             @Override
             public void run() {
                 try {
-                    System.out.println("Updating the profile......");
                     okHttpAttempt.putRequest("/api/user/updateUser", jsonParams,true);
                     Intent home = new Intent(getApplicationContext(), HomeActivity.class);
                     startActivity(home);
@@ -99,6 +97,10 @@ public class ProfileActivity extends AppCompatActivity {
         thread.start();
     }
 
+    /**
+     * Goes to the browse activity after getting all the artworks of the user
+     * @param view
+     */
     public void goToArtwork(View view){
         Thread thread = new Thread(new Runnable() {
 
