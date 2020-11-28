@@ -25,6 +25,11 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
     }
 
+    public void returnToLogin(View v) {
+        Intent returnToLogin = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(returnToLogin);
+    }
+
     public void profile(View v) {
         System.out.println("Start of profile method");
 
