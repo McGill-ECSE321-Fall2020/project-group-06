@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
+
+import okhttp3.Response;
 
 import static android.content.ContentValues.TAG;
 
@@ -25,7 +28,9 @@ public class Ressources {
     public static String bearerToken = "";
     public static String username = "";
     public static User user;
-    public static Artwork[] allArtworks;
+    public static ArrayList<Artwork> allArtworks;
+    public static Response response;
+    public static ArrayList<Artwork> forSaleArtworks;
 
     /**
      * Get the bearer token
@@ -70,8 +75,5 @@ public class Ressources {
      * @param user
      */
     public static void setUser(User user){Ressources.user=user;}
-
-
-
 
 }

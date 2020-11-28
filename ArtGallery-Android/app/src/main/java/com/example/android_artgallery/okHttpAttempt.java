@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.sql.SQLOutput;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -33,10 +34,9 @@ public class okHttpAttempt {
      * Calls a get request on a url extension with a response class
      * @param urlExtension
      * @param responseClass
-     * @return
      * @throws IOException
      */
-    public static Object getHttpResponse(String urlExtension, Class responseClass) throws IOException {
+    public static void getHttpResponse(String urlExtension, Class responseClass) throws IOException {
 
         String url = "https://art-gallery-backend.herokuapp.com"+urlExtension;
 
@@ -44,18 +44,12 @@ public class okHttpAttempt {
         Request request = new Request.Builder()
                 .url(url)
                 .addHeader("cache-control", "no-cache")
-                .addHeader("Authorization","Bearer "+bearerToken)
+                .addHeader("Authorization","Bearer "+Ressources.getBearerToken())
                 .build();
 
-        Gson gson = new Gson();
-        Object object;
         Response response=client.newCall(request).execute();
-        String responseBody=response.body().string();
-        System.out.println(responseBody);
-        object =gson.fromJson(responseBody, responseClass);
-        System.out.println(object.getClass());
-        System.out.println("Printed Object 0");
-        return object;
+        Ressources.response = response;
+
     }
 
     /**
@@ -90,17 +84,13 @@ public class okHttpAttempt {
                     .url(url)
                     .post(body)
                     .addHeader("cache-control", "no-cache")
-                    .addHeader("Authorization","Bearer "+bearerToken)
+                    .addHeader("Authorization","Bearer "+Ressources.getBearerToken())
                     .header("Accept", "application/json")
                     .header("Content-Type", "application/json")
                     .build();
         }
         Response response=client.newCall(request).execute();
-        System.out.println("Success");
-        bearerToken = response.body().string();
-        System.out.println("Bearer Token"+bearerToken);
-        Ressources.setBearerToken(bearerToken);
-        Log.e(TAG, bearerToken);
+        Ressources.response = response;
     }
 
     /**
@@ -134,17 +124,13 @@ public class okHttpAttempt {
                     .url(url)
                     .put(body)
                     .addHeader("cache-control", "no-cache")
-                    .addHeader("Authorization","Bearer "+bearerToken)
+                    .addHeader("Authorization","Bearer "+Ressources.getBearerToken())
                     .header("Accept", "application/json")
                     .header("Content-Type", "application/json")
                     .build();
         }
         Response response=client.newCall(request).execute();
-        System.out.println("Success");
-        bearerToken = response.body().string();
-        System.out.println("Bearer Token"+bearerToken);
-        Ressources.setBearerToken(bearerToken);
-        Log.e(TAG, bearerToken);
+        Ressources.response = response;
     }
 
     /**

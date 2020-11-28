@@ -42,7 +42,7 @@ public class EditArtworkActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_artwork);
 
         int index = getIntent().getIntExtra("index", 0);
-        currentArtwork = Ressources.allArtworks[index];
+        currentArtwork = Ressources.allArtworks.get(index);
 
         // Find the TextView in the list_item.xml layout with the ID version_name
         TextView nameTextView = (TextView) findViewById(R.id.artwork_name);
