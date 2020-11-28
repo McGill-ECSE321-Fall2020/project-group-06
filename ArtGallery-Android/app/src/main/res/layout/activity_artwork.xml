@@ -87,8 +87,9 @@
                 android:id="@+id/favouriteButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
                 android:onClick="favorite"
-                app:srcCompat="@drawable/favourites_image_jpg" />
+                 />
 
             <RadioGroup
                 android:id="@+id/deliveryMethod_radioButtons"

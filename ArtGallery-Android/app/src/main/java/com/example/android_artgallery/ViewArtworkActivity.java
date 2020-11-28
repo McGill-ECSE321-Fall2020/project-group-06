@@ -1,8 +1,10 @@
 package com.example.android_artgallery;
 
 import android.content.Intent;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
@@ -72,6 +74,30 @@ public class ViewArtworkActivity extends AppCompatActivity {
         // Get the image resource ID from the current Artwork object and
         // set the image to iconView
         descriptionView.setText(currentArtwork.getDescription());
+
+        ImageButton favButton = (ImageButton) findViewById(R.id.favouriteButton);
+
+        if(Ressources.isArtist){
+            favButton.setVisibility(View.GONE);
+        }
+        else {
+            boolean isFavorited = false;
+            if (!Ressources.isArtist) {
+                for (Artwork art : Ressources.getUser().getArtwork()) {
+                    if (art.getId() == currentArtwork.getId()) {
+                        isFavorited = true;
+                    }
+                }
+            }
+
+            if (isFavorited) {
+                favButton.setImageResource(R.drawable.favourites_full);
+                favButton.setTag(R.drawable.favourites_full);
+            } else {
+                favButton.setImageResource(R.drawable.favourites_empty);
+                favButton.setTag(R.drawable.favourites_empty);
+            }
+        }
     }
 
     public void browse (View V) {
@@ -96,7 +122,8 @@ public class ViewArtworkActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-
+                    ImageButton favButton = (ImageButton) findViewById(R.id.favouriteButton);
+                    Integer resource = (Integer) favButton.getTag();
 
                     boolean isFavorited=false;
                     if(!Ressources.isArtist) {
@@ -106,7 +133,7 @@ public class ViewArtworkActivity extends AppCompatActivity {
                             }
                         }
                         JSONObject js=new JSONObject();
-                        if(!isFavorited) {
+                        if(!resource.equals(R.drawable.favourites_full)) {
                             okHttpAttempt.postRequest("/api/customer/addArtwork/" + Ressources.user.getId() + "/" + currentArtwork.getId(), js, true);
                             System.out.println(Ressources.response);
                             System.out.println("After post, favorited the artpiece"+Ressources.user.getId()+currentArtwork.getId());
@@ -119,6 +146,17 @@ public class ViewArtworkActivity extends AppCompatActivity {
                         Gson gson = new Gson();
                         User user = (User) gson.fromJson(Ressources.response.body().string(), User.class);
                         Ressources.setUser(user);
+
+                        if( resource.equals(R.drawable.favourites_full)){
+                            favButton.setImageResource(R.drawable.favourites_empty);
+                            favButton.setTag(R.drawable.favourites_empty);
+                            System.out.println("is unfavorited");
+                        }
+                        else {
+                            favButton.setImageResource(R.drawable.favourites_full);
+                            favButton.setTag(R.drawable.favourites_full);
+                            System.out.println("is favorited");
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
