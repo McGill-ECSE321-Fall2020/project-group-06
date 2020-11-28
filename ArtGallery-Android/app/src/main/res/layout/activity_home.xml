@@ -4,46 +4,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#DDD8CC"
     tools:context=".HomeActivity">
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginBottom="564dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttons"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/homeImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/about_image" />
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="175dp">
+
+            <Button
+                android:id="@+id/returnButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:backgroundTint="#AF9B5F"
+                android:onClick="returnToLogin"
+                android:text="@string/returnButton"
+                android:textColor="@color/white" />
+
+            <ImageView
+                android:id="@+id/homeImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/about_image" />
+
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/home"
             android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="35dp"
+            android:fontFamily="sans-serif"
             android:gravity="center"
-            android:text="@string/home"
+            android:text="@string/textHome"
             android:textAllCaps="true"
             android:textColor="@color/black"
-            android:textSize="25sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
-    </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/buttons"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
 
         <Button
             android:id="@+id/buttonBrowse"
@@ -72,4 +82,5 @@
             app:layout_constraintTop_toBottomOf="@+id/buttonBrowse" />
 
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

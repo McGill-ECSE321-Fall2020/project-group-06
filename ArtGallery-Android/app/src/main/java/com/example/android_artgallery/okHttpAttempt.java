@@ -2,15 +2,12 @@ package com.example.android_artgallery;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 
 import com.example.android_artgallery.model.Artwork;
-import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.sql.SQLOutput;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -20,7 +17,6 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-import static android.content.ContentValues.TAG;
 
 /**
  * Handles http calls
@@ -33,10 +29,9 @@ public class okHttpAttempt {
     /**
      * Calls a get request on a url extension with a response class
      * @param urlExtension
-     * @param responseClass
      * @throws IOException
      */
-    public static void getHttpResponse(String urlExtension, Class responseClass) throws IOException {
+    public static void getHttpResponse(String urlExtension) throws IOException {
 
         String url = "https://art-gallery-backend.herokuapp.com"+urlExtension;
 
@@ -102,7 +97,6 @@ public class okHttpAttempt {
      * @throws IOException
      */
     public static void putRequest(String urlExtension, JSONObject postdata,boolean putBearerToken) throws IOException {
-
         MediaType MEDIA_TYPE = MediaType.parse("application/json");
         String url = "https://art-gallery-backend.herokuapp.com"+ urlExtension;
 
@@ -152,8 +146,6 @@ public class okHttpAttempt {
                 if (response.isSuccessful()){
                     final Bitmap bitmap = BitmapFactory.decodeStream(response.body().byteStream());
                     artwork.setBitmap(bitmap);
-                }else {
-
                 }
             }
         });

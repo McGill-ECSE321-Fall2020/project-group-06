@@ -5,15 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.android_artgallery.model.User;
+import com.example.android_artgallery.model.Artwork;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.sql.SQLOutput;
 
 /**
  * Profile activity class
@@ -31,20 +31,32 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        final TextView tv_name = (TextView) findViewById(R.id.nameText);
+        final TextView tv_name = (TextView) findViewById(R.id.fNameText);
+        final TextView tv_lName = (TextView) findViewById(R.id.lNameText);
         final TextView tv_description = (TextView) findViewById(R.id.descriptionText);
         final TextView tv_phoneNumber = (TextView) findViewById(R.id.phoneNumberText);
         final TextView tv_email = (TextView) findViewById(R.id.emailText);
+        final Button tv_browse = (Button) findViewById(R.id.artworksButton);
         tv_name.setText(Ressources.getUser().getFirstName());
+        tv_lName.setText(Ressources.getUser().getLastName());
         tv_description.setText(Ressources.getUser().getDescription());
         tv_phoneNumber.setText(Ressources.getUser().getPhoneNumber());
         tv_email.setText(Ressources.getUser().getEmail());
+        if(Ressources.isArtist){
+            tv_browse.setText("Browse artwork");
+        }
+        else{
+            tv_browse.setText("Browse favorites");
+        }
+    }
+
+    public void returnToLogin(View v) {
+        finish();
     }
 
     public void updateProfile(View v){
-        System.out.println("Start of update profile method");
         error = "";
-        final TextView tv_firstName = (TextView) findViewById(R.id.nameText);
+        final TextView tv_firstName = (TextView) findViewById(R.id.fNameText);
         final TextView tv_description = (TextView) findViewById(R.id.descriptionText);
         final TextView tv_phoneNumber = (TextView) findViewById(R.id.phoneNumberText);
         final TextView tv_email = (TextView) findViewById(R.id.emailText);
@@ -69,15 +81,12 @@ public class ProfileActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        System.out.println("Params done");
-
         Thread thread = new Thread(new Runnable() {
 
             @Override
             public void run() {
                 try {
-                    System.out.println("Updating the profile......");
-                    okHttpAttempt.putRequest("/api/user/updateUser", jsonParams,true);;
+                    okHttpAttempt.putRequest("/api/user/updateUser", jsonParams,true);
                     Intent home = new Intent(getApplicationContext(), HomeActivity.class);
                     startActivity(home);
                 } catch (Exception e) {
@@ -85,7 +94,31 @@ public class ProfileActivity extends AppCompatActivity {
                 }
             }
         });
+        thread.start();
+    }
 
+    /**
+     * Goes to the browse activity after getting all the artworks of the user
+     * @param view
+     */
+    public void goToArtwork(View view){
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    Artwork[] myArray=new Artwork[Ressources.getUser().getArtwork().size()];
+                    myArray = Ressources.getUser().getArtwork().toArray(myArray);
+                    Gson gson = new Gson();
+                    String myJson = gson.toJson(myArray);
+                    Intent browse = new Intent(getApplicationContext(), BrowseActivity.class);
+                    browse.putExtra("artworks", myJson);
+                    startActivity(browse);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         thread.start();
     }
 

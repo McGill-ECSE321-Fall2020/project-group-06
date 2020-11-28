@@ -7,18 +7,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.android_artgallery.model.Artwork;
 import com.example.android_artgallery.model.User;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
 /**
  * Main activity. Displays the login page with login and signup button
  */
-import java.util.ArrayList;
-import java.sql.SQLOutput;
-
 public class MainActivity extends AppCompatActivity {
 
     //Class attributes
@@ -40,13 +38,10 @@ public class MainActivity extends AppCompatActivity {
      * @param v
      */
     public void login(View v) {
-        System.out.println("Start of login method");
         error = "";
         final TextView tv_username = (TextView) findViewById(R.id.username);
         final TextView tv_password = (TextView) findViewById(R.id.password);
-        System.out.println("username" + tv_username.getText().toString());
 
-        System.out.println("password" + tv_password.getText().toString());
         Ressources.setUsername(tv_username.getText().toString());
         JSONObject jsonParams = new JSONObject();
         try {
@@ -56,8 +51,6 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        System.out.println("Params done");
-        //Context myContext = new Context();
         Thread thread = new Thread(new Runnable() {
 
             @Override
@@ -65,13 +58,22 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     okHttpAttempt.postRequest("/api/cognito/authenticate", jsonParams,false);
                     Ressources.setUsername(tv_username.getText().toString());
-                    System.out.println("REPONSE IN LOGIN 1:" + Ressources.response);
-                    System.out.println("REPONSE IN LOGIN 2:" + Ressources.response);
-                    if (Ressources.response.code() == 500){
-                        Intent main = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(main);
+                    if (Ressources.response.code() == 500) {
+                        error = "Incorrect Username or Password";
+                        refreshErrorMessage();
                     } else {
                         Ressources.setBearerToken(Ressources.response.body().string());
+                        okHttpAttempt.getHttpResponse("/api/user/getUser/" + Ressources.getUsername());
+                        Gson gson = new Gson();
+                        User user = (User) gson.fromJson(Ressources.response.body().string(), User.class);
+                        Ressources.setUser(user);
+                        okHttpAttempt.getHttpResponse("/api/artist/getArtist/" + Ressources.getUsername());
+                        if(Ressources.response.code() == 200){
+                            Ressources.isArtist=true;
+                        }
+                        else{
+                            Ressources.isArtist=false;
+                        }
                         Intent home = new Intent(getApplicationContext(), HomeActivity.class);
                         startActivity(home);
                     }
@@ -90,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
      * @param v
      */
     public void signup(View v) {
-        System.out.println("Start of signup method");
 
 
         Thread thread = new Thread(new Runnable() {
@@ -118,11 +119,6 @@ public class MainActivity extends AppCompatActivity {
         // set the error message
         TextView tvError = (TextView) findViewById(R.id.error);
         tvError.setText(error);
-
-        if (error == null || error.length() == 0) {
-            tvError.setVisibility(View.GONE);
-        } else {
-            tvError.setVisibility(View.VISIBLE);
-        }
+        tvError.setVisibility(View.VISIBLE);
     }
 }
