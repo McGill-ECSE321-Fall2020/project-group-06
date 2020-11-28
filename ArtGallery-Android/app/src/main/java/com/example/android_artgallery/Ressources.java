@@ -28,9 +28,7 @@ public class Ressources {
     public static String bearerToken = "";
     public static String username = "";
     public static User user;
-    public static ArrayList<Artwork> allArtworks;
     public static Response response;
-    public static ArrayList<Artwork> forSaleArtworks;
     public static boolean isArtist;
     public static int id;
 

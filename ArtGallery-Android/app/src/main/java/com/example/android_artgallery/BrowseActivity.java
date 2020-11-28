@@ -57,9 +57,22 @@ public class BrowseActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 System.out.println("Looking up an artwork");
-                Intent donut = new Intent(BrowseActivity.this, ViewArtworkActivity.class);
-                donut.putExtra("index", i);
-                startActivity(donut);
+                Artwork artwork = artworks.get(i);
+                boolean isSame = false;
+                for (Artwork art : Ressources.getUser().getArtwork()) {
+                    if (art.getId() == artwork.getId()) {
+                        isSame = true;
+                    }
+                }
+                Intent prompt;
+                if(isSame && Ressources.isArtist){
+                    prompt = new Intent(BrowseActivity.this, EditArtworkActivity.class);
+                }
+                else{
+                    prompt = new Intent(BrowseActivity.this, ViewArtworkActivity.class);
+                }
+                prompt.putExtra("index", i);
+                startActivity(prompt);
             }
         });
     }
