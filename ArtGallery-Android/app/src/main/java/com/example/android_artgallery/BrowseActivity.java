@@ -48,4 +48,8 @@ public class BrowseActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void returnToHome(View v) {
+        finish();
+    }
 }

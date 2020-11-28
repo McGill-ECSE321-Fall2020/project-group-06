@@ -26,8 +26,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void returnToLogin(View v) {
-        Intent returnToLogin = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(returnToLogin);
+        finish();
     }
 
     public void profile(View v) {
