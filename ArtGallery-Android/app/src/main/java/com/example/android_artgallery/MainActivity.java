@@ -66,10 +66,9 @@ public class MainActivity extends AppCompatActivity {
                     Ressources.setUsername(tv_username.getText().toString());
                     System.out.println("REPONSE IN LOGIN 1:" + Ressources.response);
                     System.out.println("REPONSE IN LOGIN 2:" + Ressources.response);
-
-                    if (Ressources.response.code() == 500){
-                        Intent main = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(main);
+                    if (Ressources.response.code() == 500) {
+                        error = "Incorrect Username or Password";
+                        refreshErrorMessage();
                     } else {
                         Ressources.setBearerToken(Ressources.response.body().string());
                         okHttpAttempt.getHttpResponse("/api/user/getUser/" + Ressources.getUsername(), User.class);
@@ -122,12 +121,12 @@ public class MainActivity extends AppCompatActivity {
         // set the error message
         TextView tvError = (TextView) findViewById(R.id.error);
         tvError.setText(error);
-
-        if (error == null || error.length() == 0) {
-            tvError.setVisibility(View.GONE);
-        } else {
-            tvError.setVisibility(View.VISIBLE);
-        }
+        tvError.setVisibility(View.VISIBLE);
+//        if (error == null || error.length() == 0) {
+//            tvError.setVisibility(View.GONE);
+//        } else {
+//            tvError.setVisibility(View.VISIBLE);
+//        }
     }
 
 
