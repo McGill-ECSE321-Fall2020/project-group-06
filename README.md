@@ -159,8 +159,11 @@ Sen Wang | 27 | x | x | x | x | x
 - User Documentation
 
 ### Documents
-- User Documentation
-- Minutes
+- [Report] (https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Deliverable-4-Report)
+- [User Documentation] (https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Android-Key-Features)
+- [Meeting Minutes4.1](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Meeting-Minutes-4.1)
+- [Meeting Minutes4.2](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Meeting-Minutes-4.2)
+- [Meeting Minutes4.3](https://github.com/McGill-ECSE321-Fall2020/project-group-06/wiki/Meeting-Minutes-4.3)
 
 ### Table
 #### Overview Table
