@@ -6,8 +6,9 @@
     <string name="password_hint">Password</string>
     <string name="login_button">Login</string>
     <string name="signup_button">Sign Up</string>
-    <string name="returnButton">Return to login</string>
-    <string name="returnButton2">Return to home</string>
+    <string name="returnButton">Return to Login</string>
+    <string name="returnButton2">Return to Home</string>
+    <string name="returnButton3">Return to Browse Artworks</string>
     <string name="textHome">Home</string>
     <string name="test_button">HOME</string>
     <string name="browse_artworks">BROWSE ARTWORKS</string>

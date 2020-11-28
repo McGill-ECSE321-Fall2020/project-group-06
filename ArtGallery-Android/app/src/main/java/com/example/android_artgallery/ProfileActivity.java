@@ -51,6 +51,10 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
+    public void returnToLogin(View v) {
+        finish();
+    }
+
     public void updateProfile(View v){
         System.out.println("Start of update profile method");
         error = "";
