@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.android_artgallery.model.Artwork;
 import com.example.android_artgallery.model.User;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -65,11 +66,23 @@ public class MainActivity extends AppCompatActivity {
                     Ressources.setUsername(tv_username.getText().toString());
                     System.out.println("REPONSE IN LOGIN 1:" + Ressources.response);
                     System.out.println("REPONSE IN LOGIN 2:" + Ressources.response);
+
                     if (Ressources.response.code() == 500){
                         Intent main = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(main);
                     } else {
                         Ressources.setBearerToken(Ressources.response.body().string());
+                        okHttpAttempt.getHttpResponse("/api/user/getUser/" + Ressources.getUsername(), User.class);
+                        Gson gson = new Gson();
+                        User user = (User) gson.fromJson(Ressources.response.body().string(), User.class);
+                        Ressources.setUser(user);
+                        if(user.getBankAccountNumber()==null){
+                            Ressources.isArtist=false;
+                        }
+                        else{
+                            Ressources.isArtist=true;
+                        }
+                        System.out.println("isArtist"+Ressources.isArtist);
                         Intent home = new Intent(getApplicationContext(), HomeActivity.class);
                         startActivity(home);
                     }

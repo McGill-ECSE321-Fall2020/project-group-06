@@ -64,23 +64,8 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
         System.out.println("Params done");
-
-        Thread thread = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    System.out.println("Updating the profile......");
-                    okHttpAttempt.putRequest("/api/user/updateUser", jsonParams,true);;
-                    Intent home = new Intent(getApplicationContext(), HomeActivity.class);
-                    startActivity(home);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        thread.start();
+        Intent home = new Intent(getApplicationContext(), HomeActivity.class);
+        startActivity(home);
     }
     public void goToArtwork(View view){
         Thread thread = new Thread(new Runnable() {

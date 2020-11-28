@@ -44,6 +44,7 @@ public class Ressources {
     public static User getUser(){return user;}
     public static void setUser(User user){Ressources.user=user;}
     public static int id;
+    public static boolean isArtist;
 
 
 

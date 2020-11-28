@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.android_artgallery.model.ArtGallery;
 import com.example.android_artgallery.model.Artwork;
 import com.example.android_artgallery.model.User;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,13 +26,14 @@ import cz.msebera.android.httpclient.entity.StringEntity;
 public class EditArtworkActivity extends AppCompatActivity {
 
     private String error = null;
+    private int index;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_artwork);
 
-        int index = getIntent().getIntExtra("index", 0);
+        index = getIntent().getIntExtra("index", 0);
         Artwork currentArtwork = BrowseActivity.artworks.get(index);
 
         // Find the TextView in the list_item.xml layout with the ID version_name
@@ -120,5 +122,29 @@ public class EditArtworkActivity extends AppCompatActivity {
 
         Intent main = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(main);
+    }
+    public void favorite(View V) throws IOException {
+        Artwork currentArtwork = BrowseActivity.artworks.get(index);
+        okHttpAttempt.getHttpResponse("/api/user/getUser/" + Ressources.getUsername(), User.class);
+        Gson gson = new Gson();
+        User user = (User) gson.fromJson(Ressources.response.body().string(), User.class);
+        Ressources.setUser(user);
+
+        boolean isFavorited=false;
+        if(!Ressources.isArtist) {
+            for(Artwork art:user.getArtwork()){
+                if(art.getId()==currentArtwork.getId()){
+                    isFavorited=true;
+                }
+            }
+            if(!isFavorited) {
+                okHttpAttempt.postRequest("/api/customer/addArtwork/" + Ressources.user.getUserId() + "/" + currentArtwork.getId(), null, true);
+                System.out.println("After post, favorited the artpiece");
+            }
+            else{
+                okHttpAttempt.postRequest("/api/customer/removeArtwork/" + Ressources.user.getUserId() + "/" + currentArtwork.getId(), null, true);
+            }
+
+        }
     }
 }
