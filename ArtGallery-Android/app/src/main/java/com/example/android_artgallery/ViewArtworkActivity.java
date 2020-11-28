@@ -41,7 +41,12 @@ public class ViewArtworkActivity extends AppCompatActivity {
         TextView artistTextView = (TextView) findViewById(R.id.artwork_artist);
         // Get the version number from the current Artwork object and
         // set this text on the number TextView
-        artistTextView.setText(currentArtwork.getArtist().getLastName());
+        if(Ressources.isArtist){
+            artistTextView.setText(Ressources.getUser().getLastName());
+        }
+        else {
+            artistTextView.setText(currentArtwork.getArtist().getLastName());
+        }
 
         // Find the ImageView in the list_item.xml layout with the ID list_item_icon
         ImageView iconView = (ImageView) findViewById(R.id.artwork_picture);
