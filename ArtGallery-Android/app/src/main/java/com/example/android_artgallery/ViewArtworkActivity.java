@@ -69,19 +69,18 @@ public class ViewArtworkActivity extends AppCompatActivity {
     }
 
     public void browse (View V) {
-        Intent browse = new Intent(getApplicationContext(), BrowseActivity.class);
-        startActivity(browse);
+        finish();
     }
-    public void buy (View V) {
-        if (currentArtwork.getForSale()) {
-            ImageButton favouriteButton = findViewById(R.id.favouriteButton);
-            favouriteButton.setVisibility(View.GONE);
-            RadioGroup deliveryMethodRadioGroup = findViewById(R.id.deliveryMethod_radioButtons);
-            deliveryMethodRadioGroup.setVisibility(View.VISIBLE);
-        }
-        else
-        {
-        }
 
-    }
+//    public void buy (View V) {
+//        if (currentArtwork.getForSale()) {
+//            ImageButton favouriteButton = findViewById(R.id.favouriteButton);
+//            favouriteButton.setVisibility(View.GONE);
+//            RadioGroup deliveryMethodRadioGroup = findViewById(R.id.deliveryMethod_radioButtons);
+//            deliveryMethodRadioGroup.setVisibility(View.VISIBLE);
+//        }
+//        else
+//        {
+//        }
+//    }
 }
