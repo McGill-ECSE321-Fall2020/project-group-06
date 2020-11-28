@@ -155,16 +155,19 @@ Sen Wang | 27 | x | x | x | x | x
 
 ## Deliverable 4
 ### Main Tasks
-(Mobile Frontend and Availability)
+- Mobile Frontend
+- User Documentation
+
 ### Documents
+- User Documentation
+- Minutes
 
 ### Table
 #### Overview Table
-**Name** | **Total Working Hours** | Meetings | Requirements Model | Domain Model | Persistence Layer | Testing of Persistence Layer | Build System and Continuous Integration | Documentation
--------- | ----------------------- | -------- | ------------------ | ------------ | ----------------- | ---------------------------- | ---------------------------------------- | -------------
-Noah Chamberland | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 
-Justin Legrand | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 
-Olivier Normandin | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 
-André - Walter Panzini | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 
-Sen Wang | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 
-To be continued...
+**Name** | **Total Working Hours** | Meetings | User Documentation | Mobile Frontend | Project Management | 
+-------- | ----------------------- | -------- | ------------------ | --------------- | ------------------ | 
+Noah Chamberland | 25 | x | x | x | x 
+Justin Legrand | 26 | x | x | x | x  
+Olivier Normandin | 27 | x | x | x | x 
+André - Walter Panzini | 24 | x | x | x | x 
+Sen Wang | 24 | x | x | x | x 
