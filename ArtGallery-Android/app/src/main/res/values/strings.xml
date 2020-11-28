@@ -14,6 +14,13 @@
     <string name="browse_artworks">BROWSE ARTWORKS</string>
     <string name="home">Home</string>
     <string name="artworks_button">Artworks</string>
+    <string name="profile">USER PROFILE</string>
+    <string name="firstName">First Name</string>
+    <string name="lastName">Last Name</string>
+    <string name="description">User Description</string>
+    <string name="phoneText">Phone Number</string>
+    <string name="emailText">Email</string>
+    <string name="signupText">SIGNUP</string>
     <string-array name="edit_type">
         <item>Sculpture</item>
         <item>Painting</item>

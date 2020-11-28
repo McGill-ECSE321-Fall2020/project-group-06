@@ -17,68 +17,138 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
-        <ImageView
-            android:id="@+id/imageView"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#DDD8CC"
-            app:srcCompat="@drawable/default_avatar" />
-
-        <EditText
-            android:id="@+id/nameText"
-            android:layout_width="143dp"
-            android:layout_height="40dp"
             android:gravity="center"
-            android:text="TextView" />
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/descriptionText"
-            android:layout_width="326dp"
-            android:layout_height="95dp"
-            android:gravity="center"
-            android:text="TextView" />
+            <TextView
+                android:id="@+id/userProfileText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:gravity="center"
+                android:text="@string/profile"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/phoneNumberText"
-            android:layout_width="154dp"
-            android:layout_height="44dp"
-            android:gravity="center"
-            android:text="TextView" />
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:background="#DDD8CC"
+                app:srcCompat="@drawable/default_avatar" />
 
-        <EditText
-            android:id="@+id/emailText"
-            android:layout_width="151dp"
-            android:layout_height="35dp"
-            android:gravity="center"
-            android:text="TextView" />
+            <TextView
+                android:id="@+id/firstNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="@string/firstName"
+                android:textAlignment="center" />
 
-        <Button
-            android:id="@+id/profileUpdateButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#AF9B5F"
-            android:gravity="center"
-            android:onClick="updateProfile"
-            android:text="Update Profile" />
+            <EditText
+                android:id="@+id/fNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/firstName" />
 
-        <Button
-            android:id="@+id/artworksButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/black"
-            android:gravity="center"
-            android:onClick="goToArtwork"
-            android:text="@string/artworks_button" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/lastNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/lastName"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/lNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="@string/lastName"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/descrText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/description"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/descriptionText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/description" />
+
+            <TextView
+                android:id="@+id/phoneText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/phoneText" />
+
+            <EditText
+                android:id="@+id/phoneNumberText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:inputType="phone"
+                android:text="@string/phoneText" />
+
+            <TextView
+                android:id="@+id/textEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/emailText"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/emailText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:inputType="textWebEmailAddress"
+                android:text="@string/emailText" />
+
+            <Button
+                android:id="@+id/profileUpdateButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#AF9B5F"
+                android:gravity="center"
+                android:onClick="updateProfile"
+                android:text="Update Profile" />
+
+            <Button
+                android:id="@+id/artworksButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black"
+                android:gravity="center"
+                android:onClick="goToArtwork"
+                android:text="@string/artworks_button" />
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

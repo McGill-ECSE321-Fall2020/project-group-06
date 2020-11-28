@@ -9,14 +9,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.android_artgallery.model.Artwork;
-import com.example.android_artgallery.model.User;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.IOException;
-import java.sql.SQLOutput;
 
 /**
  * Profile activity class
@@ -34,12 +30,14 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        final TextView tv_name = (TextView) findViewById(R.id.nameText);
+        final TextView tv_name = (TextView) findViewById(R.id.fNameText);
+        final TextView tv_lName = (TextView) findViewById(R.id.lNameText);
         final TextView tv_description = (TextView) findViewById(R.id.descriptionText);
         final TextView tv_phoneNumber = (TextView) findViewById(R.id.phoneNumberText);
         final TextView tv_email = (TextView) findViewById(R.id.emailText);
         final Button tv_browse = (Button) findViewById(R.id.artworksButton);
         tv_name.setText(Ressources.getUser().getFirstName());
+        tv_lName.setText(Ressources.getUser().getLastName());
         tv_description.setText(Ressources.getUser().getDescription());
         tv_phoneNumber.setText(Ressources.getUser().getPhoneNumber());
         tv_email.setText(Ressources.getUser().getEmail());
@@ -58,7 +56,7 @@ public class ProfileActivity extends AppCompatActivity {
     public void updateProfile(View v){
         System.out.println("Start of update profile method");
         error = "";
-        final TextView tv_firstName = (TextView) findViewById(R.id.nameText);
+        final TextView tv_firstName = (TextView) findViewById(R.id.fNameText);
         final TextView tv_description = (TextView) findViewById(R.id.descriptionText);
         final TextView tv_phoneNumber = (TextView) findViewById(R.id.phoneNumberText);
         final TextView tv_email = (TextView) findViewById(R.id.emailText);
@@ -100,6 +98,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
         thread.start();
     }
+
     public void goToArtwork(View view){
         Thread thread = new Thread(new Runnable() {
 
