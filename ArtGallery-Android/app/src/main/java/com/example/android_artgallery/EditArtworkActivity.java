@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.example.android_artgallery.model.ArtGallery;
 import com.example.android_artgallery.model.Artwork;
 import com.example.android_artgallery.model.User;
-import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -89,7 +88,7 @@ public class EditArtworkActivity extends AppCompatActivity {
         JSONObject jsonParams = new JSONObject();
         User artist = new User();
         artist.setUsername(Ressources.getUsername());
-        artist.setUserId(Ressources.id);
+        artist.setId(Ressources.id);
         ArtGallery artGallery = new ArtGallery();
         artGallery.setName("Online Art Gallery");
         artGallery.setId(8988);
@@ -123,28 +122,5 @@ public class EditArtworkActivity extends AppCompatActivity {
         Intent main = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(main);
     }
-    public void favorite(View V) throws IOException {
-        Artwork currentArtwork = BrowseActivity.artworks.get(index);
-        okHttpAttempt.getHttpResponse("/api/user/getUser/" + Ressources.getUsername(), User.class);
-        Gson gson = new Gson();
-        User user = (User) gson.fromJson(Ressources.response.body().string(), User.class);
-        Ressources.setUser(user);
 
-        boolean isFavorited=false;
-        if(!Ressources.isArtist) {
-            for(Artwork art:user.getArtwork()){
-                if(art.getId()==currentArtwork.getId()){
-                    isFavorited=true;
-                }
-            }
-            if(!isFavorited) {
-                okHttpAttempt.postRequest("/api/customer/addArtwork/" + Ressources.user.getUserId() + "/" + currentArtwork.getId(), null, true);
-                System.out.println("After post, favorited the artpiece");
-            }
-            else{
-                okHttpAttempt.postRequest("/api/customer/removeArtwork/" + Ressources.user.getUserId() + "/" + currentArtwork.getId(), null, true);
-            }
-
-        }
-    }
 }
