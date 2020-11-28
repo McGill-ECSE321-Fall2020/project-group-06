@@ -107,7 +107,7 @@ public class ViewArtworkActivity extends AppCompatActivity {
                             okHttpAttempt.postRequest("/api/customer/removeArtwork/" + Ressources.user.getId() + "/" + currentArtwork.getId(), js, true);
                         }
                         Artwork currentArtwork = BrowseActivity.artworks.get(index);
-                        okHttpAttempt.getHttpResponse("/api/user/getUser/" + Ressources.getUsername(), User.class);
+                        okHttpAttempt.getHttpResponse("/api/user/getUser/" + Ressources.getUsername());
                         Gson gson = new Gson();
                         User user = (User) gson.fromJson(Ressources.response.body().string(), User.class);
                         Ressources.setUser(user);
