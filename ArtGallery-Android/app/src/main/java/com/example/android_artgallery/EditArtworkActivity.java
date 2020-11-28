@@ -129,7 +129,6 @@ public class EditArtworkActivity extends AppCompatActivity {
      * @param V
      */
     public void edit (View V) {
-        System.out.println("Editing");
         error = "";
         final TextView tv_name = (TextView) findViewById(R.id.artwork_name);
         final TextView tv_price = (TextView) findViewById(R.id.artwork_price);
@@ -139,14 +138,6 @@ public class EditArtworkActivity extends AppCompatActivity {
         Spinner isInStore = (Spinner) findViewById(R.id.store);
         Spinner type = (Spinner) findViewById(R.id.type);
         JSONObject jsonParams = new JSONObject();
-        System.out.println("artgallery:"+currentArtwork.getArtGallery().getId());
-        System.out.println("artist:"+Ressources.getUser().getId());
-        System.out.println("name:"+tv_name.getText().toString());
-        System.out.println("id:"+currentArtwork.getId());
-        currentArtwork.setName(tv_name.getText().toString());
-        currentArtwork.setDescription(tv_description.getText().toString());
-        currentArtwork.setInStore(isInStore.getSelectedItem().toString().equals("Yes"));
-        currentArtwork.setArtist(Ressources.getUser());
         Gson gson = new Gson();
         String artist = gson.toJson(Ressources.getUser());
         gson = new Gson();
@@ -169,18 +160,15 @@ public class EditArtworkActivity extends AppCompatActivity {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        System.out.println("Params done");
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     okHttpAttempt.putRequest("/api/artwork/updateArtwork", jsonParams,true);
-                    System.out.println(Ressources.response);
                     tv_error.setText("Successfully edited");
                     Intent main = new Intent(getApplicationContext(), ProfileActivity.class);
                     startActivity(main);
                 } catch (IOException x) {
-                    System.out.println(x);
                     tv_error.setText("Something went wrong");
                 }
             }}

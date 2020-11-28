@@ -125,8 +125,6 @@ public class ViewArtworkActivity extends AppCompatActivity {
                         JSONObject js=new JSONObject();
                         if(!resource.equals(R.drawable.favourites_full)) {
                             okHttpAttempt.postRequest("/api/customer/addArtwork/" + Ressources.user.getId() + "/" + currentArtwork.getId(), js, true);
-                            System.out.println(Ressources.response);
-                            System.out.println("After post, favorited the artpiece"+Ressources.user.getId()+currentArtwork.getId());
                         }
                         else{
                             okHttpAttempt.postRequest("/api/customer/removeArtwork/" + Ressources.user.getId() + "/" + currentArtwork.getId(), js, true);

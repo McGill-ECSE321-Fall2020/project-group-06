@@ -56,7 +56,6 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void updateProfile(View v){
-        System.out.println("Start of update profile method");
         error = "";
         final TextView tv_firstName = (TextView) findViewById(R.id.nameText);
         final TextView tv_description = (TextView) findViewById(R.id.descriptionText);
@@ -82,14 +81,12 @@ public class ProfileActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        System.out.println("Params done");
 
         Thread thread = new Thread(new Runnable() {
 
             @Override
             public void run() {
                 try {
-                    System.out.println("Updating the profile......");
                     okHttpAttempt.putRequest("/api/user/updateUser", jsonParams,true);
                     Intent home = new Intent(getApplicationContext(), HomeActivity.class);
                     startActivity(home);

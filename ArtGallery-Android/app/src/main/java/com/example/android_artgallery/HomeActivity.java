@@ -42,21 +42,16 @@ public class HomeActivity extends AppCompatActivity {
      * @param v
      */
     public void profile(View v) {
-        System.out.println("Start of profile method");
 
         Thread thread = new Thread(new Runnable() {
 
             @Override
             public void run() {
                 try {
-                    System.out.println("Before get");
                     okHttpAttempt.getHttpResponse("/api/user/getUser/" + Ressources.getUsername());
-                    System.out.println("BEARER TOKEN: " + Ressources.getBearerToken());
-                    System.out.println("Response Inside Profile: " + Ressources.response);
                     Gson gson = new Gson();
                     User user = (User) gson.fromJson(Ressources.response.body().string(), User.class);
                     Ressources.setUser(user);
-                    System.out.println("Out of get, user first name is"+user.getFirstName());
 
                     Intent profile = new Intent(getApplicationContext(), ProfileActivity.class);
                     startActivity(profile);
