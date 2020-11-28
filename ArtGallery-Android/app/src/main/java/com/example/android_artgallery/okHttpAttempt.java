@@ -2,15 +2,12 @@ package com.example.android_artgallery;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 
 import com.example.android_artgallery.model.Artwork;
-import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.sql.SQLOutput;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -20,7 +17,6 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-import static android.content.ContentValues.TAG;
 
 /**
  * Handles http calls

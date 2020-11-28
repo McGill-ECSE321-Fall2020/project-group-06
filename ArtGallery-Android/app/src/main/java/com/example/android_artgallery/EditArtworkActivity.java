@@ -10,10 +10,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.android_artgallery.model.ArtGallery;
 import com.example.android_artgallery.model.Artwork;
-import com.example.android_artgallery.model.Artwork.TypeOfArtwork;
-import com.example.android_artgallery.model.User;
 import com.google.gson.Gson;
 
 import org.json.JSONException;

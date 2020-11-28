@@ -5,15 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 import com.example.android_artgallery.model.Artwork;
 import com.example.android_artgallery.model.User;
 import com.google.gson.Gson;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -9,14 +9,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.android_artgallery.model.Artwork;
-import com.example.android_artgallery.model.User;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.sql.SQLOutput;
 
 /**
  * Profile activity class
@@ -97,6 +94,11 @@ public class ProfileActivity extends AppCompatActivity {
         });
         thread.start();
     }
+
+    /**
+     * Goes to the browse activity after getting all the artworks of the user
+     * @param view
+     */
     public void goToArtwork(View view){
         Thread thread = new Thread(new Runnable() {
 

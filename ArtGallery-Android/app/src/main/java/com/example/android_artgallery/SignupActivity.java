@@ -9,8 +9,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.example.android_artgallery.model.Artwork;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 

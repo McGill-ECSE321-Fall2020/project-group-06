@@ -11,7 +11,6 @@ import android.widget.ListView;
 import com.example.android_artgallery.model.Artwork;
 import com.google.gson.Gson;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -45,7 +44,7 @@ public class BrowseActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             /**
-             * Called when an artwork is pressed. Goes to the view artwork activity when done
+             * Called when an artwork is pressed. Goes to the view artwork activity/edit artwork activity when done
              * @param adapterView
              * @param view
              * @param i

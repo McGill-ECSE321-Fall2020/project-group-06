@@ -1,13 +1,9 @@
 package com.example.android_artgallery;
 
-import android.content.Intent;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -106,6 +102,11 @@ public class ViewArtworkActivity extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * Favorites the artwork by showing/hiding the heart
+     * @param V
+     * @throws IOException
+     */
     public void favorite(View V) throws IOException {
 
         Thread thread = new Thread(new Runnable() {
