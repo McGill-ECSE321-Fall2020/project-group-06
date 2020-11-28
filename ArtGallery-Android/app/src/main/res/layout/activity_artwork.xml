@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="#AF9B5F"
         android:onClick="browse"
-        android:text="Return to Browse Artworks"
+        android:text="@string/returnButton3"
         android:textAlignment="viewStart"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,6 +28,8 @@
 
         <ImageView
             android:id="@+id/artwork_picture"
+            android:minHeight="150dp"
+            android:minWidth="150dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
@@ -69,7 +71,7 @@
             android:id="@+id/favouriteButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="#DDD8CC"
             android:onClick="favorite" />
 
     </LinearLayout>
