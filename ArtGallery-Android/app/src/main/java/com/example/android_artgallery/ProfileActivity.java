@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.android_artgallery.model.Artwork;
@@ -29,10 +30,17 @@ public class ProfileActivity extends AppCompatActivity {
         final TextView tv_description = (TextView) findViewById(R.id.descriptionText);
         final TextView tv_phoneNumber = (TextView) findViewById(R.id.phoneNumberText);
         final TextView tv_email = (TextView) findViewById(R.id.emailText);
+        final Button tv_browse = (Button) findViewById(R.id.artworksButton);
         tv_name.setText(Ressources.getUser().getFirstName());
         tv_description.setText(Ressources.getUser().getDescription());
         tv_phoneNumber.setText(Ressources.getUser().getPhoneNumber());
         tv_email.setText(Ressources.getUser().getEmail());
+        if(Ressources.isArtist){
+            tv_browse.setText("Browse artwork");
+        }
+        else{
+            tv_browse.setText("Browse favorites");
+        }
     }
 
     public void updateProfile(View v){

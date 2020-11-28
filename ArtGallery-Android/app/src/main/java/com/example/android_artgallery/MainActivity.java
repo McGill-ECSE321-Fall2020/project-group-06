@@ -75,11 +75,12 @@ public class MainActivity extends AppCompatActivity {
                         Gson gson = new Gson();
                         User user = (User) gson.fromJson(Ressources.response.body().string(), User.class);
                         Ressources.setUser(user);
-                        if(user.getBankAccountNumber()==null){
-                            Ressources.isArtist=false;
+                        okHttpAttempt.getHttpResponse("/api/artist/getArtist/" + Ressources.getUsername(), User.class);
+                        if(Ressources.response.code() == 200){
+                            Ressources.isArtist=true;
                         }
                         else{
-                            Ressources.isArtist=true;
+                            Ressources.isArtist=false;
                         }
                         System.out.println("isArtist"+Ressources.isArtist);
                         Intent home = new Intent(getApplicationContext(), HomeActivity.class);
