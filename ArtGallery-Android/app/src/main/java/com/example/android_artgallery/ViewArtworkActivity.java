@@ -82,12 +82,10 @@ public class ViewArtworkActivity extends AppCompatActivity {
         }
         else {
             boolean isFavorited = false;
-            if (!Ressources.isArtist) {
-                for (Artwork art : Ressources.getUser().getArtwork()) {
+            for (Artwork art : Ressources.getUser().getArtwork()) {
                     if (art.getId() == currentArtwork.getId()) {
                         isFavorited = true;
                     }
-                }
             }
 
             if (isFavorited) {
