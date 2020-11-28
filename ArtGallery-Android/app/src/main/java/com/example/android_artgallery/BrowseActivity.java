@@ -65,7 +65,7 @@ public class BrowseActivity extends AppCompatActivity {
                     }
                 }
                 Intent prompt;
-                if(isSame){
+                if(isSame && Ressources.isArtist){
                     prompt = new Intent(BrowseActivity.this, EditArtworkActivity.class);
                 }
                 else{

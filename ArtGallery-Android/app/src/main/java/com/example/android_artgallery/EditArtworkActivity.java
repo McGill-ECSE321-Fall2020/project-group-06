@@ -52,10 +52,10 @@ public class EditArtworkActivity extends AppCompatActivity {
         nameTextView.setText(currentArtwork.getName());
 
         // Find the TextView in the list_item.xml layout with the ID version_number
-        TextView numberTextView = (TextView) findViewById(R.id.artwork_artist);
+        TextView artistTextView = (TextView) findViewById(R.id.artwork_artist);
         // Get the version number from the current Artwork object and
         // set this text on the number TextView
-        numberTextView.setText(Ressources.getUser().getLastName());
+        artistTextView.setText(Ressources.getUser().getLastName());
 
         // Find the ImageView in the list_item.xml layout with the ID list_item_icon
         ImageView iconView = (ImageView) findViewById(R.id.artwork_picture);
