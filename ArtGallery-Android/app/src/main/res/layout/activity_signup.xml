@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center_horizontal">
 
         <TextView
             android:id="@+id/signupText"
@@ -33,19 +33,27 @@
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="24sp"
+            android:layout_marginTop="100dp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/userType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="User Type"
+            android:layout_marginTop="15dp"
+            android:textAlignment="center" />
 
         <RadioGroup
             android:id="@+id/radioGroup"
-            android:layout_width="157dp"
-            android:layout_height="94dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:gravity="center">
 
             <RadioButton
                 android:id="@+id/artistButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
                 android:gravity="center"
                 android:text="Artist"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -59,7 +67,6 @@
                 android:id="@+id/customerButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
                 android:gravity="center"
                 android:text="Customer"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -68,53 +75,64 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.272" />
+
         </RadioGroup>
+
+        <TextView
+            android:id="@+id/signupError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="?attr/colorError" />
 
         <EditText
             android:id="@+id/signupUsername"
             android:layout_width="214dp"
-            android:layout_height="28dp"
+            android:layout_height="wrap_content"
             android:background="@color/white"
             android:gravity="center"
+            android:layout_marginTop="30dp"
             android:hint="username" />
 
         <EditText
             android:id="@+id/signupEmail"
             android:layout_width="214dp"
-            android:layout_height="28dp"
+            android:layout_height="wrap_content"
             android:background="@color/white"
             android:gravity="center"
+            android:layout_marginTop="5dp"
             android:hint="email" />
 
         <EditText
             android:id="@+id/signupPassword"
             android:layout_width="214dp"
-            android:layout_height="28dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:background="@color/white"
             android:gravity="center"
-            android:hint="password" />
+            android:hint="password"
+            android:inputType="textPassword" />
 
         <EditText
             android:id="@+id/signupConfirmPassword"
             android:layout_width="214dp"
-            android:layout_height="28dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:background="@color/white"
             android:gravity="center"
-            android:hint="confirm password" />
+            android:hint="confirm password"
+            android:inputType="textPassword" />
 
         <Button
             android:id="@+id/signupButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="signupUser"
+            android:layout_marginTop="50dp"
+            android:backgroundTint="@color/black"
             android:gravity="center"
-            android:text="SignUp" />
-
-        <TextView
-            android:id="@+id/signupError"
-            android:layout_width="255dp"
-            android:layout_height="32dp"
-            android:gravity="center"/>
+            android:onClick="signupUser"
+            android:text="SignUp"
+            android:textColor="#FFFFFF" />
 
     </LinearLayout>
 
