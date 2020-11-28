@@ -14,11 +14,19 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Home activity. Displays profile and browse options
+ */
 public class HomeActivity extends AppCompatActivity {
 
+    /**
+     * Called on the creation of the activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +37,10 @@ public class HomeActivity extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * Called when the profile button is pressed the creation of the activity. Creates the request to get the user. Goes to profile activity when done
+     * @param v
+     */
     public void profile(View v) {
         System.out.println("Start of profile method");
 
@@ -58,6 +70,10 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Called when the browse button is pressed. Creates the request to get the artworks. Goes to browse activity when done
+     * @param V
+     */
     public void browse (View V) {
         Thread thread = new Thread(new Runnable() {
 

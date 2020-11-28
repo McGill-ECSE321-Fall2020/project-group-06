@@ -14,8 +14,8 @@
     <string name="home">Home</string>
     <string name="artworks_button">Artworks</string>
     <string-array name="edit_type">
-        <item>Painting</item>
         <item>Sculpture</item>
+        <item>Painting</item>
         <item>Photography</item>
         <item>Other</item>
     </string-array>

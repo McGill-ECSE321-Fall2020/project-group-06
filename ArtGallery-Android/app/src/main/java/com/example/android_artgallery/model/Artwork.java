@@ -5,12 +5,10 @@ import com.example.android_artgallery.okHttpAttempt;
 import java.util.Set;
 
 /**
- * {@link Artwork} represents types of artworks.
- * Each object has 3 properties: name, number, and image resource ID.
+ * Artwork class
  */
-
 public class Artwork {
-    private enum TypeOfArtwork
+    public enum TypeOfArtwork
     {
         Sculpture, Painting, Photography, Other
     }
@@ -215,23 +213,6 @@ public class Artwork {
     public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
     }
-  
-//    public String getImageResourceId() {
-//        return artworkURL;
-//    }
 
-//    /*
-//     * Create a new artwork object.
-//     *
-//     * @param vName is the name of the artwork
-//     * @param vNumber is the corresponding number of artworks
-//     * @param image is drawable reference ID that corresponds to the artwork
-//     * */
-//    public Artwork(String vName, User vArtist)
-//    {
-//        artworkName = vName;
-//        artworkArtist = vArtist;
-//        //artworkPicture = imageResourceId;
-//    }
 }
 
