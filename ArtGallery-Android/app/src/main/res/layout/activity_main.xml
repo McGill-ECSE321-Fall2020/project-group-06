@@ -52,7 +52,7 @@
             android:background="@color/white"
             android:gravity="center"
             android:inputType="none"
-            android:text="@string/username_hint"
+            android:hint="@string/username_hint"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="18sp" />
@@ -67,7 +67,7 @@
             android:background="@color/white"
             android:gravity="center"
             android:inputType="textPassword"
-            android:text="@string/password_hint"
+            android:hint="@string/password_hint"
             android:textAlignment="center" />
 
         <TextView
