@@ -73,11 +73,11 @@ public class MainActivity extends AppCompatActivity {
                         refreshErrorMessage();
                     } else {
                         Ressources.setBearerToken(Ressources.response.body().string());
-                        okHttpAttempt.getHttpResponse("/api/user/getUser/" + Ressources.getUsername(), User.class);
+                        okHttpAttempt.getHttpResponse("/api/user/getUser/" + Ressources.getUsername());
                         Gson gson = new Gson();
                         User user = (User) gson.fromJson(Ressources.response.body().string(), User.class);
                         Ressources.setUser(user);
-                        okHttpAttempt.getHttpResponse("/api/artist/getArtist/" + Ressources.getUsername(), User.class);
+                        okHttpAttempt.getHttpResponse("/api/artist/getArtist/" + Ressources.getUsername());
                         if(Ressources.response.code() == 200){
                             Ressources.isArtist=true;
                         }

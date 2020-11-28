@@ -50,7 +50,7 @@ public class HomeActivity extends AppCompatActivity {
             public void run() {
                 try {
                     System.out.println("Before get");
-                    okHttpAttempt.getHttpResponse("/api/user/getUser/" + Ressources.getUsername(), User.class);
+                    okHttpAttempt.getHttpResponse("/api/user/getUser/" + Ressources.getUsername());
                     System.out.println("BEARER TOKEN: " + Ressources.getBearerToken());
                     System.out.println("Response Inside Profile: " + Ressources.response);
                     Gson gson = new Gson();
@@ -82,7 +82,7 @@ public class HomeActivity extends AppCompatActivity {
                 try {
                     Artwork[] myArray = null;
 
-                    okHttpAttempt.getHttpResponse("/api/artgallery/allArtworks", Artwork[].class);
+                    okHttpAttempt.getHttpResponse("/api/artgallery/allArtworks");
                     Gson gson = new Gson();
                     myArray = (Artwork [])gson.fromJson(Ressources.response.body().string(), Artwork[].class);
                     ArrayList<Artwork> artworks =new ArrayList<Artwork>(Arrays.asList(myArray));

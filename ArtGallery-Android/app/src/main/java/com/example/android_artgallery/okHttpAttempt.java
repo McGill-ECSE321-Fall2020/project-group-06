@@ -33,10 +33,9 @@ public class okHttpAttempt {
     /**
      * Calls a get request on a url extension with a response class
      * @param urlExtension
-     * @param responseClass
      * @throws IOException
      */
-    public static void getHttpResponse(String urlExtension, Class responseClass) throws IOException {
+    public static void getHttpResponse(String urlExtension) throws IOException {
 
         String url = "https://art-gallery-backend.herokuapp.com"+urlExtension;
 
