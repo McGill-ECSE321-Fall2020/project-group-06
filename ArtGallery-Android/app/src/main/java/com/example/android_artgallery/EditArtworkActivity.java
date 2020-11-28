@@ -14,6 +14,7 @@ import com.example.android_artgallery.model.ArtGallery;
 import com.example.android_artgallery.model.Artwork;
 import com.example.android_artgallery.model.Artwork.TypeOfArtwork;
 import com.example.android_artgallery.model.User;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -82,6 +83,7 @@ public class EditArtworkActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
+        if(currentArtwork.getTypeOfArtwork()!=null){
         switch(currentArtwork.getTypeOfArtwork()){
             case Sculpture:
                 spinner.setSelection(0);
@@ -97,7 +99,7 @@ public class EditArtworkActivity extends AppCompatActivity {
                 break;
             default:
                 break;
-        }
+        }}
 
         Spinner newSpinner = (Spinner) findViewById(R.id.store);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -140,14 +142,24 @@ public class EditArtworkActivity extends AppCompatActivity {
         System.out.println("artgallery:"+currentArtwork.getArtGallery().getId());
         System.out.println("artist:"+Ressources.getUser().getId());
         System.out.println("name:"+tv_name.getText().toString());
+        System.out.println("id:"+currentArtwork.getId());
+        currentArtwork.setName(tv_name.getText().toString());
+        currentArtwork.setDescription(tv_description.getText().toString());
+        currentArtwork.setInStore(isInStore.getSelectedItem().toString().equals("Yes"));
+        currentArtwork.setArtist(Ressources.getUser());
+        Gson gson = new Gson();
+        String artist = gson.toJson(Ressources.getUser());
+        gson = new Gson();
+        String artgallery = gson.toJson(currentArtwork.getArtGallery());
         try {
             jsonParams.put("name", tv_name.getText().toString());
             jsonParams.put("description", tv_description.getText().toString());
             jsonParams.put("isInStore", isInStore.getSelectedItem().toString().equals("Yes"));
+            jsonParams.put("forSale", true);
             jsonParams.put("id", currentArtwork.getId());
             jsonParams.put("price", tv_price.getText().toString());
-            jsonParams.put("artist", Ressources.getUser());
-            jsonParams.put("artGallery", currentArtwork.getArtGallery());
+            jsonParams.put("artist", artist);
+            jsonParams.put("artGallery", artgallery);
         } catch (JSONException e) {
             e.printStackTrace();
         }

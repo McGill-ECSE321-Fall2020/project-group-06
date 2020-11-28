@@ -101,7 +101,7 @@ public class okHttpAttempt {
      * @throws IOException
      */
     public static void putRequest(String urlExtension, JSONObject postdata,boolean putBearerToken) throws IOException {
-
+        System.out.println(postdata.toString());
         MediaType MEDIA_TYPE = MediaType.parse("application/json");
         String url = "https://art-gallery-backend.herokuapp.com"+ urlExtension;
 
